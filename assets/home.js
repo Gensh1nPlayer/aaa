@@ -1,7 +1,7 @@
 const LANG_KEY = "roshine_lang";
     const LINKS = {
       sheet: "https://docs.google.com/spreadsheets/d/1s9sxHj3EVNLUlRb3li9XV8QKBxr2jI0cr12tTgvnB3s/edit?gid=327074105#gid=327074105",
-      discord: "https://discord.gg/HcabVaVEaA",
+      discord: "https://discord.gg/WYqfYXW29U",
       email: "mailto:roshine_store@roshine.love",
       auth: "/auth/"
     };
