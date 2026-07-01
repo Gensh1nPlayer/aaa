@@ -504,10 +504,12 @@
               let res = text;
               // Red
               res = res.replace(/TOP 500/g, '<span style="color: #ef4444; font-weight: 700;">TOP 500</span>');
+              res = res.replace(/Top 500/g, '<span style="color: #ef4444; font-weight: 700;">TOP 500</span>');
               res = res.replace(/Hide My Name/g, '<span style="color: #ef4444; font-weight: 700;">Hide My Name</span>');
               res = res.replace(/Stacked Account/g, '<span style="color: #ef4444; font-weight: 700;">Stack Account</span>');
               // Purple
               res = res.replace(/Premium Battle Pass/g, '<span style="color: #c084fc; font-weight: 700;">Premium Battle Pass</span>');
+              res = res.replace(/Premium BP /g, '<span style="color: #c084fc; font-weight: 700;">Premium BP</span>');
               res = res.replace(/Galactic/g, '<span style="color: #c084fc; font-weight: 700;">Galactic</span>');
               res = res.replace(/Anubis/g, '<span style="color: #c084fc; font-weight: 700;">Anubis</span>');
               res = res.replace(/Calamity Empress/g, '<span style="color: #c084fc; font-weight: 700;">Calamity Empress</span>');
