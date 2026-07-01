@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Roshine Account Store</title>
   <meta name="description" content="Premium Overwatch accounts with secure delivery." />
-  <meta name="theme-color" content="#05060b" />
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
@@ -260,25 +259,6 @@
     .footer-nav a { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); transition: color 0.3s; }
     .footer-nav a:hover { color: #fff; }
 
-
-    a:focus-visible, button:focus-visible, select:focus-visible {
-      outline: 2px solid var(--neon);
-      outline-offset: 3px;
-    }
-
-    .accounts-grid[aria-busy="true"] {
-      opacity: 0.78;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important;
-        transition-duration: 0.01ms !important;
-      }
-    }
-
     /* Responsive */
     @media (max-width: 900px) {
       .header { width: 95%; padding: 10px 16px; }
@@ -304,7 +284,7 @@
   <!-- Header -->
   <header class="header">
     <div class="brand">
-      <img src="./assets/logo.png" alt="Roshine logo" width="32" height="32">
+      <img src="./assets/logo.png" alt="Logo">
       <span class="name" id="brandText">ROSHINE.</span>
     </div>
     <nav class="nav">
@@ -337,10 +317,10 @@
       <h1 class="hero-title" id="heroTitle">ROSHINE ACCOUNT STORE</h1>
       <div class="hero-subbrand" id="heroSubbrand" style="display:none;"></div>
       <p class="hero-intro" id="heroIntro">
-        Since 2021, Roshine Account Store has delivered curated Overwatch accounts with a streamlined purchase flow and long-term support — built for consistency, clarity, and buyer confidence.
+        Since 2021, Roshine Account Store has delivered curated Overwatch accounts with a streamlined purchase flow and long-term support. Five years in operation, built for consistency, clarity, and buyer confidence.
       </p>
       <div class="hero-cta" id="heroCta">
-          <a href="#accounts" class="btn btn-primary" id="ctaExplore">View Stock &amp; Purchase</a>
+          <a href="https://roshine.love/#services" class="btn btn-primary" id="ctaExplore">View Stock &amp; Purchase</a>
       </div>
     </section>
 
@@ -373,7 +353,7 @@
           <li>✅ After payment, receive login info and the security handover package.</li>
         </ul>
         <div class="actions-group">
-          <a class="btn btn-primary" href="https://discord.gg/WYqfYXW29U" id="btnDiscord" target="_blank" rel="noopener noreferrer">Order via Discord</a>
+          <a class="btn btn-primary" href="https://discord.gg/WYqfYXW29U" id="btnDiscord" target="_blank" rel="noopener">Order via Discord</a>
         </div>
       </div>
     </section>
@@ -404,7 +384,7 @@
       <div class="glass-panel narrow-panel">
         <ul class="faq-list" id="faqList">
           <li id="faq1">How often is the list updated? — This website is the source of truth, and sold accounts are marked quickly.</li>
-          <li id="faq2">Payment methods? — Credit card, PayPal, crypto, and selected gift cards. Confirm availability and fees on Discord.</li>
+          <li id="faq2">Payment methods? — Credit card, PayPal, crypto, and selected gift cards. Confirm availability and fees on Discord </li>
           <li id="faq3">How fast is delivery? — Most orders are delivered within 5 minutes after payment. Rare top-tier accounts may require additional preparation time.</li>
           <li id="faq4">Are the accounts safe? — All accounts come from real players, not mass-produced scripts or studios. Each has normal usage history with no restrictions.</li>
           <li id="faq5">Authenticator? — A private tool for Battle.net Authenticator. Use the Authenticator, paste your Private Key from the account info you received, then copy the code into the Battle.net app to verify.</li>
@@ -423,7 +403,7 @@
       </div>
       <div class="glass-panel narrow-panel" style="text-align: center; padding: 40px;">
         <div class="actions-group">
-          <a class="btn btn-primary" href="https://discord.gg/WYqfYXW29U" id="btnContact" target="_blank" rel="noopener noreferrer">Discord</a>
+          <a class="btn btn-primary" href="https://discord.gg/WYqfYXW29U" id="btnContact" target="_blank" rel="noopener">Discord</a>
           <a class="btn btn-outline" href="mailto:roshine_store@roshine.love" id="btnEmail">Email</a>
         </div>
       </div>
@@ -499,213 +479,164 @@
       // ---------------------------------
 
       async function loadAccounts() {
-        const grid = document.getElementById("accountsGrid");
-        if (!grid) return;
-
-        const escapeHTML = (value = "") =>
-          String(value).replace(/[&<>"']/g, (char) => ({
-            "&": "&amp;",
-            "<": "&lt;",
-            ">": "&gt;",
-            '"': "&quot;",
-            "'": "&#39;"
-          }[char]));
-
-        const styleTokens = [
-          ["TOP 500", "#ef4444", 700],
-          ["Top 500", "#ef4444", 700],
-          ["Hide My Name", "#ef4444", 700],
-          ["Stacked Account", "#ef4444", 700],
-          ["Premium Battle Pass", "#c084fc", 700],
-          ["Premium BP", "#c084fc", 700],
-          ["Galactic Emperor", "#c084fc", 700],
-          ["Calamity Empress", "#c084fc", 700],
-          ["A-7000 Wargod", "#c084fc", 700],
-          ["Ultraviolet Sentinel", "#c084fc", 700],
-          ["Blazing Sunsetter", "#c084fc", 700],
-          ["Ancient Caller", "#c084fc", 700],
-          ["Midnight Sun", "#c084fc", 700],
-          ["Spirit Keeper", "#c084fc", 700],
-          ["Heart of Hope", "#c084fc", 700],
-          ["Hop Online!", "#c084fc", 700],
-          ["Deliverance", "#c084fc", 700],
-          [/\(2016\)/g, "#facc15", 700],
-          [/\(2017\)/g, "#facc15", 700],
-          [/\(2018\)/g, "#facc15", 700],
-          [/\(2019\)/g, "#facc15", 700],
-          [/\(2020\)/g, "#facc15", 700],
-          ["Steel Death", "#c084fc", 700],
-          ["Lead Rose", "#c084fc", 700],
-          ["Spellbinder", "#c084fc", 700],
-          ["Cyberdemon", "#c084fc", 700],
-          ["Grand Beast", "#c084fc", 700],
-          ["Cyber Fuel", "#c084fc", 700],
-          ["Star Shooter", "#c084fc", 700],
-          ["Galactic", "#c084fc", 700],
-          ["Anubis", "#c084fc", 700],
-          ["Amaterasu", "#c084fc", 700],
-          ["Vengeance", "#c084fc", 700],
-          ["Zeus", "#c084fc", 700],
-          ["Onryō", "#c084fc", 700],
-          ["Pixiu", "#c084fc", 700],
-          ["Thor", "#c084fc", 700],
-          ["Horang", "#c084fc", 700],
-          ["D.VA", "#60a5fa", 700],
-          ["Golden", "#facc15", 700],
-          ["OW1 - Season", "#facc15", 700],
-          ["Competitor", "#facc15", 700],
-          ["Ange de la Mort", "#F379F3", 700],
-          ["Rose Gold", "#F379F3", 700],
-          ["Thunder", "#F379F3", 700],
-          ["Midas", "#F379F3", 700],
-          ["Nerf Gelfire Pro Tracer", "#F379F3", 700],
-          ["Mythic Prisms", "#F379F3", 700],
-          ["Grandmaster", "#F379F3", 700],
-          ["Good and Evil", "#F379F3", 700],
-          ["OWL Tokens", "#F379F3", 700],
-          ["LE SSERAFIM", "#F379F3", 700],
-          ["Master", "#F379F3", 700],
-          ["Luchador", "#F379F3", 700],
-          ["All-Stars", "#F379F3", 700],
-          ["Comic Book", "#F379F3", 700],
-          ["Pink", "#F379F3", 700],
-          ["Noire", "#F379F3", 700],
-          ["Endorsement Level 5", "#F379F3", 800],
-          ["Endorsement Level 4", "#F379F3", 700],
-          ["Brick", "#f472b6", 700],
-          ["JADE", "#4ade80", 700],
-          ["Endorsement Level 3", "#00ff7f", 700],
-          ["Endorsement Level 2", "#00ff7f", 700],
-          ["DPS Main", "#4ade80", 700],
-          ["Support Main", "#4ade80", 700],
-          ["Sup Main", "#4ade80", 700],
-          ["Tank Main", "#4ade80", 700]
-        ];
-
-        const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-
-        function applyColorMap(text) {
-          let res = text || "";
-          styleTokens
-            .sort((a, b) => b[0].length - a[0].length)
-            .forEach(([label, color, weight]) => {
-              const regex = new RegExp(escapeRegExp(label), "g");
-              res = res.replace(regex, `<span style="color: ${color}; font-weight: ${weight};">${label === "Top 500" ? "TOP 500" : label}</span>`);
-            });
-          return res;
-        }
-
-        function formatRichText(value) {
-          return String(value || "")
-            .split(/<br\s*\/?>|\n/gi)
-            .map((line) => {
-              const escaped = escapeHTML(line.trim());
-              if (!escaped) return "";
-              const colored = applyColorMap(escaped);
-              return colored.includes("✨")
-                ? `<span style="color: #facc15; font-weight: 600;">${colored}</span>`
-                : colored;
-            })
-            .filter(Boolean)
-            .join("<br>");
-        }
-
-        function extractFirstUrl(value) {
-          const match = String(value || "").match(/https?:\/\/[^\s"'<>]+/);
-          return match ? match[0] : "";
-        }
-
-        function renderEmpty(message) {
-          grid.innerHTML = `<div class="glass-panel" style="grid-column: 1 / -1; text-align: center;">${escapeHTML(message)}</div>`;
-        }
-
         try {
-          grid.setAttribute("aria-busy", "true");
-          renderEmpty("Loading current stock...");
-
-          const response = await fetch("accounts.json?t=" + Date.now(), { cache: "no-store" });
-          if (!response.ok) throw new Error(`accounts.json returned ${response.status}`);
-
+          const response = await fetch('accounts.json?t=' + new Date().getTime(), { cache: 'no-store' });
           const data = await response.json();
-          const accounts = Array.isArray(data.accounts) ? data.accounts : [];
+          const grid = document.getElementById("accountsGrid");
+          grid.innerHTML = '';
+          
+          data.accounts.forEach(acct => {
+            const { id, level, status, highlights, weapons, balance, rank, nameChange, screenshot, price } = acct;
 
-          grid.innerHTML = "";
-          if (!accounts.length) {
-            renderEmpty("No accounts are listed right now. Please check Discord for availability.");
-            return;
-          }
+            let statusClass = 'status-instock';
+            if (status.toLowerCase().includes('sold')) statusClass = 'status-sold';
+            if (status.toLowerCase().includes('pending')) statusClass = 'status-pending';
 
-          accounts.forEach((acct = {}) => {
-            const id = escapeHTML(acct.id ?? "N/A");
-            const level = escapeHTML(acct.level ?? "");
-            const status = escapeHTML(acct.status ?? "In Stock");
-            const statusText = String(acct.status || "In Stock").toLowerCase();
-            const highlights = formatRichText(acct.highlights);
-            const weapons = formatRichText(acct.weapons);
-            const balance = formatRichText(acct.balance);
-            const rank = formatRichText(acct.rank);
-            const nameChange = formatRichText(acct.nameChange);
-            const priceRaw = String(acct.price || "$0");
-            const price = escapeHTML(priceRaw);
+            // Determine if account is "valuable" (price > $100 or contains "Top 500")
+            let isValuable = false;
+            let numPrice = parseFloat(price.replace(/[^0-9.]/g, ''));
+            if (!isNaN(numPrice) && numPrice >= 100) isValuable = true;
+            if (highlights && highlights.includes('Top 500')) isValuable = true;
 
-            let statusClass = "status-instock";
-            if (statusText.includes("sold")) statusClass = "status-sold";
-            if (statusText.includes("pending")) statusClass = "status-pending";
+            // Custom Color Dictionary
+            function applyColorMap(text) {
+              if (!text) return text;
+              let res = text;
+              // Red
+              res = res.replace(/TOP 500/g, '<span style="color: #ef4444; font-weight: 700;">TOP 500</span>');
+              res = res.replace(/Top 500/g, '<span style="color: #ef4444; font-weight: 700;">TOP 500</span>');
+              res = res.replace(/Hide My Name/g, '<span style="color: #ef4444; font-weight: 700;">Hide My Name</span>');
+              res = res.replace(/Stacked Account/g, '<span style="color: #ef4444; font-weight: 700;">Stack Account</span>');
+              // Purple
+              res = res.replace(/Premium Battle Pass/g, '<span style="color: #c084fc; font-weight: 700;">Premium Battle Pass</span>');
+              res = res.replace(/Premium BP /g, '<span style="color: #c084fc; font-weight: 700;">Premium BP</span>');
+              res = res.replace(/Galactic/g, '<span style="color: #c084fc; font-weight: 700;">Galactic</span>');
+              res = res.replace(/Anubis/g, '<span style="color: #c084fc; font-weight: 700;">Anubis</span>');
+              res = res.replace(/Calamity Empress/g, '<span style="color: #c084fc; font-weight: 700;">Calamity Empress</span>');
+              res = res.replace(/A-7000 Wargod/g, '<span style="color: #c084fc; font-weight: 700;">A-7000 Wargod</span>');
+              res = res.replace(/Amaterasu/g, '<span style="color: #c084fc; font-weight: 700;">Amaterasu</span>');
+              res = res.replace(/Vengeance/g, '<span style="color: #c084fc; font-weight: 700;">Vengeance</span>');
+              res = res.replace(/Lead Rose/g, '<span style="color: #c084fc; font-weight: 700;">Lead Rose</span>');
+              res = res.replace(/Ultraviolet Sentinel/g, '<span style="color: #c084fc; font-weight: 700;">Ultraviolet Sentinel</span>');
+              res = res.replace(/Zeus/g, '<span style="color: #c084fc; font-weight: 700;">Zeus</span>');
+              res = res.replace(/Deliverance/g, '<span style="color: #c084fc; font-weight: 700;">Deliverance</span>');
+              res = res.replace(/Steel Death/g, '<span style="color: #c084fc; font-weight: 700;">Steel Death</span>');
+              res = res.replace(/Onryō/g, '<span style="color: #c084fc; font-weight: 700;">Onryō</span>');
+              res = res.replace(/Pixiu/g, '<span style="color: #c084fc; font-weight: 700;">Pixiu</span>');
+              res = res.replace(/Blazing Sunsetter/g, '<span style="color: #c084fc; font-weight: 700;">Blazing Sunsetter</span>');
+              res = res.replace(/Galactic Emperor/g, '<span style="color: #c084fc; font-weight: 700;">Galactic Emperor</span>');
+              res = res.replace(/Ancient Caller/g, '<span style="color: #c084fc; font-weight: 700;">Ancient Caller</span>');
+              res = res.replace(/Midnight Sun/g, '<span style="color: #c084fc; font-weight: 700;">Midnight Sun</span>');
+              res = res.replace(/Spellbinder/g, '<span style="color: #c084fc; font-weight: 700;">Spellbinder</span>');
+              res = res.replace(/Cyberdemon/g, '<span style="color: #c084fc; font-weight: 700;">Cyberdemon</span>');
+              res = res.replace(/Thor/g, '<span style="color: #c084fc; font-weight: 700;">Thor</span>');
+              res = res.replace(/Grand Beast/g, '<span style="color: #c084fc; font-weight: 700;">Grand Beast</span>');
+              res = res.replace(/Spirit Keeper/g, '<span style="color: #c084fc; font-weight: 700;">Spirit Keeper</span>');
+              res = res.replace(/Horang/g, '<span style="color: #c084fc; font-weight: 700;">Horang</span>');
+              res = res.replace(/Cyber Fuel/g, '<span style="color: #c084fc; font-weight: 700;">Cyber Fuel</span>');
+              res = res.replace(/Star Shooter/g, '<span style="color: #c084fc; font-weight: 700;">Star Shooter</span>');
+              res = res.replace(/Heart of Hope/g, '<span style="color: #c084fc; font-weight: 700;">Heart of Hope</span>');
+              res = res.replace(/Hop Online!/g, '<span style="color: #c084fc; font-weight: 700;">Hop Online!</span>');
+              // Blue
+              res = res.replace(/D\.VA/g, '<span style="color: #60a5fa; font-weight: 700;">D.VA</span>');
+              // Gold
+              res = res.replace(/Golden/g, '<span style="color: #facc15; font-weight: 700;">Golden</span>');
+              res = res.replace(/OW1 - Season/g, '<span style="color: #facc15; font-weight: 700;">OW1 - Season</span>');
+              res = res.replace(/Competitor/g, '<span style="color: #facc15; font-weight: 700;">Competitor</span>');
+              res = res.replace(
+                  /Edition\s*\((2016|2017|2018|2019|2020)\)/g,
+                  'Edition (<span style="color:#facc15;font-weight:700;">$1</span>)'
+              );
+              // Pink
+              res = res.replace(/Ange de la Mort/g, '<span style="color: #F379F3; font-weight: 700;">Ange de la Mort</span>');
+              res = res.replace(/Rose Gold/g, '<span style="color: #F379F3; font-weight: 700;">Rose Gold</span>');
+              res = res.replace(/Thunder/g, '<span style="color: #F379F3; font-weight: 700;">Thunder</span>');
+              res = res.replace(/Midas/g, '<span style="color: #F379F3; font-weight: 700;">Midas</span>');
+              res = res.replace(/Nerf Gelfire Pro Tracer/g, '<span style="color: #F379F3; font-weight: 700;">Nerf Gelfire Pro Tracer</span>');
+              res = res.replace(/Mythic Prisms/g, '<span style="color: #F379F3; font-weight: 700;">Mythic Prisms</span>');
+              res = res.replace(/Grandmaster/g, '<span style="color: #F379F3; font-weight: 700;">Grandmaster</span>');
+              res = res.replace(/Good and Evil/g, '<span style="color: #F379F3; font-weight: 700;">Good and Evil</span>');
+              res = res.replace(/OWL Tokens/g, '<span style="color: #F379F3; font-weight: 700;">OWL Tokens</span>');
+              res = res.replace(/LE SSERAFIM/g, '<span style="color: #F379F3; font-weight: 700;">LE SSERAFIM</span>');
+              res = res.replace(/Master/g, '<span style="color: #F379F3; font-weight: 700;">Master</span>');
+              res = res.replace(/Luchador/g, '<span style="color: #F379F3; font-weight: 700;">Luchador</span>');
+              res = res.replace(/All-Stars/g, '<span style="color: #F379F3; font-weight: 700;">All-Stars</span>');
+              res = res.replace(/Comic Book/g, '<span style="color: #F379F3; font-weight: 700;">Comic Book</span>');
+              res = res.replace(/Pink/g, '<span style="color: #F379F3; font-weight: 700;">Pink</span>');
+              res = res.replace(/Noire/g, '<span style="color: #F379F3; font-weight: 700;">Noire</span>');
+              res = res.replace(/Endorsement Level 4/g, '<span style="color: #F379F3; font-weight: 700;">Endorsement Level 4</span>');
+              res = res.replace(/Endorsement Level 5/g, '<span style="color: #F379F3; font-weight: 800;">Endorsement Level 5</span>');
+              res = res.replace(/Brick/g, '<span style="color: #f472b6; font-weight: 700;">Brick</span>');
+              // Green
+              res = res.replace(/JADE/g, '<span style="color: #4ade80; font-weight: 700;">JADE</span>');
+              res = res.replace(/Endorsement Level 2/g, '<span style="color: #00ff7f; font-weight: 700;">Endorsement Level 2</span>');
+              res = res.replace(/Endorsement Level 3/g, '<span style="color: #00ff7f; font-weight: 700;">Endorsement Level 3</span>');
+              res = res.replace(/DPS Main/g, '<span style="color: #4ade80; font-weight: 700;">DPS Main</span>');
+              res = res.replace(/Sup Main/g, '<span style="color: #4ade80; font-weight: 700;">Sup Main</span>');
+              res = res.replace(/Support Main/g, '<span style="color: #4ade80; font-weight: 700;">Sup Main</span>');
+              res = res.replace(/Tank Main/g, '<span style="color: #4ade80; font-weight: 700;">Tank Main</span>');
+              return res;
+            }
 
-            const numPrice = parseFloat(priceRaw.replace(/[^0-9.]/g, ""));
-            const isValuable = (!Number.isNaN(numPrice) && numPrice >= 100) || String(acct.highlights || "").includes("Top 500");
-
+            // Style the Level
             let styledLevel = level;
             if (isValuable) {
-              styledLevel = `<span style="color: #facc15; font-weight: 800; text-shadow: 0 0 8px rgba(250, 204, 21, 0.6);">Lv. ${level || "N/A"}</span>`;
-            } else if (String(acct.level || "").includes("OW1")) {
+              styledLevel = `<span style="color: #facc15; font-weight: 800; text-shadow: 0 0 8px rgba(250, 204, 21, 0.6);">Lv. ${level}</span>`;
+            } else if (level.includes('OW1')) {
               styledLevel = `<span style="color: #facc15; font-weight: 800; text-shadow: 0 0 8px rgba(250, 204, 21, 0.4);">Lv. ${level}</span>`;
-            } else {
-              styledLevel = `<span style="color: #e2e8f0; font-weight: 600;">Lv. ${level || "N/A"}</span>`;
+            } else if (level) {
+              styledLevel = `<span style="color: #e2e8f0; font-weight: 600;">Lv. ${level}</span>`;
             }
             styledLevel = applyColorMap(styledLevel);
 
-            const screenshotUrl = extractFirstUrl(acct.screenshot);
-
-            const card = document.createElement("article");
-            card.className = "account-card";
-            card.setAttribute("aria-label", `Account ${id}`);
-            if (isValuable) {
-              card.style.boxShadow = "0 0 15px rgba(250, 204, 21, 0.3)";
-              card.style.border = "1px solid rgba(250, 204, 21, 0.5)";
+            // Highlight valuable skins automatically (lines with ✨)
+            let styledHighlights = highlights;
+            if (styledHighlights) {
+              styledHighlights = styledHighlights.split('<br>').map(line => {
+                let formattedLine = line;
+                if (formattedLine.includes('✨')) {
+                  formattedLine = `<span style="color: #facc15; font-weight: 600;">${formattedLine}</span>`;
+                }
+                return applyColorMap(formattedLine);
+              }).join('<br>');
             }
 
+            const card = document.createElement('div');
+            card.className = 'account-card';
+            // Give valuable accounts a special glowing border
+            if (isValuable) {
+              card.style.boxShadow = '0 0 15px rgba(250, 204, 21, 0.3)';
+              card.style.border = '1px solid rgba(250, 204, 21, 0.5)';
+            }
+            
             card.innerHTML = `
               <div class="ac-header" style="flex-direction: column; align-items: flex-start; gap: 8px;">
-                <div style="display: flex; justify-content: space-between; width: 100%; align-items: center; gap: 12px;">
+                <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
                   <h3 style="margin: 0; font-size: 1.4rem; color: #fff;">${styledLevel}</h3>
                   <span class="ac-status ${statusClass}">${status}</span>
                 </div>
-                ${isValuable ? '<div style="background: linear-gradient(90deg, #facc15, #fbbf24); color: #000; padding: 3px 8px; border-radius: 4px; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 0 8px rgba(250, 204, 21, 0.5);">🔥 Premium Account</div>' : ""}
+                ${isValuable ? '<div style="background: linear-gradient(90deg, #facc15, #fbbf24); color: #000; padding: 3px 8px; border-radius: 4px; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 0 8px rgba(250, 204, 21, 0.5);">🔥 Premium Account</div>' : ''}
               </div>
               <div class="ac-price" style="font-size: 1.6rem; margin: 10px 0;">${price} <span style="font-size: 1rem; color: #94a3b8; font-weight: normal;">(ID: #${id})</span></div>
-              <div class="ac-highlights">${highlights || "No highlights listed."}</div>
+              <div class="ac-highlights">${styledHighlights}</div>
               <div class="ac-details">
-                ${rank ? `<div class="ac-detail"><strong>Rank:</strong><br>${rank}</div>` : ""}
-                ${balance ? `<div class="ac-detail" style="margin-top: 8px;"><strong>Balance & Playtime:</strong><br>${balance}</div>` : ""}
-                ${weapons ? `<div class="ac-detail" style="margin-top: 8px;"><strong>Weapons:</strong><br>${weapons}</div>` : ""}
-                ${nameChange ? `<div class="ac-detail" style="margin-top: 8px;"><strong>Name Change:</strong> ${nameChange}</div>` : ""}
+                ${rank ? `<div class="ac-detail"><strong>Rank:</strong><br>${rank}</div>` : ''}
+                ${balance ? `<div class="ac-detail" style="margin-top: 8px;"><strong>Balance & Playtime:</strong><br>${balance}</div>` : ''}
+                ${weapons ? `<div class="ac-detail" style="margin-top: 8px;"><strong>Weapons:</strong><br>${weapons}</div>` : ''}
+                ${nameChange ? `<div class="ac-detail" style="margin-top: 8px;"><strong>Name Change:</strong> ${nameChange}</div>` : ''}
+
               </div>
               <div class="ac-actions">
-                <a href="${screenshotUrl || "#"}" target="_blank" rel="noopener noreferrer" class="btn btn-outline" ${screenshotUrl ? "" : 'onclick="alert(\'Imgur link is missing from this account!\'); return false;"'}>📸 View Skins</a>
-                <a href="https://discord.gg/WYqfYXW29U" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Buy Now</a>
+                <a href="${screenshot && screenshot.includes('http') ? screenshot.match(/https?:\/\/[^\s]+/)[0] : '#'}" target="_blank" class="btn btn-outline" ${!(screenshot && screenshot.includes('http')) ? 'onclick="alert(\'Imgur link is missing from this account!\'); return false;"' : ''}>📸 View Skins</a>
+                <a href="https://discord.gg/WYqfYXW29U" target="_blank" class="btn btn-primary">Buy Now</a>
               </div>
             `;
             grid.appendChild(card);
           });
-        } catch (error) {
-          console.error("Error fetching accounts:", error);
-          renderEmpty("Unable to load accounts right now. Please refresh or contact us on Discord.");
-        } finally {
-          grid.removeAttribute("aria-busy");
+        } catch(e) {
+          console.error("Error fetching accounts:", e);
         }
       }
-
       loadAccounts();
     });
 
@@ -729,7 +660,7 @@
         heroKicker:"⚡ Trusted since 2021",
         heroTitle:"ROSHINE ACCOUNT STORE",
         heroSubbrand:"",
-        heroIntro:"Since 2021, Roshine Account Store has delivered curated Overwatch accounts with a streamlined purchase flow and long-term support — built for consistency, clarity, and buyer confidence.",
+        heroIntro:"Since 2021, Roshine Account Store has delivered curated Overwatch accounts with a streamlined purchase flow and long-term support. Five years in operation, built for consistency, clarity, and buyer confidence.",
         ctaExplore:"View Stock & Purchase",
         servicesKicker:"✨ SERVICES",
         servicesTitle:"Listings & Ordering",
@@ -790,7 +721,7 @@
         heroKicker:"⚡ Fiable depuis 2021",
         heroTitle:"ROSHINE",
         heroSubbrand:"Boutique de comptes Overwatch",
-        heroIntro:"Depuis 2021, Roshine Account Store propose des comptes Overwatch sélectionnés, avec un processus d’achat simple et un support durable, axé sur la clarté, la stabilité et la confiance.",
+        heroIntro:"Depuis 2021, Roshine Account Store propose des comptes Overwatch sélectionnés, avec un processus d’achat simple et un support durable. Cinq ans d’activité, axés sur la clarté, la stabilité et la confiance.",
         ctaExplore:"Voir le stock & acheter",
         servicesKicker:"✨ SERVICES",
         servicesTitle:"Liste & Commande",
@@ -851,7 +782,7 @@
         heroKicker:"⚡ Vertrauenswürdig seit 2021",
         heroTitle:"ROSHINE",
         heroSubbrand:"Overwatch Account Store",
-        heroIntro:"Seit 2021 liefert Roshine Account Store kuratierte Overwatch-Accounts mit einem klaren Kaufprozess und langfristigem Support – für Beständigkeit, Transparenz und Vertrauen.",
+        heroIntro:"Seit 2021 liefert Roshine Account Store kuratierte Overwatch-Accounts mit einem klaren Kaufprozess und langfristigem Support. Fünf Jahre Betrieb – für Beständigkeit, Transparenz und Vertrauen.",
         ctaExplore:"Bestand ansehen & kaufen",
         servicesKicker:"✨ SERVICES",
         servicesTitle:"Listings & Bestellung",
@@ -912,7 +843,7 @@
         heroKicker:"⚡ موثوق منذ 2021",
         heroTitle:"ROSHINE",
         heroSubbrand:"متجر حسابات Overwatch",
-        heroIntro:"منذ 2021 يقدّم Roshine Account Store حسابات Overwatch مختارة بعناية مع خطوات شراء واضحة ودعم طويل المدى، مبنية على الثبات والوضوح والثقة.",
+        heroIntro:"منذ 2021 يقدّم Roshine Account Store حسابات Overwatch مختارة بعناية مع خطوات شراء واضحة ودعم طويل المدى. خمس سنوات تشغيل مبنية على الثبات والوضوح والثقة.",
         ctaExplore:"عرض المخزون والشراء",
         servicesKicker:"✨ الخدمات",
         servicesTitle:"القائمة والطلب",
