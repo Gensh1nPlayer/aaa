@@ -213,6 +213,11 @@
     .ac-level { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); }
     .ac-highlights { flex-grow: 1; font-size: 0.85rem; line-height: 1.5; color: var(--text-muted); background: rgba(0,0,0,0.2); padding: 10px 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.03); word-break: break-word; overflow-wrap: anywhere; }
     .ac-details { display: flex; flex-direction: column; gap: 6px; font-size: 0.8rem; color: var(--text-muted); }
+    .ac-highlight-rank-master { color: #ef4444; font-weight: 800; text-shadow: 0 0 8px rgba(239, 68, 68, 0.35); }
+    .ac-highlight-yellow { color: #facc15; font-weight: 800; text-shadow: 0 0 8px rgba(250, 204, 21, 0.35); }
+    .ac-highlight-mythic-480 { color: #F379F3; font-weight: 800; text-shadow: 0 0 8px rgba(243, 121, 243, 0.35); }
+    .ac-highlight-namechange-yes { color: #4ade80; font-weight: 900; text-shadow: 0 0 8px rgba(74, 222, 128, 0.35); }
+
     .ac-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: auto; }
     .ac-actions .btn { padding: 9px; font-size: 0.75rem; }
 
@@ -578,6 +583,73 @@
               return res;
             }
 
+
+            function highlightRankText(text) {
+              if (!text) return '';
+              let res = String(text);
+
+              // Master / Grandmaster / GM ranks: red
+              res = res.replace(/\b(Grandmaster\s*\d*|Master\s*\d*|GM\s*\d*)\b/gi, (match) => {
+                return `<span class="ac-highlight-rank-master">${match}</span>`;
+              });
+
+              return res;
+            }
+
+            function highlightBalanceText(text) {
+              if (!text) return '';
+              let res = String(text);
+
+              // Playtime greater than 300H: yellow
+              res = res.replace(/(\d[\d,]*)\s*H\b/gi, (match, rawNum) => {
+                const num = Number(String(rawNum).replace(/,/g, ''));
+                return num > 300 ? `<span class="ac-highlight-yellow">${match}</span>` : match;
+              });
+
+              // Games greater than 1000G: yellow
+              res = res.replace(/(\d[\d,]*)\s*G\b/gi, (match, rawNum) => {
+                const num = Number(String(rawNum).replace(/,/g, ''));
+                return num > 1000 ? `<span class="ac-highlight-yellow">${match}</span>` : match;
+              });
+
+              // Coins / Overwatch Coins greater than 800: yellow
+              res = res.replace(/(\d[\d,]*)\s*(?:Overwatch\s*)?Coins\b/gi, (match, rawNum) => {
+                const num = Number(String(rawNum).replace(/,/g, ''));
+                return num > 800 ? `<span class="ac-highlight-yellow">${match}</span>` : match;
+              });
+
+              // Exactly 480 Mythic Prisms: pink
+              res = res.replace(/\b480\s+Mythic\s+Prisms\b/gi, (match) => {
+                return `<span class="ac-highlight-mythic-480">${match}</span>`;
+              });
+
+              // Credits greater than 10000: yellow
+              res = res.replace(/(\d[\d,]*)\s*Credits\b/gi, (match, rawNum) => {
+                const num = Number(String(rawNum).replace(/,/g, ''));
+                return num > 10000 ? `<span class="ac-highlight-yellow">${match}</span>` : match;
+              });
+
+              // Competitive points variants greater than 3000: yellow + bold
+              res = res.replace(
+                /(\d[\d,]*)\s*((?:Legacy\s*)?(?:Competitive|Comp)\s*Points)\b/gi,
+                (match, rawNum, label) => {
+                  const num = Number(String(rawNum).replace(/,/g, ''));
+                  return num > 3000 ? `<span class="ac-highlight-yellow">${rawNum} ${label}</span>` : match;
+                }
+              );
+
+              return res;
+            }
+
+            function highlightNameChangeText(text) {
+              if (!text) return '';
+              const value = String(text).trim();
+              if (value === '✓') {
+                return '<span class="ac-highlight-namechange-yes">✓</span>';
+              }
+              return text;
+            }
+
             // Style the Level
             let styledLevel = level;
             if (isValuable) {
@@ -620,10 +692,10 @@
               <div class="ac-price" style="font-size: 1.6rem; margin: 10px 0;">${price} <span style="font-size: 1rem; color: #94a3b8; font-weight: normal;">(ID: #${id})</span></div>
               <div class="ac-highlights">${styledHighlights}</div>
               <div class="ac-details">
-                ${rank ? `<div class="ac-detail"><strong>Rank:</strong><br>${rank}</div>` : ''}
-                ${balance ? `<div class="ac-detail" style="margin-top: 8px;"><strong>Balance & Playtime:</strong><br>${balance}</div>` : ''}
+                ${rank ? `<div class="ac-detail"><strong>Rank:</strong><br>${highlightRankText(rank)}</div>` : ''}
+                ${balance ? `<div class="ac-detail" style="margin-top: 8px;"><strong>Balance & Playtime:</strong><br>${highlightBalanceText(balance)}</div>` : ''}
                 ${weapons ? `<div class="ac-detail" style="margin-top: 8px;"><strong>Weapons:</strong><br>${weapons}</div>` : ''}
-                ${nameChange ? `<div class="ac-detail" style="margin-top: 8px;"><strong>Name Change:</strong> ${nameChange}</div>` : ''}
+                ${nameChange ? `<div class="ac-detail" style="margin-top: 8px;"><strong>Name Change:</strong> ${highlightNameChangeText(nameChange)}</div>` : ''}
 
               </div>
               <div class="ac-actions">
