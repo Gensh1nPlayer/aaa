@@ -508,13 +508,16 @@
               if (!text) return text;
               let res = text;
               // Red
-              res = res.replace(/TOP 500/g, '<span style="color: #ef4444; font-weight: 700;">TOP 500</span>');
+			  res = res.replace(/Top 500 Challenger Tier/g, '<span style="color: #ef4444; font-weight: 700;">Top 500 Challenger Tier</span>');
+			  res = res.replace(/TOP 500/g, '<span style="color: #ef4444; font-weight: 700;">TOP 500</span>');
               res = res.replace(/Top 500/g, '<span style="color: #ef4444; font-weight: 700;">TOP 500</span>');
               res = res.replace(/Hide My Name/g, '<span style="color: #ef4444; font-weight: 700;">Hide My Name</span>');
-              res = res.replace(/Stacked Account/g, '<span style="color: #ef4444; font-weight: 700;">Stack Account</span>');
+              res = res.replace(/Stacked Account/g, '<span style="color: #ef4444; font-weight: 700;">Stacked Account</span>');
               // Purple
               res = res.replace(/Premium Battle Pass/g, '<span style="color: #c084fc; font-weight: 700;">Premium Battle Pass</span>');
-              res = res.replace(/Premium BP /g, '<span style="color: #c084fc; font-weight: 700;">Premium BP</span>');
+              res = res.replace(/Premium BP/g, '<span style="color: #c084fc; font-weight: 700;">Premium BP</span>');
+			  res = res.replace(/Ultimate BP/g, '<span style="color: #c084fc; font-weight: 700;">Ultimate BP</span>');
+			  res = res.replace(/Galactic Emperor/g, '<span style="color: #c084fc; font-weight: 700;">Galactic Emperor</span>');
               res = res.replace(/Galactic/g, '<span style="color: #c084fc; font-weight: 700;">Galactic</span>');
               res = res.replace(/Anubis/g, '<span style="color: #c084fc; font-weight: 700;">Anubis</span>');
               res = res.replace(/Calamity Empress/g, '<span style="color: #c084fc; font-weight: 700;">Calamity Empress</span>');
@@ -524,16 +527,17 @@
               res = res.replace(/Lead Rose/g, '<span style="color: #c084fc; font-weight: 700;">Lead Rose</span>');
               res = res.replace(/Ultraviolet Sentinel/g, '<span style="color: #c084fc; font-weight: 700;">Ultraviolet Sentinel</span>');
               res = res.replace(/Zeus/g, '<span style="color: #c084fc; font-weight: 700;">Zeus</span>');
+			  res = res.replace(/Adventurer/g, '<span style="color: #c084fc; font-weight: 700;">Adventurer</span>');
               res = res.replace(/Deliverance/g, '<span style="color: #c084fc; font-weight: 700;">Deliverance</span>');
               res = res.replace(/Steel Death/g, '<span style="color: #c084fc; font-weight: 700;">Steel Death</span>');
               res = res.replace(/Onryō/g, '<span style="color: #c084fc; font-weight: 700;">Onryō</span>');
               res = res.replace(/Pixiu/g, '<span style="color: #c084fc; font-weight: 700;">Pixiu</span>');
               res = res.replace(/Blazing Sunsetter/g, '<span style="color: #c084fc; font-weight: 700;">Blazing Sunsetter</span>');
-              res = res.replace(/Galactic Emperor/g, '<span style="color: #c084fc; font-weight: 700;">Galactic Emperor</span>');
+			  res = res.replace(/Celestial Guardian/g, '<span style="color: #c084fc; font-weight: 700;">Celestial Guardian</span>');
               res = res.replace(/Ancient Caller/g, '<span style="color: #c084fc; font-weight: 700;">Ancient Caller</span>');
               res = res.replace(/Midnight Sun/g, '<span style="color: #c084fc; font-weight: 700;">Midnight Sun</span>');
               res = res.replace(/Spellbinder/g, '<span style="color: #c084fc; font-weight: 700;">Spellbinder</span>');
-              res = res.replace(/Cyberdemon/g, '<span style="color: #c084fc; font-weight: 700;">Cyberdemon</span>');
+              res = res.replace(/Cyber Demon/g, '<span style="color: #c084fc; font-weight: 700;">Cyber Demon</span>');
               res = res.replace(/Thor/g, '<span style="color: #c084fc; font-weight: 700;">Thor</span>');
               res = res.replace(/Grand Beast/g, '<span style="color: #c084fc; font-weight: 700;">Grand Beast</span>');
               res = res.replace(/Spirit Keeper/g, '<span style="color: #c084fc; font-weight: 700;">Spirit Keeper</span>');
@@ -542,6 +546,7 @@
               res = res.replace(/Star Shooter/g, '<span style="color: #c084fc; font-weight: 700;">Star Shooter</span>');
               res = res.replace(/Heart of Hope/g, '<span style="color: #c084fc; font-weight: 700;">Heart of Hope</span>');
               res = res.replace(/Hop Online!/g, '<span style="color: #c084fc; font-weight: 700;">Hop Online!</span>');
+			  res = res.replace(/Sumi-ichimonji/g, '<span style="color: #c084fc; font-weight: 700;">Sumi-ichimonji</span>');
               // Blue
               res = res.replace(/D\.VA/g, '<span style="color: #60a5fa; font-weight: 700;">D.VA</span>');
               // Gold
@@ -553,16 +558,22 @@
                   'Edition (<span style="color:#facc15;font-weight:700;">$1</span>)'
               );
               // Pink
+              res = res.replace(/Los Muertos Weapon/g, '<span style="color: #F379F3; font-weight: 700;">Los Muertos Weapon</span>');
+			  res = res.replace(/LE SSERAFIM/g, '<span style="color: #F379F3; font-weight: 700;">LE SSERAFIM</span>');
+              res = res.replace(/Nerf Gelfire Pro Weapon/g, '<span style="color: #F379F3; font-weight: 700;">Nerf Gelfire Pro Weapon</span>');
+              res = res.replace(/Hard Light Weapon/g, '<span style="color: #F379F3; font-weight: 700;">Hard Light Weapon</span>');
+			  res = res.replace(/Japanese/g, '<span style="color: #F379F3; font-weight: 700;">Japanese</span>');
+              res = res.replace(/Nerf Sungerang Weapon/g, '<span style="color: #F379F3; font-weight: 700;">Nerf Sungerang Weapon</span>');
               res = res.replace(/Ange de la Mort/g, '<span style="color: #F379F3; font-weight: 700;">Ange de la Mort</span>');
               res = res.replace(/Rose Gold/g, '<span style="color: #F379F3; font-weight: 700;">Rose Gold</span>');
               res = res.replace(/Thunder/g, '<span style="color: #F379F3; font-weight: 700;">Thunder</span>');
+              res = res.replace(/Haroeris/g, '<span style="color: #F379F3; font-weight: 700;">Haroeris</span>');			  
               res = res.replace(/Midas/g, '<span style="color: #F379F3; font-weight: 700;">Midas</span>');
-              res = res.replace(/Nerf Gelfire Pro Tracer/g, '<span style="color: #F379F3; font-weight: 700;">Nerf Gelfire Pro Tracer</span>');
               res = res.replace(/Mythic Prisms/g, '<span style="color: #F379F3; font-weight: 700;">Mythic Prisms</span>');
-              res = res.replace(/Grandmaster/g, '<span style="color: #F379F3; font-weight: 700;">Grandmaster</span>');
+			  res = res.replace(/Mayhem Biker/g, '<span style="color: #F379F3; font-weight: 700;">Mayhem Biker</span>');
               res = res.replace(/Good and Evil/g, '<span style="color: #F379F3; font-weight: 700;">Good and Evil</span>');
               res = res.replace(/OWL Tokens/g, '<span style="color: #F379F3; font-weight: 700;">OWL Tokens</span>');
-              res = res.replace(/LE SSERAFIM/g, '<span style="color: #F379F3; font-weight: 700;">LE SSERAFIM</span>');
+			  res = res.replace(/Grandmaster/g, '<span style="color: #F379F3; font-weight: 700;">Grandmaster</span>');
               res = res.replace(/Master/g, '<span style="color: #F379F3; font-weight: 700;">Master</span>');
               res = res.replace(/Luchador/g, '<span style="color: #F379F3; font-weight: 700;">Luchador</span>');
               res = res.replace(/All-Stars/g, '<span style="color: #F379F3; font-weight: 700;">All-Stars</span>');
@@ -587,10 +598,25 @@
             function highlightRankText(text) {
               if (!text) return '';
               let res = String(text);
+              const protectedRanks = [];
 
-              // Master / Grandmaster / GM ranks: red
+              // Protect Master / Grandmaster / GM before applying the general color map.
+              // This prevents the pink "Master" rule from creating nested/conflicting spans.
               res = res.replace(/\b(Grandmaster\s*\d*|Master\s*\d*|GM\s*\d*)\b/gi, (match) => {
-                return `<span class="ac-highlight-rank-master">${match}</span>`;
+                const token = `__RANK_COLOR_${protectedRanks.length}__`;
+                protectedRanks.push(match);
+                return token;
+              });
+
+              // Apply all shared color rules to rank text.
+              res = applyColorMap(res);
+
+              // Restore protected high-rank terms using the dedicated red rank style.
+              protectedRanks.forEach((rankText, index) => {
+                res = res.replace(
+                  `__RANK_COLOR_${index}__`,
+                  `<span class="ac-highlight-rank-master">${rankText}</span>`
+                );
               });
 
               return res;
@@ -693,7 +719,7 @@
               <div class="ac-details">
                 ${rank ? `<div class="ac-detail"><strong>Rank:</strong><br>${highlightRankText(rank)}</div>` : ''}
                 ${balance ? `<div class="ac-detail" style="margin-top: 8px;"><strong>Balance & Playtime:</strong><br>${highlightBalanceText(balance)}</div>` : ''}
-                ${weapons ? `<div class="ac-detail" style="margin-top: 8px;"><strong>Weapons:</strong><br>${weapons}</div>` : ''}
+                ${weapons ? `<div class="ac-detail" style="margin-top: 8px;"><strong>Weapons:</strong><br>${applyColorMap(weapons)}</div>` : ''}
                 ${nameChange ? `<div class="ac-detail" style="margin-top: 8px;"><strong>Name Change:</strong> ${highlightNameChangeText(nameChange)}</div>` : ''}
 
               </div>
