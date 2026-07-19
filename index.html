@@ -196,6 +196,55 @@
     
     .narrow-panel { max-width: 800px; margin: 0 auto; }
 
+    /* Accounts tools */
+    .accounts-tools {
+      display: grid;
+      grid-template-columns: minmax(240px, 1fr) minmax(150px, 0.35fr) minmax(210px, 0.45fr);
+      gap: 12px;
+      margin: 0 auto 18px;
+      position: relative;
+      z-index: 2;
+    }
+    .accounts-control {
+      width: 100%;
+      min-height: 46px;
+      padding: 0 15px;
+      border-radius: 13px;
+      border: 1px solid var(--glass-border);
+      background: rgba(10, 14, 22, 0.72);
+      color: var(--text);
+      font: inherit;
+      font-size: 0.86rem;
+      outline: none;
+      transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    }
+    .accounts-control:focus {
+      border-color: rgba(41,182,255,0.55);
+      background: rgba(16, 22, 34, 0.9);
+      box-shadow: 0 0 0 3px rgba(41,182,255,0.1);
+    }
+    .accounts-control::placeholder { color: rgba(154,168,198,0.72); }
+    select.accounts-control { cursor: pointer; }
+    select.accounts-control option { background: #070a12; color: #fff; }
+    .accounts-results {
+      min-height: 24px;
+      margin: 0 0 14px;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      text-align: right;
+      position: relative;
+      z-index: 1;
+    }
+    .accounts-empty {
+      grid-column: 1 / -1;
+      padding: 34px 20px;
+      border: 1px dashed rgba(255,255,255,0.12);
+      border-radius: 18px;
+      color: var(--text-muted);
+      text-align: center;
+      background: rgba(255,255,255,0.02);
+    }
+
     /* Accounts Grid */
     .accounts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; position: relative; z-index: 1; }
     .account-card {
@@ -270,11 +319,17 @@
       .header .nav { display: none; }
       .hero { padding: 160px 0 100px; }
       .glass-panel { padding: 32px 20px; }
+      .accounts-tools { grid-template-columns: 1fr 1fr; }
+      .accounts-search { grid-column: 1 / -1; }
     }
     @media (max-width: 480px) {
       .header-actions .btn { display: none; }
       .hero-cta { flex-direction: column; }
       .hero-cta .btn { width: 100%; }
+      .accounts-tools { grid-template-columns: 1fr; }
+      .accounts-search { grid-column: auto; }
+      .accounts-results { text-align: left; }
+      .accounts-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -336,6 +391,36 @@
         <h2 class="section-title" id="accountsTitle">Accounts</h2>
         <p class="section-desc" id="accountsDesc">Browse our currently available stock. Select an account and order via Discord.</p>
       </div>
+      <div class="accounts-tools" aria-label="Account inventory controls">
+        <input
+          class="accounts-control accounts-search"
+          id="accountSearch"
+          type="search"
+          placeholder="Search account keywords, e.g. Cyber Demon"
+          autocomplete="off"
+          aria-label="Search account keywords"
+        />
+        <select class="accounts-control" id="accountTypeFilter" aria-label="Filter account type">
+          <option value="all">All accounts</option>
+          <option value="ow1">OW1 accounts</option>
+          <option value="ow2">OW2 accounts</option>
+        </select>
+        <select class="accounts-control" id="accountSort" aria-label="Sort accounts">
+          <option value="id-asc">ID: Low to High</option>
+          <option value="id-desc">ID: High to Low</option>
+          <option value="level-asc">Level: Low to High</option>
+          <option value="level-desc">Level: High to Low</option>
+          <option value="playtime-asc">Playtime: Low to High</option>
+          <option value="playtime-desc">Playtime: High to Low</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="credits-asc">Credits: Low to High</option>
+          <option value="credits-desc">Credits: High to Low</option>
+          <option value="coins-asc">Coins: Low to High</option>
+          <option value="coins-desc">Coins: High to Low</option>
+        </select>
+      </div>
+      <div class="accounts-results" id="accountsResults" aria-live="polite"></div>
       <div class="accounts-grid" id="accountsGrid">
         <!-- Accounts will be dynamically injected here -->
       </div>
@@ -483,15 +568,135 @@
       drawRain();
       // ---------------------------------
 
-      async function loadAccounts() {
-        try {
-          const response = await fetch('accounts.json?t=' + new Date().getTime(), { cache: 'no-store' });
-          const data = await response.json();
-          const grid = document.getElementById("accountsGrid");
-          grid.innerHTML = '';
-          
-          data.accounts.forEach(acct => {
-            const { id, level, status, highlights, weapons, balance, rank, nameChange, screenshot, price } = acct;
+      const accountInventory = {
+        all: [],
+        collator: new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' })
+      };
+
+      function parseNumber(value) {
+        if (value === null || value === undefined || value === '') return 0;
+        const normalized = String(value).replace(/,/g, '');
+        const match = normalized.match(/-?\d+(?:\.\d+)?/);
+        return match ? Number(match[0]) || 0 : 0;
+      }
+
+      function parseTaggedAmount(acct, fieldName, labelPattern) {
+        const directValue = acct?.[fieldName];
+        if (directValue !== null && directValue !== undefined && String(directValue).trim() !== '') {
+          return parseNumber(directValue);
+        }
+
+        const sources = [acct?.balance, acct?.highlights, acct?.summary]
+          .filter(Boolean)
+          .join(' ')
+          .replace(/<br\s*\/?>(?:\s*)/gi, ' ');
+        const match = sources.match(new RegExp(`([\\d,]+(?:\\.\\d+)?)\\s*${labelPattern}\\b`, 'i'));
+        return match ? parseNumber(match[1]) : 0;
+      }
+
+      function getPlaytime(acct) {
+        const directValue = acct?.playtime;
+        if (directValue !== null && directValue !== undefined && String(directValue).trim() !== '') {
+          return parseNumber(directValue);
+        }
+        const balance = String(acct?.balance ?? '').replace(/<br\s*\/?>(?:\s*)/gi, ' ');
+        const match = balance.match(/([\d,]+(?:\.\d+)?)\s*(?:h|hours?)\b/i);
+        return match ? parseNumber(match[1]) : 0;
+      }
+
+      function getCredits(acct) {
+        return parseTaggedAmount(acct, 'credits', 'Credits?');
+      }
+
+      function getCoins(acct) {
+        return parseTaggedAmount(acct, 'coins', '(?:Overwatch\\s*)?Coins?');
+      }
+
+      function getLevelTotal(acct) {
+        const levelText = String(acct?.level ?? '').replace(/OW[12]/gi, '');
+        const values = levelText.match(/\d+(?:\.\d+)?/g);
+        return values?.length
+          ? values.reduce((sum, value) => sum + Number(value), 0)
+          : 0;
+      }
+
+      function accountMatchesType(acct, type) {
+        if (type === 'all') return true;
+        const levelText = String(acct?.level ?? '').toLowerCase();
+        return type === 'ow1' ? levelText.includes('ow1') : levelText.includes('ow2');
+      }
+
+      function accountMatchesSearch(acct, query) {
+        if (!query) return true;
+        const searchableText = Object.values(acct ?? {})
+          .filter(value => value !== null && value !== undefined)
+          .join(' ')
+          .replace(/<[^>]*>/g, ' ')
+          .toLocaleLowerCase();
+        return searchableText.includes(query);
+      }
+
+      function compareAccounts(a, b, sortValue) {
+        const [field, direction = 'asc'] = String(sortValue || 'id-asc').split('-');
+        const directionFactor = direction === 'desc' ? -1 : 1;
+        let result = 0;
+
+        switch (field) {
+          case 'level':
+            result = getLevelTotal(a) - getLevelTotal(b);
+            break;
+          case 'playtime':
+            result = getPlaytime(a) - getPlaytime(b);
+            break;
+          case 'price':
+            result = parseNumber(a?.price) - parseNumber(b?.price);
+            break;
+          case 'credits':
+            result = getCredits(a) - getCredits(b);
+            break;
+          case 'coins':
+            result = getCoins(a) - getCoins(b);
+            break;
+          case 'id':
+          default:
+            result = parseNumber(a?.id) - parseNumber(b?.id);
+            break;
+        }
+
+        if (result === 0) {
+          result = accountInventory.collator.compare(String(a?.id ?? ''), String(b?.id ?? ''));
+        }
+        return result * directionFactor;
+      }
+
+      function renderAccounts() {
+        const grid = document.getElementById('accountsGrid');
+        const searchInput = document.getElementById('accountSearch');
+        const typeFilter = document.getElementById('accountTypeFilter');
+        const sortSelect = document.getElementById('accountSort');
+        const results = document.getElementById('accountsResults');
+        if (!grid || !searchInput || !typeFilter || !sortSelect || !results) return;
+
+        const query = searchInput.value.trim().toLocaleLowerCase();
+        const visibleAccounts = accountInventory.all
+          .filter(acct => accountMatchesType(acct, typeFilter.value))
+          .filter(acct => accountMatchesSearch(acct, query))
+          .slice()
+          .sort((a, b) => compareAccounts(a, b, sortSelect.value));
+
+        grid.innerHTML = '';
+        results.textContent = `${visibleAccounts.length} / ${accountInventory.all.length} accounts`;
+
+        if (!visibleAccounts.length) {
+          grid.innerHTML = '<div class="accounts-empty">No accounts match the current search and filter.</div>';
+          return;
+        }
+
+        visibleAccounts.forEach(acct => {
+            const { id, highlights = '', weapons = '', balance = '', rank = '', nameChange = '', screenshot = '' } = acct;
+            const level = String(acct.level ?? '');
+            const status = String(acct.status ?? 'In Stock');
+            const price = String(acct.price ?? '0');
 
             let statusClass = 'status-instock';
             if (status.toLowerCase().includes('sold')) statusClass = 'status-sold';
@@ -501,7 +706,7 @@
             let isValuable = false;
             let numPrice = parseFloat(price.replace(/[^0-9.]/g, ''));
             if (!isNaN(numPrice) && numPrice >= 100) isValuable = true;
-            if (highlights && highlights.includes('Top 500')) isValuable = true;
+            if (highlights && /Top 500/i.test(highlights)) isValuable = true;
 
             // Custom Color Dictionary
             function applyColorMap(text) {
@@ -679,7 +884,7 @@
             let styledLevel = level;
             if (isValuable) {
               styledLevel = `<span style="color: #facc15; font-weight: 800; text-shadow: 0 0 8px rgba(250, 204, 21, 0.6);">Lv. ${level}</span>`;
-            } else if (level.includes('OW1')) {
+            } else if (/OW1/i.test(level)) {
               styledLevel = `<span style="color: #facc15; font-weight: 800; text-shadow: 0 0 8px rgba(250, 204, 21, 0.4);">Lv. ${level}</span>`;
             } else if (level) {
               styledLevel = `<span style="color: #e2e8f0; font-weight: 600;">Lv. ${level}</span>`;
@@ -730,10 +935,27 @@
             `;
             grid.appendChild(card);
           });
-        } catch(e) {
-          console.error("Error fetching accounts:", e);
+      }
+
+      async function loadAccounts() {
+        try {
+          const response = await fetch('accounts.json?t=' + new Date().getTime(), { cache: 'no-store' });
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          const data = await response.json();
+          accountInventory.all = Array.isArray(data.accounts) ? data.accounts : [];
+          renderAccounts();
+        } catch (error) {
+          console.error('Error fetching accounts:', error);
+          const grid = document.getElementById('accountsGrid');
+          const results = document.getElementById('accountsResults');
+          if (results) results.textContent = '0 accounts';
+          if (grid) grid.innerHTML = '<div class="accounts-empty">Unable to load account inventory.</div>';
         }
       }
+
+      document.getElementById('accountSearch')?.addEventListener('input', renderAccounts);
+      document.getElementById('accountTypeFilter')?.addEventListener('change', renderAccounts);
+      document.getElementById('accountSort')?.addEventListener('change', renderAccounts);
       loadAccounts();
     });
 
