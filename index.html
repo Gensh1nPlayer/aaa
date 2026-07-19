@@ -169,6 +169,31 @@
     }
     .section-title { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 800; margin-bottom: 12px; color: #fff; }
     .section-desc { max-width: 540px; margin: 0 auto; color: var(--text-muted); font-size: 0.9rem; }
+    .accounts-update-note {
+      width: fit-content;
+      max-width: min(100%, 620px);
+      margin: 16px auto 0;
+      padding: 8px 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      flex-wrap: wrap;
+      border: 1px solid rgba(74, 222, 128, 0.22);
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(74, 222, 128, 0.08), rgba(41, 182, 255, 0.055));
+      color: #aab7cf;
+      font-size: 0.8rem;
+      line-height: 1.35;
+      box-shadow: 0 8px 22px rgba(0,0,0,0.16), inset 0 0 0 1px rgba(255,255,255,0.018);
+    }
+    .accounts-update-note strong {
+      color: #4ade80;
+      font-weight: 900;
+      white-space: nowrap;
+      text-shadow: 0 0 10px rgba(74, 222, 128, 0.3);
+    }
+    .accounts-update-icon { color: #67e8f9; line-height: 1; }
 
     /* Glass Panels */
     .glass-panel {
@@ -437,6 +462,32 @@
       color: #d8b4fe;
       font-weight: 800;
       text-shadow: 0 0 9px rgba(192,132,252,0.24);
+    }
+    .ac-special-skin {
+      font-weight: 900;
+      letter-spacing: 0.01em;
+    }
+    .ac-special-skin-pink {
+      color: #ff8fd1;
+      text-shadow: 0 0 11px rgba(255, 105, 180, 0.38);
+    }
+    .ac-special-skin-gold {
+      color: #facc15;
+      text-shadow: 0 0 11px rgba(250, 204, 21, 0.38);
+    }
+    .ac-special-skin-hope {
+      background: linear-gradient(90deg, #fb7185, #f9a8d4, #facc15);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 12px rgba(251, 113, 133, 0.25);
+    }
+    .ac-special-skin-mythic {
+      background: linear-gradient(90deg, #f0abfc, #a78bfa 48%, #67e8f9);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 12px rgba(167, 139, 250, 0.3);
     }
     .ac-skin-category {
       color: #67e8f9;
@@ -977,6 +1028,11 @@
         <div class="section-kicker" id="accountsKicker">🎮 INVENTORY</div>
         <h2 class="section-title" id="accountsTitle">Accounts</h2>
         <p class="section-desc" id="accountsDesc">Browse our currently available stock. Select an account and order via Discord.</p>
+        <p class="accounts-update-note" id="accountsUpdateNote">
+          <span class="accounts-update-icon" aria-hidden="true">◷</span>
+          <span id="accountsUpdateLabel">Next planned inventory update:</span>
+          <strong id="accountsUpdateValue">In 7 Days</strong>
+        </p>
       </div>
       <div class="accounts-toolbar">
         <button class="inventory-reset-btn" id="resetAccountFilters" type="button" disabled>
@@ -1255,19 +1311,6 @@
         return parseTaggedAmount(acct, 'mythicPrisms', 'Mythic\\s+Prisms?');
       }
 
-      function hasPremiumBattlePass(acct) {
-        const directValue = acct?.premiumBattlePass ?? acct?.premiumPass ?? acct?.battlePass;
-        if (directValue !== null && directValue !== undefined && String(directValue).trim() !== '') {
-          if (readBooleanFlag(directValue)) return true;
-          if (/premium|ultimate/i.test(String(directValue))) return true;
-        }
-        const searchableText = Object.values(acct ?? {})
-          .filter(value => value !== null && value !== undefined)
-          .join(' ')
-          .replace(/<[^>]*>/g, ' ');
-        return /\b(?:premium\s+(?:battle\s+pass|bp)|ultimate\s+bp)\b/i.test(searchableText);
-      }
-
       function getLevelTotal(acct) {
         const levelText = String(acct?.level ?? '').replace(/OW[12]/gi, '');
         const values = levelText.match(/\d+(?:\.\d+)?/g);
@@ -1305,17 +1348,26 @@
           'top500Eligible', 'top500Eligiable', 'top500_eligible',
           'top500Eligibility', 'top500', 'isTop500Eligible'
         ];
+
         for (const key of directKeys) {
-          if (acct?.[key] !== null && acct?.[key] !== undefined && String(acct[key]).trim() !== '') {
-            return readBooleanFlag(acct[key]);
+          const rawValue = acct?.[key];
+          if (rawValue === null || rawValue === undefined || String(rawValue).trim() === '') continue;
+          const valueText = String(rawValue).replace(/<[^>]*>/g, ' ').trim();
+          if (readBooleanFlag(rawValue)) return true;
+          if (!/\b(?:no|not|without)\s+top\s*500\b/i.test(valueText) && /\btop\s*500\b/i.test(valueText)) {
+            return true;
           }
         }
 
         const searchableText = Object.values(acct ?? {})
           .filter(value => value !== null && value !== undefined)
           .join(' ')
-          .replace(/<[^>]*>/g, ' ');
-        return /\btop\s*500(?:\s+challenger\s+tier)?\s+(?:eligible|eligiable)\b/i.test(searchableText);
+          .replace(/<[^>]*>/g, ' ')
+          .replace(/\b(?:no|not|without)\s+top\s*500(?:\s+(?:eligible|eligibility|eligiable))?\b/gi, ' ');
+
+        // Any positive TOP 500 description counts as eligible, including plain
+        // "TOP 500" and the longer Eligible / Challenger Tier variants.
+        return /\btop\s*500\b/i.test(searchableText);
       }
 
       function accountMatchesBooleanFilter(flag, filterValue) {
@@ -1509,7 +1561,6 @@
             const coinsAmount = getCoins(acct);
             const playtimeAmount = getPlaytime(acct);
             const mythicPrismsAmount = getMythicPrisms(acct);
-            const premiumBattlePass = hasPremiumBattlePass(acct);
 
             let statusClass = 'status-instock';
             let statusText = status;
@@ -1533,6 +1584,23 @@
             function applyColorMap(text) {
               if (!text) return text;
               let res = text;
+              const protectedSpecialSkins = [];
+              const protectSpecialSkin = (pattern, className) => {
+                res = res.replace(pattern, match => {
+                  const token = `__COLOR_SPECIAL_SKIN_${protectedSpecialSkins.length}__`;
+                  protectedSpecialSkins.push({ match, className });
+                  return token;
+                });
+              };
+
+              // Protect priority skins before the broader legacy rules run.
+              // This avoids rules such as "Pink" or "Master" creating nested spans.
+              protectSpecialSkin(/\bPink\s+Mercy\b/gi, 'ac-special-skin-pink');
+              protectSpecialSkin(/\bRose\s+Gold\b/gi, 'ac-special-skin-pink');
+              protectSpecialSkin(/\bMidas\b/gi, 'ac-special-skin-gold');
+              protectSpecialSkin(/\bHeart\s+of\s+Hope\b/gi, 'ac-special-skin-hope');
+              protectSpecialSkin(/\bDivine\s+Druid\b/gi, 'ac-special-skin-mythic');
+
               // Red
 			  res = res.replace(/Top 500 Challenger Tier/g, '<span style="color: #ef4444; font-weight: 700;">Top 500 Challenger Tier</span>');
 			  res = res.replace(/TOP 500/g, '<span style="color: #ef4444; font-weight: 700;">TOP 500</span>');
@@ -1571,6 +1639,7 @@
               res = res.replace(/Cyber Fuel/g, '<span style="color: #c084fc; font-weight: 700;">Cyber Fuel</span>');
               res = res.replace(/Star Shooter/g, '<span style="color: #c084fc; font-weight: 700;">Star Shooter</span>');
               res = res.replace(/Heart of Hope/g, '<span style="color: #c084fc; font-weight: 700;">Heart of Hope</span>');
+              res = res.replace(/Divine Druid/g, '<span style="color: #c084fc; font-weight: 700;">Divine Druid</span>');
               res = res.replace(/Hop Online!/g, '<span style="color: #c084fc; font-weight: 700;">Hop Online!</span>');
 			  res = res.replace(/Sumi-ichimonji/g, '<span style="color: #c084fc; font-weight: 700;">Sumi-ichimonji</span>');
               // Blue
@@ -1617,6 +1686,13 @@
               res = res.replace(/Sup Main/g, '<span style="color: #4ade80; font-weight: 700;">Sup Main</span>');
               res = res.replace(/Support Main/g, '<span style="color: #4ade80; font-weight: 700;">Sup Main</span>');
               res = res.replace(/Tank Main/g, '<span style="color: #4ade80; font-weight: 700;">Tank Main</span>');
+
+              protectedSpecialSkins.forEach((entry, index) => {
+                res = res.replace(
+                  `__COLOR_SPECIAL_SKIN_${index}__`,
+                  `<span class="ac-special-skin ${entry.className}">${entry.match}</span>`
+                );
+              });
               return res;
             }
 
@@ -1709,8 +1785,8 @@
 
             function formatAvailability(flag) {
               return flag
-                ? `<span class="ac-availability-yes">✓ ${ui.yes}</span>`
-                : `<span class="ac-availability-no">✘ ${ui.no}</span>`;
+                ? `<span class="ac-availability-yes">${ui.yes}</span>`
+                : `<span class="ac-availability-no">${ui.no}</span>`;
             }
 
             // Keep long level labels readable by separating the numeric level from metadata.
@@ -1811,6 +1887,37 @@
             const trailingHeroRegex = new RegExp(`^(.+?)(\\s+)(${heroSequencePattern})$`, 'i');
             const attachedSoldier76Regex = /^(.+?)(\s*:\s*76)$/i;
 
+            const specialSkinRules = [
+              { pattern: /\bPink\s+Mercy\b/gi, className: 'ac-special-skin-pink' },
+              { pattern: /\bRose\s+Gold\b/gi, className: 'ac-special-skin-pink' },
+              { pattern: /\bMidas\b/gi, className: 'ac-special-skin-gold' },
+              { pattern: /\bHeart\s+of\s+Hope\b/gi, className: 'ac-special-skin-hope' },
+              { pattern: /\bDivine\s+Druid\b/gi, className: 'ac-special-skin-mythic' },
+              { pattern: /\b(?:Galactic\s+Emperor|Anubis|Calamity\s+Empress|A-7000\s+Wargod|Amaterasu|Vengeance|Lead\s+Rose|Ultraviolet\s+Sentinel|Zeus|Adventurer|Deliverance|Steel\s+Death|Onryō|Pixiu|Blazing\s+Sunsetter|Celestial\s+Guardian|Ancient\s+Caller|Midnight\s+Sun|Spellbinder|Cyber\s+Demon|Thor|Grand\s+Beast|Spirit\s+Keeper|Horang|Cyber\s+Fuel|Star\s+Shooter|Hop\s+Online!|Sumi-ichimonji)\b/gi, className: 'ac-special-skin-mythic' }
+            ];
+
+            function styleSkinName(rawName) {
+              let styled = escapeAccountText(rawName);
+              const protectedMatches = [];
+
+              specialSkinRules.forEach(rule => {
+                styled = styled.replace(rule.pattern, match => {
+                  const token = `__SPECIAL_SKIN_${protectedMatches.length}__`;
+                  protectedMatches.push({ match, className: rule.className });
+                  return token;
+                });
+              });
+
+              protectedMatches.forEach((entry, index) => {
+                styled = styled.replace(
+                  `__SPECIAL_SKIN_${index}__`,
+                  `<span class="ac-special-skin ${entry.className}">${entry.match}</span>`
+                );
+              });
+
+              return `<span class="ac-skin-name">${styled}</span>`;
+            }
+
             function styleSkinItem(rawItem) {
               const item = String(rawItem ?? '').trim();
               if (!item) return '';
@@ -1821,25 +1928,25 @@
               // Hero-first format, e.g. "D.Va LE SSERAFIM Bundle".
               const leadingHero = item.match(leadingHeroRegex);
               if (leadingHero && !heroSequenceRegex.test(leadingHero[3])) {
-                return `${escapeAccountText(leadingHero[1])}${escapeAccountText(leadingHero[2])}<span class="ac-skin-name">${escapeAccountText(leadingHero[3])}</span>`;
+                return `${escapeAccountText(leadingHero[1])}${escapeAccountText(leadingHero[2])}${styleSkinName(leadingHero[3])}`;
               }
 
               // Skin-first format, including abbreviated hero suffixes such as
               // "Queen/Rugby JQ", "Bounty Hunter Bap" and "Cardboard Rein/Brig".
               const trailingHero = item.match(trailingHeroRegex);
               if (trailingHero) {
-                return `<span class="ac-skin-name">${escapeAccountText(trailingHero[1])}</span>${escapeAccountText(trailingHero[2])}${escapeAccountText(trailingHero[3])}`;
+                return `${styleSkinName(trailingHero[1])}${escapeAccountText(trailingHero[2])}${escapeAccountText(trailingHero[3])}`;
               }
 
               // Soldier: 76 is often shortened in the source data to ":76",
               // e.g. "Biker:76" or "Infinite Guard: 76".
               const attachedSoldier76 = item.match(attachedSoldier76Regex);
               if (attachedSoldier76 && attachedSoldier76[1].trim()) {
-                return `<span class="ac-skin-name">${escapeAccountText(attachedSoldier76[1].trimEnd())}</span>${escapeAccountText(attachedSoldier76[2])}`;
+                return `${styleSkinName(attachedSoldier76[1].trimEnd())}${escapeAccountText(attachedSoldier76[2])}`;
               }
 
               // No explicit hero marker is present, so treat the item as a skin name.
-              return `<span class="ac-skin-name">${escapeAccountText(item)}</span>`;
+              return `${styleSkinName(item)}`;
             }
 
             function styleSkinDescriptionLine(rawLine) {
@@ -1880,9 +1987,6 @@
             const numberFormatter = new Intl.NumberFormat(document.documentElement.lang || 'en');
             const compactRank = String(rank || '').replace(/<br\s*\/?\s*>/gi, ' • ');
             const rankFact = compactRank ? highlightRankText(compactRank) : '—';
-            const premiumFact = premiumBattlePass
-              ? `<div class="ac-keyfact is-premium"><span class="ac-keyfact-label">${ui.premiumPass}</span><span class="ac-keyfact-value ac-availability-yes">✓ ${ui.yes}</span></div>`
-              : '';
             const prismsFact = mythicPrismsAmount > 0
               ? `<div class="ac-keyfact is-premium"><span class="ac-keyfact-label">${ui.mythicPrisms}</span><span class="ac-keyfact-value ac-highlight-mythic-prisms">${numberFormatter.format(mythicPrismsAmount)}</span></div>`
               : '';
@@ -1940,7 +2044,6 @@
                   <span class="ac-keyfact-value">${formatAvailability(top500Eligible)}</span>
                 </div>
                 ${prismsFact}
-                ${premiumFact}
               </div>
               ${styledHighlights ? `
                 <div class="ac-highlights">
@@ -2041,6 +2144,8 @@
         accountsKicker:"🎮 INVENTORY",
         accountsTitle:"Accounts",
         accountsDesc:"Browse our currently available stock. Select an account and order via Discord.",
+        accountsUpdateLabel:"Next planned inventory update:",
+        accountsUpdateValue:"In 7 Days",
         auth:"Authenticator",
         heroKicker:"⚡ Trusted since 2021",
         heroTitle:"ROSHINE ACCOUNT STORE",
@@ -2105,6 +2210,8 @@
         accountsKicker:"🎮 INVENTAIRE",
         accountsTitle:"Comptes",
         accountsDesc:"Parcourez les comptes actuellement disponibles, utilisez les filtres, puis commandez via Discord.",
+        accountsUpdateLabel:"Prochaine mise à jour prévue du stock :",
+        accountsUpdateValue:"Dans 7 jours",
         auth:"Authenticator",
         heroKicker:"⚡ Fiable depuis 2021",
         heroTitle:"ROSHINE",
@@ -2169,6 +2276,8 @@
         accountsKicker:"🎮 INVENTAR",
         accountsTitle:"Accounts",
         accountsDesc:"Durchsuche den verfügbaren Bestand, nutze die Filter und bestelle anschließend über Discord.",
+        accountsUpdateLabel:"Nächste geplante Bestandsaktualisierung:",
+        accountsUpdateValue:"In 7 Tagen",
         auth:"Authenticator",
         heroKicker:"⚡ Vertrauenswürdig seit 2021",
         heroTitle:"ROSHINE",
@@ -2233,6 +2342,8 @@
         accountsKicker:"🎮 المخزون",
         accountsTitle:"الحسابات",
         accountsDesc:"تصفّح الحسابات المتاحة حاليًا، واستخدم الفلاتر، ثم اطلب عبر Discord.",
+        accountsUpdateLabel:"موعد تحديث المخزون المخطط التالي:",
+        accountsUpdateValue:"خلال 7 أيام",
         auth:"Authenticator",
         heroKicker:"⚡ موثوق منذ 2021",
         heroTitle:"ROSHINE",
@@ -2294,6 +2405,11 @@
         metaTitle:"Roshine 账号商店",
         metaDesc:"高质量守望先锋账号，安全交付。",
         nav: { home:"主页", accounts:"库存", services:"服务", warranty:"售后", faq:"常见问题", contact:"联系" },
+        accountsKicker:"🎮 库存",
+        accountsTitle:"账号库存",
+        accountsDesc:"浏览当前可售库存，选择账号后通过 Discord 下单。",
+        accountsUpdateLabel:"下次计划更新库存：",
+        accountsUpdateValue:"7 天后",
         auth:"Authenticator",
         heroKicker:"⚡ 自 2021 年稳定运营",
         heroTitle:"ROSHINE",
@@ -2358,7 +2474,7 @@
         filterSort:"Filter & Sort", filterSubtitle:"Refine the inventory results", resetFilters:"Reset filters", closeFilters:"Close filters",
         activeFilters:"Active filters", clearFilter:"Remove this filter", searchLabel:"Search", applyFilters:"Show {count} accounts",
         showMore:"Show more skins", showLess:"Show fewer skins", playtime:"Playtime", credits:"Credits", coins:"Coins",
-        mythicPrisms:"Mythic Prisms", premiumPass:"Premium BP",
+        mythicPrisms:"Mythic Prisms",
         searchPlaceholder:"Search account keywords, e.g. Cyber Demon",
         searchAria:"Search account keywords",
         typeAria:"Filter account type",
@@ -2387,7 +2503,7 @@
         filterSort:"Filtres et tri", filterSubtitle:"Affinez les résultats de l’inventaire", resetFilters:"Réinitialiser", closeFilters:"Fermer les filtres",
         activeFilters:"Filtres actifs", clearFilter:"Retirer ce filtre", searchLabel:"Recherche", applyFilters:"Afficher {count} comptes",
         showMore:"Afficher plus de skins", showLess:"Afficher moins de skins", playtime:"Temps de jeu", credits:"Crédits", coins:"Coins",
-        mythicPrisms:"Prismes mythiques", premiumPass:"Pass premium",
+        mythicPrisms:"Prismes mythiques",
         searchPlaceholder:"Rechercher un mot-clé, ex. Cyber Demon",
         searchAria:"Rechercher dans les comptes",
         typeAria:"Filtrer le type de compte",
@@ -2416,7 +2532,7 @@
         filterSort:"Filtern & sortieren", filterSubtitle:"Inventarergebnisse eingrenzen", resetFilters:"Filter zurücksetzen", closeFilters:"Filter schließen",
         activeFilters:"Aktive Filter", clearFilter:"Diesen Filter entfernen", searchLabel:"Suche", applyFilters:"{count} Accounts anzeigen",
         showMore:"Mehr Skins anzeigen", showLess:"Weniger Skins anzeigen", playtime:"Spielzeit", credits:"Credits", coins:"Coins",
-        mythicPrisms:"Mythische Prismen", premiumPass:"Premium-BP",
+        mythicPrisms:"Mythische Prismen",
         searchPlaceholder:"Accounts durchsuchen, z. B. Cyber Demon",
         searchAria:"Accounts nach Stichwort durchsuchen",
         typeAria:"Accounttyp filtern",
@@ -2445,7 +2561,7 @@
         filterSort:"تصفية وترتيب", filterSubtitle:"تخصيص نتائج المخزون", resetFilters:"إعادة ضبط الفلاتر", closeFilters:"إغلاق الفلاتر",
         activeFilters:"الفلاتر النشطة", clearFilter:"إزالة هذا الفلتر", searchLabel:"البحث", applyFilters:"عرض {count} حساب",
         showMore:"عرض المزيد من السكنات", showLess:"عرض سكنات أقل", playtime:"وقت اللعب", credits:"Credits", coins:"Coins",
-        mythicPrisms:"Mythic Prisms", premiumPass:"Premium BP",
+        mythicPrisms:"Mythic Prisms",
         searchPlaceholder:"ابحث بكلمة مفتاحية، مثل Cyber Demon",
         searchAria:"البحث في الحسابات بالكلمات المفتاحية",
         typeAria:"تصفية نوع الحساب",
@@ -2474,7 +2590,7 @@
         filterSort:"筛选与排序", filterSubtitle:"快速缩小库存范围", resetFilters:"清除筛选", closeFilters:"关闭筛选",
         activeFilters:"当前筛选", clearFilter:"移除此筛选条件", searchLabel:"检索", applyFilters:"查看 {count} 个账号",
         showMore:"展开更多皮肤", showLess:"收起皮肤详情", playtime:"游戏时长", credits:"Credits", coins:"Coins",
-        mythicPrisms:"神话棱晶", premiumPass:"高级通行证",
+        mythicPrisms:"神话棱晶",
         searchPlaceholder:"检索账号关键词，例如 Cyber Demon",
         searchAria:"检索账号关键词",
         typeAria:"筛选账号类型",
@@ -2620,6 +2736,8 @@
       if (t.accountsKicker) document.getElementById("accountsKicker").textContent = t.accountsKicker;
       if (t.accountsTitle) document.getElementById("accountsTitle").textContent = t.accountsTitle;
       if (t.accountsDesc) document.getElementById("accountsDesc").textContent = t.accountsDesc;
+      if (t.accountsUpdateLabel) document.getElementById("accountsUpdateLabel").textContent = t.accountsUpdateLabel;
+      if (t.accountsUpdateValue) document.getElementById("accountsUpdateValue").textContent = t.accountsUpdateValue;
 
       const accountUi = getAccountUiText(lang);
       const accountTools = document.querySelector('.accounts-tools');
