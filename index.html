@@ -82,11 +82,11 @@
 
     a { text-decoration: none; color: inherit; }
     ul, ol { list-style: none; }
-    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .container { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
 
     .header {
       position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-      width: 95%; max-width: 1200px; z-index: 100;
+      width: 95%; max-width: 1280px; z-index: 100;
       background: rgba(18,22,34,0.58);
       backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--glass-border); border-radius: 99px;
@@ -199,7 +199,7 @@
     /* Accounts tools */
     .accounts-tools {
       display: grid;
-      grid-template-columns: minmax(240px, 1fr) minmax(150px, 0.35fr) minmax(210px, 0.45fr);
+      grid-template-columns: minmax(230px, 1.25fr) repeat(3, minmax(155px, 0.7fr)) minmax(210px, 0.9fr);
       gap: 12px;
       margin: 0 auto 18px;
       position: relative;
@@ -246,29 +246,254 @@
     }
 
     /* Accounts Grid */
-    .accounts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; position: relative; z-index: 1; }
+    .accounts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 360px), 1fr));
+      gap: 20px;
+      position: relative;
+      z-index: 1;
+      align-items: stretch;
+    }
     .account-card {
-      background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border);
-      border-radius: 20px; padding: 24px; transition: all 0.3s ease; display: flex; flex-direction: column; gap: 16px;
+      min-width: 0;
+      background: linear-gradient(155deg, rgba(255,255,255,0.035), rgba(255,255,255,0.012));
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 20px;
+      transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+      overflow: hidden;
     }
     .account-card:hover { transform: translateY(-5px); background: rgba(255,255,255,0.04); box-shadow: 0 15px 30px rgba(0,0,0,0.4); border-color: rgba(255,255,255,0.1); }
-    .ac-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--glass-border); padding-bottom: 12px; }
+    .ac-header {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+      border-bottom: 1px solid var(--glass-border);
+      padding-bottom: 12px;
+    }
+    .ac-title-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) max-content;
+      align-items: start;
+      gap: 12px;
+      width: 100%;
+    }
+    .ac-title-block {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .ac-level-title {
+      min-width: 0;
+      margin: 0;
+      color: #e2e8f0;
+      font-size: clamp(1.02rem, 1.3vw, 1.22rem);
+      font-weight: 850;
+      line-height: 1.22;
+      letter-spacing: -0.025em;
+    }
+    .ac-level-title.is-valuable {
+      color: #facc15;
+      text-shadow: 0 0 8px rgba(250, 204, 21, 0.55);
+    }
+    .ac-level-main {
+      overflow-wrap: anywhere;
+      word-break: normal;
+    }
+    .ac-level-meta,
+    .ac-header-badges {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .ac-level-tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.09);
+      background: rgba(255,255,255,0.04);
+      color: var(--text-muted);
+      font-size: 0.66rem;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+    .ac-level-tag.game-version { color: #facc15; border-color: rgba(250,204,21,0.28); background: rgba(250,204,21,0.07); }
+    .ac-level-tag.border-tier { color: #c084fc; border-color: rgba(192,132,252,0.28); background: rgba(192,132,252,0.07); }
+    .ac-level-tag.stacked { color: #ff5d66; border-color: rgba(255,93,102,0.3); background: rgba(255,93,102,0.07); }
+    .ac-premium-badge {
+      display: inline-flex;
+      align-items: center;
+      align-self: flex-start;
+      width: fit-content;
+      max-width: 100%;
+      min-height: 28px;
+      padding: 4px 9px;
+      border-radius: 6px;
+      background: linear-gradient(90deg, #facc15, #fbbf24);
+      color: #000;
+      font-size: 0.72rem;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      box-shadow: 0 0 8px rgba(250, 204, 21, 0.45);
+    }
     .ac-id { font-size: 1rem; font-weight: 800; color: #fff; }
-    .ac-status { font-size: 0.7rem; font-weight: 700; padding: 3px 9px; border-radius: 99px; letter-spacing: 0.05em; text-transform: uppercase; background: rgba(255,255,255,0.05); }
+    .ac-status {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      align-self: start;
+      gap: 6px;
+      flex: 0 0 auto;
+      min-height: 32px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      font-size: 0.68rem;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      word-break: keep-all;
+    }
+    .ac-status::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      flex: 0 0 8px;
+      border-radius: 50%;
+      background: currentColor;
+      box-shadow: 0 0 8px currentColor;
+    }
     .status-instock { color: var(--neon); border: 1px solid rgba(41,182,255,0.3); }
     .status-sold { color: #ff4757; border: 1px solid rgba(255,71,87,0.3); }
     .status-pending { color: var(--neon2); border: 1px solid rgba(183,124,255,0.3); }
-    .ac-price { font-size: 1.4rem; font-weight: 900; color: var(--neon3); letter-spacing: 0.03em; margin: 2px 0; }
+    .ac-price-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      min-width: 0;
+      padding: 1px 1px 0;
+    }
+    .ac-price {
+      min-width: 0;
+      color: var(--neon3);
+      font-size: 1.48rem;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: 0.02em;
+    }
+    .ac-account-id {
+      flex: 0 0 auto;
+      color: #aab6cf;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.035);
+      padding: 4px 8px;
+      font-size: 0.68rem;
+      font-weight: 750;
+      line-height: 1;
+      white-space: nowrap;
+    }
     .ac-level { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); }
-    .ac-highlights { flex-grow: 1; font-size: 0.85rem; line-height: 1.5; color: var(--text-muted); background: rgba(0,0,0,0.2); padding: 10px 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.03); word-break: break-word; overflow-wrap: anywhere; }
-    .ac-details { display: flex; flex-direction: column; gap: 6px; font-size: 0.8rem; color: var(--text-muted); }
+    .ac-highlights {
+      flex-grow: 1;
+      min-width: 0;
+      color: #aebbd3;
+      background: linear-gradient(145deg, rgba(3,7,16,0.52), rgba(11,17,29,0.34));
+      padding: 11px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.055);
+      font-size: 0.82rem;
+      line-height: 1.48;
+      word-break: normal;
+      overflow-wrap: anywhere;
+    }
+    .ac-highlight-line {
+      display: block;
+      min-width: 0;
+    }
+    .ac-highlight-line + .ac-highlight-line {
+      margin-top: 6px;
+    }
+    .ac-skin-line {
+      color: #aebbd3;
+    }
+    .ac-skin-name {
+      color: #d8b4fe;
+      font-weight: 800;
+      text-shadow: 0 0 9px rgba(192,132,252,0.24);
+    }
+    .ac-skin-category {
+      color: #67e8f9;
+      font-weight: 800;
+    }
+    .ac-highlight-icon {
+      display: inline-block;
+      width: 1.35em;
+      color: #facc15;
+      font-weight: 900;
+    }
+    .ac-details {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      color: var(--text-muted);
+      font-size: 0.78rem;
+    }
+    .ac-detail {
+      min-width: 0;
+      padding: 9px 10px;
+      border: 1px solid rgba(255,255,255,0.045);
+      border-radius: 10px;
+      background: rgba(255,255,255,0.018);
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+    }
+    .ac-detail > strong {
+      display: inline-block;
+      margin-bottom: 2px;
+      color: #dbe6fb;
+      font-size: 0.7rem;
+      font-weight: 850;
+      letter-spacing: 0.055em;
+      text-transform: uppercase;
+    }
     .ac-highlight-rank-master { color: #ef4444; font-weight: 800; text-shadow: 0 0 8px rgba(239, 68, 68, 0.35); }
+    .ac-rank-ready { color: #4ade80; font-weight: 900; text-shadow: 0 0 9px rgba(74, 222, 128, 0.35); }
     .ac-highlight-yellow { color: #facc15; font-weight: 800; text-shadow: 0 0 8px rgba(250, 204, 21, 0.35); }
     .ac-highlight-mythic-prisms { color: #F379F3; font-weight: 800; text-shadow: 0 0 8px rgba(243, 121, 243, 0.35); }
-    .ac-highlight-namechange-yes { color: #4ade80; font-weight: 900; text-shadow: 0 0 8px rgba(74, 222, 128, 0.35); }
+    .ac-highlight-namechange-yes,
+    .ac-availability-yes { color: #4ade80; font-weight: 900; text-shadow: 0 0 8px rgba(74, 222, 128, 0.35); }
+    .ac-availability-no { color: #fb7185; font-weight: 900; text-shadow: 0 0 8px rgba(251, 113, 133, 0.25); }
+    .ac-feature-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 8px 10px;
+      border: 1px solid rgba(255,255,255,0.055);
+      border-radius: 10px;
+      background: rgba(255,255,255,0.022);
+    }
+    .ac-feature-row strong { color: #cbd7ed; }
 
-    .ac-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: auto; }
-    .ac-actions .btn { padding: 9px; font-size: 0.75rem; }
+    .ac-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: auto; }
+    .ac-actions .btn { min-width: 0; padding: 9px 8px; font-size: 0.72rem; white-space: nowrap; }
 
     /* Warranty Cards */
     .warranty-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; position: relative; z-index: 1; }
@@ -330,7 +555,369 @@
       .accounts-search { grid-column: auto; }
       .accounts-results { text-align: left; }
       .accounts-grid { grid-template-columns: 1fr; }
+      .account-card { padding: 17px; }
+      .ac-title-row { gap: 8px; }
+      .ac-level-title { font-size: 1rem; }
+      .ac-status { min-height: 29px; padding: 6px 8px; font-size: 0.61rem; }
+      .ac-premium-badge { font-size: 0.66rem; }
+      .ac-price { font-size: 1.36rem; }
+      .ac-account-id { font-size: 0.64rem; }
+      .ac-highlights { font-size: 0.79rem; }
     }
+
+
+    /* Inventory UX optimization: key facts, collapsible highlights, reset chips and mobile filter drawer */
+    .accounts-toolbar {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      min-height: 38px;
+      margin: 0 0 9px;
+      position: relative;
+      z-index: 3;
+    }
+    .inventory-reset-btn,
+    .active-filter-chip,
+    .ac-highlights-toggle,
+    .accounts-filter-close,
+    .mobile-filter-toggle {
+      font: inherit;
+    }
+    .inventory-reset-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      min-height: 36px;
+      padding: 7px 12px;
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.035);
+      color: #cbd7ed;
+      font-size: 0.72rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+    .inventory-reset-btn:hover:not(:disabled) {
+      color: #fff;
+      border-color: rgba(41,182,255,0.32);
+      background: rgba(41,182,255,0.08);
+    }
+    .inventory-reset-btn:disabled { opacity: 0.38; cursor: default; }
+    .accounts-filter-panel { position: relative; z-index: 4; }
+    .accounts-filter-drawer-header,
+    .accounts-drawer-footer,
+    .mobile-filter-toggle,
+    .accounts-filter-backdrop { display: none; }
+    .accounts-filter-panel .accounts-tools { margin-bottom: 10px; }
+
+    .active-account-filters {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 7px;
+      min-height: 30px;
+      margin: 0 0 8px;
+      position: relative;
+      z-index: 3;
+    }
+    .active-account-filters[hidden] { display: none; }
+    .active-filter-heading {
+      margin-inline-end: 2px;
+      color: #8392b1;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .active-filter-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      max-width: min(100%, 360px);
+      min-height: 29px;
+      padding: 5px 9px 5px 10px;
+      border: 1px solid rgba(41,182,255,0.2);
+      border-radius: 999px;
+      background: rgba(41,182,255,0.065);
+      color: #bfe9ff;
+      font-size: 0.69rem;
+      font-weight: 750;
+      line-height: 1.1;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+    .active-filter-chip:hover {
+      border-color: rgba(41,182,255,0.45);
+      background: rgba(41,182,255,0.12);
+    }
+    .active-filter-chip-label {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .active-filter-chip-x { color: #fff; font-size: 0.9rem; line-height: 1; }
+
+    .ac-keyfacts {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .ac-keyfact,
+    .ac-resource-strip {
+      min-width: 0;
+      border: 1px solid rgba(255,255,255,0.055);
+      border-radius: 11px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.027), rgba(255,255,255,0.012));
+    }
+    .ac-keyfact {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 3px;
+      min-height: 52px;
+      padding: 8px 10px;
+    }
+    .ac-keyfact-wide,
+    .ac-resource-strip { grid-column: 1 / -1; }
+    .ac-keyfact-label {
+      color: #7f8eac;
+      font-size: 0.61rem;
+      font-weight: 850;
+      letter-spacing: 0.07em;
+      line-height: 1.15;
+      text-transform: uppercase;
+    }
+    .ac-keyfact-value {
+      min-width: 0;
+      color: #dce8fb;
+      font-size: 0.77rem;
+      font-weight: 700;
+      line-height: 1.35;
+      overflow-wrap: anywhere;
+    }
+    .ac-keyfact-rank .ac-keyfact-value { color: #cbd8ef; }
+    .ac-resource-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      overflow: hidden;
+    }
+    .ac-resource-item {
+      min-width: 0;
+      padding: 8px 9px;
+      text-align: center;
+    }
+    .ac-resource-item + .ac-resource-item { border-inline-start: 1px solid rgba(255,255,255,0.055); }
+    .ac-resource-label {
+      display: block;
+      color: #7f8eac;
+      font-size: 0.57rem;
+      font-weight: 800;
+      letter-spacing: 0.045em;
+      line-height: 1.15;
+      text-transform: uppercase;
+    }
+    .ac-resource-value {
+      display: block;
+      margin-top: 3px;
+      color: #f1f6ff;
+      font-size: 0.79rem;
+      font-weight: 900;
+      line-height: 1.15;
+      white-space: nowrap;
+    }
+    .ac-keyfact.is-positive {
+      border-color: rgba(74,222,128,0.17);
+      background: rgba(74,222,128,0.035);
+    }
+    .ac-keyfact.is-negative { opacity: 0.8; }
+    .ac-keyfact.is-premium {
+      border-color: rgba(192,132,252,0.24);
+      background: rgba(192,132,252,0.055);
+    }
+
+    .ac-highlights { flex-grow: 0; padding: 0; overflow: hidden; }
+    .ac-highlights-content {
+      position: relative;
+      padding: 11px 12px;
+      transition: max-height 0.28s ease;
+    }
+    .ac-highlights-content.is-collapsed {
+      max-height: 10.15em;
+      overflow: hidden;
+    }
+    .ac-highlights-content.is-collapsed::after {
+      content: '';
+      position: absolute;
+      inset-inline: 0;
+      bottom: 0;
+      height: 3.5em;
+      pointer-events: none;
+      background: linear-gradient(to bottom, transparent, rgba(7,12,22,0.98));
+    }
+    .ac-highlights-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      min-height: 35px;
+      padding: 7px 10px;
+      border: 0;
+      border-top: 1px solid rgba(255,255,255,0.055);
+      background: rgba(255,255,255,0.025);
+      color: #8edcff;
+      font-size: 0.68rem;
+      font-weight: 850;
+      letter-spacing: 0.035em;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .ac-highlights-toggle:hover { color: #fff; background: rgba(41,182,255,0.07); }
+    .ac-highlights-toggle-arrow { transition: transform 0.2s ease; }
+    .ac-highlights-toggle.is-expanded .ac-highlights-toggle-arrow { transform: rotate(180deg); }
+
+    @media (max-width: 700px) {
+      body.filter-drawer-open { overflow: hidden; }
+      .accounts-toolbar { justify-content: flex-start; margin-bottom: 7px; }
+      .inventory-reset-btn { min-height: 34px; }
+      .accounts-filter-panel {
+        position: fixed;
+        z-index: 131;
+        inset-inline: 10px;
+        bottom: 0;
+        max-height: min(84vh, 720px);
+        padding: 16px 14px calc(14px + env(safe-area-inset-bottom));
+        border: 1px solid rgba(255,255,255,0.11);
+        border-bottom: 0;
+        border-radius: 22px 22px 0 0;
+        background: rgba(8,12,21,0.97);
+        box-shadow: 0 -20px 55px rgba(0,0,0,0.58);
+        backdrop-filter: blur(22px);
+        -webkit-backdrop-filter: blur(22px);
+        overflow-y: auto;
+        transform: translateY(calc(100% + 24px));
+        visibility: hidden;
+        transition: transform 0.3s cubic-bezier(0.2,0.8,0.2,1), visibility 0.3s;
+      }
+      body.filter-drawer-open .accounts-filter-panel {
+        transform: translateY(0);
+        visibility: visible;
+      }
+      .accounts-filter-backdrop {
+        display: block;
+        position: fixed;
+        z-index: 130;
+        inset: 0;
+        background: rgba(0,0,0,0.62);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.25s ease, visibility 0.25s;
+      }
+      body.filter-drawer-open .accounts-filter-backdrop { opacity: 1; visibility: visible; }
+      .accounts-filter-drawer-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 16px;
+        margin-bottom: 14px;
+      }
+      .accounts-filter-drawer-header strong {
+        display: block;
+        color: #fff;
+        font-size: 1rem;
+        line-height: 1.2;
+      }
+      .accounts-filter-drawer-header small {
+        display: block;
+        margin-top: 3px;
+        color: #8998b7;
+        font-size: 0.72rem;
+      }
+      .accounts-filter-close {
+        width: 34px;
+        height: 34px;
+        flex: 0 0 34px;
+        border: 1px solid rgba(255,255,255,0.09);
+        border-radius: 50%;
+        background: rgba(255,255,255,0.04);
+        color: #fff;
+        font-size: 1.15rem;
+        cursor: pointer;
+      }
+      .accounts-filter-panel .accounts-tools {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+        margin: 0;
+      }
+      .accounts-filter-panel .accounts-search { grid-column: auto; }
+      .accounts-drawer-footer {
+        display: block;
+        position: sticky;
+        bottom: calc(-14px - env(safe-area-inset-bottom));
+        margin: 15px -14px calc(-14px - env(safe-area-inset-bottom));
+        padding: 11px 14px calc(14px + env(safe-area-inset-bottom));
+        border-top: 1px solid rgba(255,255,255,0.08);
+        background: rgba(8,12,21,0.97);
+      }
+      .accounts-apply-btn { width: 100%; min-height: 44px; }
+      .mobile-filter-toggle {
+        display: inline-flex;
+        position: fixed;
+        z-index: 119;
+        inset-inline-end: 16px;
+        bottom: calc(16px + env(safe-area-inset-bottom));
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        min-height: 48px;
+        padding: 10px 15px;
+        border: 1px solid rgba(41,182,255,0.34);
+        border-radius: 999px;
+        background: linear-gradient(135deg, rgba(21,39,59,0.98), rgba(28,18,48,0.98));
+        color: #fff;
+        box-shadow: 0 12px 34px rgba(0,0,0,0.48), 0 0 22px rgba(41,182,255,0.14);
+        font-size: 0.75rem;
+        font-weight: 900;
+        letter-spacing: 0.035em;
+        cursor: pointer;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+      }
+      body.filter-drawer-open .mobile-filter-toggle { opacity: 0; pointer-events: none; transform: translateY(8px); }
+      .mobile-filter-icon { color: #62d3ff; font-size: 0.9rem; }
+      .mobile-filter-count {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 22px;
+        height: 22px;
+        padding: 0 6px;
+        border-radius: 999px;
+        background: #29b6ff;
+        color: #03111b;
+        font-size: 0.68rem;
+        font-weight: 950;
+      }
+      .mobile-filter-count[hidden] { display: none; }
+      .active-account-filters { margin-bottom: 10px; }
+      .active-filter-heading { width: 100%; }
+      .ac-keyfacts { gap: 7px; }
+      .ac-keyfact { min-height: 49px; padding: 8px 9px; }
+      .ac-resource-item { padding: 8px 5px; }
+      .ac-resource-label { font-size: 0.53rem; }
+      .ac-resource-value { font-size: 0.72rem; }
+    }
+
+    @media (max-width: 380px) {
+      .ac-keyfacts { grid-template-columns: 1fr; }
+      .ac-keyfact-wide,
+      .ac-resource-strip { grid-column: auto; }
+      .ac-resource-strip { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+
   </style>
 </head>
 <body>
@@ -391,35 +978,83 @@
         <h2 class="section-title" id="accountsTitle">Accounts</h2>
         <p class="section-desc" id="accountsDesc">Browse our currently available stock. Select an account and order via Discord.</p>
       </div>
-      <div class="accounts-tools" aria-label="Account inventory controls">
-        <input
-          class="accounts-control accounts-search"
-          id="accountSearch"
-          type="search"
-          placeholder="Search account keywords, e.g. Cyber Demon"
-          autocomplete="off"
-          aria-label="Search account keywords"
-        />
-        <select class="accounts-control" id="accountTypeFilter" aria-label="Filter account type">
-          <option value="all">All accounts</option>
-          <option value="ow1">OW1 accounts</option>
-          <option value="ow2">OW2 accounts</option>
-        </select>
-        <select class="accounts-control" id="accountSort" aria-label="Sort accounts">
-          <option value="id-asc">ID: Low to High</option>
-          <option value="id-desc">ID: High to Low</option>
-          <option value="level-asc">Level: Low to High</option>
-          <option value="level-desc">Level: High to Low</option>
-          <option value="playtime-asc">Playtime: Low to High</option>
-          <option value="playtime-desc">Playtime: High to Low</option>
-          <option value="price-asc">Price: Low to High</option>
-          <option value="price-desc">Price: High to Low</option>
-          <option value="credits-asc">Credits: Low to High</option>
-          <option value="credits-desc">Credits: High to Low</option>
-          <option value="coins-asc">Coins: Low to High</option>
-          <option value="coins-desc">Coins: High to Low</option>
-        </select>
+      <div class="accounts-toolbar">
+        <button class="inventory-reset-btn" id="resetAccountFilters" type="button" disabled>
+          <span aria-hidden="true">↺</span>
+          <span id="resetAccountFiltersLabel">Reset filters</span>
+        </button>
       </div>
+
+      <button
+        class="mobile-filter-toggle"
+        id="mobileFilterToggle"
+        type="button"
+        aria-controls="accountsFilterPanel"
+        aria-expanded="false"
+      >
+        <span class="mobile-filter-icon" aria-hidden="true">☰</span>
+        <span id="mobileFilterLabel">Filter &amp; Sort</span>
+        <span class="mobile-filter-count" id="mobileFilterCount" hidden>0</span>
+      </button>
+
+      <div class="accounts-filter-backdrop" id="accountsFilterBackdrop" aria-hidden="true"></div>
+      <div class="accounts-filter-panel" id="accountsFilterPanel" role="region" aria-labelledby="accountsFilterTitle">
+        <div class="accounts-filter-drawer-header">
+          <div>
+            <strong id="accountsFilterTitle">Filter &amp; Sort</strong>
+            <small id="accountsFilterSubtitle">Refine the inventory results</small>
+          </div>
+          <button class="accounts-filter-close" id="closeAccountFilters" type="button" aria-label="Close filters">×</button>
+        </div>
+
+        <div class="accounts-tools" aria-label="Account inventory controls">
+          <input
+            class="accounts-control accounts-search"
+            id="accountSearch"
+            type="search"
+            placeholder="Search account keywords, e.g. Cyber Demon"
+            autocomplete="off"
+            aria-label="Search account keywords"
+          />
+          <select class="accounts-control" id="accountTypeFilter" aria-label="Filter account type">
+            <option value="all">All accounts</option>
+            <option value="ow1">OW1 accounts</option>
+            <option value="ow2">OW2 accounts</option>
+          </select>
+          <select class="accounts-control" id="accountNameChangeFilter" aria-label="Filter free name change">
+            <option value="all">Free rename: All</option>
+            <option value="yes">Free rename: Yes</option>
+            <option value="no">Free rename: No</option>
+          </select>
+          <select class="accounts-control" id="accountTop500Filter" aria-label="Filter TOP500 eligibility">
+            <option value="all">TOP500 Eligible: All</option>
+            <option value="yes">TOP500 Eligible: Yes</option>
+            <option value="no">TOP500 Eligible: No</option>
+          </select>
+          <select class="accounts-control" id="accountSort" aria-label="Sort accounts">
+            <option value="id-asc">ID: Low to High</option>
+            <option value="id-desc">ID: High to Low</option>
+            <option value="level-asc">Level: Low to High</option>
+            <option value="level-desc">Level: High to Low</option>
+            <option value="playtime-asc">Playtime: Low to High</option>
+            <option value="playtime-desc">Playtime: High to Low</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="credits-asc">Credits: Low to High</option>
+            <option value="credits-desc">Credits: High to Low</option>
+            <option value="coins-asc">Coins: Low to High</option>
+            <option value="coins-desc">Coins: High to Low</option>
+          </select>
+        </div>
+
+        <div class="accounts-drawer-footer">
+          <button class="btn btn-primary accounts-apply-btn" id="applyAccountFilters" type="button">
+            <span id="applyAccountFiltersLabel">Show accounts</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="active-account-filters" id="activeAccountFilters" aria-live="polite" hidden></div>
       <div class="accounts-results" id="accountsResults" aria-live="polite"></div>
       <div class="accounts-grid" id="accountsGrid">
         <!-- Accounts will be dynamically injected here -->
@@ -612,6 +1247,27 @@
         return parseTaggedAmount(acct, 'coins', '(?:Overwatch\\s*)?Coins?');
       }
 
+      function getMythicPrisms(acct) {
+        const directValue = acct?.mythicPrisms ?? acct?.prisms;
+        if (directValue !== null && directValue !== undefined && String(directValue).trim() !== '') {
+          return parseNumber(directValue);
+        }
+        return parseTaggedAmount(acct, 'mythicPrisms', 'Mythic\\s+Prisms?');
+      }
+
+      function hasPremiumBattlePass(acct) {
+        const directValue = acct?.premiumBattlePass ?? acct?.premiumPass ?? acct?.battlePass;
+        if (directValue !== null && directValue !== undefined && String(directValue).trim() !== '') {
+          if (readBooleanFlag(directValue)) return true;
+          if (/premium|ultimate/i.test(String(directValue))) return true;
+        }
+        const searchableText = Object.values(acct ?? {})
+          .filter(value => value !== null && value !== undefined)
+          .join(' ')
+          .replace(/<[^>]*>/g, ' ');
+        return /\b(?:premium\s+(?:battle\s+pass|bp)|ultimate\s+bp)\b/i.test(searchableText);
+      }
+
       function getLevelTotal(acct) {
         const levelText = String(acct?.level ?? '').replace(/OW[12]/gi, '');
         const values = levelText.match(/\d+(?:\.\d+)?/g);
@@ -624,6 +1280,47 @@
         if (type === 'all') return true;
         const levelText = String(acct?.level ?? '').toLowerCase();
         return type === 'ow1' ? levelText.includes('ow1') : levelText.includes('ow2');
+      }
+
+      function readBooleanFlag(value) {
+        if (typeof value === 'boolean') return value;
+        if (typeof value === 'number') return value > 0;
+        const normalized = String(value ?? '')
+          .replace(/<[^>]*>/g, ' ')
+          .trim()
+          .toLowerCase();
+        if (!normalized) return false;
+        if (/^(?:✓|✔|yes|true|1|available|eligible|free)$/i.test(normalized)) return true;
+        if (/^(?:✘|✖|×|no|false|0|unavailable|not eligible|none)$/i.test(normalized)) return false;
+        return /(?:free\s+(?:name\s+)?change|name\s+change\s+available)/i.test(normalized);
+      }
+
+      function hasFreeNameChange(acct) {
+        const directValue = acct?.nameChange ?? acct?.freeNameChange ?? acct?.freeRename;
+        return readBooleanFlag(directValue);
+      }
+
+      function hasTop500Eligibility(acct) {
+        const directKeys = [
+          'top500Eligible', 'top500Eligiable', 'top500_eligible',
+          'top500Eligibility', 'top500', 'isTop500Eligible'
+        ];
+        for (const key of directKeys) {
+          if (acct?.[key] !== null && acct?.[key] !== undefined && String(acct[key]).trim() !== '') {
+            return readBooleanFlag(acct[key]);
+          }
+        }
+
+        const searchableText = Object.values(acct ?? {})
+          .filter(value => value !== null && value !== undefined)
+          .join(' ')
+          .replace(/<[^>]*>/g, ' ');
+        return /\btop\s*500(?:\s+challenger\s+tier)?\s+(?:eligible|eligiable)\b/i.test(searchableText);
+      }
+
+      function accountMatchesBooleanFilter(flag, filterValue) {
+        if (filterValue === 'all') return true;
+        return filterValue === 'yes' ? flag : !flag;
       }
 
       function accountMatchesSearch(acct, query) {
@@ -669,38 +1366,162 @@
         return result * directionFactor;
       }
 
+      function escapeUiText(value) {
+        return String(value ?? '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+      }
+
+      function getAccountFilterControls() {
+        return {
+          search: document.getElementById('accountSearch'),
+          type: document.getElementById('accountTypeFilter'),
+          rename: document.getElementById('accountNameChangeFilter'),
+          top500: document.getElementById('accountTop500Filter'),
+          sort: document.getElementById('accountSort')
+        };
+      }
+
+      function getActiveAccountFilters(ui = getAccountUiText()) {
+        const controls = getAccountFilterControls();
+        const active = [];
+        const query = controls.search?.value.trim() || '';
+        if (query) active.push({ key: 'search', label: `${ui.searchLabel}: ${query}` });
+        if (controls.type?.value && controls.type.value !== 'all') {
+          active.push({ key: 'type', label: controls.type.selectedOptions[0]?.textContent || controls.type.value });
+        }
+        if (controls.rename?.value && controls.rename.value !== 'all') {
+          active.push({ key: 'rename', label: controls.rename.selectedOptions[0]?.textContent || controls.rename.value });
+        }
+        if (controls.top500?.value && controls.top500.value !== 'all') {
+          active.push({ key: 'top500', label: controls.top500.selectedOptions[0]?.textContent || controls.top500.value });
+        }
+        if (controls.sort?.value && controls.sort.value !== 'id-asc') {
+          active.push({ key: 'sort', label: controls.sort.selectedOptions[0]?.textContent || controls.sort.value });
+        }
+        return active;
+      }
+
+      function updateAccountFilterUi(ui = getAccountUiText(), shownCount = null) {
+        const active = getActiveAccountFilters(ui);
+        const activeContainer = document.getElementById('activeAccountFilters');
+        const resetButton = document.getElementById('resetAccountFilters');
+        const countBadge = document.getElementById('mobileFilterCount');
+        const applyLabel = document.getElementById('applyAccountFiltersLabel');
+
+        if (activeContainer) {
+          activeContainer.hidden = active.length === 0;
+          activeContainer.innerHTML = active.length
+            ? `<span class="active-filter-heading">${escapeUiText(ui.activeFilters)}</span>` + active.map(item => `
+                <button class="active-filter-chip" type="button" data-clear-filter="${item.key}" title="${escapeUiText(ui.clearFilter)}">
+                  <span class="active-filter-chip-label">${escapeUiText(item.label)}</span>
+                  <span class="active-filter-chip-x" aria-hidden="true">×</span>
+                </button>`).join('')
+            : '';
+        }
+        if (resetButton) resetButton.disabled = active.length === 0;
+        if (countBadge) {
+          countBadge.hidden = active.length === 0;
+          countBadge.textContent = String(active.length);
+        }
+        if (applyLabel && shownCount !== null) {
+          applyLabel.textContent = ui.applyFilters.replace('{count}', String(shownCount));
+        }
+      }
+
+      function clearAccountFilter(key) {
+        const controls = getAccountFilterControls();
+        if (key === 'search' && controls.search) controls.search.value = '';
+        if (key === 'type' && controls.type) controls.type.value = 'all';
+        if (key === 'rename' && controls.rename) controls.rename.value = 'all';
+        if (key === 'top500' && controls.top500) controls.top500.value = 'all';
+        if (key === 'sort' && controls.sort) controls.sort.value = 'id-asc';
+        renderAccounts();
+      }
+
+      function resetAccountFilters() {
+        const controls = getAccountFilterControls();
+        if (controls.search) controls.search.value = '';
+        if (controls.type) controls.type.value = 'all';
+        if (controls.rename) controls.rename.value = 'all';
+        if (controls.top500) controls.top500.value = 'all';
+        if (controls.sort) controls.sort.value = 'id-asc';
+        renderAccounts();
+      }
+
+      function openAccountFilters() {
+        document.body.classList.add('filter-drawer-open');
+        document.getElementById('mobileFilterToggle')?.setAttribute('aria-expanded', 'true');
+        window.setTimeout(() => document.getElementById('accountSearch')?.focus({ preventScroll: true }), 180);
+      }
+
+      function closeAccountFilters({ restoreFocus = false } = {}) {
+        document.body.classList.remove('filter-drawer-open');
+        const toggle = document.getElementById('mobileFilterToggle');
+        toggle?.setAttribute('aria-expanded', 'false');
+        if (restoreFocus) toggle?.focus({ preventScroll: true });
+      }
+
+      window.refreshAccountFilterUi = () => updateAccountFilterUi(getAccountUiText());
+
       function renderAccounts() {
         const grid = document.getElementById('accountsGrid');
         const searchInput = document.getElementById('accountSearch');
         const typeFilter = document.getElementById('accountTypeFilter');
+        const nameChangeFilter = document.getElementById('accountNameChangeFilter');
+        const top500Filter = document.getElementById('accountTop500Filter');
         const sortSelect = document.getElementById('accountSort');
         const results = document.getElementById('accountsResults');
-        if (!grid || !searchInput || !typeFilter || !sortSelect || !results) return;
+        if (!grid || !searchInput || !typeFilter || !nameChangeFilter || !top500Filter || !sortSelect || !results) return;
 
+        const ui = getAccountUiText();
         const query = searchInput.value.trim().toLocaleLowerCase();
         const visibleAccounts = accountInventory.all
           .filter(acct => accountMatchesType(acct, typeFilter.value))
+          .filter(acct => accountMatchesBooleanFilter(hasFreeNameChange(acct), nameChangeFilter.value))
+          .filter(acct => accountMatchesBooleanFilter(hasTop500Eligibility(acct), top500Filter.value))
           .filter(acct => accountMatchesSearch(acct, query))
           .slice()
           .sort((a, b) => compareAccounts(a, b, sortSelect.value));
 
         grid.innerHTML = '';
-        results.textContent = `${visibleAccounts.length} / ${accountInventory.all.length} accounts`;
+        results.textContent = ui.results
+          .replace('{shown}', visibleAccounts.length)
+          .replace('{total}', accountInventory.all.length);
+        updateAccountFilterUi(ui, visibleAccounts.length);
 
         if (!visibleAccounts.length) {
-          grid.innerHTML = '<div class="accounts-empty">No accounts match the current search and filter.</div>';
+          grid.innerHTML = `<div class="accounts-empty">${ui.empty}</div>`;
           return;
         }
 
         visibleAccounts.forEach(acct => {
-            const { id, highlights = '', weapons = '', balance = '', rank = '', nameChange = '', screenshot = '' } = acct;
+            const { id, highlights = '', weapons = '', balance = '', rank = '', screenshot = '' } = acct;
             const level = String(acct.level ?? '');
             const status = String(acct.status ?? 'In Stock');
             const price = String(acct.price ?? '0');
+            const freeNameChange = hasFreeNameChange(acct);
+            const top500Eligible = hasTop500Eligibility(acct);
+            const creditsAmount = getCredits(acct);
+            const coinsAmount = getCoins(acct);
+            const playtimeAmount = getPlaytime(acct);
+            const mythicPrismsAmount = getMythicPrisms(acct);
+            const premiumBattlePass = hasPremiumBattlePass(acct);
 
             let statusClass = 'status-instock';
-            if (status.toLowerCase().includes('sold')) statusClass = 'status-sold';
-            if (status.toLowerCase().includes('pending')) statusClass = 'status-pending';
+            let statusText = status;
+            if (status.toLowerCase().includes('sold')) {
+              statusClass = 'status-sold';
+              statusText = ui.statusSold;
+            } else if (status.toLowerCase().includes('pending')) {
+              statusClass = 'status-pending';
+              statusText = ui.statusPending;
+            } else if (status.toLowerCase().includes('stock')) {
+              statusText = ui.statusInStock;
+            }
 
             // Determine if account is "valuable" (price > $100 or contains "Top 500")
             let isValuable = false;
@@ -804,6 +1625,14 @@
               if (!text) return '';
               let res = String(text);
               const protectedRanks = [];
+              const protectedReadyLabels = [];
+
+              // Fresh Rank Ready is a positive state and always uses the green status style.
+              res = res.replace(/\bFresh\s+Rank\s+Ready\b/gi, (match) => {
+                const token = `__FRESH_RANK_READY_${protectedReadyLabels.length}__`;
+                protectedReadyLabels.push(match);
+                return token;
+              });
 
               // Protect Master / Grandmaster / GM before applying the general color map.
               // This prevents the pink "Master" rule from creating nested/conflicting spans.
@@ -821,6 +1650,13 @@
                 res = res.replace(
                   `__RANK_COLOR_${index}__`,
                   `<span class="ac-highlight-rank-master">${rankText}</span>`
+                );
+              });
+
+              protectedReadyLabels.forEach((readyText, index) => {
+                res = res.replace(
+                  `__FRESH_RANK_READY_${index}__`,
+                  `<span class="ac-rank-ready">${readyText}</span>`
                 );
               });
 
@@ -871,37 +1707,185 @@
               return res;
             }
 
-            function highlightNameChangeText(text) {
-              if (!text) return '';
-              const value = String(text).trim();
-              if (value === '✓') {
-                return '<span class="ac-highlight-namechange-yes">✓</span>';
-              }
-              return text;
+            function formatAvailability(flag) {
+              return flag
+                ? `<span class="ac-availability-yes">✓ ${ui.yes}</span>`
+                : `<span class="ac-availability-no">✘ ${ui.no}</span>`;
             }
 
-            // Style the Level
-            let styledLevel = level;
-            if (isValuable) {
-              styledLevel = `<span style="color: #facc15; font-weight: 800; text-shadow: 0 0 8px rgba(250, 204, 21, 0.6);">Lv. ${level}</span>`;
-            } else if (/OW1/i.test(level)) {
-              styledLevel = `<span style="color: #facc15; font-weight: 800; text-shadow: 0 0 8px rgba(250, 204, 21, 0.4);">Lv. ${level}</span>`;
-            } else if (level) {
-              styledLevel = `<span style="color: #e2e8f0; font-weight: 600;">Lv. ${level}</span>`;
+            // Keep long level labels readable by separating the numeric level from metadata.
+            function escapeAccountText(value) {
+              return String(value ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
             }
-            styledLevel = applyColorMap(styledLevel);
 
-            // Highlight valuable skins automatically (lines with ✨)
-            let styledHighlights = highlights;
-            if (styledHighlights) {
-              styledHighlights = styledHighlights.split('<br>').map(line => {
-                let formattedLine = line;
-                if (formattedLine.includes('✨')) {
-                  formattedLine = `<span style="color: #facc15; font-weight: 600;">${formattedLine}</span>`;
+            function formatLevelDisplay(rawLevel) {
+              let normalized = String(rawLevel ?? '')
+                .replace(/<br\s*\/?\s*>/gi, ' ')
+                .replace(/\s+/g, ' ')
+                .trim();
+              const original = normalized;
+              const tags = [];
+
+              const isStacked = /\bstacked account\b/i.test(normalized);
+              normalized = normalized.replace(/\bstacked account\b/gi, ' ');
+
+              const borderMatches = normalized.match(/\b(?:bronze|silver|golden|gold|platinum|diamond)\s+border\b/gi) || [];
+              borderMatches.forEach(label => {
+                if (!tags.some(tag => tag.text.toLowerCase() === label.toLowerCase())) {
+                  tags.push({ text: label, className: 'border-tier' });
                 }
-                return applyColorMap(formattedLine);
-              }).join('<br>');
+              });
+              normalized = normalized.replace(/\b(?:bronze|silver|golden|gold|platinum|diamond)\s+border\b/gi, ' ');
+
+              const versions = [];
+              normalized = normalized.replace(/\bOW([12])\b/gi, (_, version) => {
+                const label = `OW${version}`;
+                if (!versions.includes(label)) versions.push(label);
+                return ' ';
+              });
+
+              normalized = normalized
+                .replace(/^\s*(?:level|lv\.?)\s*/i, '')
+                .replace(/\s*-\s*/g, ' ')
+                .replace(/\s*\+\s*/g, ' + ')
+                .replace(/\s+/g, ' ')
+                .replace(/^[+\-–—•·\s]+|[+\-–—•·\s]+$/g, '')
+                .trim();
+
+              versions.forEach(label => tags.unshift({ text: label, className: 'game-version' }));
+              if (isStacked) tags.push({ text: 'Stacked Account', className: 'stacked' });
+
+              const mainText = normalized ? `Lv. ${normalized}` : 'Lv. —';
+              return {
+                main: escapeAccountText(mainText),
+                title: escapeAccountText(original || mainText),
+                tags: tags.map(tag => `<span class="ac-level-tag ${tag.className}">${escapeAccountText(tag.text)}</span>`).join('')
+              };
             }
+
+            const levelDisplay = formatLevelDisplay(level);
+
+            // Highlight skin names while keeping hero names and common abbreviations neutral.
+            // Keep longer/more specific aliases before shorter ones to avoid partial matches.
+            const heroAliasPatterns = [
+              // Tank
+              'D\\.?\\s*Va',
+              'Wrecking\\s+Ball', 'Hammond', 'Ball',
+              'Junker\\s+Queen', 'Junk\\s+Queen', 'JQ',
+              'Reinhardt', 'Rein',
+              'Roadhog', 'Hog',
+              'Ramattra', 'Ram',
+              'Doomfist', 'Doom',
+              'Winston', 'Orisa', 'Zarya', 'Sigma', 'Sig', 'Mauga', 'Hazard',
+
+              // Damage
+              'Soldier\\s*:?\\s*76', 'Soldier', 'S\\s*76',
+              'Sojourn', 'Soj',
+              'Torbj[öo]rn', 'Torb',
+              'Widowmaker', 'Widow',
+              'Junkrat', 'Junk',
+              'Cassidy', 'Cass',
+              'Bastion', 'Genji', 'Hanzo', 'Mei', 'Pharah', 'Reaper',
+              'Sombra', 'Symmetra', 'Sym', 'Tracer', 'Venture', 'Vendetta',
+              'Ashe', 'Echo', 'Freja',
+
+              // Support
+              'Baptiste', 'Bap',
+              'Brigitte', 'Brig',
+              'Life\\s*weaver', 'LW',
+              'Zenyatta', 'Zen',
+              'L[úu]cio', 'Mercy', 'Moira', 'Ana', 'Illari', 'Juno',
+              'Kiriko', 'Kiri', 'Wuyang'
+            ];
+
+            const heroAliasPattern = `(?:${heroAliasPatterns.join('|')})`;
+            const heroSeparatorPattern = '(?:\\/|\\\\|•|&|\\band\\b)';
+            const heroSequencePattern = `${heroAliasPattern}(?:\\s*${heroSeparatorPattern}\\s*${heroAliasPattern})*\\s*(?:\\([^)]*\\))?`;
+            const heroSequenceRegex = new RegExp(`^${heroSequencePattern}$`, 'i');
+            const leadingHeroRegex = new RegExp(`^(${heroAliasPattern})(\\s+)(.+)$`, 'i');
+            const trailingHeroRegex = new RegExp(`^(.+?)(\\s+)(${heroSequencePattern})$`, 'i');
+            const attachedSoldier76Regex = /^(.+?)(\s*:\s*76)$/i;
+
+            function styleSkinItem(rawItem) {
+              const item = String(rawItem ?? '').trim();
+              if (!item) return '';
+
+              // A pure hero name or hero list stays in the regular text style.
+              if (heroSequenceRegex.test(item)) return escapeAccountText(item);
+
+              // Hero-first format, e.g. "D.Va LE SSERAFIM Bundle".
+              const leadingHero = item.match(leadingHeroRegex);
+              if (leadingHero && !heroSequenceRegex.test(leadingHero[3])) {
+                return `${escapeAccountText(leadingHero[1])}${escapeAccountText(leadingHero[2])}<span class="ac-skin-name">${escapeAccountText(leadingHero[3])}</span>`;
+              }
+
+              // Skin-first format, including abbreviated hero suffixes such as
+              // "Queen/Rugby JQ", "Bounty Hunter Bap" and "Cardboard Rein/Brig".
+              const trailingHero = item.match(trailingHeroRegex);
+              if (trailingHero) {
+                return `<span class="ac-skin-name">${escapeAccountText(trailingHero[1])}</span>${escapeAccountText(trailingHero[2])}${escapeAccountText(trailingHero[3])}`;
+              }
+
+              // Soldier: 76 is often shortened in the source data to ":76",
+              // e.g. "Biker:76" or "Infinite Guard: 76".
+              const attachedSoldier76 = item.match(attachedSoldier76Regex);
+              if (attachedSoldier76 && attachedSoldier76[1].trim()) {
+                return `<span class="ac-skin-name">${escapeAccountText(attachedSoldier76[1].trimEnd())}</span>${escapeAccountText(attachedSoldier76[2])}`;
+              }
+
+              // No explicit hero marker is present, so treat the item as a skin name.
+              return `<span class="ac-skin-name">${escapeAccountText(item)}</span>`;
+            }
+
+            function styleSkinDescriptionLine(rawLine) {
+              const line = String(rawLine ?? '').replace(/^\s*✨\s*/, '').trim();
+              let category = '';
+              let body = line;
+              const categoryMatch = line.match(/^([^,:]{2,48}):\s*(.+)$/);
+              if (categoryMatch && /(?:skins?|owcs|owl|owwc|mvp|all[- ]?stars?|team|decennium)/i.test(categoryMatch[1])) {
+                category = categoryMatch[1].trim();
+                body = categoryMatch[2].trim();
+              }
+
+              const styledItems = body
+                .split(/\s*,\s*/)
+                .map(styleSkinItem)
+                .filter(Boolean)
+                .join('<span aria-hidden="true">, </span>');
+
+              const categoryHtml = category
+                ? `<span class="ac-skin-category">${escapeAccountText(category)}:</span> `
+                : '';
+              return `<span class="ac-highlight-line ac-skin-line"><span class="ac-highlight-icon">✨</span>${categoryHtml}${styledItems}</span>`;
+            }
+
+            const highlightLines = String(highlights || '')
+              .split(/<br\s*\/?\s*>/i)
+              .map(line => line.trim())
+              .filter(Boolean);
+            const styledHighlights = highlightLines
+              .map(line => {
+                if (/^\s*✨/.test(line)) return styleSkinDescriptionLine(line);
+                return `<span class="ac-highlight-line">${applyColorMap(line)}</span>`;
+              })
+              .join('');
+            const highlightsPlainLength = String(highlights || '').replace(/<[^>]*>/g, ' ').length;
+            const highlightsCollapsible = highlightLines.length > 5 || highlightsPlainLength > 430;
+
+            const numberFormatter = new Intl.NumberFormat(document.documentElement.lang || 'en');
+            const compactRank = String(rank || '').replace(/<br\s*\/?\s*>/gi, ' • ');
+            const rankFact = compactRank ? highlightRankText(compactRank) : '—';
+            const premiumFact = premiumBattlePass
+              ? `<div class="ac-keyfact is-premium"><span class="ac-keyfact-label">${ui.premiumPass}</span><span class="ac-keyfact-value ac-availability-yes">✓ ${ui.yes}</span></div>`
+              : '';
+            const prismsFact = mythicPrismsAmount > 0
+              ? `<div class="ac-keyfact is-premium"><span class="ac-keyfact-label">${ui.mythicPrisms}</span><span class="ac-keyfact-value ac-highlight-mythic-prisms">${numberFormatter.format(mythicPrismsAmount)}</span></div>`
+              : '';
 
             const card = document.createElement('div');
             card.className = 'account-card';
@@ -912,30 +1896,90 @@
             }
             
             card.innerHTML = `
-              <div class="ac-header" style="flex-direction: column; align-items: flex-start; gap: 8px;">
-                <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
-                  <h3 style="margin: 0; font-size: 1.4rem; color: #fff;">${styledLevel}</h3>
-                  <span class="ac-status ${statusClass}">${status}</span>
+              <div class="ac-header">
+                <div class="ac-title-row">
+                  <div class="ac-title-block">
+                    <h3 class="ac-level-title ${isValuable ? 'is-valuable' : ''}" title="${levelDisplay.title}">
+                      <span class="ac-level-main">${levelDisplay.main}</span>
+                    </h3>
+                    ${levelDisplay.tags ? `<div class="ac-level-meta">${levelDisplay.tags}</div>` : ''}
+                  </div>
+                  <span class="ac-status ${statusClass}">${statusText}</span>
                 </div>
-                ${isValuable ? '<div style="background: linear-gradient(90deg, #facc15, #fbbf24); color: #000; padding: 3px 8px; border-radius: 4px; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 0 8px rgba(250, 204, 21, 0.5);">🔥 Premium Account</div>' : ''}
+                ${isValuable ? '<div class="ac-premium-badge">🔥 ' + ui.premiumAccount + '</div>' : ''}
               </div>
-              <div class="ac-price" style="font-size: 1.6rem; margin: 10px 0;">${price} <span style="font-size: 1rem; color: #94a3b8; font-weight: normal;">(ID: #${id})</span></div>
-              <div class="ac-highlights">${styledHighlights}</div>
+              <div class="ac-price-row">
+                <div class="ac-price">${price}</div>
+                <div class="ac-account-id">ID #${id}</div>
+              </div>
+              <div class="ac-keyfacts">
+                <div class="ac-keyfact ac-keyfact-wide ac-keyfact-rank">
+                  <span class="ac-keyfact-label">${ui.rank}</span>
+                  <span class="ac-keyfact-value">${rankFact}</span>
+                </div>
+                <div class="ac-resource-strip">
+                  <div class="ac-resource-item">
+                    <span class="ac-resource-label">${ui.credits}</span>
+                    <span class="ac-resource-value">${numberFormatter.format(creditsAmount)}</span>
+                  </div>
+                  <div class="ac-resource-item">
+                    <span class="ac-resource-label">${ui.coins}</span>
+                    <span class="ac-resource-value">${numberFormatter.format(coinsAmount)}</span>
+                  </div>
+                  <div class="ac-resource-item">
+                    <span class="ac-resource-label">${ui.playtime}</span>
+                    <span class="ac-resource-value">${numberFormatter.format(playtimeAmount)}H</span>
+                  </div>
+                </div>
+                <div class="ac-keyfact ${freeNameChange ? 'is-positive' : 'is-negative'}">
+                  <span class="ac-keyfact-label">${ui.freeRename}</span>
+                  <span class="ac-keyfact-value">${formatAvailability(freeNameChange)}</span>
+                </div>
+                <div class="ac-keyfact ${top500Eligible ? 'is-positive' : 'is-negative'}">
+                  <span class="ac-keyfact-label">${ui.top500Eligible}</span>
+                  <span class="ac-keyfact-value">${formatAvailability(top500Eligible)}</span>
+                </div>
+                ${prismsFact}
+                ${premiumFact}
+              </div>
+              ${styledHighlights ? `
+                <div class="ac-highlights">
+                  <div class="ac-highlights-content ${highlightsCollapsible ? 'is-collapsed' : ''}">${styledHighlights}</div>
+                  ${highlightsCollapsible ? `
+                    <button class="ac-highlights-toggle" type="button" aria-expanded="false">
+                      <span class="ac-highlights-toggle-label">${ui.showMore}</span>
+                      <span class="ac-highlights-toggle-arrow" aria-hidden="true">⌄</span>
+                    </button>` : ''}
+                </div>` : ''}
               <div class="ac-details">
-                ${rank ? `<div class="ac-detail"><strong>Rank:</strong><br>${highlightRankText(rank)}</div>` : ''}
-                ${balance ? `<div class="ac-detail" style="margin-top: 8px;"><strong>Balance & Playtime:</strong><br>${highlightBalanceText(balance)}</div>` : ''}
-                ${weapons ? `<div class="ac-detail" style="margin-top: 8px;"><strong>Weapons:</strong><br>${applyColorMap(weapons)}</div>` : ''}
-                ${nameChange ? `<div class="ac-detail" style="margin-top: 8px;"><strong>Name Change:</strong> ${highlightNameChangeText(nameChange)}</div>` : ''}
-
+                ${balance ? `<div class="ac-detail"><strong>${ui.balancePlaytime}:</strong><br>${highlightBalanceText(balance)}</div>` : ''}
+                ${weapons ? `<div class="ac-detail"><strong>${ui.weapons}:</strong><br>${applyColorMap(weapons)}</div>` : ''}
               </div>
               <div class="ac-actions">
-                <a href="${screenshot && screenshot.includes('http') ? screenshot.match(/https?:\/\/[^\s]+/)[0] : '#'}" target="_blank" class="btn btn-outline" ${!(screenshot && screenshot.includes('http')) ? 'onclick="alert(\'Imgur link is missing from this account!\'); return false;"' : ''}>📸 View Skins</a>
-                <a href="https://discord.gg/WYqfYXW29U" target="_blank" class="btn btn-primary">Buy Now</a>
+                <a href="${screenshot && screenshot.includes('http') ? screenshot.match(/https?:\/\/[^\s]+/)[0] : '#'}" target="_blank" class="btn btn-outline" ${!(screenshot && screenshot.includes('http')) ? 'data-missing-screenshot="true"' : ''}>📸 ${ui.viewSkins}</a>
+                <a href="https://discord.gg/WYqfYXW29U" target="_blank" class="btn btn-primary">${ui.buyNow}</a>
               </div>
             `;
+            const highlightsToggle = card.querySelector('.ac-highlights-toggle');
+            const highlightsContent = card.querySelector('.ac-highlights-content');
+            highlightsToggle?.addEventListener('click', () => {
+              const willExpand = highlightsToggle.getAttribute('aria-expanded') !== 'true';
+              highlightsToggle.setAttribute('aria-expanded', String(willExpand));
+              highlightsToggle.classList.toggle('is-expanded', willExpand);
+              highlightsContent?.classList.toggle('is-collapsed', !willExpand);
+              const label = highlightsToggle.querySelector('.ac-highlights-toggle-label');
+              if (label) label.textContent = willExpand ? ui.showLess : ui.showMore;
+            });
+
+            card.querySelector('[data-missing-screenshot]')?.addEventListener('click', (event) => {
+              event.preventDefault();
+              alert(ui.missingScreenshot);
+            });
             grid.appendChild(card);
           });
       }
+
+      window.renderAccounts = renderAccounts;
 
       async function loadAccounts() {
         try {
@@ -948,14 +1992,36 @@
           console.error('Error fetching accounts:', error);
           const grid = document.getElementById('accountsGrid');
           const results = document.getElementById('accountsResults');
-          if (results) results.textContent = '0 accounts';
-          if (grid) grid.innerHTML = '<div class="accounts-empty">Unable to load account inventory.</div>';
+          const ui = getAccountUiText();
+          if (results) results.textContent = ui.results.replace('{shown}', '0').replace('{total}', '0');
+          if (grid) grid.innerHTML = `<div class="accounts-empty">${ui.loadError}</div>`;
         }
       }
 
       document.getElementById('accountSearch')?.addEventListener('input', renderAccounts);
       document.getElementById('accountTypeFilter')?.addEventListener('change', renderAccounts);
+      document.getElementById('accountNameChangeFilter')?.addEventListener('change', renderAccounts);
+      document.getElementById('accountTop500Filter')?.addEventListener('change', renderAccounts);
       document.getElementById('accountSort')?.addEventListener('change', renderAccounts);
+      document.getElementById('resetAccountFilters')?.addEventListener('click', resetAccountFilters);
+      document.getElementById('activeAccountFilters')?.addEventListener('click', (event) => {
+        const chip = event.target.closest('[data-clear-filter]');
+        if (chip) clearAccountFilter(chip.dataset.clearFilter);
+      });
+      document.getElementById('mobileFilterToggle')?.addEventListener('click', openAccountFilters);
+      document.getElementById('closeAccountFilters')?.addEventListener('click', () => closeAccountFilters({ restoreFocus: true }));
+      document.getElementById('accountsFilterBackdrop')?.addEventListener('click', () => closeAccountFilters({ restoreFocus: true }));
+      document.getElementById('applyAccountFilters')?.addEventListener('click', () => closeAccountFilters({ restoreFocus: true }));
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && document.body.classList.contains('filter-drawer-open')) {
+          closeAccountFilters({ restoreFocus: true });
+        }
+      });
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 700 && document.body.classList.contains('filter-drawer-open')) {
+          closeAccountFilters();
+        }
+      });
       loadAccounts();
     });
 
@@ -1035,7 +2101,10 @@
       fr: {
         metaTitle:"Roshine Account Store",
         metaDesc:"Comptes Overwatch premium avec livraison sécurisée.",
-        nav: { home:"Accueil", services:"Services", warranty:"Garantie", faq:"FAQ", contact:"Contact" },
+        nav: { home:"Accueil", accounts:"Comptes", services:"Services", warranty:"Garantie", faq:"FAQ", contact:"Contact" },
+        accountsKicker:"🎮 INVENTAIRE",
+        accountsTitle:"Comptes",
+        accountsDesc:"Parcourez les comptes actuellement disponibles, utilisez les filtres, puis commandez via Discord.",
         auth:"Authenticator",
         heroKicker:"⚡ Fiable depuis 2021",
         heroTitle:"ROSHINE",
@@ -1096,7 +2165,10 @@
       de: {
         metaTitle:"Roshine Account Store",
         metaDesc:"Premium-Overwatch-Konten mit sicherer Übergabe.",
-        nav: { home:"Home", services:"Services", warranty:"Garantie", faq:"FAQ", contact:"Kontakt" },
+        nav: { home:"Home", accounts:"Accounts", services:"Services", warranty:"Garantie", faq:"FAQ", contact:"Kontakt" },
+        accountsKicker:"🎮 INVENTAR",
+        accountsTitle:"Accounts",
+        accountsDesc:"Durchsuche den verfügbaren Bestand, nutze die Filter und bestelle anschließend über Discord.",
         auth:"Authenticator",
         heroKicker:"⚡ Vertrauenswürdig seit 2021",
         heroTitle:"ROSHINE",
@@ -1157,7 +2229,10 @@
       ar: {
         metaTitle:"Roshine Account Store",
         metaDesc:"حسابات أوفرواتش مميزة مع تسليم آمن.",
-        nav: { home:"الرئيسية", services:"الخدمات", warranty:"الضمان", faq:"الأسئلة", contact:"تواصل" },
+        nav: { home:"الرئيسية", accounts:"الحسابات", services:"الخدمات", warranty:"الضمان", faq:"الأسئلة", contact:"تواصل" },
+        accountsKicker:"🎮 المخزون",
+        accountsTitle:"الحسابات",
+        accountsDesc:"تصفّح الحسابات المتاحة حاليًا، واستخدم الفلاتر، ثم اطلب عبر Discord.",
         auth:"Authenticator",
         heroKicker:"⚡ موثوق منذ 2021",
         heroTitle:"ROSHINE",
@@ -1277,6 +2352,166 @@
       }
     };
 
+    const accountUiI18n = {
+      en: {
+        toolsAria:"Account inventory controls",
+        filterSort:"Filter & Sort", filterSubtitle:"Refine the inventory results", resetFilters:"Reset filters", closeFilters:"Close filters",
+        activeFilters:"Active filters", clearFilter:"Remove this filter", searchLabel:"Search", applyFilters:"Show {count} accounts",
+        showMore:"Show more skins", showLess:"Show fewer skins", playtime:"Playtime", credits:"Credits", coins:"Coins",
+        mythicPrisms:"Mythic Prisms", premiumPass:"Premium BP",
+        searchPlaceholder:"Search account keywords, e.g. Cyber Demon",
+        searchAria:"Search account keywords",
+        typeAria:"Filter account type",
+        typeOptions:["All accounts", "OW1 accounts", "OW2 accounts"],
+        renameAria:"Filter free name change",
+        renameOptions:["Free rename: All", "Free rename: Yes", "Free rename: No"],
+        top500Aria:"Filter TOP500 eligibility",
+        top500Options:["TOP500 Eligible: All", "TOP500 Eligible: Yes", "TOP500 Eligible: No"],
+        sortAria:"Sort accounts",
+        sortOptions:[
+          "ID: Low to High", "ID: High to Low", "Level: Low to High", "Level: High to Low",
+          "Playtime: Low to High", "Playtime: High to Low", "Price: Low to High", "Price: High to Low",
+          "Credits: Low to High", "Credits: High to Low", "Coins: Low to High", "Coins: High to Low"
+        ],
+        results:"{shown} / {total} accounts",
+        empty:"No accounts match the current search and filters.",
+        loadError:"Unable to load account inventory.",
+        rank:"Rank", balancePlaytime:"Balance & Playtime", weapons:"Weapons",
+        freeRename:"Free rename", top500Eligible:"TOP500 Eligible",
+        yes:"Yes", no:"No", viewSkins:"View Skins", buyNow:"Buy Now",
+        missingScreenshot:"The screenshot link is missing from this account.",
+        premiumAccount:"Premium Account", statusInStock:"In Stock", statusSold:"Sold", statusPending:"Pending"
+      },
+      fr: {
+        toolsAria:"Contrôles de l’inventaire des comptes",
+        filterSort:"Filtres et tri", filterSubtitle:"Affinez les résultats de l’inventaire", resetFilters:"Réinitialiser", closeFilters:"Fermer les filtres",
+        activeFilters:"Filtres actifs", clearFilter:"Retirer ce filtre", searchLabel:"Recherche", applyFilters:"Afficher {count} comptes",
+        showMore:"Afficher plus de skins", showLess:"Afficher moins de skins", playtime:"Temps de jeu", credits:"Crédits", coins:"Coins",
+        mythicPrisms:"Prismes mythiques", premiumPass:"Pass premium",
+        searchPlaceholder:"Rechercher un mot-clé, ex. Cyber Demon",
+        searchAria:"Rechercher dans les comptes",
+        typeAria:"Filtrer le type de compte",
+        typeOptions:["Tous les comptes", "Comptes OW1", "Comptes OW2"],
+        renameAria:"Filtrer le changement de nom gratuit",
+        renameOptions:["Renommage gratuit : Tous", "Renommage gratuit : Oui", "Renommage gratuit : Non"],
+        top500Aria:"Filtrer l’éligibilité TOP500",
+        top500Options:["Éligible TOP500 : Tous", "Éligible TOP500 : Oui", "Éligible TOP500 : Non"],
+        sortAria:"Trier les comptes",
+        sortOptions:[
+          "ID : croissant", "ID : décroissant", "Niveau : croissant", "Niveau : décroissant",
+          "Temps de jeu : croissant", "Temps de jeu : décroissant", "Prix : croissant", "Prix : décroissant",
+          "Crédits : croissant", "Crédits : décroissant", "Coins : croissant", "Coins : décroissant"
+        ],
+        results:"{shown} / {total} comptes",
+        empty:"Aucun compte ne correspond à la recherche et aux filtres actuels.",
+        loadError:"Impossible de charger l’inventaire des comptes.",
+        rank:"Rang", balancePlaytime:"Solde et temps de jeu", weapons:"Armes",
+        freeRename:"Renommage gratuit", top500Eligible:"Éligible TOP500",
+        yes:"Oui", no:"Non", viewSkins:"Voir les skins", buyNow:"Acheter",
+        missingScreenshot:"Le lien de capture est absent pour ce compte.",
+        premiumAccount:"Compte Premium", statusInStock:"En stock", statusSold:"Vendu", statusPending:"En attente"
+      },
+      de: {
+        toolsAria:"Steuerung des Account-Inventars",
+        filterSort:"Filtern & sortieren", filterSubtitle:"Inventarergebnisse eingrenzen", resetFilters:"Filter zurücksetzen", closeFilters:"Filter schließen",
+        activeFilters:"Aktive Filter", clearFilter:"Diesen Filter entfernen", searchLabel:"Suche", applyFilters:"{count} Accounts anzeigen",
+        showMore:"Mehr Skins anzeigen", showLess:"Weniger Skins anzeigen", playtime:"Spielzeit", credits:"Credits", coins:"Coins",
+        mythicPrisms:"Mythische Prismen", premiumPass:"Premium-BP",
+        searchPlaceholder:"Accounts durchsuchen, z. B. Cyber Demon",
+        searchAria:"Accounts nach Stichwort durchsuchen",
+        typeAria:"Accounttyp filtern",
+        typeOptions:["Alle Accounts", "OW1-Accounts", "OW2-Accounts"],
+        renameAria:"Kostenlose Umbenennung filtern",
+        renameOptions:["Kostenlose Umbenennung: Alle", "Kostenlose Umbenennung: Ja", "Kostenlose Umbenennung: Nein"],
+        top500Aria:"TOP500-Berechtigung filtern",
+        top500Options:["TOP500-berechtigt: Alle", "TOP500-berechtigt: Ja", "TOP500-berechtigt: Nein"],
+        sortAria:"Accounts sortieren",
+        sortOptions:[
+          "ID: aufsteigend", "ID: absteigend", "Level: aufsteigend", "Level: absteigend",
+          "Spielzeit: aufsteigend", "Spielzeit: absteigend", "Preis: aufsteigend", "Preis: absteigend",
+          "Credits: aufsteigend", "Credits: absteigend", "Coins: aufsteigend", "Coins: absteigend"
+        ],
+        results:"{shown} / {total} Accounts",
+        empty:"Keine Accounts entsprechen der aktuellen Suche und den Filtern.",
+        loadError:"Das Account-Inventar konnte nicht geladen werden.",
+        rank:"Rang", balancePlaytime:"Guthaben & Spielzeit", weapons:"Waffen",
+        freeRename:"Kostenlose Umbenennung", top500Eligible:"TOP500-berechtigt",
+        yes:"Ja", no:"Nein", viewSkins:"Skins ansehen", buyNow:"Jetzt kaufen",
+        missingScreenshot:"Für diesen Account fehlt der Screenshot-Link.",
+        premiumAccount:"Premium-Account", statusInStock:"Auf Lager", statusSold:"Verkauft", statusPending:"Ausstehend"
+      },
+      ar: {
+        toolsAria:"أدوات التحكم في مخزون الحسابات",
+        filterSort:"تصفية وترتيب", filterSubtitle:"تخصيص نتائج المخزون", resetFilters:"إعادة ضبط الفلاتر", closeFilters:"إغلاق الفلاتر",
+        activeFilters:"الفلاتر النشطة", clearFilter:"إزالة هذا الفلتر", searchLabel:"البحث", applyFilters:"عرض {count} حساب",
+        showMore:"عرض المزيد من السكنات", showLess:"عرض سكنات أقل", playtime:"وقت اللعب", credits:"Credits", coins:"Coins",
+        mythicPrisms:"Mythic Prisms", premiumPass:"Premium BP",
+        searchPlaceholder:"ابحث بكلمة مفتاحية، مثل Cyber Demon",
+        searchAria:"البحث في الحسابات بالكلمات المفتاحية",
+        typeAria:"تصفية نوع الحساب",
+        typeOptions:["كل الحسابات", "حسابات OW1", "حسابات OW2"],
+        renameAria:"تصفية تغيير الاسم المجاني",
+        renameOptions:["تغيير اسم مجاني: الكل", "تغيير اسم مجاني: نعم", "تغيير اسم مجاني: لا"],
+        top500Aria:"تصفية أهلية TOP500",
+        top500Options:["مؤهل TOP500: الكل", "مؤهل TOP500: نعم", "مؤهل TOP500: لا"],
+        sortAria:"ترتيب الحسابات",
+        sortOptions:[
+          "المعرّف: تصاعدي", "المعرّف: تنازلي", "المستوى: تصاعدي", "المستوى: تنازلي",
+          "وقت اللعب: تصاعدي", "وقت اللعب: تنازلي", "السعر: تصاعدي", "السعر: تنازلي",
+          "Credits: تصاعدي", "Credits: تنازلي", "Coins: تصاعدي", "Coins: تنازلي"
+        ],
+        results:"{shown} / {total} حساب",
+        empty:"لا توجد حسابات تطابق البحث والفلاتر الحالية.",
+        loadError:"تعذر تحميل مخزون الحسابات.",
+        rank:"الرتبة", balancePlaytime:"الرصيد ووقت اللعب", weapons:"الأسلحة",
+        freeRename:"تغيير اسم مجاني", top500Eligible:"مؤهل TOP500",
+        yes:"نعم", no:"لا", viewSkins:"عرض السكنات", buyNow:"اشترِ الآن",
+        missingScreenshot:"رابط الصور غير متوفر لهذا الحساب.",
+        premiumAccount:"حساب مميز", statusInStock:"متوفر", statusSold:"مباع", statusPending:"قيد الانتظار"
+      },
+      zh: {
+        toolsAria:"账号库存筛选与排序",
+        filterSort:"筛选与排序", filterSubtitle:"快速缩小库存范围", resetFilters:"清除筛选", closeFilters:"关闭筛选",
+        activeFilters:"当前筛选", clearFilter:"移除此筛选条件", searchLabel:"检索", applyFilters:"查看 {count} 个账号",
+        showMore:"展开更多皮肤", showLess:"收起皮肤详情", playtime:"游戏时长", credits:"Credits", coins:"Coins",
+        mythicPrisms:"神话棱晶", premiumPass:"高级通行证",
+        searchPlaceholder:"检索账号关键词，例如 Cyber Demon",
+        searchAria:"检索账号关键词",
+        typeAria:"筛选账号类型",
+        typeOptions:["全部账号", "OW1 账号", "OW2 账号"],
+        renameAria:"筛选是否有免费改名",
+        renameOptions:["免费改名：全部", "免费改名：有", "免费改名：无"],
+        top500Aria:"筛选是否具有 TOP500 资格",
+        top500Options:["TOP500 资格：全部", "TOP500 资格：有", "TOP500 资格：无"],
+        sortAria:"账号排序",
+        sortOptions:[
+          "编号：从小到大", "编号：从大到小", "等级：从低到高", "等级：从高到低",
+          "游戏时长：从少到多", "游戏时长：从多到少", "价格：从低到高", "价格：从高到低",
+          "Credits：从少到多", "Credits：从多到少", "Coins：从少到多", "Coins：从多到少"
+        ],
+        results:"显示 {shown} / 共 {total} 个账号",
+        empty:"没有符合当前检索及筛选条件的账号。",
+        loadError:"账号库存加载失败。",
+        rank:"段位", balancePlaytime:"余额与游戏时长", weapons:"武器",
+        freeRename:"免费改名", top500Eligible:"TOP500 资格",
+        yes:"有", no:"无", viewSkins:"查看皮肤", buyNow:"立即购买",
+        missingScreenshot:"该账号暂未提供皮肤截图链接。",
+        premiumAccount:"精品账号", statusInStock:"有库存", statusSold:"已售出", statusPending:"待处理"
+      }
+    };
+
+    function getAccountUiText(lang = document.documentElement.lang) {
+      return accountUiI18n[lang] || accountUiI18n.en;
+    }
+
+    function setSelectOptionText(selectId, labels) {
+      const select = document.getElementById(selectId);
+      if (!select) return;
+      labels.forEach((label, index) => {
+        if (select.options[index]) select.options[index].textContent = label;
+      });
+    }
+
     function detectLang(){
       const urlLang = new URLSearchParams(window.location.search).get("lang");
       if (urlLang && i18n[urlLang]) return urlLang;
@@ -1385,6 +2620,39 @@
       if (t.accountsKicker) document.getElementById("accountsKicker").textContent = t.accountsKicker;
       if (t.accountsTitle) document.getElementById("accountsTitle").textContent = t.accountsTitle;
       if (t.accountsDesc) document.getElementById("accountsDesc").textContent = t.accountsDesc;
+
+      const accountUi = getAccountUiText(lang);
+      const accountTools = document.querySelector('.accounts-tools');
+      const accountSearch = document.getElementById('accountSearch');
+      const accountTypeFilter = document.getElementById('accountTypeFilter');
+      const accountNameChangeFilter = document.getElementById('accountNameChangeFilter');
+      const accountTop500Filter = document.getElementById('accountTop500Filter');
+      const accountSort = document.getElementById('accountSort');
+      const mobileFilterLabel = document.getElementById('mobileFilterLabel');
+      const resetAccountFiltersLabel = document.getElementById('resetAccountFiltersLabel');
+      const accountsFilterTitle = document.getElementById('accountsFilterTitle');
+      const accountsFilterSubtitle = document.getElementById('accountsFilterSubtitle');
+      const closeAccountFilters = document.getElementById('closeAccountFilters');
+      if (mobileFilterLabel) mobileFilterLabel.textContent = accountUi.filterSort;
+      if (resetAccountFiltersLabel) resetAccountFiltersLabel.textContent = accountUi.resetFilters;
+      if (accountsFilterTitle) accountsFilterTitle.textContent = accountUi.filterSort;
+      if (accountsFilterSubtitle) accountsFilterSubtitle.textContent = accountUi.filterSubtitle;
+      if (closeAccountFilters) closeAccountFilters.setAttribute('aria-label', accountUi.closeFilters);
+      if (accountTools) accountTools.setAttribute('aria-label', accountUi.toolsAria);
+      if (accountSearch) {
+        accountSearch.placeholder = accountUi.searchPlaceholder;
+        accountSearch.setAttribute('aria-label', accountUi.searchAria);
+      }
+      if (accountTypeFilter) accountTypeFilter.setAttribute('aria-label', accountUi.typeAria);
+      if (accountNameChangeFilter) accountNameChangeFilter.setAttribute('aria-label', accountUi.renameAria);
+      if (accountTop500Filter) accountTop500Filter.setAttribute('aria-label', accountUi.top500Aria);
+      if (accountSort) accountSort.setAttribute('aria-label', accountUi.sortAria);
+      setSelectOptionText('accountTypeFilter', accountUi.typeOptions);
+      setSelectOptionText('accountNameChangeFilter', accountUi.renameOptions);
+      setSelectOptionText('accountTop500Filter', accountUi.top500Options);
+      setSelectOptionText('accountSort', accountUi.sortOptions);
+      window.refreshAccountFilterUi?.();
+      window.renderAccounts?.();
 
       document.getElementById("servicesKicker").textContent = t.servicesKicker;
       document.getElementById("servicesTitle").textContent = t.servicesTitle;
