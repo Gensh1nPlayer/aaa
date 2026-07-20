@@ -489,6 +489,14 @@
       color: transparent;
       text-shadow: 0 0 12px rgba(167, 139, 250, 0.3);
     }
+    .ac-special-weapon-choice {
+      background: linear-gradient(90deg, #facc15 0 30%, #4ade80 40% 62%, #c084fc 72% 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-weight: 900;
+      text-shadow: 0 0 10px rgba(103, 232, 249, 0.22);
+    }
     .ac-skin-category {
       color: #67e8f9;
       font-weight: 800;
@@ -789,6 +797,18 @@
       background: rgba(192,132,252,0.055);
     }
 
+    .ac-keyfact-boolean {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      min-height: 48px;
+    }
+    .ac-keyfact-boolean .ac-keyfact-label { min-width: 0; }
+    .ac-keyfact-boolean .ac-keyfact-value {
+      flex: 0 0 auto;
+      white-space: nowrap;
+    }
     .ac-highlights { flex-grow: 0; padding: 0; overflow: hidden; }
     .ac-highlights-content {
       position: relative;
@@ -1343,6 +1363,24 @@
         return readBooleanFlag(directValue);
       }
 
+      const TOP500_ELIGIBILITY_PATTERN = /\btop\s*500(?:\s+(?:challenger\s+tier\s+eligible|eligible))?\b/i;
+      const TOP500_NEGATIVE_PATTERNS = [
+        /\b(?:no|not|without)\s+top\s*500(?:\s+(?:challenger\s+tier\s+eligible|eligible))?\b/gi,
+        /\btop\s*500(?:\s+(?:challenger\s+tier\s+eligible|eligible))?\s*(?:[:=\-]\s*)?(?:no|false|ineligible|not\s+eligible)\b/gi
+      ];
+
+      function containsTop500EligibilityKeyword(value) {
+        let normalized = String(value ?? '')
+          .replace(/<[^>]*>/g, ' ')
+          .replace(/\s+/g, ' ')
+          .trim();
+        if (!normalized) return false;
+        TOP500_NEGATIVE_PATTERNS.forEach(pattern => {
+          normalized = normalized.replace(pattern, ' ');
+        });
+        return TOP500_ELIGIBILITY_PATTERN.test(normalized);
+      }
+
       function hasTop500Eligibility(acct) {
         const directKeys = [
           'top500Eligible', 'top500Eligiable', 'top500_eligible',
@@ -1352,22 +1390,17 @@
         for (const key of directKeys) {
           const rawValue = acct?.[key];
           if (rawValue === null || rawValue === undefined || String(rawValue).trim() === '') continue;
-          const valueText = String(rawValue).replace(/<[^>]*>/g, ' ').trim();
           if (readBooleanFlag(rawValue)) return true;
-          if (!/\b(?:no|not|without)\s+top\s*500\b/i.test(valueText) && /\btop\s*500\b/i.test(valueText)) {
-            return true;
-          }
+          if (containsTop500EligibilityKeyword(rawValue)) return true;
         }
 
         const searchableText = Object.values(acct ?? {})
           .filter(value => value !== null && value !== undefined)
-          .join(' ')
-          .replace(/<[^>]*>/g, ' ')
-          .replace(/\b(?:no|not|without)\s+top\s*500(?:\s+(?:eligible|eligibility|eligiable))?\b/gi, ' ');
+          .join(' ');
 
-        // Any positive TOP 500 description counts as eligible, including plain
-        // "TOP 500" and the longer Eligible / Challenger Tier variants.
-        return /\btop\s*500\b/i.test(searchableText);
+        // Accepted keywords (case-insensitive): TOP 500, Top 500,
+        // Top 500 Eligible, and Top 500 Challenger Tier Eligible.
+        return containsTop500EligibilityKeyword(searchableText);
       }
 
       function accountMatchesBooleanFilter(flag, filterValue) {
@@ -1578,7 +1611,23 @@
             let isValuable = false;
             let numPrice = parseFloat(price.replace(/[^0-9.]/g, ''));
             if (!isNaN(numPrice) && numPrice >= 100) isValuable = true;
-            if (highlights && /Top 500/i.test(highlights)) isValuable = true;
+            if (top500Eligible) isValuable = true;
+
+            // Shared priority color rules. These are protected before the broader
+            // legacy replacements run, preventing nested spans and color overrides.
+            const specialSkinRules = [
+              {
+                pattern: /\b(?:Pink\s+Mercy|Noire|Los\s+Muertos\s+Weapon|LE\s+SSERAFIM|Nerf\s+Gelfire\s+Pro\s+Weapon|Hard\s+Light\s+Weapon|Nerf\s+Sungerang\s+Weapon|Ange\s+de\s+la\s+Mort|Rose\s+Gold|Thunder|Haroeris|Luchador|All[-\s]Stars|OWL\s+Tokens|Good\s+and\s+Evil|Mayhem\s+Biker|Mythic\s+Prisms)(?![A-Za-z0-9_])/gi,
+                className: 'ac-special-skin-pink'
+              },
+              { pattern: /\bMidas(?![A-Za-z0-9_])/gi, className: 'ac-special-skin-gold' },
+              { pattern: /\bHeart\s+of\s+Hope(?![A-Za-z0-9_])/gi, className: 'ac-special-skin-hope' },
+              {
+                pattern: /\b(?:Cyber\s+Demon|Zeus|Amaterasu|Galactic\s+Emperor|Adventurer|A-7000\s+Wargod|Onryō|Grand\s+Beast|Ancient\s+Caller|Vengeance|Calamity\s+Empress|Anubis|Spellbinder|Thor|Pixiu|Horang|Ultraviolet\s+Sentinel|Divine\s+Druid|Cyber\s+Fuel|Divine\s+Desperado|Magma\s+Titan|Celestial\s+Guardian|Hop\s+Online!|Volted\s+Overdrive|Ra|Ascendant\s+Phoenix|World\s+Forger|Bound\s+Demon|Midnight\s+Sun|Deliverance|Lead\s+Rose|Dame\s+Chance|Merciful\s+Magitech|Steel\s+Death|Gilded|Iridescent|Dawn|Blazing\s+Sunsetter|Spirit\s+Keeper|Star\s+Shooter|Sumi-ichimonji)(?![A-Za-z0-9_])/gi,
+                className: 'ac-special-skin-mythic'
+              }
+            ];
+            const specialWeaponChoicePattern = /\bChoice\s+of\s+(?:1|2)\s+(?:additional\s+)?Gold\s*\/\s*Jade\s*\/\s*Galactic\s+Weapon(?:\s+Skins?)?\b/gi;
 
             // Custom Color Dictionary
             function applyColorMap(text) {
@@ -1593,13 +1642,16 @@
                 });
               };
 
-              // Protect priority skins before the broader legacy rules run.
-              // This avoids rules such as "Pink" or "Master" creating nested spans.
-              protectSpecialSkin(/\bPink\s+Mercy\b/gi, 'ac-special-skin-pink');
-              protectSpecialSkin(/\bRose\s+Gold\b/gi, 'ac-special-skin-pink');
-              protectSpecialSkin(/\bMidas\b/gi, 'ac-special-skin-gold');
-              protectSpecialSkin(/\bHeart\s+of\s+Hope\b/gi, 'ac-special-skin-hope');
-              protectSpecialSkin(/\bDivine\s+Druid\b/gi, 'ac-special-skin-mythic');
+              // Protect all configured special series before broader terms such as
+              // "Pink", "Master" and "Galactic" are processed.
+              specialSkinRules.forEach(rule => protectSpecialSkin(rule.pattern, rule.className));
+
+              const protectedWeaponChoices = [];
+              res = res.replace(specialWeaponChoicePattern, match => {
+                const token = `__COLOR_WEAPON_CHOICE_${protectedWeaponChoices.length}__`;
+                protectedWeaponChoices.push(match);
+                return token;
+              });
 
               // Red
 			  res = res.replace(/Top 500 Challenger Tier/g, '<span style="color: #ef4444; font-weight: 700;">Top 500 Challenger Tier</span>');
@@ -1691,6 +1743,12 @@
                 res = res.replace(
                   `__COLOR_SPECIAL_SKIN_${index}__`,
                   `<span class="ac-special-skin ${entry.className}">${entry.match}</span>`
+                );
+              });
+              protectedWeaponChoices.forEach((match, index) => {
+                res = res.replace(
+                  `__COLOR_WEAPON_CHOICE_${index}__`,
+                  `<span class="ac-special-weapon-choice">${match}</span>`
                 );
               });
               return res;
@@ -1887,15 +1945,6 @@
             const trailingHeroRegex = new RegExp(`^(.+?)(\\s+)(${heroSequencePattern})$`, 'i');
             const attachedSoldier76Regex = /^(.+?)(\s*:\s*76)$/i;
 
-            const specialSkinRules = [
-              { pattern: /\bPink\s+Mercy\b/gi, className: 'ac-special-skin-pink' },
-              { pattern: /\bRose\s+Gold\b/gi, className: 'ac-special-skin-pink' },
-              { pattern: /\bMidas\b/gi, className: 'ac-special-skin-gold' },
-              { pattern: /\bHeart\s+of\s+Hope\b/gi, className: 'ac-special-skin-hope' },
-              { pattern: /\bDivine\s+Druid\b/gi, className: 'ac-special-skin-mythic' },
-              { pattern: /\b(?:Galactic\s+Emperor|Anubis|Calamity\s+Empress|A-7000\s+Wargod|Amaterasu|Vengeance|Lead\s+Rose|Ultraviolet\s+Sentinel|Zeus|Adventurer|Deliverance|Steel\s+Death|Onryō|Pixiu|Blazing\s+Sunsetter|Celestial\s+Guardian|Ancient\s+Caller|Midnight\s+Sun|Spellbinder|Cyber\s+Demon|Thor|Grand\s+Beast|Spirit\s+Keeper|Horang|Cyber\s+Fuel|Star\s+Shooter|Hop\s+Online!|Sumi-ichimonji)\b/gi, className: 'ac-special-skin-mythic' }
-            ];
-
             function styleSkinName(rawName) {
               let styled = escapeAccountText(rawName);
               const protectedMatches = [];
@@ -1921,6 +1970,10 @@
             function styleSkinItem(rawItem) {
               const item = String(rawItem ?? '').trim();
               if (!item) return '';
+
+              // Pink Mercy is a complete skin name, not the adjective "Pink"
+              // followed by the hero name "Mercy". Handle it before hero parsing.
+              if (/\bPink\s+Mercy\b/i.test(item)) return styleSkinName(item);
 
               // A pure hero name or hero list stays in the regular text style.
               if (heroSequenceRegex.test(item)) return escapeAccountText(item);
@@ -2035,11 +2088,11 @@
                     <span class="ac-resource-value">${numberFormatter.format(playtimeAmount)}H</span>
                   </div>
                 </div>
-                <div class="ac-keyfact ${freeNameChange ? 'is-positive' : 'is-negative'}">
+                <div class="ac-keyfact ac-keyfact-boolean ${freeNameChange ? 'is-positive' : 'is-negative'}">
                   <span class="ac-keyfact-label">${ui.freeRename}</span>
                   <span class="ac-keyfact-value">${formatAvailability(freeNameChange)}</span>
                 </div>
-                <div class="ac-keyfact ${top500Eligible ? 'is-positive' : 'is-negative'}">
+                <div class="ac-keyfact ac-keyfact-boolean ${top500Eligible ? 'is-positive' : 'is-negative'}">
                   <span class="ac-keyfact-label">${ui.top500Eligible}</span>
                   <span class="ac-keyfact-value">${formatAvailability(top500Eligible)}</span>
                 </div>
