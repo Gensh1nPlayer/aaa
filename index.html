@@ -5,6 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Roshine Account Store</title>
   <meta name="description" content="Premium Overwatch accounts with secure delivery." />
+  <meta name="theme-color" content="#05060b" />
+  <link rel="canonical" href="https://roshine.love/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://roshine.love/" />
+  <meta property="og:title" content="Roshine Account Store" />
+  <meta property="og:description" content="Curated Overwatch accounts with clear listings, secure handover, and long-term support." />
+  <meta property="og:image" content="https://roshine.love/assets/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Roshine Account Store" />
+  <meta name="twitter:description" content="Curated Overwatch accounts with clear listings, secure handover, and long-term support." />
+  <meta name="twitter:image" content="https://roshine.love/assets/og.png" />
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
@@ -83,6 +94,15 @@
     a { text-decoration: none; color: inherit; }
     ul, ol { list-style: none; }
     .container { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+    .skip-link {
+      position: fixed; top: 12px; left: 12px; z-index: 1000;
+      padding: 10px 16px; border-radius: 10px; background: #fff; color: #05060b;
+      font-weight: 800; transform: translateY(-160%); transition: transform 0.2s ease;
+    }
+    .skip-link:focus { transform: translateY(0); }
+    :where(a, button, select, input):focus-visible { outline: 3px solid #67e8f9; outline-offset: 3px; }
+    .section { scroll-margin-top: 105px; content-visibility: auto; contain-intrinsic-size: 700px; }
+    .hero { content-visibility: visible; }
 
     .header {
       position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
@@ -101,6 +121,7 @@
     .nav a:hover { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
 
     .header-actions { display: flex; gap: 12px; align-items: center; }
+    .mobile-menu-toggle, .mobile-nav { display: none; }
     .lang-select {
       background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border);
       color: var(--text); padding: 8px 16px; border-radius: 20px;
@@ -601,6 +622,23 @@
     @media (max-width: 900px) {
       .header { width: 95%; padding: 10px 16px; }
       .header .nav { display: none; }
+      .mobile-menu-toggle {
+        width: 42px; height: 42px; display: inline-flex; align-items: center; justify-content: center;
+        border: 1px solid var(--glass-border); border-radius: 50%; background: rgba(255,255,255,0.05);
+        color: #fff; cursor: pointer; font: inherit; font-size: 1.2rem;
+      }
+      .mobile-nav {
+        position: fixed; top: 84px; left: 2.5%; right: 2.5%; z-index: 99;
+        padding: 12px; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px;
+        background: rgba(9, 12, 22, 0.96); border: 1px solid var(--glass-border); border-radius: 18px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.45); backdrop-filter: blur(18px);
+      }
+      .mobile-nav[data-open="true"] { display: grid; }
+      .mobile-nav a {
+        min-height: 44px; display: flex; align-items: center; justify-content: center;
+        border-radius: 12px; color: var(--text-muted); font-weight: 700;
+      }
+      .mobile-nav a:hover { color: #fff; background: rgba(255,255,255,0.06); }
       .hero { padding: 160px 0 100px; }
       .glass-panel { padding: 32px 20px; }
       .accounts-tools { grid-template-columns: 1fr 1fr; }
@@ -622,6 +660,16 @@
       .ac-price { font-size: 1.36rem; }
       .ac-account-id { font-size: 0.64rem; }
       .ac-highlights { font-size: 0.79rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      #bg-canvas { display: none; }
     }
 
 
@@ -993,6 +1041,8 @@
 </head>
 <body>
 
+  <a class="skip-link" href="#main-content">Skip to inventory</a>
+
   <div class="bg-animation">
     <canvas id="bg-canvas"></canvas>
     <div class="bg-animation-3"></div>
@@ -1001,10 +1051,10 @@
 
   <!-- Header -->
   <header class="header">
-    <div class="brand">
-      <img src="./assets/logo.png" alt="Logo">
+    <a class="brand" href="#home" aria-label="Roshine home">
+      <img src="./assets/logo.png" alt="" width="32" height="32">
       <span class="name" id="brandText">ROSHINE.</span>
-    </div>
+    </a>
     <nav class="nav">
       <a href="/" id="navHome">Home</a>
       <a href="#accounts" id="navAccounts">Accounts</a>
@@ -1013,6 +1063,7 @@
       <a href="#faq" id="navFaq">FAQ</a>
       <a href="#contact" id="navContact">Contact</a>
     </nav>
+    <button class="mobile-menu-toggle" id="mobileMenuToggle" type="button" aria-controls="mobileNav" aria-expanded="false" aria-label="Open navigation">☰</button>
     <div class="header-actions">
       <select class="lang-select" id="langSelect" aria-label="Language">
         <option value="en">EN</option>
@@ -1027,7 +1078,17 @@
     </div>
   </header>
 
-  <main class="container">
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation" data-open="false">
+    <a href="#home">Home</a>
+    <a href="#accounts">Accounts</a>
+    <a href="#services">Services</a>
+    <a href="#warranty">Warranty</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact">Contact</a>
+    <a href="./auth/">Authenticator</a>
+  </nav>
+
+  <main class="container" id="main-content" tabindex="-1">
     
     <!-- Hero -->
     <section class="hero" id="home">
@@ -1038,7 +1099,7 @@
         Since 2021, Roshine Account Store has delivered curated Overwatch accounts with a streamlined purchase flow and long-term support. Five years in operation, built for consistency, clarity, and buyer confidence.
       </p>
       <div class="hero-cta" id="heroCta">
-          <a href="https://roshine.love/#accounts" class="btn btn-primary" id="ctaExplore">View Stock &amp; Purchase</a>
+          <a href="#accounts" class="btn btn-primary" id="ctaExplore">View Stock &amp; Purchase</a>
       </div>
     </section>
 
@@ -1235,6 +1296,9 @@
       const ctx = canvas.getContext('2d');
       let width, height;
       const drops = [];
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      let rainFrame = 0;
+      let resizeTimer = 0;
 
       function initRain() {
         width = canvas.width = window.innerWidth || document.documentElement.clientWidth || 1080;
@@ -1254,9 +1318,10 @@
         }
       }
 
-      window.addEventListener('resize', initRain);
-      window.addEventListener('load', initRain);
-      initRain();
+      const scheduleRainResize = () => {
+        window.clearTimeout(resizeTimer);
+        resizeTimer = window.setTimeout(initRain, 120);
+      };
 
       function drawRain() {
         ctx.clearRect(0, 0, width, height);
@@ -1274,10 +1339,42 @@
             drop.x = Math.random() * width;
           }
         });
-        requestAnimationFrame(drawRain);
+        rainFrame = requestAnimationFrame(drawRain);
       }
-      drawRain();
+      if (!prefersReducedMotion.matches) {
+        window.addEventListener('resize', scheduleRainResize, { passive: true });
+        initRain();
+        drawRain();
+      } else {
+        canvas.hidden = true;
+      }
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          cancelAnimationFrame(rainFrame);
+        } else if (!prefersReducedMotion.matches) {
+          cancelAnimationFrame(rainFrame);
+          drawRain();
+        }
+      });
       // ---------------------------------
+
+      const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+      const mobileNav = document.getElementById('mobileNav');
+      const closeMobileNav = ({ restoreFocus = false } = {}) => {
+        mobileNav?.setAttribute('data-open', 'false');
+        mobileMenuToggle?.setAttribute('aria-expanded', 'false');
+        mobileMenuToggle?.setAttribute('aria-label', 'Open navigation');
+        if (restoreFocus) mobileMenuToggle?.focus();
+      };
+      mobileMenuToggle?.addEventListener('click', () => {
+        const willOpen = mobileMenuToggle.getAttribute('aria-expanded') !== 'true';
+        mobileMenuToggle.setAttribute('aria-expanded', String(willOpen));
+        mobileMenuToggle.setAttribute('aria-label', willOpen ? 'Close navigation' : 'Open navigation');
+        mobileNav?.setAttribute('data-open', String(willOpen));
+      });
+      mobileNav?.addEventListener('click', event => {
+        if (event.target.closest('a')) closeMobileNav();
+      });
 
       const accountInventory = {
         all: [],
@@ -1632,7 +1729,7 @@
             // Custom Color Dictionary
             function applyColorMap(text) {
               if (!text) return text;
-              let res = text;
+              let res = escapeAccountText(text);
               const protectedSpecialSkins = [];
               const protectSpecialSkin = (pattern, className) => {
                 res = res.replace(pattern, match => {
@@ -1799,7 +1896,7 @@
 
             function highlightBalanceText(text) {
               if (!text) return '';
-              let res = String(text);
+              let res = escapeAccountText(text);
 
               // Playtime greater than 300H: yellow
               res = res.replace(/(\d[\d,]*)\s*H\b/gi, (match, rawNum) => {
@@ -1857,6 +1954,15 @@
                 .replace(/'/g, '&#039;');
             }
 
+            function safeExternalUrl(value) {
+              try {
+                const url = new URL(String(value || ''), window.location.href);
+                return /^(https?):$/.test(url.protocol) ? url.href : '';
+              } catch {
+                return '';
+              }
+            }
+
             function formatLevelDisplay(rawLevel) {
               let normalized = String(rawLevel ?? '')
                 .replace(/<br\s*\/?\s*>/gi, ' ')
@@ -1903,6 +2009,7 @@
             }
 
             const levelDisplay = formatLevelDisplay(level);
+            const screenshotUrl = safeExternalUrl(screenshot);
 
             // Highlight skin names while keeping hero names and common abbreviations neutral.
             // Keep longer/more specific aliases before shorter ones to avoid partial matches.
@@ -2061,13 +2168,13 @@
                     </h3>
                     ${levelDisplay.tags ? `<div class="ac-level-meta">${levelDisplay.tags}</div>` : ''}
                   </div>
-                  <span class="ac-status ${statusClass}">${statusText}</span>
+                  <span class="ac-status ${statusClass}">${escapeAccountText(statusText)}</span>
                 </div>
                 ${isValuable ? '<div class="ac-premium-badge">🔥 ' + ui.premiumAccount + '</div>' : ''}
               </div>
               <div class="ac-price-row">
-                <div class="ac-price">${price}</div>
-                <div class="ac-account-id">ID #${id}</div>
+                <div class="ac-price">${escapeAccountText(price)}</div>
+                <div class="ac-account-id">ID #${escapeAccountText(id)}</div>
               </div>
               <div class="ac-keyfacts">
                 <div class="ac-keyfact ac-keyfact-wide ac-keyfact-rank">
@@ -2112,8 +2219,8 @@
                 ${weapons ? `<div class="ac-detail"><strong>${ui.weapons}:</strong><br>${applyColorMap(weapons)}</div>` : ''}
               </div>
               <div class="ac-actions">
-                <a href="${screenshot && screenshot.includes('http') ? screenshot.match(/https?:\/\/[^\s]+/)[0] : '#'}" target="_blank" class="btn btn-outline" ${!(screenshot && screenshot.includes('http')) ? 'data-missing-screenshot="true"' : ''}>📸 ${ui.viewSkins}</a>
-                <a href="https://discord.gg/WYqfYXW29U" target="_blank" class="btn btn-primary">${ui.buyNow}</a>
+                <a href="${screenshotUrl || '#'}" target="_blank" rel="noopener noreferrer" class="btn btn-outline" ${!screenshotUrl ? 'data-missing-screenshot="true"' : ''}>📸 ${ui.viewSkins}</a>
+                <a href="https://discord.gg/WYqfYXW29U" target="_blank" rel="noopener noreferrer" class="btn btn-primary">${ui.buyNow}</a>
               </div>
             `;
             const highlightsToggle = card.querySelector('.ac-highlights-toggle');
@@ -2171,6 +2278,9 @@
       document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape' && document.body.classList.contains('filter-drawer-open')) {
           closeAccountFilters({ restoreFocus: true });
+        }
+        if (event.key === 'Escape' && mobileNav?.getAttribute('data-open') === 'true') {
+          closeMobileNav({ restoreFocus: true });
         }
       });
       window.addEventListener('resize', () => {
