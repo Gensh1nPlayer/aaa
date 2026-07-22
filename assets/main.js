@@ -1115,7 +1115,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const LANG_KEY = "roshine_lang";
     const LINKS = {
-      sheet: "https://docs.google.com/spreadsheets/d/1s9sxHj3EVNLUlRb3li9XV8QKBxr2jI0cr12tTgvnB3s/edit?gid=327074105#gid=327074105",
       discord: "https://discord.gg/WYqfYXW29U",
       email: "mailto:roshine_store@roshine.love",
       auth: "./auth/"
@@ -1143,7 +1142,7 @@ document.addEventListener("DOMContentLoaded", () => {
         servicesTitle:"Listings & Ordering",
         servicesDesc:"Browse our live inventory above, then order via Discord by sending the account ID or a screenshot.",
         servicesList:[
-          "📄 Open the listings and filter by price, rank, or skins.",
+          "📄 Browse the listings and filter by availability, game version, price, account features, or keywords.",
           "🧾 Copy the account ID (or screenshot the row you want).",
           "💬 Join Discord and send the ID/screenshot to confirm availability and total.",
           "✅ After payment, receive login info and the security handover package."
@@ -1171,11 +1170,34 @@ document.addEventListener("DOMContentLoaded", () => {
         faqKicker:"❓ FAQ",
         faqTitle:"Frequently Asked Questions",
         faqDesc:"Quick answers to the questions that most buyers ask before ordering.",
-        faq1:"How often is the list updated? — The Google Sheet is the source of truth, and sold accounts are marked quickly.",
-        faq2:"Payment methods? — Credit card, PayPal, crypto, and selected gift cards. Confirm availability and fees on Discord.",
-        faq3:"How fast is delivery? — Most orders are delivered within 5 minutes after payment. Rare top-tier accounts may require additional preparation time.",
-        faq4:"Are the accounts safe? — All accounts come from real players, not mass-produced scripts or studios. Each has normal usage history with no restrictions.",
-        faq5:"Authenticator? — A private tool for Battle.net Authenticator. Use the Authenticator, paste your Private Key from the account info you received, then copy the code into the Battle.net app to verify.",
+        faq1:"Are the accounts safe? — Every account comes from a real player and has a normal play history—not a scripted, botted, studio-farmed, or mass-produced account. We exclude accounts with known histories of cheating, abuse, or other rule violations. Key listing details can be cross-checked against official in-game and Battle.net records during verification.",
+        faq2:"How fast is delivery? — Most orders are delivered within 5 minutes after payment. Rare top-tier accounts may require additional preparation time.",
+        faq3:"Payment methods supported? — Credit card, PayPal, crypto, and selected gift cards. Confirm availability and fees on Discord.",
+        faq4:"How often is the stock updated? — Sales status is updated in real time as accounts are sold, while new stock is typically added every 7 days. The countdown above shows the next planned stock update.",
+        faq5:{
+          question:"How to use the Battle.net Authenticator?",
+          intro:"roshine.love/auth is a private tool for Battle.net Authenticator. Paste the Private Key from the delivered account information, then copy the current code into the Battle.net app when verification is requested.",
+          linkLabel:"roshine.love/auth",
+          sections:[
+            { icon:"📌", title:"Authenticator notice", items:["Codes refresh every 30 seconds.", "Each code can be used only once.", "If a code expires, wait for the next code and try again."] }
+          ]
+        },
+        faq6:{
+          question:"How do I log in to my Overwatch account?",
+          intro:"Use the Battle.net credentials supplied with the account and complete Authenticator verification only when the app requests it.",
+          sections:[{ icon:"🎮", title:"Overwatch account login", ordered:true, items:["Open the Battle.net Desktop App.", "Sign in with the provided Battle.net credentials.", "Complete verification with the current Authenticator code if requested."] }]
+        },
+        faq7:{
+          question:"How do I access the account email?",
+          intro:"Use the email information supplied with the account. The exact verification method depends on whether an authenticator is attached.",
+          sections:[{ icon:"✉️", title:"Account email access", items:["Sign in to live.com with the provided email details.", "If an authenticator is attached, use Google Authenticator and the provided QR code; otherwise sign in with the email and password.", "After access, add your own recovery email for better security."] }]
+        },
+        faq8:"When should I update the account security information? — Keep the same device and a stable IP, and wait about 7 days before changing the password, recovery email, region or other security settings. This reduces security locks and verification issues but cannot eliminate platform risk.",
+        faq9:{
+          question:"How do I keep the account secure?",
+          intro:"Save the delivered account information immediately and protect every login and recovery channel.",
+          sections:[{ icon:"🔐", title:"Account security recommendations", items:["Keep the email, authenticator and recovery details secure.", "Avoid public or unstable IP addresses, VPNs, proxies and shared networks.", "Never share the account information with others."] }]
+        },
         btnStock:"View stock",
         btnOrder:"Order via Discord",
 
@@ -1209,9 +1231,9 @@ document.addEventListener("DOMContentLoaded", () => {
         ctaExplore:"Voir le stock & acheter",
         servicesKicker:"✨ SERVICES",
         servicesTitle:"Liste & Commande",
-        servicesDesc:"Consultez l’inventaire en temps réel sur Google Sheet, puis commandez via Discord en envoyant l’ID ou une capture.",
+        servicesDesc:"Consultez l’inventaire disponible ci-dessus, puis commandez via Discord en envoyant l’ID du compte ou une capture.",
         servicesList:[
-          "📄 Ouvrez la liste et filtrez (prix, rang, skins).",
+          "📄 Parcourez les comptes et filtrez par disponibilité, version du jeu, prix, caractéristiques ou mots-clés.",
           "🧾 Copiez l’ID du compte (ou capturez la ligne).",
           "💬 Rejoignez Discord et envoyez l’ID/la capture pour confirmer.",
           "✅ Après paiement, recevez les accès et le pack de sécurité."
@@ -1239,11 +1261,34 @@ document.addEventListener("DOMContentLoaded", () => {
         faqKicker:"❓ FAQ",
         faqTitle:"Questions fréquentes",
         faqDesc:"Réponses rapides avant de passer commande.",
-        faq1:"Mise à jour de la liste ? — Google Sheet fait foi, et les comptes vendus sont marqués rapidement.",
-        faq2:"Paiement ? — Carte, PayPal, crypto et certaines cartes cadeaux. Disponibilité/frais à confirmer sur Discord.",
-        faq3:"Délai de livraison ? — La plupart des commandes sont livrées sous 5 minutes après paiement. Les comptes haut de gamme peuvent nécessiter un délai supplémentaire.",
-        faq4:"Les comptes sont-ils sûrs ? — Tous les comptes proviennent de vrais joueurs, pas de scripts ou productions de masse. Historique normal, sans restriction.",
-        faq5:"Authenticator ? — Outil privé pour Battle.net Authenticator. Utilisez la page Authenticator, collez votre Private Key, puis copiez le code dans l’app Battle.net pour valider.",
+        faq1:"Les comptes sont-ils sûrs ? — Chaque compte provient d’un vrai joueur et possède un historique de jeu normal ; il ne s’agit pas d’un compte scripté, automatisé, produit en ferme ou en masse. Nous excluons les comptes ayant un historique connu de triche, d’abus ou d’autres infractions. Les informations essentielles de l’annonce peuvent être recoupées avec les données officielles en jeu et Battle.net lors de la vérification.",
+        faq2:"Quel est le délai de livraison ? — La plupart des commandes sont livrées sous 5 minutes après paiement. Les comptes haut de gamme peuvent nécessiter un délai supplémentaire.",
+        faq3:"Quels moyens de paiement sont acceptés ? — Carte bancaire, PayPal, crypto et certaines cartes cadeaux. La disponibilité et les frais sont à confirmer sur Discord.",
+        faq4:"À quelle fréquence le stock est-il mis à jour ? — Le statut des ventes est actualisé en temps réel et de nouveaux comptes sont généralement ajoutés tous les 7 jours. Le compte à rebours ci-dessus indique la prochaine mise à jour prévue.",
+        faq5:{
+          question:"Comment utiliser Battle.net Authenticator ?",
+          intro:"roshine.love/auth est un outil privé pour Battle.net Authenticator. Collez la Private Key fournie avec le compte, puis copiez le code actuel dans l’application Battle.net lorsqu’une vérification est demandée.",
+          linkLabel:"roshine.love/auth",
+          sections:[
+            { icon:"📌", title:"Informations Authenticator", items:["Les codes sont renouvelés toutes les 30 secondes.", "Chaque code ne peut être utilisé qu’une seule fois.", "Si un code expire, attendez le suivant puis réessayez."] }
+          ]
+        },
+        faq6:{
+          question:"Comment se connecter au compte Overwatch ?",
+          intro:"Utilisez les identifiants Battle.net fournis avec le compte et effectuez la vérification Authenticator uniquement si l’application la demande.",
+          sections:[{ icon:"🎮", title:"Connexion au compte Overwatch", ordered:true, items:["Ouvrez l’application de bureau Battle.net.", "Connectez-vous avec les identifiants Battle.net fournis.", "Si demandé, terminez la vérification avec le code Authenticator actuel."] }]
+        },
+        faq7:{
+          question:"Comment accéder à l’e-mail du compte ?",
+          intro:"Utilisez les informations d’e-mail fournies avec le compte. La méthode de vérification dépend de la présence ou non d’un authentificateur.",
+          sections:[{ icon:"✉️", title:"Accès à l’e-mail du compte", items:["Connectez-vous à live.com avec les informations d’e-mail fournies.", "Si un authentificateur est associé, utilisez Google Authenticator et le QR code fourni ; sinon utilisez l’e-mail et le mot de passe.", "Après connexion, ajoutez votre propre e-mail de récupération."] }]
+        },
+        faq8:"Quand modifier les informations de sécurité du compte ? — Conservez le même appareil et une IP stable, puis attendez environ 7 jours avant de modifier le mot de passe, l’e-mail de récupération, la région ou d’autres réglages. Cela réduit les blocages et problèmes de vérification sans supprimer tout risque de plateforme.",
+        faq9:{
+          question:"Comment protéger le compte ?",
+          intro:"Enregistrez immédiatement les informations livrées et protégez tous les moyens de connexion et de récupération.",
+          sections:[{ icon:"🔐", title:"Recommandations de sécurité", items:["Protégez l’e-mail, l’authentificateur et les données de récupération.", "Évitez les IP publiques ou instables, VPN, proxys et réseaux partagés.", "Ne partagez jamais les informations du compte."] }]
+        },
         btnStock:"Voir le stock",
         btnOrder:"Commander via Discord",
 
@@ -1277,9 +1322,9 @@ document.addEventListener("DOMContentLoaded", () => {
         ctaExplore:"Bestand ansehen & kaufen",
         servicesKicker:"✨ SERVICES",
         servicesTitle:"Listings & Bestellung",
-        servicesDesc:"Inventar live im Google Sheet ansehen und dann per Discord bestellen (ID oder Screenshot senden).",
+        servicesDesc:"Sieh dir den verfügbaren Bestand oben an und bestelle anschließend per Discord mit Account-ID oder Screenshot.",
         servicesList:[
-          "📄 Listings öffnen und nach Preis, Rang oder Skins filtern.",
+          "📄 Accounts nach Verfügbarkeit, Spielversion, Preis, Merkmalen oder Stichwörtern filtern.",
           "🧾 Account-ID kopieren (oder Zeile screenshotten).",
           "💬 Discord beitreten und ID/Screenshot zur Bestätigung senden.",
           "✅ Nach Zahlung: Login-Daten und Sicherheits-Übergabepaket erhalten."
@@ -1307,11 +1352,34 @@ document.addEventListener("DOMContentLoaded", () => {
         faqKicker:"❓ FAQ",
         faqTitle:"Häufige Fragen",
         faqDesc:"Kurzantworten für den schnellen Kaufentscheid.",
-        faq1:"Wie oft wird aktualisiert? — Google Sheet ist maßgeblich, verkaufte Accounts werden schnell markiert.",
-        faq2:"Zahlung? — Karte, PayPal, Krypto und ausgewählte Geschenkkarten. Verfügbarkeit/Gebühren auf Discord bestätigen.",
-        faq3:"Wie schnell erfolgt die Lieferung? — Die meisten Bestellungen werden innerhalb von 5 Minuten nach Zahlung geliefert. Seltene High-Tier-Accounts können etwas mehr Zeit benötigen.",
-        faq4:"Sind die Accounts sicher? — Alle Accounts stammen von echten Spielern, nicht aus Script- oder Massenproduktion. Normale Nutzungshistorie, keine Einschränkungen.",
-        faq5:"Authenticator? — Privates Tool für Battle.net Authenticator. Öffne die Authenticator-Seite, füge den Private Key ein und kopiere den Code in die Battle.net App zur Verifizierung.",
+        faq1:"Sind die Accounts sicher? — Jeder Account stammt von einem echten Spieler und hat eine normale Spielhistorie; es handelt sich nicht um Script-, Bot-, Farm- oder Massenware. Accounts mit bekannter Cheat-, Missbrauchs- oder sonstiger Regelverstoß-Historie werden ausgeschlossen. Wichtige Angaben können bei der Prüfung mit offiziellen In-Game- und Battle.net-Daten abgeglichen werden.",
+        faq2:"Wie schnell erfolgt die Lieferung? — Die meisten Bestellungen werden innerhalb von 5 Minuten nach Zahlung geliefert. Seltene High-Tier-Accounts können etwas mehr Zeit benötigen.",
+        faq3:"Welche Zahlungsmethoden werden unterstützt? — Karte, PayPal, Krypto und ausgewählte Geschenkkarten. Verfügbarkeit und Gebühren bitte auf Discord bestätigen.",
+        faq4:"Wie oft wird der Bestand aktualisiert? — Der Verkaufsstatus wird in Echtzeit aktualisiert; neue Accounts werden in der Regel alle 7 Tage ergänzt. Der Countdown oben zeigt die nächste geplante Bestandsaktualisierung.",
+        faq5:{
+          question:"Wie wird der Battle.net Authenticator verwendet?",
+          intro:"roshine.love/auth ist ein privates Tool für Battle.net Authenticator. Füge den mit dem Account gelieferten Private Key ein und kopiere bei einer Abfrage den aktuellen Code in die Battle.net App.",
+          linkLabel:"roshine.love/auth",
+          sections:[
+            { icon:"📌", title:"Authenticator-Hinweise", items:["Codes werden alle 30 Sekunden erneuert.", "Jeder Code kann nur einmal verwendet werden.", "Ist ein Code abgelaufen, warte auf den nächsten und versuche es erneut."] }
+          ]
+        },
+        faq6:{
+          question:"Wie melde ich mich beim Overwatch-Account an?",
+          intro:"Nutze die mit dem Account gelieferten Battle.net-Zugangsdaten und bestätige den Authenticator-Code nur, wenn die App ihn anfordert.",
+          sections:[{ icon:"🎮", title:"Overwatch-Account anmelden", ordered:true, items:["Öffne die Battle.net Desktop App.", "Melde dich mit den gelieferten Battle.net-Zugangsdaten an.", "Schließe bei Bedarf die Prüfung mit dem aktuellen Authenticator-Code ab."] }]
+        },
+        faq7:{
+          question:"Wie greife ich auf die Account-E-Mail zu?",
+          intro:"Nutze die mit dem Account gelieferten E-Mail-Daten. Die Verifizierung hängt davon ab, ob ein Authenticator verknüpft ist.",
+          sections:[{ icon:"✉️", title:"Zugriff auf die Account-E-Mail", items:["Melde dich mit den gelieferten E-Mail-Daten bei live.com an.", "Ist ein Authenticator verknüpft, nutze Google Authenticator und den gelieferten QR-Code; andernfalls E-Mail und Passwort.", "Füge nach dem Zugriff deine eigene Recovery-E-Mail hinzu."] }]
+        },
+        faq8:"Wann sollte ich die Sicherheitsdaten ändern? — Nutze dasselbe Gerät und eine stabile IP und warte etwa 7 Tage, bevor du Passwort, Recovery-E-Mail, Region oder andere Sicherheitseinstellungen änderst. Das reduziert Sperren und Prüfprobleme, kann Plattformrisiken aber nicht ausschließen.",
+        faq9:{
+          question:"Wie halte ich den Account sicher?",
+          intro:"Speichere die gelieferten Informationen sofort und schütze alle Login- und Recovery-Wege.",
+          sections:[{ icon:"🔐", title:"Sicherheitsempfehlungen", items:["Schütze E-Mail, Authenticator und Recovery-Daten.", "Vermeide öffentliche oder instabile IPs, VPNs, Proxys und geteilte Netzwerke.", "Teile die Account-Informationen niemals mit anderen."] }]
+        },
         btnStock:"Bestand ansehen",
         btnOrder:"Über Discord bestellen",
 
@@ -1345,9 +1413,9 @@ document.addEventListener("DOMContentLoaded", () => {
         ctaExplore:"عرض المخزون والشراء",
         servicesKicker:"✨ الخدمات",
         servicesTitle:"القائمة والطلب",
-        servicesDesc:"تصفّح المخزون المباشر في Google Sheet ثم اطلب عبر Discord بإرسال ID أو لقطة شاشة.",
+        servicesDesc:"تصفّح المخزون المتاح أعلاه، ثم اطلب عبر Discord بإرسال ID الحساب أو لقطة شاشة.",
         servicesList:[
-          "📄 افتح القائمة وفلتر حسب السعر/الرتبة/الهيئات.",
+          "📄 تصفّح الحسابات وفلتر حسب التوفر وإصدار اللعبة والسعر والميزات أو الكلمات المفتاحية.",
           "🧾 انسخ ID الحساب (أو التقط لقطة للصف).",
           "💬 انضم إلى Discord وأرسل ID/اللقطة للتأكيد.",
           "✅ بعد الدفع: استلام بيانات الدخول وحزمة التسليم الأمني."
@@ -1375,11 +1443,34 @@ document.addEventListener("DOMContentLoaded", () => {
         faqKicker:"❓ الأسئلة",
         faqTitle:"الأسئلة الشائعة",
         faqDesc:"إجابات سريعة قبل الطلب.",
-        faq1:"كم يتم التحديث؟ — Google Sheet هو المرجع ويتم تمييز الحسابات المباعة بسرعة.",
-        faq2:"طرق الدفع؟ — بطاقة، PayPal، عملات رقمية وبعض بطاقات الهدايا. التأكيد على Discord.",
-        faq3:"ما سرعة التسليم؟ — يتم تسليم معظم الطلبات خلال 5 دقائق بعد الدفع. قد تتطلب الحسابات المميزة وقتًا إضافيًا للتحضير.",
-        faq4:"هل الحسابات آمنة؟ — جميع الحسابات من لاعبين حقيقيين، وليست ناتجة عن سكربتات أو إنتاج جماعي. سجل استخدام طبيعي بدون قيود.",
-        faq5:"Authenticator؟ — أداة خاصة لـ Battle.net Authenticator. استخدم صفحة Authenticator، ألصق Private Key ثم انسخ الرمز إلى تطبيق Battle.net للتحقق.",
+        faq1:"هل الحسابات آمنة؟ — كل حساب مصدره لاعب حقيقي وله سجل لعب طبيعي، وليس حساب سكربت أو بوت أو مزرعة أو إنتاج جماعي. نستبعد الحسابات التي لها سجل معروف في الغش أو الإساءة أو مخالفة القواعد. ويمكن مطابقة المعلومات الأساسية في كل عرض مع بيانات اللعبة وBattle.net الرسمية أثناء التحقق.",
+        faq2:"ما سرعة التسليم؟ — يتم تسليم معظم الطلبات خلال 5 دقائق بعد الدفع. قد تتطلب الحسابات المميزة وقتًا إضافيًا للتحضير.",
+        faq3:"ما طرق الدفع المدعومة؟ — البطاقات وPayPal والعملات الرقمية وبعض بطاقات الهدايا. يرجى تأكيد التوفر والرسوم عبر Discord.",
+        faq4:"كم مرة يتم تحديث المخزون؟ — يتم تحديث حالة المبيعات فورًا، وتُضاف حسابات جديدة عادةً كل 7 أيام. يعرض العدّ التنازلي أعلاه موعد التحديث المخطط التالي.",
+        faq5:{
+          question:"كيف تستخدم Battle.net Authenticator؟",
+          intro:"roshine.love/auth أداة خاصة لـ Battle.net Authenticator. ألصق Private Key المرفق بمعلومات الحساب، ثم انسخ الرمز الحالي إلى تطبيق Battle.net عند طلب التحقق.",
+          linkLabel:"roshine.love/auth",
+          sections:[
+            { icon:"📌", title:"ملاحظات Authenticator", items:["تتجدد الرموز كل 30 ثانية.", "لا يمكن استخدام كل رمز إلا مرة واحدة.", "إذا انتهت صلاحية الرمز فانتظر الرمز التالي وحاول مجددًا."] }
+          ]
+        },
+        faq6:{
+          question:"كيف تسجّل الدخول إلى حساب Overwatch؟",
+          intro:"استخدم بيانات Battle.net المرفقة بالحساب وأكمل تحقق Authenticator فقط عندما يطلب التطبيق ذلك.",
+          sections:[{ icon:"🎮", title:"تسجيل الدخول إلى حساب Overwatch", ordered:true, items:["افتح تطبيق Battle.net لسطح المكتب.", "سجّل الدخول باستخدام بيانات Battle.net المقدمة.", "أكمل التحقق بالرمز الحالي من Authenticator عند الطلب."] }]
+        },
+        faq7:{
+          question:"كيف تصل إلى بريد الحساب؟",
+          intro:"استخدم معلومات البريد المرفقة بالحساب. تعتمد طريقة التحقق على ما إذا كان Authenticator مرتبطًا.",
+          sections:[{ icon:"✉️", title:"الوصول إلى بريد الحساب", items:["سجّل الدخول إلى live.com بمعلومات البريد المقدمة.", "إذا كان Authenticator مرتبطًا، استخدم Google Authenticator ورمز QR المقدم؛ وإلا استخدم البريد وكلمة المرور.", "بعد الدخول أضف بريد الاسترداد الخاص بك."] }]
+        },
+        faq8:"متى يجب تحديث معلومات أمان الحساب؟ — استخدم الجهاز نفسه وIP ثابتًا وانتظر نحو 7 أيام قبل تغيير كلمة المرور أو بريد الاسترداد أو المنطقة أو إعدادات الأمان الأخرى. يقلل ذلك مشكلات القفل والتحقق لكنه لا يلغي مخاطر المنصة.",
+        faq9:{
+          question:"كيف تحافظ على أمان الحساب؟",
+          intro:"احفظ معلومات الحساب فور التسليم واحمِ جميع وسائل الدخول والاسترداد.",
+          sections:[{ icon:"🔐", title:"توصيات أمان الحساب", items:["حافظ على أمان البريد وAuthenticator وبيانات الاسترداد.", "تجنب عناوين IP العامة أو غير المستقرة وVPN والبروكسي والشبكات المشتركة.", "لا تشارك معلومات الحساب مع الآخرين."] }]
+        },
         btnStock:"عرض المخزون",
         btnOrder:"اطلب عبر Discord",
 
@@ -1413,9 +1504,9 @@ document.addEventListener("DOMContentLoaded", () => {
         ctaExplore:"查看库存并购买",
         servicesKicker:"✨ 服务",
         servicesTitle:"库存与下单",
-        servicesDesc:"Google Sheet 实时展示库存；通过 Discord 发送账号 ID 或截图即可确认并购买。",
+        servicesDesc:"浏览上方当前可售库存，通过 Discord 发送账号 ID 或截图即可确认并购买。",
         servicesList:[
-          "📄 打开列表，按价格/段位/皮肤筛选。",
+          "📄 浏览账号，并按库存状态、游戏版本、价格、账号特征或关键词筛选。",
           "🧾 复制账号 ID（或截图对应行）。",
           "💬 加入 Discord 发送 ID/截图，确认库存与总价。",
           "✅ 付款后交付登录信息与安全资料包。"
@@ -1443,11 +1534,34 @@ document.addEventListener("DOMContentLoaded", () => {
         faqKicker:"❓ FAQ",
         faqTitle:"常见问题",
         faqDesc:"下单前最常问的几个点，直接看这里。",
-        faq1:"列表多久更新？— 以 Google Sheet 为准，售出会尽快标记。",
-        faq2:"支持什么支付方式？— 信用卡、PayPal、虚拟货币及部分礼品卡；可用性与手续费请 Discord 确认。",
-        faq3:"多久交付？— 大部分订单在付款后 5 分钟内完成交付；少数顶级账号可能需要额外整理时间。",
-        faq4:"账号是否安全？— 所有账号均来自真实玩家，并非脚本或工作室批量生产；均为正常使用记录，无任何限制。",
-        faq5:"Authenticator 是什么？— 这是 Battle.net Authenticator 的私人工具。打开 Authenticator 页面，粘贴你收到的账号信息中的 Private Key，然后把验证码复制到 Battle.net App 完成验证。",
+        faq1:"账号是否安全？— 所有账号均来自真人玩家并具有正常游戏记录，不是脚本号、机器人号、工作室批量号或其他破坏游戏规则的账号。我们不会上架存在已知作弊、滥用或其他违规历史的账号；每条商品描述中的关键信息均可在核验时通过游戏内与 Battle.net 官方记录交叉确认。",
+        faq2:"多久交付？— 大部分订单在付款后 5 分钟内完成交付；少数顶级账号可能需要额外整理时间。",
+        faq3:"支持哪些付款方式？— 支持信用卡、PayPal、虚拟货币及部分礼品卡；具体可用方式与手续费请在 Discord 确认。",
+        faq4:"库存多久更新？— 账号销售状态会实时更新；新库存通常每 7 天补充一次。上方倒计时显示下一次计划更新时间。",
+        faq5:{
+          question:"如何使用 Battle.net Authenticator？",
+          intro:"roshine.love/auth 是 Battle.net Authenticator 的私人工具。粘贴随账号资料交付的 Private Key；需要验证时，将当前验证码复制到 Battle.net App 即可。",
+          linkLabel:"roshine.love/auth",
+          sections:[
+            { icon:"📌", title:"Authenticator 使用提示", items:["验证码每 30 秒自动刷新。", "每个验证码只能使用一次。", "如果验证码已过期，请等待新验证码生成后重试。"] }
+          ]
+        },
+        faq6:{
+          question:"如何登录 Overwatch 账号？",
+          intro:"使用随账号交付的 Battle.net 登录信息；仅在客户端要求验证时输入 Authenticator 验证码。",
+          sections:[{ icon:"🎮", title:"Overwatch 账号登录", ordered:true, items:["打开 Battle.net 桌面客户端。", "使用交付的 Battle.net 账号信息登录。", "如系统要求验证，请输入 Authenticator 当前显示的验证码。"] }]
+        },
+        faq7:{
+          question:"如何登录账号邮箱？",
+          intro:"使用随账号交付的邮箱信息登录；具体验证方式取决于邮箱是否绑定了验证器。",
+          sections:[{ icon:"✉️", title:"账号邮箱登录", items:["使用交付的邮箱信息登录 live.com。", "如果邮箱绑定了验证器，请使用 Google Authenticator 扫描交付的二维码完成验证；未绑定时直接使用邮箱和密码登录。", "成功进入邮箱后，建议添加你自己的恢复邮箱以提高安全性。"] }]
+        },
+        faq8:"什么时候修改账号安全信息？— 建议保持同一设备与稳定 IP 使用约 7 天后，再修改密码、恢复邮箱、地区或其他安全设置。这样可降低安全锁定与验证问题，但无法完全消除平台风险。",
+        faq9:{
+          question:"如何保障账号安全？",
+          intro:"交付后立即保存全部账号资料，并保护好所有登录与恢复渠道。",
+          sections:[{ icon:"🔐", title:"账号安全建议", items:["妥善保管邮箱、Authenticator 与恢复资料。", "避免使用公共或不稳定 IP、VPN、代理及共享网络。", "不要向其他人分享账号资料。"] }]
+        },
         btnStock:"查看库存",
         btnOrder:"Discord 下单",
 
@@ -1908,11 +2022,65 @@ document.addEventListener("DOMContentLoaded", () => {
     function setFaqItem(id, value){
       const item = document.getElementById(id);
       if (!item) return;
-      const parts = String(value || '').split(/\s*—\s*/);
       const summary = item.querySelector('summary');
       const answer = item.querySelector('.faq-answer');
-      if (summary) summary.textContent = parts.shift() || '';
-      if (answer) answer.textContent = parts.join(' — ').trim();
+      if (!summary || !answer) return;
+
+      if (!value || typeof value !== 'object') {
+        const parts = String(value || '').split(/\s*—\s*/);
+        summary.textContent = parts.shift() || '';
+        answer.classList.remove('faq-guide');
+        answer.textContent = parts.join(' — ').trim();
+        return;
+      }
+
+      summary.textContent = value.question || '';
+      answer.classList.add('faq-guide');
+      answer.textContent = '';
+
+      const intro = document.createElement('p');
+      intro.className = 'faq-guide-intro';
+      const introText = String(value.intro || '');
+      const linkLabel = String(value.linkLabel || 'roshine.love/auth');
+      const linkPosition = introText.indexOf(linkLabel);
+      if (linkPosition >= 0) {
+        intro.append(document.createTextNode(introText.slice(0, linkPosition)));
+        const link = document.createElement('a');
+        link.className = 'faq-auth-link';
+        link.href = './auth/';
+        link.textContent = linkLabel;
+        intro.append(link, document.createTextNode(introText.slice(linkPosition + linkLabel.length)));
+      } else {
+        intro.textContent = introText;
+      }
+      answer.appendChild(intro);
+
+      const grid = document.createElement('div');
+      grid.className = 'faq-guide-grid';
+      const sections = value.sections || [];
+      if (sections.length === 1) grid.classList.add('is-single');
+      sections.forEach(section => {
+        const block = document.createElement('section');
+        block.className = 'faq-guide-block';
+
+        const heading = document.createElement('h4');
+        const icon = document.createElement('span');
+        icon.setAttribute('aria-hidden', 'true');
+        icon.textContent = section.icon || '•';
+        heading.append(icon, document.createTextNode(section.title || ''));
+
+        const list = document.createElement(section.ordered ? 'ol' : 'ul');
+        list.className = `faq-guide-list${section.ordered ? ' is-ordered' : ''}`;
+        (section.items || []).forEach(text => {
+          const listItem = document.createElement('li');
+          listItem.textContent = text;
+          list.appendChild(listItem);
+        });
+
+        block.append(heading, list);
+        grid.appendChild(block);
+      });
+      answer.appendChild(grid);
     }
 
     function applyLang(lang){
@@ -2031,6 +2199,10 @@ document.addEventListener("DOMContentLoaded", () => {
       setFaqItem("faq3", t.faq3);
       setFaqItem("faq4", t.faq4);
       setFaqItem("faq5", t.faq5);
+      setFaqItem("faq6", t.faq6);
+      setFaqItem("faq7", t.faq7);
+      setFaqItem("faq8", t.faq8);
+      setFaqItem("faq9", t.faq9);
 
       document.getElementById("contactKicker").textContent = t.contactKicker;
       document.getElementById("contactTitle").textContent = t.contactTitle;

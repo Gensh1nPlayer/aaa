@@ -619,6 +619,122 @@
     .faq-list details:hover, .faq-list details[open] { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); }
     .faq-list summary { color: #e8f1ff; font-weight: 750; cursor: pointer; }
     .faq-list .faq-answer { margin-top: 9px; color: var(--text-muted); }
+    .faq-list details[open] > summary { color: #fff; }
+    .faq-list details[open] > summary::marker { color: var(--neon); }
+    .faq-list .faq-guide { margin-top: 16px; }
+    .faq-guide-intro {
+      max-width: 920px;
+      color: #afbdd5;
+      font-size: 0.86rem;
+      line-height: 1.75;
+    }
+    .faq-auth-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 2px 9px;
+      margin: 0 2px;
+      border: 1px solid rgba(41,182,255,0.22);
+      border-radius: 999px;
+      background: rgba(41,182,255,0.075);
+      color: #7edcff;
+      font-weight: 800;
+      text-decoration: none;
+      transition: 0.2s ease;
+    }
+    .faq-auth-link:hover {
+      border-color: rgba(183,124,255,0.38);
+      background: rgba(183,124,255,0.1);
+      color: #d2bcff;
+      transform: translateY(-1px);
+    }
+    .faq-guide-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .faq-guide-block {
+      min-width: 0;
+      padding: 16px;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 13px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.035), rgba(5,8,16,0.12));
+    }
+    .faq-guide-grid.is-single { grid-template-columns: minmax(0, 1fr); }
+    .faq-guide-block h4 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 10px;
+      color: #e9f2ff;
+      font-size: 0.82rem;
+      font-weight: 800;
+      line-height: 1.4;
+    }
+    .faq-guide-block h4 span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 25px;
+      height: 25px;
+      flex: 0 0 25px;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.035);
+      font-size: 0.82rem;
+    }
+    .faq-guide-list {
+      display: grid;
+      gap: 7px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: faq-guide-step;
+    }
+    .faq-guide-list li {
+      position: relative;
+      padding-left: 18px;
+      color: #9eacc5;
+      font-size: 0.79rem;
+      line-height: 1.58;
+    }
+    .faq-guide-list li::before {
+      content: '';
+      position: absolute;
+      top: 0.67em;
+      left: 2px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--neon), var(--neon2));
+      box-shadow: 0 0 8px rgba(41,182,255,0.42);
+    }
+    .faq-guide-list.is-ordered li {
+      min-height: 22px;
+      padding-left: 28px;
+      counter-increment: faq-guide-step;
+    }
+    .faq-guide-list.is-ordered li::before {
+      content: counter(faq-guide-step);
+      top: 0.08em;
+      left: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      border-radius: 7px;
+      background: linear-gradient(135deg, rgba(41,182,255,0.15), rgba(183,124,255,0.14));
+      box-shadow: inset 0 0 0 1px rgba(116,205,255,0.16);
+      color: #bfe9ff;
+      font-size: 0.65rem;
+      font-weight: 900;
+    }
+    html[dir="rtl"] .faq-guide-list li { padding-right: 18px; padding-left: 0; }
+    html[dir="rtl"] .faq-guide-list li::before { right: 2px; left: auto; }
+    html[dir="rtl"] .faq-guide-list.is-ordered li { padding-right: 28px; padding-left: 0; }
+    html[dir="rtl"] .faq-guide-list.is-ordered li::before { right: 0; left: auto; }
 
     /* Footer */
     .footer { margin-top: 40px; border-top: 1px solid var(--glass-border); padding: 32px 0; text-align: center; }
@@ -670,6 +786,12 @@
       .ac-price { font-size: 1.36rem; }
       .ac-account-id { font-size: 0.64rem; }
       .ac-highlights { font-size: 0.79rem; }
+      .faq-list details { padding: 15px 16px; }
+      .faq-list summary { font-size: 0.82rem; line-height: 1.45; }
+      .faq-guide-grid { grid-template-columns: 1fr; }
+      .faq-guide-block { padding: 14px; }
+      .faq-guide-intro { font-size: 0.8rem; }
+      .faq-auth-link { display: inline-flex; margin: 3px 0; }
     }
 
     @media (prefers-reduced-motion: reduce) {
