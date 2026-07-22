@@ -191,6 +191,11 @@ document.addEventListener("DOMContentLoaded", () => {
         return readBooleanFlag(directValue);
       }
 
+      function accountMatchesNameChange(acct, value) {
+        if (value === 'all') return true;
+        return hasFreeNameChange(acct) === (value === 'yes');
+      }
+
       const TOP500_ELIGIBILITY_PATTERN = /\btop\s*500(?:\s+(?:challenger\s+tier\s+eligible|eligible))?\b/i;
       const TOP500_NEGATIVE_PATTERNS = [
         /\b(?:no|not|without)\s+top\s*500(?:\s+(?:challenger\s+tier\s+eligible|eligible))?\b/gi,
@@ -231,9 +236,9 @@ document.addEventListener("DOMContentLoaded", () => {
         return containsTop500EligibilityKeyword(searchableText);
       }
 
-      function accountMatchesBooleanFilter(flag, filterValue) {
-        if (filterValue === 'all') return true;
-        return filterValue === 'yes' ? flag : !flag;
+      function accountMatchesTop500(acct, value) {
+        if (value === 'all') return true;
+        return hasTop500Eligibility(acct) === (value === 'yes');
       }
 
       function accountMatchesSearch(acct, query) {
@@ -247,7 +252,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       function compareAccounts(a, b, sortValue) {
-        const [field, direction = 'asc'] = String(sortValue || 'id-asc').split('-');
+        if (!sortValue || sortValue === 'recommended') return 0;
+        const [field, direction = 'desc'] = String(sortValue).split('-');
         const directionFactor = direction === 'desc' ? -1 : 1;
         let result = 0;
 
@@ -267,10 +273,8 @@ document.addEventListener("DOMContentLoaded", () => {
           case 'coins':
             result = getCoins(a) - getCoins(b);
             break;
-          case 'id':
           default:
-            result = parseNumber(a?.id) - parseNumber(b?.id);
-            break;
+            return 0;
         }
 
         if (result === 0) {
@@ -294,7 +298,7 @@ document.addEventListener("DOMContentLoaded", () => {
           type: document.getElementById('accountTypeFilter'),
           status: document.getElementById('accountStatusFilter'),
           price: document.getElementById('accountPriceFilter'),
-          rename: document.getElementById('accountNameChangeFilter'),
+          nameChange: document.getElementById('accountNameChangeFilter'),
           top500: document.getElementById('accountTop500Filter'),
           sort: document.getElementById('accountSort')
         };
@@ -314,13 +318,13 @@ document.addEventListener("DOMContentLoaded", () => {
         if (controls.price?.value && controls.price.value !== 'all') {
           active.push({ key: 'price', label: controls.price.selectedOptions[0]?.textContent || controls.price.value });
         }
-        if (controls.rename?.value && controls.rename.value !== 'all') {
-          active.push({ key: 'rename', label: controls.rename.selectedOptions[0]?.textContent || controls.rename.value });
+        if (controls.nameChange?.value && controls.nameChange.value !== 'all') {
+          active.push({ key: 'nameChange', label: controls.nameChange.selectedOptions[0]?.textContent || controls.nameChange.value });
         }
         if (controls.top500?.value && controls.top500.value !== 'all') {
           active.push({ key: 'top500', label: controls.top500.selectedOptions[0]?.textContent || controls.top500.value });
         }
-        if (controls.sort?.value && controls.sort.value !== 'id-asc') {
+        if (controls.sort?.value && controls.sort.value !== 'recommended') {
           active.push({ key: 'sort', label: controls.sort.selectedOptions[0]?.textContent || controls.sort.value });
         }
         return active;
@@ -359,9 +363,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (key === 'type' && controls.type) controls.type.value = 'all';
         if (key === 'status' && controls.status) controls.status.value = 'instock';
         if (key === 'price' && controls.price) controls.price.value = 'all';
-        if (key === 'rename' && controls.rename) controls.rename.value = 'all';
+        if (key === 'nameChange' && controls.nameChange) controls.nameChange.value = 'all';
         if (key === 'top500' && controls.top500) controls.top500.value = 'all';
-        if (key === 'sort' && controls.sort) controls.sort.value = 'id-asc';
+        if (key === 'sort' && controls.sort) controls.sort.value = 'recommended';
         renderAccounts();
       }
 
@@ -371,9 +375,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (controls.type) controls.type.value = 'all';
         if (controls.status) controls.status.value = 'instock';
         if (controls.price) controls.price.value = 'all';
-        if (controls.rename) controls.rename.value = 'all';
+        if (controls.nameChange) controls.nameChange.value = 'all';
         if (controls.top500) controls.top500.value = 'all';
-        if (controls.sort) controls.sort.value = 'id-asc';
+        if (controls.sort) controls.sort.value = 'recommended';
         renderAccounts();
       }
 
@@ -438,8 +442,8 @@ document.addEventListener("DOMContentLoaded", () => {
           .filter(acct => accountMatchesType(acct, typeFilter.value))
           .filter(acct => accountMatchesStatus(acct, statusFilter.value))
           .filter(acct => accountMatchesPrice(acct, priceFilter.value))
-          .filter(acct => accountMatchesBooleanFilter(hasFreeNameChange(acct), nameChangeFilter.value))
-          .filter(acct => accountMatchesBooleanFilter(hasTop500Eligibility(acct), top500Filter.value))
+          .filter(acct => accountMatchesNameChange(acct, nameChangeFilter.value))
+          .filter(acct => accountMatchesTop500(acct, top500Filter.value))
           .filter(acct => accountMatchesSearch(acct, query))
           .slice()
           .sort((a, b) => compareAccounts(a, b, sortSelect.value));
@@ -499,7 +503,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 className: 'ac-special-skin-mythic'
               }
             ];
-            const specialWeaponChoicePattern = /\bChoice\s+of\s+(?:1|2)\s+(?:additional\s+)?Gold\s*\/\s*Jade\s*\/\s*Galactic\s+Weapon(?:\s+Skins?)?\b/gi;
+            const specialWeaponChoicePattern = /\bChoice\s+of\s+(?:\d+|one|two|three|four|five|six|seven|eight|nine|ten)\s+(?:additional\s+)?Gold\s*\/\s*Jade\s*\/\s*Galactic\s+Weapon(?:s|\s+Skins?)?\b/gi;
 
             // Custom Color Dictionary
             function applyColorMap(text) {
@@ -708,6 +712,13 @@ document.addEventListener("DOMContentLoaded", () => {
                   const num = Number(String(rawNum).replace(/,/g, ''));
                   return num > 3000 ? `<span class="ac-highlight-yellow">${rawNum} ${label}</span>` : match;
                 }
+              );
+
+              // Apply the same animated Gold/Jade/Galactic effect when this
+              // description appears in the balance block instead of weapons.
+              res = res.replace(
+                specialWeaponChoicePattern,
+                match => `<span class="ac-special-weapon-choice">${match}</span>`
               );
 
               return res;
@@ -1120,6 +1131,7 @@ document.addEventListener("DOMContentLoaded", () => {
         accountsDesc:"Browse our currently available stock. Select an account and order via Discord.",
         accountsUpdateLabel:"Next planned inventory update:",
         accountsUpdateValue:"In 7 Days",
+        accountsUpdateTime:{ day:"{count} Day", days:"{count} Days", hour:"{count} Hour", hours:"{count} Hours", underHour:"Under 1 Hour" },
         auth:"Authenticator",
         a11y:{ skip:"Skip to inventory", openNav:"Open navigation", closeNav:"Close navigation", mobileNav:"Mobile navigation" },
         heroKicker:"⚡ Trusted since 2021",
@@ -1187,6 +1199,7 @@ document.addEventListener("DOMContentLoaded", () => {
         accountsDesc:"Parcourez les comptes actuellement disponibles, utilisez les filtres, puis commandez via Discord.",
         accountsUpdateLabel:"Prochaine mise à jour prévue du stock :",
         accountsUpdateValue:"Dans 7 jours",
+        accountsUpdateTime:{ day:"{count} jour", days:"{count} jours", hour:"{count} heure", hours:"{count} heures", underHour:"Moins d’une heure" },
         auth:"Authenticator",
         a11y:{ skip:"Aller à l’inventaire", openNav:"Ouvrir la navigation", closeNav:"Fermer la navigation", mobileNav:"Navigation mobile" },
         heroKicker:"⚡ Fiable depuis 2021",
@@ -1254,6 +1267,7 @@ document.addEventListener("DOMContentLoaded", () => {
         accountsDesc:"Durchsuche den verfügbaren Bestand, nutze die Filter und bestelle anschließend über Discord.",
         accountsUpdateLabel:"Nächste geplante Bestandsaktualisierung:",
         accountsUpdateValue:"In 7 Tagen",
+        accountsUpdateTime:{ day:"{count} Tag", days:"{count} Tage", hour:"{count} Stunde", hours:"{count} Stunden", underHour:"Unter 1 Stunde" },
         auth:"Authenticator",
         a11y:{ skip:"Zum Inventar springen", openNav:"Navigation öffnen", closeNav:"Navigation schließen", mobileNav:"Mobile Navigation" },
         heroKicker:"⚡ Vertrauenswürdig seit 2021",
@@ -1321,6 +1335,7 @@ document.addEventListener("DOMContentLoaded", () => {
         accountsDesc:"تصفّح الحسابات المتاحة حاليًا، واستخدم الفلاتر، ثم اطلب عبر Discord.",
         accountsUpdateLabel:"موعد تحديث المخزون المخطط التالي:",
         accountsUpdateValue:"خلال 7 أيام",
+        accountsUpdateTime:{ day:"{count} يوم", days:"{count} أيام", hour:"{count} ساعة", hours:"{count} ساعات", underHour:"أقل من ساعة" },
         auth:"Authenticator",
         a11y:{ skip:"الانتقال إلى المخزون", openNav:"فتح التنقل", closeNav:"إغلاق التنقل", mobileNav:"التنقل عبر الهاتف" },
         heroKicker:"⚡ موثوق منذ 2021",
@@ -1388,6 +1403,7 @@ document.addEventListener("DOMContentLoaded", () => {
         accountsDesc:"浏览当前可售库存，选择账号后通过 Discord 下单。",
         accountsUpdateLabel:"下次计划更新库存：",
         accountsUpdateValue:"7 天后",
+        accountsUpdateTime:{ day:"{count} 天", days:"{count} 天", hour:"{count} 小时", hours:"{count} 小时", underHour:"不足 1 小时" },
         auth:"Authenticator",
         a11y:{ skip:"跳到账号库存", openNav:"打开导航", closeNav:"关闭导航", mobileNav:"移动端导航" },
         heroKicker:"⚡ 自 2021 年稳定运营",
@@ -1447,6 +1463,64 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     };
 
+    const INVENTORY_COUNTDOWN_HOUR_MS = 60 * 60 * 1000;
+    let inventoryCountdownTimer = 0;
+
+    function getNextInventoryUpdate(element, now = Date.now()) {
+      const anchor = Date.parse(element?.dataset.updateAt || '');
+      const repeatHours = Number(element?.dataset.repeatHours || 168);
+      const interval = repeatHours * INVENTORY_COUNTDOWN_HOUR_MS;
+      if (!Number.isFinite(anchor) || !Number.isFinite(interval) || interval <= 0) return null;
+      if (anchor > now) return anchor;
+      const completedIntervals = Math.floor((now - anchor) / interval) + 1;
+      return anchor + completedIntervals * interval;
+    }
+
+    function formatCountdownUnit(template, count) {
+      return String(template || '').replace('{count}', String(count));
+    }
+
+    function updateInventoryCountdown(lang = document.documentElement.lang || 'en', now = Date.now()) {
+      const element = document.getElementById('accountsUpdateValue');
+      if (!element) return;
+      const target = getNextInventoryUpdate(element, now);
+      const translations = i18n[lang] || i18n.en;
+      const units = translations.accountsUpdateTime || i18n.en.accountsUpdateTime;
+      if (!target) {
+        element.textContent = translations.accountsUpdateValue || i18n.en.accountsUpdateValue;
+        return;
+      }
+
+      const remaining = Math.max(0, target - now);
+      const totalHours = Math.floor(remaining / INVENTORY_COUNTDOWN_HOUR_MS);
+      if (totalHours < 1) {
+        element.textContent = units.underHour;
+      } else {
+        const days = Math.floor(totalHours / 24);
+        const hours = totalHours % 24;
+        const parts = [];
+        if (days > 0) parts.push(formatCountdownUnit(days === 1 ? units.day : units.days, days));
+        if (hours > 0) parts.push(formatCountdownUnit(hours === 1 ? units.hour : units.hours, hours));
+        element.textContent = parts.join(' ');
+      }
+
+      element.dataset.targetTimestamp = String(target);
+      try {
+        const locale = { en:'en-US', fr:'fr-FR', de:'de-DE', ar:'ar', zh:'zh-CN' }[lang] || lang;
+        element.title = new Intl.DateTimeFormat(locale, {
+          dateStyle: 'medium', timeStyle: 'short', timeZone: 'Asia/Shanghai'
+        }).format(new Date(target));
+      } catch {
+        element.title = new Date(target).toISOString();
+      }
+    }
+
+    function startInventoryCountdown() {
+      window.clearInterval(inventoryCountdownTimer);
+      updateInventoryCountdown();
+      inventoryCountdownTimer = window.setInterval(() => updateInventoryCountdown(), 60 * 1000);
+    }
+
     const accountUiI18n = {
       en: {
         toolsAria:"Account inventory controls",
@@ -1456,20 +1530,15 @@ document.addEventListener("DOMContentLoaded", () => {
         mythicPrisms:"Mythic Prisms",
         searchPlaceholder:"Search account keywords, e.g. Cyber Demon",
         searchAria:"Search account keywords",
-        typeAria:"Filter account type",
-        typeOptions:["All accounts", "OW1 accounts", "OW2 accounts"],
+        typeAria:"Filter game version",
+        typeOptions:["All versions", "OW1", "OW2"],
         statusAria:"Filter availability status", statusOptions:["In stock", "All statuses", "Pending", "Sold"],
         priceAria:"Filter price range", priceOptions:["All prices", "Under $30", "$30–$100", "Over $100"],
-        renameAria:"Filter free name change",
-        renameOptions:["Free rename: All", "Free rename: Yes", "Free rename: No"],
-        top500Aria:"Filter TOP500 eligibility",
-        top500Options:["TOP500 Eligible: All", "TOP500 Eligible: Yes", "TOP500 Eligible: No"],
+        nameChangeAria:"Filter free name change", nameChangeOptions:["Free rename: All", "Free rename: Yes", "Free rename: No"],
+        top500Aria:"Filter TOP500 eligibility", top500Options:["TOP500 Eligible: All", "TOP500 Eligible: Yes", "TOP500 Eligible: No"],
         sortAria:"Sort accounts",
-        sortOptions:[
-          "ID: Low to High", "ID: High to Low", "Level: Low to High", "Level: High to Low",
-          "Playtime: Low to High", "Playtime: High to Low", "Price: Low to High", "Price: High to Low",
-          "Credits: Low to High", "Credits: High to Low", "Coins: Low to High", "Coins: High to Low"
-        ],
+        sortGroups:["Price", "Account progress", "Resources"],
+        sortOptions:["Recommended", "Price: Low to High", "Price: High to Low", "Level: High to Low", "Level: Low to High", "Playtime: High to Low", "Playtime: Low to High", "Coins: High to Low", "Coins: Low to High", "Credits: High to Low", "Credits: Low to High"],
         results:"{shown} / {total} accounts",
         empty:"No accounts match the current search and filters.",
         loadError:"Unable to load account inventory.",
@@ -1487,20 +1556,15 @@ document.addEventListener("DOMContentLoaded", () => {
         mythicPrisms:"Prismes mythiques",
         searchPlaceholder:"Rechercher un mot-clé, ex. Cyber Demon",
         searchAria:"Rechercher dans les comptes",
-        typeAria:"Filtrer le type de compte",
-        typeOptions:["Tous les comptes", "Comptes OW1", "Comptes OW2"],
+        typeAria:"Filtrer la version du jeu",
+        typeOptions:["Toutes les versions", "OW1", "OW2"],
         statusAria:"Filtrer la disponibilité", statusOptions:["En stock", "Tous les statuts", "En attente", "Vendu"],
         priceAria:"Filtrer la tranche de prix", priceOptions:["Tous les prix", "Moins de 30 $", "30–100 $", "Plus de 100 $"],
-        renameAria:"Filtrer le changement de nom gratuit",
-        renameOptions:["Renommage gratuit : Tous", "Renommage gratuit : Oui", "Renommage gratuit : Non"],
-        top500Aria:"Filtrer l’éligibilité TOP500",
-        top500Options:["Éligible TOP500 : Tous", "Éligible TOP500 : Oui", "Éligible TOP500 : Non"],
+        nameChangeAria:"Filtrer le renommage gratuit", nameChangeOptions:["Renommage gratuit : Tous", "Renommage gratuit : Oui", "Renommage gratuit : Non"],
+        top500Aria:"Filtrer l’éligibilité TOP500", top500Options:["Éligible TOP500 : Tous", "Éligible TOP500 : Oui", "Éligible TOP500 : Non"],
         sortAria:"Trier les comptes",
-        sortOptions:[
-          "ID : croissant", "ID : décroissant", "Niveau : croissant", "Niveau : décroissant",
-          "Temps de jeu : croissant", "Temps de jeu : décroissant", "Prix : croissant", "Prix : décroissant",
-          "Crédits : croissant", "Crédits : décroissant", "Coins : croissant", "Coins : décroissant"
-        ],
+        sortGroups:["Prix", "Progression du compte", "Ressources"],
+        sortOptions:["Recommandé", "Prix : croissant", "Prix : décroissant", "Niveau : décroissant", "Niveau : croissant", "Temps de jeu : décroissant", "Temps de jeu : croissant", "Coins : décroissant", "Coins : croissant", "Crédits : décroissant", "Crédits : croissant"],
         results:"{shown} / {total} comptes",
         empty:"Aucun compte ne correspond à la recherche et aux filtres actuels.",
         loadError:"Impossible de charger l’inventaire des comptes.",
@@ -1518,20 +1582,15 @@ document.addEventListener("DOMContentLoaded", () => {
         mythicPrisms:"Mythische Prismen",
         searchPlaceholder:"Accounts durchsuchen, z. B. Cyber Demon",
         searchAria:"Accounts nach Stichwort durchsuchen",
-        typeAria:"Accounttyp filtern",
-        typeOptions:["Alle Accounts", "OW1-Accounts", "OW2-Accounts"],
+        typeAria:"Spielversion filtern",
+        typeOptions:["Alle Versionen", "OW1", "OW2"],
         statusAria:"Verfügbarkeit filtern", statusOptions:["Auf Lager", "Alle Status", "Ausstehend", "Verkauft"],
         priceAria:"Preisspanne filtern", priceOptions:["Alle Preise", "Unter 30 $", "30–100 $", "Über 100 $"],
-        renameAria:"Kostenlose Umbenennung filtern",
-        renameOptions:["Kostenlose Umbenennung: Alle", "Kostenlose Umbenennung: Ja", "Kostenlose Umbenennung: Nein"],
-        top500Aria:"TOP500-Berechtigung filtern",
-        top500Options:["TOP500-berechtigt: Alle", "TOP500-berechtigt: Ja", "TOP500-berechtigt: Nein"],
+        nameChangeAria:"Kostenlose Umbenennung filtern", nameChangeOptions:["Kostenlose Umbenennung: Alle", "Kostenlose Umbenennung: Ja", "Kostenlose Umbenennung: Nein"],
+        top500Aria:"TOP500-Berechtigung filtern", top500Options:["TOP500-berechtigt: Alle", "TOP500-berechtigt: Ja", "TOP500-berechtigt: Nein"],
         sortAria:"Accounts sortieren",
-        sortOptions:[
-          "ID: aufsteigend", "ID: absteigend", "Level: aufsteigend", "Level: absteigend",
-          "Spielzeit: aufsteigend", "Spielzeit: absteigend", "Preis: aufsteigend", "Preis: absteigend",
-          "Credits: aufsteigend", "Credits: absteigend", "Coins: aufsteigend", "Coins: absteigend"
-        ],
+        sortGroups:["Preis", "Account-Fortschritt", "Ressourcen"],
+        sortOptions:["Empfohlen", "Preis: aufsteigend", "Preis: absteigend", "Level: absteigend", "Level: aufsteigend", "Spielzeit: absteigend", "Spielzeit: aufsteigend", "Coins: absteigend", "Coins: aufsteigend", "Credits: absteigend", "Credits: aufsteigend"],
         results:"{shown} / {total} Accounts",
         empty:"Keine Accounts entsprechen der aktuellen Suche und den Filtern.",
         loadError:"Das Account-Inventar konnte nicht geladen werden.",
@@ -1549,20 +1608,15 @@ document.addEventListener("DOMContentLoaded", () => {
         mythicPrisms:"Mythic Prisms",
         searchPlaceholder:"ابحث بكلمة مفتاحية، مثل Cyber Demon",
         searchAria:"البحث في الحسابات بالكلمات المفتاحية",
-        typeAria:"تصفية نوع الحساب",
-        typeOptions:["كل الحسابات", "حسابات OW1", "حسابات OW2"],
+        typeAria:"تصفية إصدار اللعبة",
+        typeOptions:["كل الإصدارات", "OW1", "OW2"],
         statusAria:"تصفية حالة التوفر", statusOptions:["متوفر", "كل الحالات", "قيد الانتظار", "مباع"],
         priceAria:"تصفية نطاق السعر", priceOptions:["كل الأسعار", "أقل من 30$", "30$–100$", "أكثر من 100$"],
-        renameAria:"تصفية تغيير الاسم المجاني",
-        renameOptions:["تغيير اسم مجاني: الكل", "تغيير اسم مجاني: نعم", "تغيير اسم مجاني: لا"],
-        top500Aria:"تصفية أهلية TOP500",
-        top500Options:["مؤهل TOP500: الكل", "مؤهل TOP500: نعم", "مؤهل TOP500: لا"],
+        nameChangeAria:"تصفية تغيير الاسم المجاني", nameChangeOptions:["تغيير اسم مجاني: الكل", "تغيير اسم مجاني: نعم", "تغيير اسم مجاني: لا"],
+        top500Aria:"تصفية أهلية TOP500", top500Options:["مؤهل TOP500: الكل", "مؤهل TOP500: نعم", "مؤهل TOP500: لا"],
         sortAria:"ترتيب الحسابات",
-        sortOptions:[
-          "المعرّف: تصاعدي", "المعرّف: تنازلي", "المستوى: تصاعدي", "المستوى: تنازلي",
-          "وقت اللعب: تصاعدي", "وقت اللعب: تنازلي", "السعر: تصاعدي", "السعر: تنازلي",
-          "Credits: تصاعدي", "Credits: تنازلي", "Coins: تصاعدي", "Coins: تنازلي"
-        ],
+        sortGroups:["السعر", "تقدم الحساب", "الموارد"],
+        sortOptions:["موصى به", "السعر: تصاعدي", "السعر: تنازلي", "المستوى: تنازلي", "المستوى: تصاعدي", "وقت اللعب: تنازلي", "وقت اللعب: تصاعدي", "Coins: تنازلي", "Coins: تصاعدي", "Credits: تنازلي", "Credits: تصاعدي"],
         results:"{shown} / {total} حساب",
         empty:"لا توجد حسابات تطابق البحث والفلاتر الحالية.",
         loadError:"تعذر تحميل مخزون الحسابات.",
@@ -1580,20 +1634,15 @@ document.addEventListener("DOMContentLoaded", () => {
         mythicPrisms:"神话棱晶",
         searchPlaceholder:"检索账号关键词，例如 Cyber Demon",
         searchAria:"检索账号关键词",
-        typeAria:"筛选账号类型",
-        typeOptions:["全部账号", "OW1 账号", "OW2 账号"],
+        typeAria:"筛选游戏版本",
+        typeOptions:["全部版本", "OW1", "OW2"],
         statusAria:"筛选库存状态", statusOptions:["有库存", "全部状态", "待处理", "已售出"],
         priceAria:"筛选价格区间", priceOptions:["全部价格", "低于 $30", "$30–$100", "高于 $100"],
-        renameAria:"筛选是否有免费改名",
-        renameOptions:["免费改名：全部", "免费改名：有", "免费改名：无"],
-        top500Aria:"筛选是否具有 TOP500 资格",
-        top500Options:["TOP500 资格：全部", "TOP500 资格：有", "TOP500 资格：无"],
+        nameChangeAria:"筛选免费改名", nameChangeOptions:["免费改名：全部", "免费改名：有", "免费改名：无"],
+        top500Aria:"筛选 TOP500 资格", top500Options:["TOP500 资格：全部", "TOP500 资格：有", "TOP500 资格：无"],
         sortAria:"账号排序",
-        sortOptions:[
-          "编号：从小到大", "编号：从大到小", "等级：从低到高", "等级：从高到低",
-          "游戏时长：从少到多", "游戏时长：从多到少", "价格：从低到高", "价格：从高到低",
-          "Credits：从少到多", "Credits：从多到少", "Coins：从少到多", "Coins：从多到少"
-        ],
+        sortGroups:["价格", "账号进度", "资源"],
+        sortOptions:["推荐排序", "价格：从低到高", "价格：从高到低", "等级：从高到低", "等级：从低到高", "游戏时长：从多到少", "游戏时长：从少到多", "Coins：从多到少", "Coins：从少到多", "Credits：从多到少", "Credits：从少到多"],
         results:"显示 {shown} / 共 {total} 个账号",
         empty:"没有符合当前检索及筛选条件的账号。",
         loadError:"账号库存加载失败。",
@@ -1614,6 +1663,13 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!select) return;
       labels.forEach((label, index) => {
         if (select.options[index]) select.options[index].textContent = label;
+      });
+    }
+
+    function setSelectGroupText(selectId, labels) {
+      const groups = document.getElementById(selectId)?.querySelectorAll('optgroup') || [];
+      labels.forEach((label, index) => {
+        if (groups[index]) groups[index].label = label;
       });
     }
 
@@ -1748,7 +1804,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (t.accountsTitle) document.getElementById("accountsTitle").textContent = t.accountsTitle;
       if (t.accountsDesc) document.getElementById("accountsDesc").textContent = t.accountsDesc;
       if (t.accountsUpdateLabel) document.getElementById("accountsUpdateLabel").textContent = t.accountsUpdateLabel;
-      if (t.accountsUpdateValue) document.getElementById("accountsUpdateValue").textContent = t.accountsUpdateValue;
+      updateInventoryCountdown(lang);
 
       const accountUi = getAccountUiText(lang);
       const accountTools = document.querySelector('.accounts-tools');
@@ -1777,15 +1833,16 @@ document.addEventListener("DOMContentLoaded", () => {
       if (accountTypeFilter) accountTypeFilter.setAttribute('aria-label', accountUi.typeAria);
       if (accountStatusFilter) accountStatusFilter.setAttribute('aria-label', accountUi.statusAria);
       if (accountPriceFilter) accountPriceFilter.setAttribute('aria-label', accountUi.priceAria);
-      if (accountNameChangeFilter) accountNameChangeFilter.setAttribute('aria-label', accountUi.renameAria);
+      if (accountNameChangeFilter) accountNameChangeFilter.setAttribute('aria-label', accountUi.nameChangeAria);
       if (accountTop500Filter) accountTop500Filter.setAttribute('aria-label', accountUi.top500Aria);
       if (accountSort) accountSort.setAttribute('aria-label', accountUi.sortAria);
       setSelectOptionText('accountTypeFilter', accountUi.typeOptions);
       setSelectOptionText('accountStatusFilter', accountUi.statusOptions);
       setSelectOptionText('accountPriceFilter', accountUi.priceOptions);
-      setSelectOptionText('accountNameChangeFilter', accountUi.renameOptions);
+      setSelectOptionText('accountNameChangeFilter', accountUi.nameChangeOptions);
       setSelectOptionText('accountTop500Filter', accountUi.top500Options);
       setSelectOptionText('accountSort', accountUi.sortOptions);
+      setSelectGroupText('accountSort', accountUi.sortGroups);
       window.refreshAccountFilterUi?.();
       window.renderAccounts?.();
 
@@ -1834,6 +1891,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     applyLang(detectLang());
+    startInventoryCountdown();
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) updateInventoryCountdown();
+    });
     document.getElementById("langSelect").addEventListener("change", (e)=>{
       const lang = e.target.value;
       applyLang(lang);

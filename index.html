@@ -17,7 +17,7 @@
   <meta name="twitter:description" content="Curated Overwatch accounts with clear listings, secure handover, and long-term support." />
   <meta name="twitter:image" content="https://roshine.love/assets/og.jpg" />
   <link rel="icon" href="./assets/logo.png" />
-  <link rel="stylesheet" href="./assets/main.css?v=5" />
+  <link rel="stylesheet" href="./assets/main.css?v=8" />
 </head>
 <body>
 
@@ -92,7 +92,13 @@
         <p class="accounts-update-note" id="accountsUpdateNote">
           <span class="accounts-update-icon" aria-hidden="true">◷</span>
           <span id="accountsUpdateLabel">Next planned inventory update:</span>
-          <strong id="accountsUpdateValue">In 7 Days</strong>
+          <strong
+            id="accountsUpdateValue"
+            data-update-at="2026-07-29T20:00:00+08:00"
+            data-repeat-hours="168"
+            aria-live="polite"
+            aria-atomic="true"
+          >In 7 Days</strong>
         </p>
       </div>
       <div class="accounts-toolbar">
@@ -133,16 +139,16 @@
             autocomplete="off"
             aria-label="Search account keywords"
           />
-          <select class="accounts-control" id="accountTypeFilter" aria-label="Filter account type">
-            <option value="all">All accounts</option>
-            <option value="ow1">OW1 accounts</option>
-            <option value="ow2">OW2 accounts</option>
-          </select>
           <select class="accounts-control" id="accountStatusFilter" aria-label="Filter availability status">
             <option value="instock" selected>In stock</option>
             <option value="all">All statuses</option>
             <option value="pending">Pending</option>
             <option value="sold">Sold</option>
+          </select>
+          <select class="accounts-control" id="accountTypeFilter" aria-label="Filter game version">
+            <option value="all">All versions</option>
+            <option value="ow1">OW1</option>
+            <option value="ow2">OW2</option>
           </select>
           <select class="accounts-control" id="accountPriceFilter" aria-label="Filter price range">
             <option value="all">All prices</option>
@@ -160,19 +166,24 @@
             <option value="yes">TOP500 Eligible: Yes</option>
             <option value="no">TOP500 Eligible: No</option>
           </select>
-          <select class="accounts-control" id="accountSort" aria-label="Sort accounts">
-            <option value="id-asc">ID: Low to High</option>
-            <option value="id-desc">ID: High to Low</option>
-            <option value="level-asc">Level: Low to High</option>
-            <option value="level-desc">Level: High to Low</option>
-            <option value="playtime-asc">Playtime: Low to High</option>
-            <option value="playtime-desc">Playtime: High to Low</option>
-            <option value="price-asc">Price: Low to High</option>
-            <option value="price-desc">Price: High to Low</option>
-            <option value="credits-asc">Credits: Low to High</option>
-            <option value="credits-desc">Credits: High to Low</option>
-            <option value="coins-asc">Coins: Low to High</option>
-            <option value="coins-desc">Coins: High to Low</option>
+          <select class="accounts-control accounts-sort" id="accountSort" aria-label="Sort accounts">
+            <option value="recommended">Recommended</option>
+            <optgroup label="Price">
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+            </optgroup>
+            <optgroup label="Account progress">
+              <option value="level-desc">Level: High to Low</option>
+              <option value="level-asc">Level: Low to High</option>
+              <option value="playtime-desc">Playtime: High to Low</option>
+              <option value="playtime-asc">Playtime: Low to High</option>
+            </optgroup>
+            <optgroup label="Resources">
+              <option value="coins-desc">Coins: High to Low</option>
+              <option value="coins-asc">Coins: Low to High</option>
+              <option value="credits-desc">Credits: High to Low</option>
+              <option value="credits-asc">Credits: Low to High</option>
+            </optgroup>
           </select>
         </div>
 
@@ -279,6 +290,6 @@
       </nav>
     </div>
   </footer>
-  <script src="./assets/main.js?v=5" defer></script>
+  <script src="./assets/main.js?v=8" defer></script>
 </body>
 </html>
