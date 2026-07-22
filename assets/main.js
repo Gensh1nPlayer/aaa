@@ -1673,6 +1673,170 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
+    function createCustomSelectOption(option, menu) {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'accounts-select-option';
+      button.dataset.selectValue = option.value;
+      button.setAttribute('role', 'option');
+      button.setAttribute('aria-selected', String(option.selected));
+      button.tabIndex = option.selected ? 0 : -1;
+      button.textContent = option.textContent;
+      menu.appendChild(button);
+    }
+
+    function getCustomSelectParts(picker) {
+      return {
+        select: picker?.querySelector('select'),
+        trigger: picker?.querySelector('[data-select-trigger]'),
+        value: picker?.querySelector('[data-select-value]'),
+        menu: picker?.querySelector('[data-select-menu]')
+      };
+    }
+
+    function syncCustomSelectPicker(picker) {
+      const { select, trigger, value, menu } = getCustomSelectParts(picker);
+      if (!picker || !select || !trigger || !value || !menu) return;
+
+      const selected = select.selectedOptions[0];
+      value.textContent = selected?.textContent || '';
+      const controlLabel = select.getAttribute('aria-label') || 'Choose an option';
+      trigger.setAttribute('aria-label', `${controlLabel}: ${value.textContent}`);
+      menu.setAttribute('aria-label', controlLabel);
+      menu.replaceChildren();
+
+      [...select.children].forEach(child => {
+        if (child.tagName === 'OPTION') {
+          createCustomSelectOption(child, menu);
+          return;
+        }
+        if (child.tagName !== 'OPTGROUP') return;
+        const group = document.createElement('div');
+        group.className = 'accounts-select-group';
+        group.setAttribute('role', 'group');
+        group.setAttribute('aria-label', child.label);
+        const label = document.createElement('div');
+        label.className = 'accounts-select-group-label';
+        label.setAttribute('aria-hidden', 'true');
+        label.textContent = child.label;
+        group.appendChild(label);
+        [...child.children].forEach(option => createCustomSelectOption(option, group));
+        menu.appendChild(group);
+      });
+    }
+
+    function syncAllCustomSelectPickers() {
+      document.querySelectorAll('[data-select-picker]').forEach(syncCustomSelectPicker);
+    }
+
+    function positionCustomSelectMenu(picker) {
+      const { trigger, menu } = getCustomSelectParts(picker);
+      if (!trigger || !menu || menu.hidden) return;
+      picker.dataset.placement = 'bottom';
+      menu.style.maxHeight = 'none';
+      const triggerRect = trigger.getBoundingClientRect();
+      const viewportPadding = 12;
+      const spaceBelow = Math.max(0, window.innerHeight - triggerRect.bottom - viewportPadding);
+      const spaceAbove = Math.max(0, triggerRect.top - viewportPadding);
+      const desiredHeight = Math.min(menu.scrollHeight, 520);
+      const openAbove = spaceBelow < Math.min(desiredHeight, 220) && spaceAbove > spaceBelow;
+      picker.dataset.placement = openAbove ? 'top' : 'bottom';
+      const availableHeight = openAbove ? spaceAbove : spaceBelow;
+      menu.style.maxHeight = `${Math.max(96, Math.min(520, Math.floor(availableHeight)))}px`;
+    }
+
+    function setCustomSelectOpen(picker, open, focusTarget = 'selected') {
+      const { trigger, menu } = getCustomSelectParts(picker);
+      if (!picker || !trigger || !menu) return;
+      if (open) {
+        document.querySelectorAll('[data-select-picker][data-open="true"]').forEach(otherPicker => {
+          if (otherPicker !== picker) setCustomSelectOpen(otherPicker, false);
+        });
+      }
+      picker.dataset.open = String(open);
+      trigger.setAttribute('aria-expanded', String(open));
+      menu.hidden = !open;
+      if (!open) return;
+      positionCustomSelectMenu(picker);
+      window.requestAnimationFrame(() => {
+        const options = [...menu.querySelectorAll('[data-select-value]')];
+        if (!options.length) return;
+        const target = focusTarget === 'last'
+          ? options.at(-1)
+          : menu.querySelector('[aria-selected="true"]') || options[0];
+        target?.focus({ preventScroll: true });
+      });
+    }
+
+    function initCustomSelectPicker(picker) {
+      const { select, trigger, menu } = getCustomSelectParts(picker);
+      if (!picker || !select || !trigger || !menu || picker.dataset.initialized === 'true') return;
+      picker.dataset.initialized = 'true';
+      syncCustomSelectPicker(picker);
+
+      trigger.addEventListener('click', () => {
+        setCustomSelectOpen(picker, menu.hidden);
+      });
+      trigger.addEventListener('keydown', event => {
+        if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+          event.preventDefault();
+          setCustomSelectOpen(picker, true, event.key === 'ArrowUp' ? 'last' : 'selected');
+        } else if (event.key === 'Escape' && !menu.hidden) {
+          event.preventDefault();
+          setCustomSelectOpen(picker, false);
+        }
+      });
+      menu.addEventListener('click', event => {
+        const option = event.target.closest('[data-select-value]');
+        if (!option) return;
+        select.value = option.dataset.selectValue;
+        select.dispatchEvent(new Event('change', { bubbles: true }));
+        syncCustomSelectPicker(picker);
+        setCustomSelectOpen(picker, false);
+        trigger.focus({ preventScroll: true });
+      });
+      menu.addEventListener('keydown', event => {
+        const options = [...menu.querySelectorAll('[data-select-value]')];
+        const currentIndex = options.indexOf(document.activeElement);
+        let nextIndex = currentIndex;
+        if (event.key === 'ArrowDown') nextIndex = Math.min(options.length - 1, currentIndex + 1);
+        else if (event.key === 'ArrowUp') nextIndex = Math.max(0, currentIndex - 1);
+        else if (event.key === 'Home') nextIndex = 0;
+        else if (event.key === 'End') nextIndex = options.length - 1;
+        else if (event.key === 'Escape') {
+          event.preventDefault();
+          setCustomSelectOpen(picker, false);
+          trigger.focus({ preventScroll: true });
+          return;
+        } else if (event.key === 'Tab') {
+          setCustomSelectOpen(picker, false);
+          return;
+        } else {
+          return;
+        }
+        event.preventDefault();
+        options.forEach((option, index) => { option.tabIndex = index === nextIndex ? 0 : -1; });
+        options[nextIndex]?.focus({ preventScroll: true });
+      });
+      select.addEventListener('change', () => syncCustomSelectPicker(picker));
+    }
+
+    function initAllCustomSelectPickers() {
+      const pickers = [...document.querySelectorAll('[data-select-picker]')];
+      pickers.forEach(initCustomSelectPicker);
+      document.addEventListener('pointerdown', event => {
+        pickers.forEach(picker => {
+          if (!picker.contains(event.target)) setCustomSelectOpen(picker, false);
+        });
+      });
+      window.addEventListener('resize', () => {
+        pickers.forEach(picker => {
+          if (window.innerWidth <= 700) setCustomSelectOpen(picker, false);
+          else if (picker.dataset.open === 'true') positionCustomSelectMenu(picker);
+        });
+      }, { passive: true });
+    }
+
     function detectLang(){
       const urlLang = new URLSearchParams(window.location.search).get("lang");
       if (urlLang && i18n[urlLang]) return urlLang;
@@ -1843,6 +2007,7 @@ document.addEventListener("DOMContentLoaded", () => {
       setSelectOptionText('accountTop500Filter', accountUi.top500Options);
       setSelectOptionText('accountSort', accountUi.sortOptions);
       setSelectGroupText('accountSort', accountUi.sortGroups);
+      syncAllCustomSelectPickers();
       window.refreshAccountFilterUi?.();
       window.renderAccounts?.();
 
@@ -1891,6 +2056,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     applyLang(detectLang());
+    initAllCustomSelectPickers();
     startInventoryCountdown();
     document.addEventListener('visibilitychange', () => {
       if (!document.hidden) updateInventoryCountdown();

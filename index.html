@@ -17,7 +17,7 @@
   <meta name="twitter:description" content="Curated Overwatch accounts with clear listings, secure handover, and long-term support." />
   <meta name="twitter:image" content="https://roshine.love/assets/og.jpg" />
   <link rel="icon" href="./assets/logo.png" />
-  <link rel="stylesheet" href="./assets/main.css?v=8" />
+  <link rel="stylesheet" href="./assets/main.css?v=10" />
 </head>
 <body>
 
@@ -139,52 +139,97 @@
             autocomplete="off"
             aria-label="Search account keywords"
           />
-          <select class="accounts-control" id="accountStatusFilter" aria-label="Filter availability status">
-            <option value="instock" selected>In stock</option>
-            <option value="all">All statuses</option>
-            <option value="pending">Pending</option>
-            <option value="sold">Sold</option>
-          </select>
-          <select class="accounts-control" id="accountTypeFilter" aria-label="Filter game version">
-            <option value="all">All versions</option>
-            <option value="ow1">OW1</option>
-            <option value="ow2">OW2</option>
-          </select>
-          <select class="accounts-control" id="accountPriceFilter" aria-label="Filter price range">
-            <option value="all">All prices</option>
-            <option value="under30">Under $30</option>
-            <option value="30to100">$30–$100</option>
-            <option value="over100">Over $100</option>
-          </select>
-          <select class="accounts-control" id="accountNameChangeFilter" aria-label="Filter free name change">
-            <option value="all">Free rename: All</option>
-            <option value="yes">Free rename: Yes</option>
-            <option value="no">Free rename: No</option>
-          </select>
-          <select class="accounts-control" id="accountTop500Filter" aria-label="Filter TOP500 eligibility">
-            <option value="all">TOP500 Eligible: All</option>
-            <option value="yes">TOP500 Eligible: Yes</option>
-            <option value="no">TOP500 Eligible: No</option>
-          </select>
-          <select class="accounts-control accounts-sort" id="accountSort" aria-label="Sort accounts">
-            <option value="recommended">Recommended</option>
-            <optgroup label="Price">
-              <option value="price-asc">Price: Low to High</option>
-              <option value="price-desc">Price: High to Low</option>
-            </optgroup>
-            <optgroup label="Account progress">
-              <option value="level-desc">Level: High to Low</option>
-              <option value="level-asc">Level: Low to High</option>
-              <option value="playtime-desc">Playtime: High to Low</option>
-              <option value="playtime-asc">Playtime: Low to High</option>
-            </optgroup>
-            <optgroup label="Resources">
-              <option value="coins-desc">Coins: High to Low</option>
-              <option value="coins-asc">Coins: Low to High</option>
-              <option value="credits-desc">Credits: High to Low</option>
-              <option value="credits-asc">Credits: Low to High</option>
-            </optgroup>
-          </select>
+          <div class="accounts-select-picker" data-select-picker data-accent="green">
+            <select class="accounts-control accounts-select-native" id="accountStatusFilter" aria-label="Filter availability status">
+              <option value="instock" selected>In stock</option>
+              <option value="all">All statuses</option>
+              <option value="pending">Pending</option>
+              <option value="sold">Sold</option>
+            </select>
+            <button class="accounts-control accounts-select-trigger" type="button" data-select-trigger aria-haspopup="listbox" aria-controls="accountStatusMenu" aria-expanded="false">
+              <span data-select-value>In stock</span><span class="accounts-select-chevron" aria-hidden="true"></span>
+            </button>
+            <div class="accounts-select-menu" id="accountStatusMenu" data-select-menu role="listbox" hidden></div>
+          </div>
+          <div class="accounts-select-picker" data-select-picker data-accent="cyan">
+            <select class="accounts-control accounts-select-native" id="accountTypeFilter" aria-label="Filter game version">
+              <option value="all">All versions</option>
+              <option value="ow1">OW1</option>
+              <option value="ow2">OW2</option>
+            </select>
+            <button class="accounts-control accounts-select-trigger" type="button" data-select-trigger aria-haspopup="listbox" aria-controls="accountTypeMenu" aria-expanded="false">
+              <span data-select-value>All versions</span><span class="accounts-select-chevron" aria-hidden="true"></span>
+            </button>
+            <div class="accounts-select-menu" id="accountTypeMenu" data-select-menu role="listbox" hidden></div>
+          </div>
+          <div class="accounts-select-picker" data-select-picker data-accent="gold">
+            <select class="accounts-control accounts-select-native" id="accountPriceFilter" aria-label="Filter price range">
+              <option value="all">All prices</option>
+              <option value="under30">Under $30</option>
+              <option value="30to100">$30–$100</option>
+              <option value="over100">Over $100</option>
+            </select>
+            <button class="accounts-control accounts-select-trigger" type="button" data-select-trigger aria-haspopup="listbox" aria-controls="accountPriceMenu" aria-expanded="false">
+              <span data-select-value>All prices</span><span class="accounts-select-chevron" aria-hidden="true"></span>
+            </button>
+            <div class="accounts-select-menu" id="accountPriceMenu" data-select-menu role="listbox" hidden></div>
+          </div>
+          <div class="accounts-select-picker" data-select-picker data-accent="pink">
+            <select class="accounts-control accounts-select-native" id="accountNameChangeFilter" aria-label="Filter free name change">
+              <option value="all">Free rename: All</option>
+              <option value="yes">Free rename: Yes</option>
+              <option value="no">Free rename: No</option>
+            </select>
+            <button class="accounts-control accounts-select-trigger" type="button" data-select-trigger aria-haspopup="listbox" aria-controls="accountNameChangeMenu" aria-expanded="false">
+              <span data-select-value>Free rename: All</span><span class="accounts-select-chevron" aria-hidden="true"></span>
+            </button>
+            <div class="accounts-select-menu" id="accountNameChangeMenu" data-select-menu role="listbox" hidden></div>
+          </div>
+          <div class="accounts-select-picker" data-select-picker data-accent="red">
+            <select class="accounts-control accounts-select-native" id="accountTop500Filter" aria-label="Filter TOP500 eligibility">
+              <option value="all">TOP500 Eligible: All</option>
+              <option value="yes">TOP500 Eligible: Yes</option>
+              <option value="no">TOP500 Eligible: No</option>
+            </select>
+            <button class="accounts-control accounts-select-trigger" type="button" data-select-trigger aria-haspopup="listbox" aria-controls="accountTop500Menu" aria-expanded="false">
+              <span data-select-value>TOP500 Eligible: All</span><span class="accounts-select-chevron" aria-hidden="true"></span>
+            </button>
+            <div class="accounts-select-menu" id="accountTop500Menu" data-select-menu role="listbox" hidden></div>
+          </div>
+          <div class="accounts-select-picker accounts-sort-picker" id="accountsSortPicker" data-select-picker data-accent="purple">
+            <select class="accounts-control accounts-select-native accounts-sort-native" id="accountSort" aria-label="Sort accounts">
+              <option value="recommended">Recommended</option>
+              <optgroup label="Price">
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+              </optgroup>
+              <optgroup label="Account progress">
+                <option value="level-desc">Level: High to Low</option>
+                <option value="level-asc">Level: Low to High</option>
+                <option value="playtime-desc">Playtime: High to Low</option>
+                <option value="playtime-asc">Playtime: Low to High</option>
+              </optgroup>
+              <optgroup label="Resources">
+                <option value="coins-desc">Coins: High to Low</option>
+                <option value="coins-asc">Coins: Low to High</option>
+                <option value="credits-desc">Credits: High to Low</option>
+                <option value="credits-asc">Credits: Low to High</option>
+              </optgroup>
+            </select>
+            <button
+              class="accounts-control accounts-select-trigger accounts-sort-trigger"
+              id="accountSortTrigger"
+              type="button"
+              data-select-trigger
+              aria-haspopup="listbox"
+              aria-controls="accountSortMenu"
+              aria-expanded="false"
+            >
+              <span id="accountSortValue" data-select-value>Recommended</span>
+              <span class="accounts-select-chevron" aria-hidden="true"></span>
+            </button>
+            <div class="accounts-select-menu accounts-sort-menu" id="accountSortMenu" data-select-menu role="listbox" hidden></div>
+          </div>
         </div>
 
         <div class="accounts-drawer-footer">
@@ -290,6 +335,6 @@
       </nav>
     </div>
   </footer>
-  <script src="./assets/main.js?v=8" defer></script>
+  <script src="./assets/main.js?v=10" defer></script>
 </body>
 </html>
