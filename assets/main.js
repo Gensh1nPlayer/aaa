@@ -503,7 +503,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 className: 'ac-special-skin-mythic'
               }
             ];
-            const specialWeaponChoicePattern = /\bChoice\s+of\s+(?:\d+|one|two|three|four|five|six|seven|eight|nine|ten)\s+(?:additional\s+)?Gold\s*\/\s*Jade\s*\/\s*Galactic\s+Weapon(?:s|\s+Skins?)?\b/gi;
+            const specialWeaponChoicePattern = /\bChoice\s+of\s+(?:\d+|one|two|three|four|five|six|seven|eight|nine|ten)\s+(?:additional\s+)?Gold\s*\/\s*Jade\s*\/\s*Galactic(?:\s*\/\s*Crimson\s+Wolf)?\s+Weapon(?:s|\s+Skins?)?\b/gi;
 
             // Custom Color Dictionary
             function applyColorMap(text) {
@@ -714,7 +714,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
               );
 
-              // Apply the same animated Gold/Jade/Galactic effect when this
+              // Apply the same animated weapon-choice effect when this
               // description appears in the balance block instead of weapons.
               res = res.replace(
                 specialWeaponChoicePattern,
