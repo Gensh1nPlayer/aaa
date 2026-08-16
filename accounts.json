@@ -6,13 +6,13 @@
       "level": "11 - OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "Sold",
-      "highlights": "🟢OG Account (2022)<br>🔓SMS Verified • Warranty<br>⭐DPS Main",
+      "highlights": "🟢 OG Account (2022)<br>🔓 SMS Verified • Warranty<br>⭐ DPS Main",
       "weapons": "",
       "balance": "⏱ 39H • 269G<br>🪙 90 Coins • 1,100 Credits<br>🏅 1,075 Legacy Competitive Points",
-      "rank": "MMR: Silver Below All Roles",
+      "rank": "MMR: Silver or Below in All Roles",
       "nameChange": "✘",
       "screenshot": "https://imgur.com/a/NqPHEki",
-      "price": "10.7$"
+      "price": "$10.70"
     },
     {
       "id": 2,
@@ -20,13 +20,13 @@
       "level": "38 - OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "Sold",
-      "highlights": "🟢OG Account (2022)<br>🔓SMS Verified • Warranty<br>⭐DPS Main",
+      "highlights": "🟢 OG Account (2022)<br>🔓 SMS Verified • Warranty<br>⭐ DPS Main",
       "weapons": "",
       "balance": "⏱ 39H • 91G<br>🪙 50 Coins • 150 Credits",
       "rank": "Rank Reset",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/vp19H1d",
-      "price": "10.7$"
+      "price": "$10.70"
     },
     {
       "id": 3,
@@ -34,13 +34,13 @@
       "level": "50 - OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "Sold",
-      "highlights": "🟢OG Account (2022)<br>🔓SMS Verified • Warranty<br>⭐DPS Main",
+      "highlights": "🟢 OG Account (2022)<br>🔓 SMS Verified • Warranty<br>⭐ DPS Main",
       "weapons": "",
       "balance": "⏱ 70H • 497G<br>🪙 589 Coins • 1,700 Credits<br>🏅 1,205 Legacy Competitive Points",
-      "rank": "S11 Silver 4 DPS",
+      "rank": "Season 11: Silver 4 DPS",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/FadUvAm",
-      "price": "12.7$"
+      "price": "$12.70"
     },
     {
       "id": 4,
@@ -48,13 +48,13 @@
       "level": "57 - OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "Sold",
-      "highlights": "🟢OG Account (2022)<br>🔓SMS Verified • Warranty<br>⭐Endorsement Level 2 • DPS Main<br>✨Rosewood Moira",
+      "highlights": "🟢 OG Account (2022)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 2 • DPS Main<br>✨ Rosewood Moira",
       "weapons": "",
       "balance": "⏱ 40H • 245G<br>🪙 270 Coins • 2,113 Credits<br>🏅 2,050 Legacy Competitive Points",
       "rank": "Rank Reset",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/WEI4xMJ",
-      "price": "12.7$"
+      "price": "$12.70"
     },
     {
       "id": 5,
@@ -62,13 +62,13 @@
       "level": "17 - OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "Sold",
-      "highlights": "🟢OG Account (2022)<br>🔓SMS Verified • Warranty",
+      "highlights": "🟢 OG Account (2022)<br>🔓 SMS Verified • Warranty",
       "weapons": "",
       "balance": "⏱ 28H • 203G<br>🪙 260 Coins • 1,925 Credits<br>🏅 70 Legacy Competitive Points",
-      "rank": "S14 Silver 3 Support",
+      "rank": "Season 14: Silver 3 Support",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/6iZUEy6",
-      "price": "12.7$"
+      "price": "$12.70"
     },
     {
       "id": 6,
@@ -76,13 +76,13 @@
       "level": "34 - OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "Sold",
-      "highlights": "🟢OG Account (2022)<br>🔓SMS Verified • Warranty<br>⭐Endorsement Level 2 • DPS Main",
+      "highlights": "🟢 OG Account (2022)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 2 • DPS Main",
       "weapons": "",
       "balance": "⏱ 56H • 469G<br>🪙 230 Coins • 1,025 Credits",
       "rank": "Rank Reset",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/HceoaCN",
-      "price": "12.7$"
+      "price": "$12.70"
     },
     {
       "id": 7,
@@ -96,66 +96,150 @@
       "rank": "Rank Reset<br>Stadium Competitive Unlocked",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/hc5uORw",
-      "price": "12.7$"
+      "price": "$12.70"
     },
     {
       "id": 8,
       "discord_id": null,
-      "level": "66 - OW2",
+      "level": "94 - OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
-      "status": "Sold",
-      "highlights": "🟢OG Account (2022)<br>🔓SMS Verified • Warranty<br>⭐DPS Main",
+      "status": "🟢 In Stock",
+      "highlights": "🟢 OG Account (2024)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 2<br>✨ Toxic Doom, Heihu Genji, Flower Child Mei",
       "weapons": "",
-      "balance": "⏱ 47H • 316G<br>🪙 330 Coins • 525 Credits<br>🏅 2,865 Legacy Competitive Points",
-      "rank": "Rank Reset<br>MMR: Gold All Roles",
+      "balance": "⏱ 43H • 287G<br>🪙 400 Coins • 1,200 Credits<br>🏅 40 Legacy Competitive Points",
+      "rank": "Rank Reset",
       "nameChange": "✓",
-      "screenshot": "https://imgur.com/a/ObhyJb9",
-      "price": "15.7$"
+      "screenshot": "https://imgur.com/a/56s3Pgc",
+      "price": "$15.70"
     },
     {
       "id": 9,
       "discord_id": null,
+      "level": "66 - OW2",
+      "access": "BNET + Email<br>OG Info • Invoice",
+      "status": "Sold",
+      "highlights": "🟢 OG Account (2022)<br>🔓 SMS Verified • Warranty<br>⭐ DPS Main",
+      "weapons": "",
+      "balance": "⏱ 47H • 316G<br>🪙 330 Coins • 525 Credits<br>🏅 2,865 Legacy Competitive Points",
+      "rank": "Rank Reset<br>MMR: Gold in All Roles",
+      "nameChange": "✓",
+      "screenshot": "https://imgur.com/a/ObhyJb9",
+      "price": "$15.70"
+    },
+    {
+      "id": 10,
+      "discord_id": null,
       "level": "55 - OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "Sold",
-      "highlights": "🟢OG Account (2022)<br>🔓SMS Verified • Warranty<br>⭐Endorsement Level 2<br>✨Overwatch Contenders Mercy, Harbinger Lifewaver",
+      "highlights": "🟢 OG Account (2022)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 2<br>✨ Overwatch Contenders Mercy, Harbinger Lifeweaver",
       "weapons": "",
       "balance": "⏱ 23H • 177G<br>🪙 140 Coins • 3,300 Credits",
       "rank": "Fresh Rank Ready",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/0E8wuAl",
-      "price": "15.7$"
+      "price": "$15.70"
     },
     {
-      "id": 10,
+      "id": 11,
       "discord_id": null,
       "level": "38 - OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "Sold",
-      "highlights": "🟢 OG Account (2022)<br>🔓 SMS Verified • Warranty<br>✨ Turtle Ship DVa, Cardboard Rein, Cyber Dragon Hanzo, Street Runner Genji, Polar Bap, Cleric Lifewaver, Honey Bee Mercy, Rosewood Moira",
+      "highlights": "🟢 OG Account (2022)<br>🔓 SMS Verified • Warranty<br>✨ Turtle Ship D.Va, Cardboard Rein, Cyber Dragon Hanzo, Street Runner Genji, Polar Bap, Cleric Lifeweaver, Honey Bee Mercy, Rosewood Moira",
       "weapons": "",
       "balance": "⏱ 26H • 182G<br>💎 30 Mythic Prisms<br>🪙 279 Coins • 150 Credits<br>🏅 45 Legacy Competitive Points • 210 Competitive Points",
       "rank": "Rank Reset",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/fKlYcxy",
-      "price": "15.7$"
+      "price": "$15.70"
     },
     {
-      "id": 11,
+      "id": 12,
+      "discord_id": null,
+      "level": "78 - OW2",
+      "access": "BNET + Email<br>OG Info • Invoice",
+      "status": "🟢 In Stock",
+      "highlights": "🟢 OG Account (2024)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 2 • DPS Main<br>✨ Heavy Metal JQ, Retro Future, Infernal Witch Sym, Arch-Commandant Amari Ana, EXO-L5O Brig",
+      "weapons": "",
+      "balance": "⏱ 26H • 178G<br>🪙 400 Coins • 3,325 Credits<br>🏅 70 Legacy Competitive Points • 290 Competitive Points",
+      "rank": "Rank Reset<br>Rank History: 2026 S3 Silver 1 Support",
+      "nameChange": "✓",
+      "screenshot": "https://imgur.com/a/W7y4Zss",
+      "price": "$15.70"
+    },
+    {
+      "id": 13,
+      "discord_id": null,
+      "level": "61 - OW2",
+      "access": "BNET + Email<br>OG Info • Invoice",
+      "status": "🟢 In Stock",
+      "highlights": "🟢 OG Account (2024)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 2<br>✨ Poolside Mercy",
+      "weapons": "",
+      "balance": "⏱ 20H • 143G<br>🪙 230 Coins • 2,750 Credits<br>🏅 70 Competitive Points",
+      "rank": "Rank Reset",
+      "nameChange": "✓",
+      "screenshot": "https://imgur.com/a/VThWYj3",
+      "price": "$15.70"
+    },
+    {
+      "id": 14,
+      "discord_id": null,
+      "level": "36 - OW2",
+      "access": "BNET + Email<br>OG Info • Invoice",
+      "status": "🟢 In Stock",
+      "highlights": "🟢 OG Account (2022)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 2<br>✨ Azure Huntress Ashe, Cardboard Bastion, Witch Kiriko",
+      "weapons": "",
+      "balance": "⏱ 23H • 183G<br>🪙 230 Coins • 200 Credits",
+      "rank": "Fresh Rank Ready",
+      "nameChange": "✓",
+      "screenshot": "https://imgur.com/a/o4H76Ce",
+      "price": "$15.70"
+    },
+    {
+      "id": 15,
+      "discord_id": null,
+      "level": "23 - OW2",
+      "access": "BNET + Email<br>OG Info • Invoice",
+      "status": "🟢 In Stock",
+      "highlights": "🟢 OG Account (2025)<br>🔓 SMS Verified • Warranty<br>✨ Devil Pharah",
+      "weapons": "",
+      "balance": "⏱ 13H • 89G<br>🪙 200 Coins • 1,000 Credits<br>🏅 180 Legacy Competitive Points",
+      "rank": "MMR: Bronze–Silver in All Roles",
+      "nameChange": "✓",
+      "screenshot": "https://imgur.com/a/7tcVJxk",
+      "price": "$15.70"
+    },
+    {
+      "id": 16,
+      "discord_id": null,
+      "level": "23 - OW2",
+      "access": "BNET + Email<br>OG Info • Invoice",
+      "status": "🟢 In Stock",
+      "highlights": "🟢 OG Account (2023)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 3 • DPS Main<br>✨ Rugby Mauga, Beekeeper Sigma, Art Deco Sym",
+      "weapons": "",
+      "balance": "⏱ 91H • 466G<br>🪙 150 Coins • 675 Credits",
+      "rank": "Rank Reset",
+      "nameChange": "✓",
+      "screenshot": "https://imgur.com/a/11IudAl",
+      "price": "$18.70"
+    },
+    {
+      "id": 17,
       "discord_id": null,
       "level": "56 - OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "Sold",
-      "highlights": "🟢OG Account (2022)<br>🔓SMS Verified • Warranty<br>⭐Endorsement Level 2<br>✨Cyber Oni Hanzo",
+      "highlights": "🟢 OG Account (2022)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 2<br>✨ Cyber Oni Hanzo",
       "weapons": "Golden: Sigma",
       "balance": "⏱ 107H • 686G<br>🪙 560 Coins • 438 Credits<br>🏅 1,930 Legacy Competitive Points",
       "rank": "Rank Reset",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/IyfY2nr",
-      "price": "18.7$"
+      "price": "$18.70"
     },
     {
-      "id": 12,
+      "id": 18,
       "discord_id": null,
       "level": "42 - OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
@@ -166,10 +250,10 @@
       "rank": "Fresh Rank Ready",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/2f1ILmb",
-      "price": "18.7$"
+      "price": "$18.70"
     },
     {
-      "id": 13,
+      "id": 19,
       "discord_id": null,
       "level": "168 - OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
@@ -177,13 +261,13 @@
       "highlights": "🟢 OG Account (2023)<br>🔓 SMS Verified • Warranty<br>✨ Loki Sombra",
       "weapons": "",
       "balance": "⏱ 67H • 483G<br>🪙 400 Coins • 975 Credits<br>🏅 1,095 Legacy Competitive Points",
-      "rank": "Rank Reset<br>MMR: Bronze All Roles",
+      "rank": "Rank Reset<br>MMR: Bronze in All Roles",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/OgImpKM",
-      "price": "18.7$"
+      "price": "$18.70"
     },
     {
-      "id": 14,
+      "id": 20,
       "discord_id": null,
       "level": "94 - OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
@@ -191,55 +275,69 @@
       "highlights": "🟢 OG Account (2024)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 2 • DPS Main<br>✨ Turtle Ship D.Va, Ugly Sweater Winston, Cardboard Rein, Cyber Dragon Hanzo, Street Runner Genji, Polar Bap, Cleric Lifeweaver, Honey Bee Mercy",
       "weapons": "Nerf Gelfire Pro Weapon: Tracer",
       "balance": "⏱ 30H • 201G<br>💎 30 Mythic Prisms<br>🪙 400 Coins • 1,200 Credits<br>🏅 720 Legacy Competitive Points",
-      "rank": "Rank Reset<br>Rank History: Season 18 Plat 2 DPS",
+      "rank": "Rank Reset<br>Rank History: Season 18: Plat 2 DPS",
       "nameChange": "✘",
       "screenshot": "https://imgur.com/a/zuATmoN",
-      "price": "18.7$"
+      "price": "$18.70"
     },
     {
-      "id": 15,
+      "id": 21,
       "discord_id": null,
-      "level": "3+31 - OW1",
+      "level": "3 + 31 - OW1",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "Sold",
-      "highlights": "🏆 OG OW1 Legendary Edition (2022)<br>⭐ Endorsement Level 2 • Tank Main<br>✨ OW1 League Bastion/Genji/Tracer, OW1 Leauge Soj<br>✨ Kiniun Doom, Rugby Mauga, Beekeeper Sigma, Disco Lucio",
+      "highlights": "🏆 OG OW1 Legendary Edition (2022)<br>⭐ Endorsement Level 2 • Tank Main<br>✨ OW1 League Bastion/Genji/Tracer, OW1 League Soj<br>✨ Kiniun Doom, Rugby Mauga, Beekeeper Sigma, Disco Lucio",
       "weapons": "",
       "balance": "⏱ 30H • 352G<br>🪙 475 Credits<br>🏅 565 Legacy Competitive Points • 400 Competitive Points",
       "rank": "Rank Reset",
       "nameChange": "✘",
       "screenshot": "https://imgur.com/a/tWNa2Vr",
-      "price": "18.7$"
+      "price": "$18.70"
     },
     {
-      "id": 16,
+      "id": 22,
+      "discord_id": null,
+      "level": "49 - OW2",
+      "access": "BNET + Email<br>OG Info • Invoice",
+      "status": "🟢 In Stock",
+      "highlights": "🟢 OG Account (2023)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 2<br>✨ Turtle Ship D.Va, Cardboard Rein, Ritzy Cassidy, Nefertari Pharah, Cyber Dragon Hanzo, Street Runner Genji, Cleric Lifeweaver, Honey Bee Mercy, Celestial/Rosewood Moira",
+      "weapons": "",
+      "balance": "⏱ 14H • 100G<br>💎 30 Mythic Prisms<br>🪙 400 Coins • 325 Credits<br>🏅 210 Competitive Points",
+      "rank": "MMR: Bronze in All Roles",
+      "nameChange": "✓",
+      "screenshot": "https://imgur.com/a/yp3ONJc",
+      "price": "$18.70"
+    },
+    {
+      "id": 23,
       "discord_id": null,
       "level": "53 - OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "Sold",
-      "highlights": "🟢OG Account (2022)<br>🔓SMS Verified • Warranty<br>⭐Endorsement Level 2<br>✨Cozy Mauga, Fallen Knight Rein, Flower Child Mei, Infinite Guard: 76, Hashimoto Kiriko, Magma Moira",
+      "highlights": "🟢 OG Account (2022)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 2<br>✨ Cozy Mauga, Fallen Knight Rein, Flower Child Mei, Infinite Guard: 76, Hashimoto Kiriko, Magma Moira",
       "weapons": "",
       "balance": "⏱ 74H • 551G<br>🪙 320 Coins • 75 Credits<br>🏅 235 Legacy Competitive Points • 560 Competitive Points",
-      "rank": "Rank Reset<br>History Rank: Silver 4 Sup",
+      "rank": "Rank Reset<br>Rank History: Silver 4 Support",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/WEI4xMJ",
-      "price": "20.7$"
+      "price": "$20.70"
     },
     {
-      "id": 17,
+      "id": 24,
       "discord_id": null,
       "level": "60 - OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "Sold",
-      "highlights": "🟢 OG Account (2022)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 2<br>✨ Turtle Ship DVa, Executioner JQ, Cardboard Rein, Lily Hog, Street Runner Genji, Cyber Dragon Hanzo, Flower Child Mei, Medusa Widow, Visual Kei Kiriko, Cleric Lifewaver, Honey Bee Mercy",
+      "highlights": "🟢 OG Account (2022)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 2<br>✨ Turtle Ship D.Va, Executioner JQ, Cardboard Rein, Lily Hog, Street Runner Genji, Cyber Dragon Hanzo, Flower Child Mei, Medusa Widow, Visual Kei Kiriko, Cleric Lifeweaver, Honey Bee Mercy",
       "weapons": "Nerf Gelfire Pro Weapon: Tracer",
       "balance": "⏱ 23H • 183G<br>💎 30 Mythic Prisms<br>🪙 400 Coins • 475 Credits",
       "rank": "Fresh Rank Ready<br>Low MMR",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/hrwxRFu",
-      "price": "20.7$"
+      "price": "$20.70"
     },
     {
-      "id": 18,
+      "id": 25,
       "discord_id": null,
       "level": "162 - OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
@@ -250,24 +348,24 @@
       "rank": "Rank Reset",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/x9Y5wNJ",
-      "price": "20.7$"
+      "price": "$20.70"
     },
     {
-      "id": 19,
+      "id": 26,
       "discord_id": null,
       "level": "87 - OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "Sold",
-      "highlights": "🟢OG Account (2022)<br>🔓SMS Verified • Warranty<br>⭐Endorsement Level 2 • Sombra • DPS Main<br>✨Infinite Ace DVa, Minotaur Rein, Neon Streets Mei, Cyberdevil Widow, Loki/Quicksilver Sombra",
+      "highlights": "🟢 OG Account (2022)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 2 • Sombra • DPS Main<br>✨ Infinite Ace D.Va, Minotaur Rein, Neon Streets Mei, Cyberdevil Widow, Loki/Quicksilver Sombra",
       "weapons": "",
       "balance": "⏱ 115H • 828G<br>🪙 200 Coins • 4,125 Credits",
       "rank": "Rank Reset",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/dKrK1JJ",
-      "price": "20.7$"
+      "price": "$20.70"
     },
     {
-      "id": 20,
+      "id": 27,
       "discord_id": null,
       "level": "30 - OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
@@ -278,26 +376,12 @@
       "rank": "Rank Reset<br>Rank History: Bronze 3 DPS",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/cODCv1T",
-      "price": "20.7$"
+      "price": "$20.70"
     },
     {
-      "id": 21,
+      "id": 28,
       "discord_id": null,
-      "level": "8 + 12 - OW1",
-      "access": "BNET + Email<br>OG Info • Invoice",
-      "status": "Sold",
-      "highlights": "🏆 OG OW1 (2021)<br>⭐ DPS Main",
-      "weapons": "",
-      "balance": "⏱ 17H • 131G<br>🪙 1,750 Credits",
-      "rank": "Rank Reset<br>MMR: Gold Below All Roles",
-      "nameChange": "✓",
-      "screenshot": "https://imgur.com/a/bffkjga",
-      "price": "20.7$"
-    },
-    {
-      "id": 22,
-      "discord_id": null,
-      "level": "27+22 - OW1",
+      "level": "27 + 22 - OW1",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "Sold",
       "highlights": "🏆 OG OW1 Legendary Edition (2016)<br>⭐ Endorsement Level 3 • DPS Main<br>✨ OW1 London Spitfire Bastion",
@@ -306,10 +390,10 @@
       "rank": "Rank Reset",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/gFGtXOT",
-      "price": "20.7$"
+      "price": "$20.70"
     },
     {
-      "id": 23,
+      "id": 29,
       "discord_id": null,
       "level": "252 - OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
@@ -320,52 +404,80 @@
       "rank": "Rank Reset",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/JtKLpQG",
-      "price": "20.8$"
+      "price": "$20.80"
     },
     {
-      "id": 24,
+      "id": 30,
       "discord_id": null,
-      "level": "4+47 - OW1",
+      "level": "4 + 47 - OW1",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "Sold",
       "highlights": "🏆 OG OW1 Legendary Edition (2020)<br>⭐ DPS Main<br>✨ OW1 Florida Mayhem Moira, New York Excelsior Zen",
       "weapons": "",
       "balance": "⏱ 22H • 123G<br>🪙 200 Coins • 400 Credits<br>🏅 175 Legacy Competitive Points",
-      "rank": "Rank Reset<br>(Low MMR)",
+      "rank": "Rank Reset<br>Low MMR",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/7KKgFiY",
-      "price": "22.7$"
+      "price": "$22.70"
     },
     {
-      "id": 25,
+      "id": 31,
       "discord_id": null,
-      "level": "50+18 - OW1",
+      "level": "50 + 18 - OW1",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "Sold",
       "highlights": "🏆 OG OW1 Legendary Edition (2019)<br>⭐ DPS Main<br>🏆 OW1 Season 16 Competitor",
-      "weapons": "Golden: DVa",
+      "weapons": "Golden: D.Va",
       "balance": "⏱ 97H • 782G<br>🪙 180 Coins • 300 Credits<br>🏅 1,885 Legacy Competitive Points",
       "rank": "Rank Reset",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/NXdbZ2f",
-      "price": "22.7$"
+      "price": "$22.70"
     },
     {
-      "id": 26,
+      "id": 32,
       "discord_id": null,
       "level": "111 - OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "Sold",
-      "highlights": "🟢 OG Account (2022)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 2 • DPS Main<br>✨ Overwatch Contenders Moira<br>✨ Turtle Ship DVa, Cardboard Rein, Cyber Dragon Hanzo, Street Runner Genji, Cleric Lifewaver, Honey Bee/OWL Guardian Mercy, Mime Moira",
+      "highlights": "🟢 OG Account (2022)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 2 • DPS Main<br>✨ Overwatch Contenders Moira<br>✨ Turtle Ship D.Va, Cardboard Rein, Cyber Dragon Hanzo, Street Runner Genji, Cleric Lifeweaver, Honey Bee/OWL Guardian Mercy, Mime Moira",
       "weapons": "Golden: Junkrat",
       "balance": "⏱ 81H • 524G<br>💎 30 Mythic Prisms<br>🪙 400 Coins • 100 Credits<br>🏅 315 Legacy Competitive Points • 1,030 Competitive Points",
-      "rank": "2026 S2: Silver 5 Tank, Gold 5 DPS",
+      "rank": "2026 Season 2: Silver 5 Tank, Gold 5 DPS",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/6a1QcdD",
-      "price": "22.7$"
+      "price": "$22.70"
     },
     {
-      "id": 27,
+      "id": 33,
+      "discord_id": null,
+      "level": "82 - OW2",
+      "access": "BNET + Email<br>OG Info • Invoice",
+      "status": "🟢 In Stock",
+      "highlights": "🟢 OG Account (2022)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 3 • DPS Main<br>✨ Houston Outlaws Reaper, Dallas Fuel Soldier: 76<br>✨ Turtle Ship/Cardboard D.Va, EXO-UR54 Hazard, Professor De Kuiper Sigma, Streetwear Freja, Koi Hanzo, Golfer: 76, 10-Years Cheers Tracer, Azure Drake Brig, Cyber DJ Lucio, Music Festival Pharah, Barista Soj, Ivory Rose Mercy, Mime Moira",
+      "weapons": "",
+      "balance": "⏱ 27H • 209G<br>🪙 400 Coins • 900 Credits",
+      "rank": "Fresh Rank Ready",
+      "nameChange": "✓",
+      "screenshot": "https://imgur.com/a/81pVp3z",
+      "price": "$22.70"
+    },
+    {
+      "id": 34,
+      "discord_id": null,
+      "level": "173 - OW2",
+      "access": "BNET + Email<br>OG Info • Invoice",
+      "status": "🟢 In Stock",
+      "highlights": "🟢 OG Account (2022)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 3 • DPS Main<br>✨ Fire Engine Bastion, Streetwear Reaper, Space Raider/Magepunk Soldier: 76, Yatagarasu Kiriko, Bathmaster Zen",
+      "weapons": "Nerf Gelfire Pro Weapon: Tracer",
+      "balance": "⏱ 95H • 738G<br>🪙 490 Coins<br>🏅 60 Legacy Competitive Points",
+      "rank": "Rank Reset",
+      "nameChange": "✓",
+      "screenshot": "https://imgur.com/a/mjPjoA7",
+      "price": "$25.70"
+    },
+    {
+      "id": 35,
       "discord_id": null,
       "level": "167 - OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
@@ -373,27 +485,27 @@
       "highlights": "🟢 OG Account (2023)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 2 • DPS Main<br>✨ Overwatch Contenders Junkrat<br>✨ Toxic Bastion, Archangel Freja, Cyber Detective Soj, K-2000 Blademaster/Lifeguard Kiriko",
       "weapons": "",
       "balance": "⏱ 64H • 442G<br>🪙 450 Coins • 750 Credits<br>🏅 220 Legacy Competitive Points • 750 Competitive Points",
-      "rank": "2026 S1: Silver 4 DPS, Silver 2 Support<br>S19 Plat 3 Tank<br>Stadium Comp Unlocked",
+      "rank": "2026 Season 1: Silver 4 DPS, Silver 2 Support<br>Season 19: Plat 3 Tank<br>Stadium Competitive Unlocked",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/pKMlL7i",
-      "price": "25.7$"
+      "price": "$25.70"
     },
     {
-      "id": 28,
+      "id": 36,
       "discord_id": null,
       "level": "100 - OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "Sold",
-      "highlights": "🟢 OG Account (2022)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 2 • Bastion • DPS Main<br>✨ Overwatch Contenders Junkrat<br>✨ Turtle Ship DVa, Norse Doom, Biohazard Ram, Punk Pharah, Infinite Guard: 76, Cardboard Rein, Cyber Dragon Hanzo, Street Runner Genji, Polar Bap, Cleric Lifewaver, Honey Bee Mercy, Pasque Moira",
+      "highlights": "🟢 OG Account (2022)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 2 • Bastion • DPS Main<br>✨ Overwatch Contenders Junkrat<br>✨ Turtle Ship D.Va, Norse Doom, Biohazard Ram, Punk Pharah, Infinite Guard: 76, Cardboard Rein, Cyber Dragon Hanzo, Street Runner Genji, Polar Bap, Cleric Lifeweaver, Honey Bee Mercy, Pasque Moira",
       "weapons": "Nerf Gelfire Pro Weapon: Tracer",
       "balance": "⏱ 62H • 442G<br>💎 30 Mythic Prisms<br>🪙 209 Coins • 463 Credits<br>🏅 1,090 Legacy Competitive Points",
-      "rank": "MMR: Silver All Role",
+      "rank": "MMR: Silver in All Roles",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/NIhq1q3",
-      "price": "25.7$"
+      "price": "$25.70"
     },
     {
-      "id": 29,
+      "id": 37,
       "discord_id": null,
       "level": "8 + 51 - OW1",
       "access": "BNET + Email<br>OG Info • Invoice",
@@ -404,24 +516,24 @@
       "rank": "Fresh Rank Ready",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/JdIFVAf",
-      "price": "25.7$"
+      "price": "$25.70"
     },
     {
-      "id": 30,
+      "id": 38,
       "discord_id": null,
-      "level": "21+90 - OW1",
+      "level": "21 + 90 - OW1",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "Pending",
-      "highlights": "🏆 OG OW1 Legendary Edition (2020)<br>⭐ Endorsement Level 2 • DPS Main<br>✨ Danity Cat DVa, Kiniun Doom, Rugby Mauga, Rubber Ducky Orisa, Beekeeper Sigma, Cursed Doll Ashe, Pink Lotus Sym, Pearlescent Brig, Yatagarasu Kiriko, Black Swan Lifewaver",
+      "highlights": "🏆 OG OW1 Legendary Edition (2020)<br>⭐ Endorsement Level 2 • DPS Main<br>✨ Dainty Cat D.Va, Kiniun Doom, Rugby Mauga, Rubber Ducky Orisa, Beekeeper Sigma, Cursed Doll Ashe, Pink Lotus Sym, Pearlescent Brig, Yatagarasu Kiriko, Black Swan Lifeweaver",
       "weapons": "Hard Light Weapon: Reaper",
       "balance": "⏱ 135H • 1,013G<br>🪙 669 Coins • 825 Credits<br>🏅 1,320 Legacy Competitive Points • 20 Competitive Points",
       "rank": "Fresh Rank Ready",
       "nameChange": "✘",
       "screenshot": "https://imgur.com/a/mCv864s",
-      "price": "25.7$"
+      "price": "$25.70"
     },
     {
-      "id": 31,
+      "id": 39,
       "discord_id": null,
       "level": "96 - OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
@@ -432,10 +544,10 @@
       "rank": "Rank Reset",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/rxYAOuY",
-      "price": "25.7$"
+      "price": "$25.70"
     },
     {
-      "id": 32,
+      "id": 40,
       "discord_id": null,
       "level": "191 - OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
@@ -446,10 +558,10 @@
       "rank": "Rank Reset<br>MMR History: Season 11 Silver 3 Support",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/3IEnvWK",
-      "price": "25.7$"
+      "price": "$25.70"
     },
     {
-      "id": 33,
+      "id": 41,
       "discord_id": null,
       "level": "58 + 60 - OW1",
       "access": "BNET + Email<br>OG Info • Invoice",
@@ -460,10 +572,10 @@
       "rank": "Rank Reset",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/CAGWu4L",
-      "price": "25.7$"
+      "price": "$25.70"
     },
     {
-      "id": 34,
+      "id": 42,
       "discord_id": null,
       "level": "9 + 19 - OW1",
       "access": "BNET + Email<br>OG Info • Invoice",
@@ -474,10 +586,10 @@
       "rank": "Rank Reset",
       "nameChange": "✘",
       "screenshot": "https://imgur.com/a/Qb6Kuhj",
-      "price": "25.7$"
+      "price": "$25.70"
     },
     {
-      "id": 35,
+      "id": 43,
       "discord_id": null,
       "level": "126 - OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
@@ -485,13 +597,13 @@
       "highlights": "🟢 OG Account (2022)<br>🔓 SMS Verified • Warranty<br>⭐ DPS Main<br>🎮 Premium Battle Pass: Season 6 — A-7000 Wargod<br>✨ OW1 Guangzhou Charge Genji",
       "weapons": "",
       "balance": "⏱ 50H • 294G<br>🪙 230 Coins • 550 Credits<br>🏅 1,225 Legacy Competitive Points",
-      "rank": "Rank Reset<br>History Rank: S4 Silver 4 Tank/DPS, Gold 3 Support",
+      "rank": "Rank Reset<br>Rank History: Season 4: Silver 4 Tank/DPS, Gold 3 Support",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/AzaXrJu",
-      "price": "25.7$"
+      "price": "$25.70"
     },
     {
-      "id": 36,
+      "id": 44,
       "discord_id": null,
       "level": "242 - OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
@@ -502,10 +614,10 @@
       "rank": "Rank Reset",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/yQNAUpr",
-      "price": "27.7$"
+      "price": "$27.70"
     },
     {
-      "id": 37,
+      "id": 45,
       "discord_id": null,
       "level": "204 - OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
@@ -516,52 +628,52 @@
       "rank": "Fresh Rank Ready",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/GV1umf0",
-      "price": "27.7$"
+      "price": "$27.70"
     },
     {
-      "id": 38,
+      "id": 46,
       "discord_id": null,
-      "level": "42+20 - OW1",
+      "level": "42 + 20 - OW1",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "Sold",
-      "highlights": "🏆 OG OW1 (2022)<br>⭐ Endorsement Level 2<br>✨ OW1 League Bastion/Genji/Hanzo/Mercy/Mei/Tracer, Heist Reaper, Instructor Chase Soj, ",
+      "highlights": "🏆 OG OW1 (2022)<br>⭐ Endorsement Level 2<br>✨ OW1 League Bastion/Genji/Hanzo/Mercy/Mei/Tracer, Heist Reaper, Instructor Chase Soj",
       "weapons": "",
       "balance": "⏱ 36H • 352G<br>🪙 430 Coins • 9,325 Credits",
       "rank": "Rank Reset",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/pibvlBa",
-      "price": "28.7$"
+      "price": "$28.70"
     },
     {
-      "id": 39,
+      "id": 47,
       "discord_id": null,
-      "level": "34+152 - OW1",
+      "level": "34 + 152 - OW1",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "🟢 In Stock",
-      "highlights": "🏆 OG OW1 Legendary Edition (2020)<br>⭐ Tank Main<br>✨ Few OW1 Legendary Skins<br>✨ ICE Cream Venture, Visual Kei Kiriko",
+      "highlights": "🏆 OG OW1 Legendary Edition (2020)<br>⭐ Tank Main<br>✨ A Few OW1 Legendary Skins<br>✨ Ice Cream Venture, Visual Kei Kiriko",
       "weapons": "Choice of 1 Gold/Jade/Galactic Weapon",
       "balance": "⏱ 104H • 826G<br>🪙 790 Coins • 5,063 Credits<br>🏅 3,355 Legacy Competitive Points • 10 Competitive Points",
-      "rank": "MMR: Silver All Roles",
+      "rank": "MMR: Silver in All Roles",
       "nameChange": "✘",
       "screenshot": "https://imgur.com/a/O6VhKPD",
-      "price": "28.7$"
+      "price": "$28.70"
     },
     {
-      "id": 40,
+      "id": 48,
       "discord_id": null,
-      "level": "34+21 - OW1",
+      "level": "34 + 21 - OW1",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "Sold",
-      "highlights": "🏆 OG OW1 Legendary Edition (2019)<br>⭐ Endorsement Level 3 • DPS Main<br>✨ Turtle Ship DVa, Cardboard Rein, Street Runner Genji, Cyber Dragon Hanzo, Honey Bee Mercy, Cleric Lifewaver",
+      "highlights": "🏆 OG OW1 Legendary Edition (2019)<br>⭐ Endorsement Level 3 • DPS Main<br>✨ Turtle Ship D.Va, Cardboard Rein, Street Runner Genji, Cyber Dragon Hanzo, Honey Bee Mercy, Cleric Lifeweaver",
       "weapons": "Choice of 1 Gold/Jade/Galactic Weapon",
       "balance": "⏱ 78H • 412G<br>💎 30 Mythic Prisms<br>🪙 9 Coins • 3,100 Credits<br>🏅 3,345 Legacy Competitive Points",
-      "rank": "MMR: Silver All Roles",
+      "rank": "MMR: Silver in All Roles",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/fQCZjz8",
-      "price": "28.7$"
+      "price": "$28.70"
     },
     {
-      "id": 41,
+      "id": 49,
       "discord_id": null,
       "level": "232 - OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
@@ -572,38 +684,38 @@
       "rank": "Rank Reset",
       "nameChange": "✘",
       "screenshot": "https://imgur.com/a/kq6QNEI",
-      "price": "28.7$"
+      "price": "$28.70"
     },
     {
-      "id": 42,
+      "id": 50,
       "discord_id": null,
       "level": "54 - OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "Sold",
-      "highlights": "🟢 OG Account (2025)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 3 • Anran • DPS Main<br>✨ Malachite Pharah, 10-Years Cheers Tracer, Loki/Quicksilver Sombra, Grill Zombie: 76, Night Ops Soj, Tomb Walker Ana, Cozy/Freshman Teo Minh Juno, Sakura Lifewaver<br>✨ Decennium: DVa, Zarya, Winston, Hog, Rein, Bastion, Cassidy, Genji, Hanzo, Junk, Mei, Pharah, Widow, Torb, Sym, Solider: 76, Reaper, Zen, Mercy, Lucio",
+      "highlights": "🟢 OG Account (2025)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 3 • Anran • DPS Main<br>✨ Malachite Pharah, 10-Years Cheers Tracer, Loki/Quicksilver Sombra, Grill Zombie: 76, Night Ops Soj, Tomb Walker Ana, Cozy/Freshman Teo Minh Juno, Sakura Lifeweaver<br>✨ Decennium: D.Va, Zarya, Winston, Hog, Rein, Bastion, Cassidy, Genji, Hanzo, Junk, Mei, Pharah, Widow, Torb, Sym, Soldier: 76, Reaper, Zen, Mercy, Lucio",
       "weapons": "Choice of 1 Gold/Jade/Galactic/Crimson Wolf Weapon",
       "balance": "⏱ 33H • 202G<br>🪙 400 Coins • 5,650 Credits<br>🏅 3,380 Competitive Points",
-      "rank": "Bronze 1 DPS<br>Stadium Comp Unlocked",
+      "rank": "Bronze 1 DPS<br>Stadium Competitive Unlocked",
       "nameChange": "✘",
       "screenshot": "https://imgur.com/a/tKhHCgm",
-      "price": "28.7$"
+      "price": "$28.70"
     },
     {
-      "id": 43,
+      "id": 51,
       "discord_id": null,
       "level": "97 - OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "Sold",
-      "highlights": "🟢 OG Account (2023)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 3 • Sup Main<br>🎮 Premium Battle Pass: 2026 Season 1 — Celestial Guardian<br>✨ OW1 Contenders Winston, OW1 Dallas Fuel Sym<br>✨ Comic Book Tracer, Honey Bee Mercy, Turtle Ship DVa, Borealis Rein, Kaiju/Lily Hog, Space Raider Cassidy, Cardboard Brig, Gothic Cat Illari, Fighter Pilot Cat, 2B Kiriko, ",
+      "highlights": "🟢 OG Account (2023)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 3 • Support Main<br>🎮 Premium Battle Pass: 2026 Season 1 — Celestial Guardian<br>✨ OW1 Contenders Winston, OW1 Dallas Fuel Sym<br>✨ Comic Book Tracer, Honey Bee Mercy, Turtle Ship D.Va, Borealis Rein, Kaiju/Lily Hog, Space Raider Cassidy, Cardboard Brig, Gothic Cat Illari, Fighter Pilot Cat, 2B Kiriko",
       "weapons": "",
       "balance": "⏱ 49H • 313G<br>🪙 400 Coins • 775 Credits<br>🏅 400 Competitive Points",
-      "rank": "History Rank: Silver 3 Tank/Support",
+      "rank": "Rank History: Silver 3 Tank/Support",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/ufbEZmM",
-      "price": "32.7$"
+      "price": "$32.70"
     },
     {
-      "id": 44,
+      "id": 52,
       "discord_id": null,
       "level": "81 - OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
@@ -614,10 +726,10 @@
       "rank": "Fresh Rank Ready",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/pQOuRzU",
-      "price": "32.7$"
+      "price": "$32.70"
     },
     {
-      "id": 45,
+      "id": 53,
       "discord_id": null,
       "level": "11 + 312 - OW1",
       "access": "BNET + Email<br>OG Info • Invoice",
@@ -625,13 +737,13 @@
       "highlights": "🏆 OG OW1 (2021)<br>⭐ Endorsement Level 2<br>✨ Royal Princess Mercy, Poolside Wuyang",
       "weapons": "",
       "balance": "⏱ 129H • 895G<br>🪙 1,040 Coins • 1,025 Credits<br>🏅 390 Legacy Competitive Points",
-      "rank": "Rank Reset<br>Rank History: Season 10 Gold 3 Tank",
+      "rank": "Rank Reset<br>Rank History: Season 10: Gold 3 Tank",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/h1p96OP",
-      "price": "35.7$"
+      "price": "$35.70"
     },
     {
-      "id": 46,
+      "id": 54,
       "discord_id": null,
       "level": "49 + 23 - OW1",
       "access": "BNET + Email<br>OG Info • Invoice",
@@ -642,24 +754,38 @@
       "rank": "Rank Reset",
       "nameChange": "✘",
       "screenshot": "https://imgur.com/a/GB5w5ls",
-      "price": "35.7$"
+      "price": "$35.70"
     },
     {
-      "id": 47,
+      "id": 55,
       "discord_id": null,
       "level": "198 - OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "Sold",
-      "highlights": "🟢OG Account (2022)<br>🔓SMS Verified • Warranty<br>⭐Endorsement Level 2<br>🎮Premium Battle Pass: Season 6 — A-7000 Wargod<br>✨Vigilante/Night Ops Soj, Magma Sombra, 10-Years Cheers Tracer, Cyberdevil/Euryale Widow, Magepunk Mauga, Prideful Rein, Glitter Mei, Overwatch Contenders Reaper/Lucio, Harbinger Lifewaver",
+      "highlights": "🟢 OG Account (2022)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 2<br>🎮 Premium Battle Pass: Season 6 — A-7000 Wargod<br>✨ Vigilante/Night Ops Soj, Magma Sombra, 10-Years Cheers Tracer, Cyberdevil/Euryale Widow, Magepunk Mauga, Prideful Rein, Glitter Mei, Overwatch Contenders Reaper/Lucio, Harbinger Lifeweaver",
       "weapons": "Golden: Bap<br>Choice of 1 Gold/Jade/Galactic Weapon Skin",
       "balance": "⏱ 117H • 751G<br>🪙 1,400 Coins • 7,275 Credits<br>🏅 3,385 Legacy Competitive Points • 10 Competitive Points",
-      "rank": "Rank Reset<br>Gold Rank All Roles",
+      "rank": "Rank Reset<br>Gold in All Roles",
       "nameChange": "✘",
       "screenshot": "https://imgur.com/a/ljoh9we",
-      "price": "35.8$"
+      "price": "$35.80"
     },
     {
-      "id": 48,
+      "id": 56,
+      "discord_id": null,
+      "level": "126 - OW2",
+      "access": "BNET + Email<br>OG Info • Invoice",
+      "status": "🟢 In Stock",
+      "highlights": "🟢 OG Account (2022)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 3<br>✨ Guangzhou Charge Moira<br>✨ Turtle Ship D.Va, Jotunn Mauga, Cardboard Rein, Roadbot/Heist Hog, 8-Bit/Fire Engine Bastion, Heihu/Street Runner Genji, Cyber Dragon Hanzo, Inferno Junk, Formalwear/Honey Bee Mercy, Cleric Lifeweaver, Divinator Kiriko",
+      "weapons": "Crimson Wolf: Mauga<br>Hard Light Weapon: Reaper",
+      "balance": "⏱ 41H • 292G<br>💎 30 Mythic Prisms<br>🪙 800 Coins • 600 Credits<br>🏅 10 Legacy Competitive Points • 2,040 Competitive Points",
+      "rank": "2026 Season 3 Plat 4 Tank, Master 5 DPS, Gold 2 Support",
+      "nameChange": "✓",
+      "screenshot": "https://imgur.com/a/OrYFJL7",
+      "price": "$35.80"
+    },
+    {
+      "id": 57,
       "discord_id": null,
       "level": "286 - OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
@@ -670,12 +796,26 @@
       "rank": "Rank Reset<br>Stadium Competitive Unlocked",
       "nameChange": "✘",
       "screenshot": "https://imgur.com/a/5rV0fLQ",
-      "price": "36.7$"
+      "price": "$36.70"
     },
     {
-      "id": 49,
+      "id": 58,
       "discord_id": null,
-      "level": "38+15 - OW1",
+      "level": "162 - OW2",
+      "access": "BNET + Email<br>OG Info • Invoice",
+      "status": "🟢 In Stock",
+      "highlights": "🟢 OG Account (2022)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 3<br>✨ London Spitfire Zarya, LA Gladiators Bastion<br>✨ Gladiator Queen JQ, Star Sheep Orisa, Monkey Business Winston, Retro Future Echo, Hu Tou Mao Mei, Night Ops Soj, Cardboard Brig, Gothic Cat/Ivory Rose Mercy",
+      "weapons": "",
+      "balance": "⏱ 67H • 453G<br>🪙 1,000 Coins • 1,875 Credits<br>🏅 30 Legacy Competitive Points • 4,425 Competitive Points<br>Choice of 1 Gold/Jade/Galactic/Crimson Wolf Weapon",
+      "rank": "2026 Season 3 Diamond 5 Tank, Master 5 DPS, Plat 2 Support",
+      "nameChange": "✓",
+      "screenshot": "https://imgur.com/a/ZqrHDT2",
+      "price": "$36.80"
+    },
+    {
+      "id": 59,
+      "discord_id": null,
+      "level": "38 + 15 - OW1",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "🟢 In Stock",
       "highlights": "🏆 OG OW1 Legendary Edition (2019)<br>⭐ Endorsement Level 3 • DPS Main<br>✨ Terrible Tornado/Witch Kiriko, Rugby Mauga, Beekeeper Sigma",
@@ -684,10 +824,10 @@
       "rank": "Rank Reset",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/OaQQQf0",
-      "price": "38.7$"
+      "price": "$38.70"
     },
     {
-      "id": 50,
+      "id": 60,
       "discord_id": null,
       "level": "OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
@@ -698,259 +838,273 @@
       "rank": "Rank Reset<br>Gold or Below",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/V6V23rl",
-      "price": "38.9$"
+      "price": "$38.90"
     },
     {
-      "id": 51,
+      "id": 61,
+      "discord_id": null,
+      "level": "136 - OW2",
+      "access": "BNET + Email<br>OG Info • Invoice",
+      "status": "🟢 In Stock",
+      "highlights": "🟢 OG Account (2022)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 2 • DPS Main<br>🎮 Premium Battle Pass: Season 4, 5 — Galactic Emperor, Adventurer<br>✨ Infinite Ace D.Va, Stargazer Mei, Devil Pharah, Eagle Warrior Reaper, Firefighter Soj, Magepunk Sym, Yuki-Onna Widow, Sophomore Kamori Kiriko, Royal Butler Lifeweaver",
+      "weapons": "Los Muertos Weapon Skins Bundle: Junkrat/Soldier: 76",
+      "balance": "⏱ 187H • 1,121G<br>🪙 365 Coins • 1,632 Credits<br>🏅 50 Legacy Competitive Points • 180 Competitive Points",
+      "rank": "Rank Reset",
+      "nameChange": "✓",
+      "screenshot": "https://imgur.com/a/I4v8C34",
+      "price": "$39.70"
+    },
+    {
+      "id": 62,
       "discord_id": null,
       "level": "56 - OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "🟢 In Stock",
-      "highlights": "🟢OG Account (2022)<br>🔓SMS Verified • Warranty<br>✨Los Angeles Valiant Hanzo, 2018 Atlantic All - Stars Tracer<br>✨Sakura Ball, Polar Hog, Diamond Magni Torb, Azure Drake Brig, Heart Of Passion Kiriko, Eros Lifewaver",
+      "highlights": "🟢 OG Account (2022)<br>🔓 SMS Verified • Warranty<br>✨ Los Angeles Valiant Hanzo, 2018 Atlantic All-Stars Tracer<br>✨ Sakura Ball, Polar Hog, Diamond Magni Torb, Azure Drake Brig, Heart of Passion Kiriko, Eros Lifeweaver",
       "weapons": "",
       "balance": "⏱ 107H • 686G<br>🪙 105 Coins • 150 Credits",
       "rank": "Fresh Rank Ready",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/3IA8nXr",
-      "price": "45.7$"
+      "price": "$45.70"
     },
     {
-      "id": 52,
+      "id": 63,
       "discord_id": null,
       "level": "218 + 105 - OW1",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "Sold",
-      "highlights": "🏆 OG OW1 Pre-Purchased Edition (2016)<br>⭐ Endorsement Level 2 • DPS Main<br>🏅 OW1 - Season 3 Competitor<br>✨ Noire Widow & other pre-purchase bonuses<br>✨ Infinite Ace D.Va, Infinite Admiral Soj, Space Raider Soldier: 76, Midnight Camo, Ana, Pearlescent Brig",
+      "highlights": "🏆 OG OW1 Pre-Purchase Edition (2016)<br>⭐ Endorsement Level 2 • DPS Main<br>🏅 OW1 Season 3 Competitor<br>✨ Noire Widow & other pre-purchase bonuses<br>✨ Infinite Ace D.Va, Infinite Admiral Soj, Space Raider Soldier: 76, Midnight Camo, Ana, Pearlescent Brig",
       "weapons": "Golden: Hanzo<br>Choice of 1 Gold/Jade/Galactic Weapon Skin<br>Nerf Gelfire Pro Weapon: Tracer",
       "balance": "⏱ 214H • 1,343G<br>🪙 600 Coins • 290 Credits<br>🏅 4,205 Legacy Competitive Points",
       "rank": "Rank Reset",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/LGy0e0i",
-      "price": "49.7$"
+      "price": "$49.70"
     },
     {
-      "id": 53,
+      "id": 64,
       "discord_id": null,
       "level": "331 - OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "🟢 In Stock",
-      "highlights": "🟢 OG Account (2023)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 4 • Tank Main<br>🎮 Premium Battle Pass: Seasons 8, 9, 10 — Galactic Emperor, Grand Beast, Ancient Caller<br>✨ Chiguo Tianwang Sigma, Formalwear Cassidy, Calavera Reaper, Magma Moira",
+      "highlights": "🟢 OG Account (2023)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 4 • Tank Main<br>🎮 Premium Battle Pass: Season 8, 9, 10 — Galactic Emperor, Grand Beast, Ancient Caller<br>✨ Chiguo Tianwang Sigma, Formalwear Cassidy, Calavera Reaper, Magma Moira",
       "weapons": "",
       "balance": "⏱ 156H • 1,163G<br>🪙 590 Coins • 4,672 Credits",
       "rank": "Fresh Rank Ready",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/03OLRxH",
-      "price": "55.7$"
+      "price": "$49.70"
     },
     {
-      "id": 54,
+      "id": 65,
       "discord_id": null,
       "level": "304 - OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "🟢 In Stock",
-      "highlights": "🟢 OG Account (2023)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 3 • Genji • DPS Main<br>🏅 Top 500 Challenger Tier Eligible<br>✨ Rugby JQ, Merry Outlaw Ashe, Heir Hanzo, Firefighter Soj, Eclips Illari, Mime Moira",
-      "weapons": "Galactic: Genji<br>Golden: Junkrate<br>Jade: Mercy<br>Hard Light Weapon: Rein",
+      "highlights": "🟢 OG Account (2023)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 3 • Genji • DPS Main<br>🏅 Top 500 Challenger Tier Eligible<br>✨ Rugby JQ, Merry Outlaw Ashe, Heir Hanzo, Firefighter Soj, Eclipse Illari, Mime Moira",
+      "weapons": "Galactic: Genji<br>Golden: Junkrat<br>Jade: Mercy<br>Hard Light Weapon: Rein",
       "balance": "⏱ 320H • 1,502G<br>💎 10 Mythic Prisms<br>🪙 55 Coins • 1,025 Credits<br>🏅 180 Competitive Points",
       "rank": "Silver 1 Tank, Silver 5 DPS, Plat 4 Support",
       "nameChange": "✘",
       "screenshot": "https://imgur.com/a/wGSyMh0",
-      "price": "65.7$"
+      "price": "$65.70"
     },
     {
-      "id": 55,
+      "id": 66,
       "discord_id": null,
       "level": "161 - OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "Sold",
-      "highlights": "🟢 OG Account (2022)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 3 • DPS Main<br>🏅 Top 500 Challenger Tier • Hide My Name Eligible<br>🎮 Premium Battle Pass (Season 2) - Zeus<br>✨ Kabuki Ram, Lich King Rein, C-455 Sharpshooter Cassidy, Dusk Reaper, Disco Lucio",
+      "highlights": "🟢 OG Account (2022)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 3 • DPS Main<br>🏅 Top 500 Challenger Tier • Hide My Name Eligible<br>🎮 Premium Battle Pass: Season 2 — Zeus<br>✨ Kabuki Ram, Lich King Rein, C-455 Sharpshooter Cassidy, Dusk Reaper, Disco Lucio",
       "weapons": "Golden: Lucio<br>Choice of 1 Gold/Jade/Galactic Weapon",
       "balance": "⏱ 236H • 1,468G<br>🪙 939 Coins • 3,300 Credits<br>🏅 3,720 Legacy Competitive Points • 790 Competitive Points",
-      "rank": "Plat 1 Tank/DPS<br>History Rank: S8 Gold 1 Support",
+      "rank": "Plat 1 Tank/DPS<br>Rank History: Season 8: Gold 1 Support",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/90Z36Ch",
-      "price": "72.7$"
+      "price": "$72.70"
     },
     {
-      "id": 56,
+      "id": 67,
       "discord_id": null,
       "level": "74 - OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "Sold",
-      "highlights": "🟢 OG Account (2022)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 3<br>🏅 Top 500 Challenger Tier Eligible<br>🎮 Premium Battle Pass: 2026 Season 1 + 80 Mythic Prisms<br>✨ OWCS Sombra, Demon Ana, EXO-L5O Brig, Crimson Wolf Doom, Valhalla Sigma, Oni Reaper, Golfer: 76, OWL Guardian Mercy",
+      "highlights": "🟢 OG Account (2022)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 3<br>🏅 Top 500 Challenger Tier Eligible<br>🎮 Premium Battle Pass: 2026 Season 1 — 80 Mythic Prisms<br>✨ OWCS Sombra, Demon Ana, EXO-L5O Brig, Crimson Wolf Doom, Valhalla Sigma, Oni Reaper, Golfer: 76, OWL Guardian Mercy",
       "weapons": "Golden: Rein<br>Choice of 1 Gold/Jade/Galactic Weapon Skin",
       "balance": "⏱ 189H • 860G<br>💎 80 Mythic Prisms<br>🪙 7,800 Credits<br>🏅 1,330 Legacy Competitive Points • 1,660 Competitive Points",
       "rank": "Diamond 5 Tank, Plat 5 DPS, Gold 3 Support",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/QcB46lE",
-      "price": "75.7$"
+      "price": "$75.70"
     },
     {
-      "id": 57,
+      "id": 68,
       "discord_id": null,
-      "level": "299+171 - OW1",
+      "level": "299 + 171 - OW1",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "Sold",
-      "highlights": "🏆 OG OW1 Legendary Edition (2019)<br>⭐ Endorsement Level 3<br>🏅 OW1 - Season 10 Competitor<br>✨ Nano DVa, Carved Orisa, Crustacean Ball, Cardboard Bastion, Streetwear Hanzo, Empress Mei, Cyber Detective/Formalwear Soj, Arch-Commandant Amari Ana, Black Cat Mercy<br>✨ Lot OW1 Limited Skins.",
-      "weapons": "Golden: DVa",
+      "highlights": "🏆 OG OW1 Legendary Edition (2019)<br>⭐ Endorsement Level 3<br>🏅 OW1 Season 10 Competitor<br>✨ Nano D.Va, Carved Orisa, Crustacean Ball, Cardboard Bastion, Streetwear Hanzo, Empress Mei, Cyber Detective/Formalwear Soj, Arch-Commandant Amari Ana, Black Cat Mercy<br>✨ Many OW1 Limited Skins",
+      "weapons": "Golden: D.Va",
       "balance": "⏱ 384H • 2,984G<br>💎 20 Mythic Prisms<br>🪙 400 Coins • 2,515 Credits<br>🏅 510 Legacy Competitive Points",
       "rank": "Rank Reset",
       "nameChange": "✘",
       "screenshot": "https://imgur.com/a/6bon1iA",
-      "price": "78.7$"
+      "price": "$78.70"
     },
     {
-      "id": 58,
+      "id": 69,
       "discord_id": null,
       "level": "543 - OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "🟢 In Stock",
-      "highlights": "🟢 OG Account (2023)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 3 • Genji • DPS Main<br>🏅 Top 500 Challenger Tier Eligible<br>🎮 Premium Battle Pass: Season 11, 13 — Ancient Caller, Grand Beast<br>✨ Nano DVa, Necromancer/Biohazard Ram, Kaiju Hog, ICED Zarya, Retro Star Mei, Cyber Fiend Widow",
-      "weapons": "Golden: Mercy<br>Jade: Brig, Lifewaver<br>Los Muertos Weapon Skin: Solider: 76<br>Hard Light Weapon Skin: Mercy<br>Hard Light Weapon: Rein",
+      "highlights": "🟢 OG Account (2023)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 3 • Genji • DPS Main<br>🏅 Top 500 Challenger Tier Eligible<br>🎮 Premium Battle Pass: Season 11, 13 — Ancient Caller, Grand Beast<br>✨ Nano D.Va, Necromancer/Biohazard Ram, Kaiju Hog, ICED Zarya, Retro Star Mei, Cyber Fiend Widow",
+      "weapons": "Golden: Mercy<br>Jade: Brig, Lifeweaver<br>Los Muertos Weapon Skin: Soldier: 76<br>Hard Light Weapon Skin: Mercy<br>Hard Light Weapon: Rein",
       "balance": "⏱ 296H • 1,867G<br>🪙 650 Coins • 925 Credits<br>🏅 965 Legacy Competitive Points",
-      "rank": "Gold 1-5 All Roles",
+      "rank": "Gold 1–5 in All Roles",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/hGmLnXG",
-      "price": "78.9$"
+      "price": "$78.90"
     },
     {
-      "id": 59,
+      "id": 70,
       "discord_id": null,
-      "level": "6+727 - OW1",
+      "level": "6 + 727 - OW1",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "🟢 In Stock",
-      "highlights": "🏆 OG OW1 Legendary Edition (2021)<br>⭐ Endorsement Level 3 • Ana • Sup Main<br>🏅 Top 500 Challenger Tier • Hide My Name Eligible<br>🎮 Premium Battle Pass (2026 Season 3) - 80 Mythic Prisms<br>⭐ Biohazad Ram, Talon Zarya, Storm Rider Ashe, Dragon Hunter Pharah, Infinite Guard: 76, Celestial Sym, 10-Years Cheers Tracer, Harlequin Widow, Bounty Hunter Bap, Azure Drake/Exo-L5O Brig, Poolside Illari, Guangmu Tianwangh/Demon/Visual Kei Kiriko, Dark Faun Lucio, Magma Moira, Bathmaster Zen",
+      "highlights": "🏆 OG OW1 Legendary Edition (2021)<br>⭐ Endorsement Level 3 • Ana • Support Main<br>🏅 Top 500 Challenger Tier • Hide My Name Eligible<br>🎮 Premium Battle Pass: 2026 Season 3 — 80 Mythic Prisms<br>⭐ Biohazard Ram, Talon Zarya, Storm Rider Ashe, Dragon Hunter Pharah, Infinite Guard: 76, Celestial Sym, 10-Years Cheers Tracer, Harlequin Widow, Bounty Hunter Bap, Azure Drake/Exo-L5O Brig, Poolside Illari, Guangmu Tianwang/Demon/Visual Kei Kiriko, Dark Faun Lucio, Magma Moira, Bathmaster Zen",
       "weapons": "Jade: Orisa<br>Golden: Bastion, Cassidy, Ana, Kiriko<br>Choice of 1 Gold/Jade/Galactic/Crimson Wolf Weapon<br>Choice of 4 Gold/Jade/Galactic Weapon Skin",
       "balance": "⏱ 503H • 2,818G<br>💎 80 Mythic Prisms<br>🪙 500 Coins • 10,588 Credits<br>🏅 8,275 Legacy Competitive Points • 4,370 Competitive Points",
-      "rank": "Plat 5 Tank, Gold 2 Open Queue<br>MMR: Gold DPS, Plat Support",
+      "rank": "Plat 5 Tank, Gold 2 Open Queue<br>MMR: Gold in DPS, Plat in Support",
       "nameChange": "✘",
       "screenshot": "https://imgur.com/a/QGmZHNQ",
-      "price": "111.7$"
+      "price": "$111.70"
     },
     {
-      "id": 60,
+      "id": 71,
       "discord_id": null,
       "level": "49 + 47 - OW1",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "🟢 In Stock",
-      "highlights": "🏆 OG OW1 Pre-Purchased Edition (2016)<br>✨ BlizzCon Virtual Ticket 2016 • Noire Widowmaker Skin",
+      "highlights": "🏆 OG OW1 Pre-Purchase Edition (2016)<br>✨ BlizzCon Virtual Ticket 2016 • Noire Widowmaker Skin",
       "weapons": "",
       "balance": "🪙 17,420 Credits",
       "rank": "Rank Reset",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/TGSiKay",
-      "price": "198$"
+      "price": "$198.00"
     },
     {
-      "id": 61,
+      "id": 72,
       "discord_id": null,
       "level": "758 + 740 - Silver Border OW1 Stacked Account",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "Pending",
-      "highlights": "🏆 OG OW1 Legendary Edition (2016)<br>⭐ Endorsement Level 4 • Tracer Main<br>🎮 Premium Battle Pass: Seasons 12, 16, 17, 2026-S1 — Adventurer (Iridescent), Heart of Hope (Iridescent), Hop Online!<br>✨ 2020 Atlantic All-Stars, 2019 Atlantic All-Stars, 2020 Pacific All-Stars",
+      "highlights": "🏆 OG OW1 Legendary Edition (2016)<br>⭐ Endorsement Level 4 • Tracer Main<br>🎮 Premium Battle Pass: Season 12, 16, 17, and 2026 Season 1 — Adventurer (Iridescent), Heart of Hope (Iridescent), Hop Online!<br>✨ 2020 Atlantic All-Stars, 2019 Atlantic All-Stars, 2020 Pacific All-Stars",
       "weapons": "",
       "balance": "💎 40 Mythic Prisms<br>🪙 30,659 Credits<br>🏅 8,970 Legacy Competitive Points",
-      "rank": "Diamond All Roles",
+      "rank": "Diamond in All Roles",
       "nameChange": "✘",
       "screenshot": "Uploading",
-      "price": "199.9$"
+      "price": "$199.90"
     },
     {
-      "id": 62,
+      "id": 73,
       "discord_id": null,
       "level": "76 + 271 - OW1",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "Pending",
-      "highlights": "🏆 OG OW1 Legendary Edition (2021)<br>⭐ Endorsement Level 2 • Support Main<br>🏅 Hide My Name Eligible<br>🎮 Premium Battle Pass: Season 6, 2026-S1/2<br>🎮 Ultimate Battle Pass: Seasons 7, 8, 9, 10<br>✨ Reaper — Chained King, Hashimoto Kiriko, Rose Gold Mercy, Cyber Detective Soj, Polar Hog<br>✨ LE SSERAFIM Mega Bundle",
+      "highlights": "🏆 OG OW1 Legendary Edition (2021)<br>⭐ Endorsement Level 2 • Support Main<br>🏅 Hide My Name Eligible<br>🎮 Premium Battle Pass: Season 6 and 2026 Season 1/2<br>🎮 Ultimate Battle Pass: Season 7, 8, 9, 10<br>✨ Reaper — Chained King, Hashimoto Kiriko, Rose Gold Mercy, Cyber Detective Soj, Polar Hog<br>✨ LE SSERAFIM Mega Bundle",
       "weapons": "",
       "balance": "💎 190 Mythic Prisms<br>🪙 16,382 Credits<br>🏅 2,320 Legacy Competitive Points",
       "rank": "",
       "nameChange": "✓",
       "screenshot": "Uploading",
-      "price": "199.9$"
+      "price": "$199.90"
     },
     {
-      "id": 63,
+      "id": 74,
       "discord_id": null,
       "level": "282 + 840 - Silver Border OW1 Stacked Account",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "🟢 In Stock",
-      "highlights": "🏆 OG OW1 Pre-Purchase Edition (2016)<br>⭐ Endorsement Level 5<br>🏅 OW1 - Season 1 Competitor<br>🏆 Top 500 Eligible • Hide My Name Eligible<br>🎮 Premium Battle Pass: Seasons 13, 16, 17, 18, 19, 2026 S3 — Spirit Keeper, Lead Rose, Heart of Hope, Amaterasu + 80 Mythic Prisms<br>✨OWCS Mauga/Soldier: 76/Widow/Bap, OWCS 2024 Orisa, Guanzhou Charge Ram, Atlanta Regn Hog, OW1 SFS Zarya, Seoul Infernal Bastion, LA Valiant Genji, Huston Outlaws Moira<br>✨ Noire Widow, Gundam Wing Mega Bundle, Project YoRHa Mega Bundle, Red Ribbon Anran Bundle, exo-FAUNA Mega Bundle<br>✨ Queen/Cardboard/Nocturna D.Va, EXO-URS4 Hazard, Mob Boss/Executioner JQ, Rugby Mauga, Fined Orisa, Epyon/Kabuki Ram, Fallen Knight/Borealis Rein, Archangel Sigma, Ugly Sweater Winston, Sugar Bomb Ball, Cozy/Hunted Dall/Lucky Cat/EXO-L2PUS/Heist Ashe, Red Ribbon/Xiong Mao Anran, Heihu Genji, Great Tengu/Koi Genji, Junkbot/Aviator Junk, Retro Star Mei, Nefertari/Dragon Hunter/Devil Pharah, Deathscythe Reaper, Huntsman: 76/Infinite Guard: 76/Tallgeese/Stadium Rookie Soldier: 76, Operative Oxton/Synthwave Tracer, A2/EXO-PANT9RA Vendetta, ICE Cream Venture, Wild Tracker/Rose Lily Widow, Blue Lotus/Stakeout/Midnight Camo/Ultrawatch/Lightbringer Ana, Azure Drake/Exo-L5O Brig, Sophomore Ruiz Illari, Fighter Pilot Cat, Music Festival/Freshman Teo Minh/Cozy/Ember Juno, Hashimoto/K-2000 Blademaster/Sophomore Kamori/Suki /EXO-VU7PES/2B/Lifeguard/Divinator/Heart of Passion/Idunn/Visual Kei Kiriko, Adam Lifewaver, Brad Lucio, Commander White/Wing Zero/Black Cat Mercy, Plague Doctor/Magma/Pasque Moira, 9S Wuyang, Pinocchio Zen",
-      "weapons": "Golden: Ashe, Tracer<br>Jade: Ashe<br>Galactic: Juno, Kiriko<br>Hard Light Weapon Skin: Reaper<br>Nerf Gelefire Pro Weapon Skin: Tracer",
+      "highlights": "🏆 OG OW1 Pre-Purchase Edition (2016)<br>⭐ Endorsement Level 5<br>🏅 OW1 Season 1 Competitor<br>🏆 Top 500 Eligible • Hide My Name Eligible<br>🎮 Premium Battle Pass: Season 13, 16, 17, 18, 19, and 2026 Season 3 — Spirit Keeper, Lead Rose, Heart of Hope, Amaterasu + 80 Mythic Prisms<br>✨ OWCS Mauga/Soldier: 76/Widow/Bap, OWCS 2024 Orisa, Guangzhou Charge Ram, Atlanta Reign Hog, OW1 SFS Zarya, Seoul Infernal Bastion, LA Valiant Genji, Houston Outlaws Moira<br>✨ Noire Widow, Gundam Wing Mega Bundle, Project YoRHa Mega Bundle, Red Ribbon Anran Bundle, exo-FAUNA Mega Bundle<br>✨ Queen/Cardboard/Nocturna D.Va, EXO-URS4 Hazard, Mob Boss/Executioner JQ, Rugby Mauga, Fiend Orisa, Epyon/Kabuki Ram, Fallen Knight/Borealis Rein, Archangel Sigma, Ugly Sweater Winston, Sugar Bomb Ball, Cozy/Hunted Doll/Lucky Cat/EXO-L2PUS/Heist Ashe, Red Ribbon/Xiong Mao Anran, Heihu Genji, Great Tengu/Koi Genji, Junkbot/Aviator Junk, Retro Star Mei, Nefertari/Dragon Hunter/Devil Pharah, Deathscythe Reaper, Huntsman: 76/Infinite Guard: 76/Tallgeese/Stadium Rookie Soldier: 76, Operative Oxton/Synthwave Tracer, A2/EXO-PANT9RA Vendetta, Ice Cream Venture, Wild Tracker/Rose Lily Widow, Blue Lotus/Stakeout/Midnight Camo/Ultrawatch/Lightbringer Ana, Azure Drake/Exo-L5O Brig, Sophomore Ruiz Illari, Fighter Pilot Cat, Music Festival/Freshman Teo Minh/Cozy/Ember Juno, Hashimoto/K-2000 Blademaster/Sophomore Kamori/Suki/EXO-VU7PES/2B/Lifeguard/Divinator/Heart of Passion/Idunn/Visual Kei Kiriko, Adam Lifeweaver, Brad Lucio, Commander White/Wing Zero/Black Cat Mercy, Plague Doctor/Magma/Pasque Moira, 9S Wuyang, Pinocchio Zen",
+      "weapons": "Golden: Ashe, Tracer<br>Jade: Ashe<br>Galactic: Juno, Kiriko<br>Hard Light Weapon Skin: Reaper<br>Nerf Gelfire Pro Weapon Skin: Tracer",
       "balance": "⏱ 882H • 5,456G<br>💎 80 Mythic Prisms<br>🪙 878 Coins • 3,185 Credits<br>🏅 2,216 Legacy Competitive Points • 370 Competitive Points",
-      "rank": "Silver 4 DPS, Gold 5 Sup<br>Stadium Competitive Unlocked",
+      "rank": "Silver 4 DPS, Gold 5 Support<br>Stadium Competitive Unlocked",
       "nameChange": "✘",
       "screenshot": "https://imgur.com/a/ge5vXQg",
-      "price": "257.8$"
+      "price": "$257.80"
     },
     {
-      "id": 64,
+      "id": 75,
       "discord_id": null,
-      "level": "1069- OW2",
+      "level": "1069 - OW2",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "🟢 In Stock",
-      "highlights": "🟢 OG Account (2022)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 5 • Ana(Level 64) • Sup Main<br>🏅 Hide My Name Eligible<br>🎮 Premium Battle Pass (Season 13, 14, 15, 16, 17, 18, 19, 2026: S1, 3) - Sumi-ichimonji, Capsule Cannon, Spirit Keeper, Blazing Sunsetter, Heart of Hope, Midnight Sun, A-7000 Wargod<br>✨ Gundam Wing Mega Bundle, <br>✨ ShangHai Dragon JQ, OW1 Atlanta Reign Hog, OWCS Hanzo/Torb/Brig/Kiriko/Mercy/Mizuki, OW1 LA Gladiators Torb, NYE Brig, Vancouver Titans Zen<br>✨ Rosy Hanbok/Turtle Ship/Infinite Ace DVa, Norse Doom/Torb, Streetwear/Bixi Hazard, Mob Boss/Heavy Metal JQ, Minotaur/Imperius/Heaven's Devil/Rosahardt Rein, Biohazard/Epyon Ram, Beholder Sigma, Ugly Sweater Winston, Sugar Bomb/Sakura Ball, Cybervision/Iced Zarya, Strom Rider/Merry Outlaw Ashe, Fire Engine/Toxic/Pumpkin Bastion, Ritzy Cassidy, Aset Echo, Drake Master/Great Tengu/Cyber Oni Hanzo, Empress/Retro Star Mei, Nutcracker Pharah, Deathscythe/Cardboard/Heist Reaper, Sea Soldier Soj, Infinite Guard: 76/Tallgeese/Magepunk Soldier: 76, Sigyn/Marioneta Sombra, Formalwear/10-Years Cheers Tracer, Exo-Pant6ra Vendetta, Blackbraid/Midnight Camo/Lightbringer Ana, Bounty Hunter Bap, Royal Captain Brig, Nightfall Illari, Festive Kiriko, Lifeguarder/Cleric/Lotus/Synthwave Lifewaver, Brad/Cyber DJ/Octopus Lucio, Lifeguard/Rose Majesty/Wing Zero/Poolside/Zombie Doctor Mercy, Pasque Moira, Poolside Wuyang, Kaiju/Celestial Zen",
+      "highlights": "🟢 OG Account (2022)<br>🔓 SMS Verified • Warranty<br>⭐ Endorsement Level 5 • Ana (Level 64) • Support Main<br>🏅 Hide My Name Eligible<br>🎮 Premium Battle Pass: Season 13, 14, 15, 16, 17, 18, 19, and 2026 Season 1 and 3 — Sumi-ichimonji, Capsule Cannon, Spirit Keeper, Blazing Sunsetter, Heart of Hope, Midnight Sun, A-7000 Wargod<br>✨ Gundam Wing Mega Bundle<br>✨ Shanghai Dragon JQ, OW1 Atlanta Reign Hog, OWCS Hanzo/Torb/Brig/Kiriko/Mercy/Mizuki, OW1 LA Gladiators Torb, NYE Brig, Vancouver Titans Zen<br>✨ Rosy Hanbok/Turtle Ship/Infinite Ace D.Va, Norse Doom/Torb, Streetwear/Bixi Hazard, Mob Boss/Heavy Metal JQ, Minotaur/Imperius/Heaven's Devil/Rosahardt Rein, Biohazard/Epyon Ram, Beholder Sigma, Ugly Sweater Winston, Sugar Bomb/Sakura Ball, Cybervision/Iced Zarya, Storm Rider/Merry Outlaw Ashe, Fire Engine/Toxic/Pumpkin Bastion, Ritzy Cassidy, Aset Echo, Drake Master/Great Tengu/Cyber Oni Hanzo, Empress/Retro Star Mei, Nutcracker Pharah, Deathscythe/Cardboard/Heist Reaper, Sea Soldier Soj, Infinite Guard: 76/Tallgeese/Magepunk Soldier: 76, Sigyn/Marioneta Sombra, Formalwear/10-Years Cheers Tracer, Exo-Pant6ra Vendetta, Blackbraid/Midnight Camo/Lightbringer Ana, Bounty Hunter Bap, Royal Captain Brig, Nightfall Illari, Festive Kiriko, Lifeguarder/Cleric/Lotus/Synthwave Lifeweaver, Brad/Cyber DJ/Octopus Lucio, Lifeguard/Rose Majesty/Wing Zero/Poolside/Zombie Doctor Mercy, Pasque Moira, Poolside Wuyang, Kaiju/Celestial Zen",
       "weapons": "Hard Light Weapon: Reaper/Mercy<br>Nerf Gelfire Pro Weapon: Tracer",
       "balance": "⏱ 678H • 4,733G<br>💎 120 Mythic Prisms<br>🪙 260 Coins • 31,100 Credits<br>🏅 110 Legacy Competitive Points • 200 Competitive Points",
-      "rank": "Plat 1 Tank/DPS<br>History Rank: S8 Gold 1 Support",
+      "rank": "Plat 1 Tank/DPS<br>Rank History: Season 8: Gold 1 Support",
       "nameChange": "✘",
       "screenshot": "https://imgur.com/a/BMZkcJh",
-      "price": "257.8$"
+      "price": "$257.80"
     },
     {
-      "id": 65,
+      "id": 76,
       "discord_id": null,
       "level": "2 + 686 - OW1",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "🟢 In Stock",
-      "highlights": "🏆 OG OW1 Legendary Edition (2021)<br>⭐ Endorsement Level 4 • Widow/Soldier • DPS Main<br>🏅 Top 500 • Hide My Name Eligible<br>🎮 Premium Battle Pass: Seasons 1, 2, 5, 6, 7, 10, 12, 13, 18, 2026-S1/2 — Cyber Demon, Celestial Guardian, Adventurer, Blazing Sunsetter, Spellbinder (Gilded), Anubis, Vengeance, Onryō + 100 Mythic Prisms<br>✨ Dainty Cat/Turtle Ship D.Va, Executioner Junk Queen, Biohazard/Jade Totem Ram, Cardboard/Prideful Rein, Cardboard Bastion, Inferno Junk, Cyber Dragon Hanzo, Vigilante Soj, Street Runner Genji, Formalwear Tracer, Ice Cream Venture, Sigyn Sombra, Bounty Hunter Bap, Formalwear/Mystic Swan/Honey Bee Mercy, Azure Drake Brig",
+      "highlights": "🏆 OG OW1 Legendary Edition (2021)<br>⭐ Endorsement Level 4 • Widow/Soldier • DPS Main<br>🏅 Top 500 • Hide My Name Eligible<br>🎮 Premium Battle Pass: Season 1, 2, 5, 6, 7, 10, 12, 13, 18, and 2026 Season 1–2 — Cyber Demon, Celestial Guardian, Adventurer, Blazing Sunsetter, Spellbinder (Gilded), Anubis, Vengeance, Onryō + 100 Mythic Prisms<br>✨ Dainty Cat/Turtle Ship D.Va, Executioner Junk Queen, Biohazard/Jade Totem Ram, Cardboard/Prideful Rein, Cardboard Bastion, Inferno Junk, Cyber Dragon Hanzo, Vigilante Soj, Street Runner Genji, Formalwear Tracer, Ice Cream Venture, Sigyn Sombra, Bounty Hunter Bap, Formalwear/Mystic Swan/Honey Bee Mercy, Azure Drake Brig",
       "weapons": "Golden: Junk Queen, Soldier: 76, Widowmaker<br>Jade: Ashe",
-      "balance": "⏱ 670H • 2,811G<br>💎 100 Mythic Prisms<br>🪙 15,800 Credits<br>🏅 920 Legacy Competitive Points",
+      "balance": "⏱ 670H • 2,811G<br>💎 100 Mythic Prisms<br>🪙 892 Coins • 15,800 Credits<br>🏅 920 Legacy Competitive Points",
       "rank": "Rank Reset<br>Rank History: Diamond 5 Tank, Plat 3 DPS, Diamond 5 Support",
       "nameChange": "✘",
       "screenshot": "https://imgur.com/a/8kGzWdD",
-      "price": "317.7$"
+      "price": "$317.70"
     },
     {
-      "id": 66,
+      "id": 77,
       "discord_id": null,
       "level": "630 + 640 - Silver Border OW1 Stacked Account",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "🟢 In Stock",
-      "highlights": "🏆 OG OW1 Legendary Edition (2019)<br>⭐ Endorsement Level 3<br>🏅 Top 500 • Hide My Name Eligible<br>🎮 Premium Battle Pass: Seasons 2, 3, 5, 6, 9, 10, 12, 13, 15, 16, 18, 2026-S2 — Cyber Demon, Steel Death, Adventurer, A-7000 Wargod, Midnight Sun, Amaterasu, Vengeance, Ancient Caller + 80 Mythic Prisms<br>✨ OWL D.Va/Orisa/Sym/Widow/Tracer/Pharah/Ana/Mercy, OWWC Winston/Ball/Ana/Zen, OWCS Rein/Ashe/Widow/Genji/Bap/Zen/Kiriko/Illari, OW1 LA Gladiators Bastion, GZ Charge Bastion, OW1 SFS Junk/Cassidy/Widow/Sombra/Ana/Lucio/Zen/Mercy, NYC Soldier: 76, OW1 Dallas Fuel Sym, OW1 Seoul Dynasty Sym/Ana, OW1 Toronto Defiant Ashe/Tracer, OW1 LA Valiant Cassidy, OW1 London Spitfire Widow/Ana, LA Valiant Pharah, OW1 Shanghai Dragons Ana<br>✨ Haroeris Ana, Rose Gold/Royal Knight/Honey Bee Mercy, Turtle Ship D.Va, Crimson Wolf/Kinium Doom, Kaiju Hog, Gladiator Queen Junk Queen, Cardboard Rein, Infinite Guard: 76/Space Raider/Golfer: 76, Captain/Steampunk Torb, Merry Outlaw/Storm Rider Ashe, Space Raider/Ultrawatch/Ritzy/Invisible Man Cassidy, Cyber Dragon/Cupid Hanzo, Vigilante/Barista Soj, Divine Monkey/Street Runner Genji, Dusk/Calavera Reaper, Black Cat Tracer, Ice Angel Echo, Galactic Freja, Tuxedo Cat/Nightshade/Quicksilver Sombra, Bounty Hunter/Flirty Flare Bap, Cyber DJ Lucio, Cybermonk/Bathmaster Zen, Oni Kiriko, Cleric/Synthwave/Cotton Candy Lifeweaver, Plague Doctor/Rosewood Moira, Cardboard/Pearlescent Brig, Eclipse Illari, Fearless Juno",
+      "highlights": "🏆 OG OW1 Legendary Edition (2019)<br>⭐ Endorsement Level 3<br>🏅 Top 500 • Hide My Name Eligible<br>🎮 Premium Battle Pass: Season 2, 3, 5, 6, 9, 10, 12, 13, 15, 16, 18, and 2026 Season 2 — Cyber Demon, Steel Death, Adventurer, A-7000 Wargod, Midnight Sun, Amaterasu, Vengeance, Ancient Caller + 80 Mythic Prisms<br>✨ OWL D.Va/Orisa/Sym/Widow/Tracer/Pharah/Ana/Mercy, OWWC Winston/Ball/Ana/Zen, OWCS Rein/Ashe/Widow/Genji/Bap/Zen/Kiriko/Illari, OW1 LA Gladiators Bastion, GZ Charge Bastion, OW1 SFS Junk/Cassidy/Widow/Sombra/Ana/Lucio/Zen/Mercy, NYC Soldier: 76, OW1 Dallas Fuel Sym, OW1 Seoul Dynasty Sym/Ana, OW1 Toronto Defiant Ashe/Tracer, OW1 LA Valiant Cassidy, OW1 London Spitfire Widow/Ana, LA Valiant Pharah, OW1 Shanghai Dragons Ana<br>✨ Haroeris Ana, Rose Gold/Royal Knight/Honey Bee Mercy, Turtle Ship D.Va, Crimson Wolf/Kiniun Doom, Kaiju Hog, Gladiator Queen Junk Queen, Cardboard Rein, Infinite Guard: 76/Space Raider/Golfer: 76, Captain/Steampunk Torb, Merry Outlaw/Storm Rider Ashe, Space Raider/Ultrawatch/Ritzy/Invisible Man Cassidy, Cyber Dragon/Cupid Hanzo, Vigilante/Barista Soj, Divine Monkey/Street Runner Genji, Dusk/Calavera Reaper, Black Cat Tracer, Ice Angel Echo, Galactic Freja, Tuxedo Cat/Nightshade/Quicksilver Sombra, Bounty Hunter/Flirty Flare Bap, Cyber DJ Lucio, Cybermonk/Bathmaster Zen, Oni Kiriko, Cleric/Synthwave/Cotton Candy Lifeweaver, Plague Doctor/Rosewood Moira, Cardboard/Pearlescent Brig, Eclipse Illari, Fearless Juno",
       "weapons": "Golden: Bastion, Ashe, Cassidy, Soj, Echo, Ana, Bap, Lucio, Zen, Kiriko<br>Jade: Lucio, Brig<br>Nerf Gelfire Pro Weapon: Tracer<br>Choice of 1 Gold/Jade/Galactic Weapon",
       "balance": "⏱ 1,426H • 6,757G<br>💎 80 Mythic Prisms<br>🪙 589 Coins • 33,360 Credits<br>🏅 4,710 Legacy Competitive Points",
-      "rank": "Rank History: Master All Roles",
+      "rank": "Rank History: Master in All Roles",
       "nameChange": "✘",
       "screenshot": "https://imgur.com/a/35XZyuq",
-      "price": "457.7$"
+      "price": "$457.70"
     },
     {
-      "id": 67,
+      "id": 78,
       "discord_id": null,
       "level": "1418 + 302 Golden Border - OW1 Stacked Account",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "🟢 In Stock",
-      "highlights": "🏆 OG OW1 Origins Edition (2017)<br>⭐ Endorsement Level 4<br>🏅 OW1 - Season 1 Competitor<br>🏆 Top 500 Eligible • Hide My Name Eligible • Drive Level 5<br>✨ OWCS: D.Va, Doom, Hazard, Genji, Torb, Ana, Brig, Juno, Kiriko, Wuyang<br>🎮 Premium Battle Pass: Seasons 16, 17, 18, 19, 20, 2026-S1, 2026-S2 — Heart of Hope, Divine Druid + 480 Mythic Prisms<br>✨ MVP Skins: MM, Ange de la Mort, Pirate Ship, Happi (Dallas & Shanghai), Royal (LA Gladiators), Rock Climber Zarya, Midas, Chained King, Wicked, Luchador, Royal Knight, Clockwork, Thunder, Flying Ace, Sylvanas, Zhulong<br>✨ All-Stars Skins: Lúcio • Genji • D.Va • Mercy • Reinhardt • Tracer<br>✨ Minotaur & Rosahardt & Prideful Rein, Beholder & Beekeeper Sigma, Siege Monkey, Cardboard Bastion, All-Star Cassidy (Stadium), Heihu Genji, Cyber Dragon Hanzo, Mobster & Aviator Junk, Beach Rescue & Dragon Hunter Pharah, Calavera Reaper, Evening Wear & Constable Tracer, Medusa & Sylvanas Widow, Blackbraid & Stakeout Ana, Idunn Kiriko, Lifeguard Lifeweaver, Lilith Moira, Cybermonk Zen<br>✨ OW1 Team Skin: Seoul Dynasty Tracer",
-      "weapons": "Golden: D.Va, Roadhog, Sigma, Sombra, Symmetra, Lúcio, Mercy, Ana, Widowmaker + 9 Additional Weapons",
-      "balance": "💎 480 Mythic Prisms<br>🪙 547 Coins • 3,570 Credits<br>🏅 9,410 Legacy Competitive Points • 18,975 Competitive Points<br>Choice of 9 Gold/Jade/Galactic Weapon Skins",
-      "rank": "Master 2 Support, Diamond 2 DPS, Master 5 Open Queue<br>Drive: Seasons 15, 16, 17, 18, 19, 20<br>Stadium Competitive Unlocked",
+      "highlights": "🏆 OG OW1 Origins Edition (2016)<br>⭐ Endorsement Level 4<br>🏅 OW1 Season 1 Competitor<br>🏆 Top 500 Eligible • Hide My Name Eligible • Drive Level 5<br>✨ OWCS: D.Va, Doom, Hazard, Genji, Torb, Ana, Brig, Juno, Kiriko, Wuyang<br>🎮 Premium Battle Pass: Season 16, 17, 18, 19, 20, and 2026 Season 1 and 2 — Heart of Hope, Divine Druid + 480 Mythic Prisms<br>✨ MVP Skins: MM, Ange de la Mort, Pirate Ship, Happi (Dallas & Shanghai), Royal (LA Gladiators), Rock Climber Zarya, Midas, Chained King, Wicked, Luchador, Royal Knight, Clockwork, Thunder, Flying Ace, Sylvanas, Zhulong<br>✨ All-Stars Skins: Lúcio • Genji • D.Va • Mercy • Reinhardt • Tracer<br>✨ Minotaur & Rosahardt & Prideful Rein, Beholder & Beekeeper Sigma, Siege Monkey, Cardboard Bastion, All-Star Cassidy (Stadium), Heihu Genji, Cyber Dragon Hanzo, Mobster & Aviator Junk, Beach Rescue & Dragon Hunter Pharah, Calavera Reaper, Evening Wear & Constable Tracer, Medusa & Sylvanas Widow, Blackbraid & Stakeout Ana, Idunn Kiriko, Lifeguard Lifeweaver, Lilith Moira, Cybermonk Zen<br>✨ OW1 Team Skin: Seoul Dynasty Tracer",
+      "weapons": "Golden: D.Va, Roadhog, Sigma, Sombra, Symmetra, Lúcio, Mercy, Ana, Widowmaker<br>Choice of 9 Gold/Jade/Galactic Weapon Skins",
+      "balance": "⏱ 1,672H • 9,162G<br>💎 480 Mythic Prisms<br>🪙 547 Coins • 3,570 Credits<br>🏅 9,410 Legacy Competitive Points • 18,975 Competitive Points",
+      "rank": "Master 2 Support, Diamond 2 DPS, Master 5 Open Queue<br>Drive: Season 15, 16, 17, 18, 19, 20<br>Stadium Competitive Unlocked",
       "nameChange": "✘",
       "screenshot": "https://imgur.com/a/YEZi4xw",
-      "price": "550$"
+      "price": "$550.00"
     },
     {
-      "id": 68,
+      "id": 79,
       "discord_id": null,
       "level": "1033 + 65 Silver Border - OW1 Stacked Account",
       "access": "BNET + Email<br>OG Info • Invoice",
       "status": "🟢 In Stock",
-      "highlights": "🏆 OG OW1 Legendary Edition (2016)<br>⭐ Endorsement Level 3 • DPS Main • Widow/Sombra<br>🏅 Top 500 • Hide My Name Eligible<br>🎮 Premium Battle Pass: Seasons 1, 3, 4, 6, 7, 2026-S1, 2026-S2<br>🎮 Ultimate Battle Pass Bundle: Seasons 7 and 10 — A-7000 Wargod, Cyber Demon + 180 Mythic Prisms<br>✨ Cozy Mauga, Cyberhog, Fallen Knight Rein, LEGO Brick Bastion, Baize Kiriko, Robber Soldier: 76, Inferno, Inarius Pharah, Water Warrior Soj, Principal Lacroix Widow, Cyber Detective Sojourn Bundle, Witch Kiriko Bundle, Automaton & Starship Engineer Mega Bundle, Lilith Moira, Infinite Admiral Sojourn Bundle, Beach Rescue Mercy, Eagle Warrior Reaper Bundle, Invasion Bundle, Gentle Monster D.Va Bundle, OWWC Crowdfunding Mega Bundle, D.Va LE SSERAFIM Bundle, Sombra LE SSERAFIM Bundle<br>✨ Pink Mercy, Ange de la Mort Widow, Wicked Moira, All-Stars Genji & D.Va, Haroeris Ana, Good and Evil Echo, Flying Ace Winston<br>✨ OW1 LA Gladiators D.Va/Widow/Genji/Sombra/Moira, OWCS Winston, OW1 London Spitfire Orisa/Widow/Tracer/Zen, OW1 NY Excelsior Zarya, OW1 FLO Mayhem 2018 Rein/Mei, OW1 SFS 2018 Junk/Sombra/Moira, OW1 Boston Uprising Soldier: 76, OW1 Houston Outlaws Torb/Widow/Mercy, OW1 LA Valiant 2018 Hanzo/Lucio, OW1 SH Dragon Hanzo/Ana, OWL Hanzo, OW1 Dallas Fuel Widow, OW1 Seoul Dynasty Widow/Sombra, OW1 PHL Fusion Tracer/Zen, OW1 Dallas Fuel Pharah",
+      "highlights": "🏆 OG OW1 Legendary Edition (2016)<br>⭐ Endorsement Level 3 • DPS Main • Widow/Sombra<br>🏅 Top 500 • Hide My Name Eligible<br>🎮 Premium Battle Pass: Season 1, 3, 4, 6, 7, and 2026 Season 1 and 2<br>🎮 Ultimate Battle Pass Bundle: Season 7 and 10 — A-7000 Wargod, Cyber Demon + 180 Mythic Prisms<br>✨ Cozy Mauga, Cyberhog, Fallen Knight Rein, LEGO Brick Bastion, Baize Kiriko, Robber Soldier: 76, Inferno, Inarius Pharah, Water Warrior Soj, Principal Lacroix Widow, Cyber Detective Sojourn Bundle, Witch Kiriko Bundle, Automaton & Starship Engineer Mega Bundle, Lilith Moira, Infinite Admiral Sojourn Bundle, Beach Rescue Mercy, Eagle Warrior Reaper Bundle, Invasion Bundle, Gentle Monster D.Va Bundle, OWWC Crowdfunding Mega Bundle, D.Va LE SSERAFIM Bundle, Sombra LE SSERAFIM Bundle<br>✨ Pink Mercy, Ange de la Mort Widow, Wicked Moira, All-Stars Genji & D.Va, Haroeris Ana, Good and Evil Echo, Flying Ace Winston<br>✨ OW1 LA Gladiators D.Va/Widow/Genji/Sombra/Moira, OWCS Winston, OW1 London Spitfire Orisa/Widow/Tracer/Zen, OW1 NY Excelsior Zarya, OW1 FLO Mayhem 2018 Rein/Mei, OW1 SFS 2018 Junk/Sombra/Moira, OW1 Boston Uprising Soldier: 76, OW1 Houston Outlaws Torb/Widow/Mercy, OW1 LA Valiant 2018 Hanzo/Lucio, OW1 SH Dragon Hanzo/Ana, OWL Hanzo, OW1 Dallas Fuel Widow, OW1 Seoul Dynasty Widow/Sombra, OW1 PHL Fusion Tracer/Zen, OW1 Dallas Fuel Pharah",
       "weapons": "Golden: Widow",
       "balance": "⏱ 953H • 6,992G<br>💎 180 Mythic Prisms<br>🪙 5,157 Coins • 28,835 Credits<br>🏅 2,100 OWL Tokens",
       "rank": "Rank Reset<br>Gold or Below",
       "nameChange": "✓",
       "screenshot": "https://imgur.com/a/TZix7qm",
-      "price": "627.7$"
+      "price": "$627.70"
     }
   ]
 }
