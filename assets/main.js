@@ -140,6 +140,52 @@ document.addEventListener("DOMContentLoaded", () => {
         return parseTaggedAmount(acct, 'mythicPrisms', 'Mythic\\s+Prisms?');
       }
 
+      function getDirectAmount(acct, fieldName) {
+        const value = acct?.[fieldName];
+        return value !== null && value !== undefined && String(value).trim() !== ''
+          ? parseNumber(value)
+          : 0;
+      }
+
+      function formatInventoryAmount(value) {
+        return new Intl.NumberFormat(document.documentElement.lang || 'en').format(value);
+      }
+
+      // Future inventory exports may store normalized numeric fields without a balance string.
+      // Build the legacy display text on the fly so those records remain readable.
+      function getBalanceDisplay(acct) {
+        const rawBalance = String(acct?.balance ?? '').trim();
+        if (rawBalance) return rawBalance;
+
+        const timeItems = [];
+        const playtime = getPlaytime(acct);
+        const gamesPlayed = getDirectAmount(acct, 'gamesPlayed');
+        if (playtime > 0) timeItems.push(`${formatInventoryAmount(playtime)}H`);
+        if (gamesPlayed > 0) timeItems.push(`${formatInventoryAmount(gamesPlayed)}G`);
+
+        const lines = [];
+        if (timeItems.length) lines.push(`⏱ ${timeItems.join(' • ')}`);
+
+        const mythicPrisms = getMythicPrisms(acct);
+        if (mythicPrisms > 0) lines.push(`💎 ${formatInventoryAmount(mythicPrisms)} Mythic Prisms`);
+
+        const currencyItems = [];
+        const coins = getCoins(acct);
+        const credits = getCredits(acct);
+        if (coins > 0) currencyItems.push(`${formatInventoryAmount(coins)} Coins`);
+        if (credits > 0) currencyItems.push(`${formatInventoryAmount(credits)} Credits`);
+        if (currencyItems.length) lines.push(`🪙 ${currencyItems.join(' • ')}`);
+
+        const pointItems = [];
+        const legacyPoints = getDirectAmount(acct, 'legacyCompetitivePoints');
+        const competitivePoints = getDirectAmount(acct, 'competitivePoints');
+        if (legacyPoints > 0) pointItems.push(`${formatInventoryAmount(legacyPoints)} Legacy Competitive Points`);
+        if (competitivePoints > 0) pointItems.push(`${formatInventoryAmount(competitivePoints)} Competitive Points`);
+        if (pointItems.length) lines.push(`🏅 ${pointItems.join(' • ')}`);
+
+        return lines.join('<br>');
+      }
+
       function getLevelTotal(acct) {
         const levelText = String(acct?.level ?? '').replace(/OW[12]/gi, '');
         const values = levelText.match(/\d+(?:\.\d+)?/g);
@@ -459,8 +505,11 @@ document.addEventListener("DOMContentLoaded", () => {
           return;
         }
 
-        visibleAccounts.forEach(acct => {
+          visibleAccounts.forEach(acct => {
             const { id, highlights = '', weapons = '', balance = '', rank = '', screenshot = '' } = acct;
+            const balanceDisplay = getBalanceDisplay(acct);
+            const hasBalance = balanceDisplay.length > 0;
+            const hasWeapons = String(weapons ?? '').trim().length > 0;
             const level = String(acct.level ?? '');
             const status = String(acct.status ?? 'In Stock');
             const price = String(acct.price ?? '0');
@@ -789,16 +838,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 .replace(/^[+\-–—•·\s]+|[+\-–—•·\s]+$/g, '')
                 .trim();
 
-              versions.forEach(label => tags.unshift({
-                text: label,
-                className: `game-version game-version-${label.toLowerCase()}`
-              }));
               if (isStacked) tags.push({ text: 'Stacked Account', className: 'stacked' });
 
               const mainText = normalized ? `Lv. ${normalized}` : 'Lv. —';
+              const versionTags = versions.map(label => (
+                `<span class="ac-level-tag game-version game-version-${label.toLowerCase()}">${escapeAccountText(label)}</span>`
+              )).join('');
               return {
                 main: escapeAccountText(mainText),
                 title: escapeAccountText(original || mainText),
+                versions: versionTags,
                 tags: tags.map(tag => `<span class="ac-level-tag ${tag.className}">${escapeAccountText(tag.text)}</span>`).join('')
               };
             }
@@ -959,6 +1008,7 @@ document.addEventListener("DOMContentLoaded", () => {
                   <div class="ac-title-block">
                     <h3 class="ac-level-title ${isValuable ? 'is-valuable' : ''}" title="${levelDisplay.title}">
                       <span class="ac-level-main">${levelDisplay.main}</span>
+                      ${levelDisplay.versions ? `<span class="ac-level-inline-meta">${levelDisplay.versions}</span>` : ''}
                     </h3>
                     ${levelDisplay.tags ? `<div class="ac-level-meta">${levelDisplay.tags}</div>` : ''}
                   </div>
@@ -1008,10 +1058,10 @@ document.addEventListener("DOMContentLoaded", () => {
                       <span class="ac-highlights-toggle-arrow" aria-hidden="true">⌄</span>
                     </button>` : ''}
                 </div>` : ''}
-              <div class="ac-details">
-                ${balance ? `<div class="ac-detail"><strong>${ui.balancePlaytime}:</strong><br>${highlightBalanceText(balance)}</div>` : ''}
-                ${weapons ? `<div class="ac-detail"><strong>${ui.weapons}:</strong><br>${applyColorMap(weapons)}</div>` : ''}
-              </div>
+              ${hasBalance || hasWeapons ? `<div class="ac-details">
+                ${hasBalance ? `<div class="ac-detail"><strong>${ui.activeCurrenciesTimePlayed}:</strong><br>${highlightBalanceText(balanceDisplay)}</div>` : ''}
+                ${hasWeapons ? `<div class="ac-detail"><strong>${ui.weapons}:</strong><br>${applyColorMap(weapons)}</div>` : ''}
+              </div>` : ''}
               <div class="ac-utility-actions">
                 <button type="button" class="btn btn-outline" data-copy-account="${escapeAccountText(id)}"># ${ui.copyId}</button>
               </div>
@@ -1642,8 +1692,8 @@ document.addEventListener("DOMContentLoaded", () => {
         activeFilters:"Active filters", clearFilter:"Remove this filter", searchLabel:"Search", applyFilters:"Show {count} accounts",
         showMore:"Show more skins", showLess:"Show fewer skins", playtime:"Playtime", credits:"Credits", coins:"Coins",
         mythicPrisms:"Mythic Prisms",
-        searchPlaceholder:"Search account keywords, e.g. Cyber Demon",
-        searchAria:"Search account keywords",
+        searchPlaceholder:"Search accounts",
+        searchAria:"Search accounts",
         typeAria:"Filter game version",
         typeOptions:["All versions", "OW1", "OW2"],
         statusAria:"Filter availability status", statusOptions:["In stock", "All statuses", "Pending", "Sold"],
@@ -1656,7 +1706,7 @@ document.addEventListener("DOMContentLoaded", () => {
         results:"{shown} / {total} accounts",
         empty:"No accounts match the current search and filters.",
         loadError:"Unable to load account inventory.",
-        rank:"Rank", price:"Price", level:"Level", statusLabel:"Status", balancePlaytime:"Balance & Playtime", weapons:"Weapons",
+        rank:"Rank", price:"Price", level:"Level", statusLabel:"Status", activeCurrenciesTimePlayed:"Active Currencies & Time Played", weapons:"Weapons",
         freeRename:"Free rename", top500Eligible:"TOP500 Eligible",
         yes:"Yes", no:"No", viewSkins:"View Skins", buyNow:"Buy Now", copyId:"Copy ID", copied:"Copied",
         missingScreenshot:"The screenshot link is missing from this account.",
@@ -1668,7 +1718,7 @@ document.addEventListener("DOMContentLoaded", () => {
         activeFilters:"Filtres actifs", clearFilter:"Retirer ce filtre", searchLabel:"Recherche", applyFilters:"Afficher {count} comptes",
         showMore:"Afficher plus de skins", showLess:"Afficher moins de skins", playtime:"Temps de jeu", credits:"Crédits", coins:"Coins",
         mythicPrisms:"Prismes mythiques",
-        searchPlaceholder:"Rechercher un mot-clé, ex. Cyber Demon",
+        searchPlaceholder:"Rechercher des comptes",
         searchAria:"Rechercher dans les comptes",
         typeAria:"Filtrer la version du jeu",
         typeOptions:["Toutes les versions", "OW1", "OW2"],
@@ -1682,7 +1732,7 @@ document.addEventListener("DOMContentLoaded", () => {
         results:"{shown} / {total} comptes",
         empty:"Aucun compte ne correspond à la recherche et aux filtres actuels.",
         loadError:"Impossible de charger l’inventaire des comptes.",
-        rank:"Rang", price:"Prix", level:"Niveau", statusLabel:"Statut", balancePlaytime:"Solde et temps de jeu", weapons:"Armes",
+        rank:"Rang", price:"Prix", level:"Niveau", statusLabel:"Statut", activeCurrenciesTimePlayed:"Monnaies disponibles et temps de jeu", weapons:"Armes",
         freeRename:"Renommage gratuit", top500Eligible:"Éligible TOP500",
         yes:"Oui", no:"Non", viewSkins:"Voir les skins", buyNow:"Acheter", copyId:"Copier l’ID", copied:"Copié",
         missingScreenshot:"Le lien de capture est absent pour ce compte.",
@@ -1694,8 +1744,8 @@ document.addEventListener("DOMContentLoaded", () => {
         activeFilters:"Aktive Filter", clearFilter:"Diesen Filter entfernen", searchLabel:"Suche", applyFilters:"{count} Accounts anzeigen",
         showMore:"Mehr Skins anzeigen", showLess:"Weniger Skins anzeigen", playtime:"Spielzeit", credits:"Credits", coins:"Coins",
         mythicPrisms:"Mythische Prismen",
-        searchPlaceholder:"Accounts durchsuchen, z. B. Cyber Demon",
-        searchAria:"Accounts nach Stichwort durchsuchen",
+        searchPlaceholder:"Accounts suchen",
+        searchAria:"Accounts suchen",
         typeAria:"Spielversion filtern",
         typeOptions:["Alle Versionen", "OW1", "OW2"],
         statusAria:"Verfügbarkeit filtern", statusOptions:["Auf Lager", "Alle Status", "Ausstehend", "Verkauft"],
@@ -1708,7 +1758,7 @@ document.addEventListener("DOMContentLoaded", () => {
         results:"{shown} / {total} Accounts",
         empty:"Keine Accounts entsprechen der aktuellen Suche und den Filtern.",
         loadError:"Das Account-Inventar konnte nicht geladen werden.",
-        rank:"Rang", price:"Preis", level:"Level", statusLabel:"Status", balancePlaytime:"Guthaben & Spielzeit", weapons:"Waffen",
+        rank:"Rang", price:"Preis", level:"Level", statusLabel:"Status", activeCurrenciesTimePlayed:"Verfügbare Währungen & Spielzeit", weapons:"Waffen",
         freeRename:"Kostenlose Umbenennung", top500Eligible:"TOP500-berechtigt",
         yes:"Ja", no:"Nein", viewSkins:"Skins ansehen", buyNow:"Jetzt kaufen", copyId:"ID kopieren", copied:"Kopiert",
         missingScreenshot:"Für diesen Account fehlt der Screenshot-Link.",
@@ -1720,8 +1770,8 @@ document.addEventListener("DOMContentLoaded", () => {
         activeFilters:"الفلاتر النشطة", clearFilter:"إزالة هذا الفلتر", searchLabel:"البحث", applyFilters:"عرض {count} حساب",
         showMore:"عرض المزيد من السكنات", showLess:"عرض سكنات أقل", playtime:"وقت اللعب", credits:"Credits", coins:"Coins",
         mythicPrisms:"Mythic Prisms",
-        searchPlaceholder:"ابحث بكلمة مفتاحية، مثل Cyber Demon",
-        searchAria:"البحث في الحسابات بالكلمات المفتاحية",
+        searchPlaceholder:"البحث في الحسابات",
+        searchAria:"البحث في الحسابات",
         typeAria:"تصفية إصدار اللعبة",
         typeOptions:["كل الإصدارات", "OW1", "OW2"],
         statusAria:"تصفية حالة التوفر", statusOptions:["متوفر", "كل الحالات", "قيد الانتظار", "مباع"],
@@ -1734,7 +1784,7 @@ document.addEventListener("DOMContentLoaded", () => {
         results:"{shown} / {total} حساب",
         empty:"لا توجد حسابات تطابق البحث والفلاتر الحالية.",
         loadError:"تعذر تحميل مخزون الحسابات.",
-        rank:"الرتبة", price:"السعر", level:"المستوى", statusLabel:"الحالة", balancePlaytime:"الرصيد ووقت اللعب", weapons:"الأسلحة",
+        rank:"الرتبة", price:"السعر", level:"المستوى", statusLabel:"الحالة", activeCurrenciesTimePlayed:"العملات المتاحة ووقت اللعب", weapons:"الأسلحة",
         freeRename:"تغيير اسم مجاني", top500Eligible:"مؤهل TOP500",
         yes:"نعم", no:"لا", viewSkins:"عرض السكنات", buyNow:"اشترِ الآن", copyId:"نسخ ID", copied:"تم النسخ",
         missingScreenshot:"رابط الصور غير متوفر لهذا الحساب.",
@@ -1746,8 +1796,8 @@ document.addEventListener("DOMContentLoaded", () => {
         activeFilters:"当前筛选", clearFilter:"移除此筛选条件", searchLabel:"检索", applyFilters:"查看 {count} 个账号",
         showMore:"展开更多皮肤", showLess:"收起皮肤详情", playtime:"游戏时长", credits:"Credits", coins:"Coins",
         mythicPrisms:"神话棱晶",
-        searchPlaceholder:"检索账号关键词，例如 Cyber Demon",
-        searchAria:"检索账号关键词",
+        searchPlaceholder:"搜索账号",
+        searchAria:"搜索账号",
         typeAria:"筛选游戏版本",
         typeOptions:["全部版本", "OW1", "OW2"],
         statusAria:"筛选库存状态", statusOptions:["有库存", "全部状态", "待处理", "已售出"],
@@ -1760,7 +1810,7 @@ document.addEventListener("DOMContentLoaded", () => {
         results:"显示 {shown} / 共 {total} 个账号",
         empty:"没有符合当前检索及筛选条件的账号。",
         loadError:"账号库存加载失败。",
-        rank:"段位", price:"价格", level:"等级", statusLabel:"状态", balancePlaytime:"余额与游戏时长", weapons:"武器",
+        rank:"段位", price:"价格", level:"等级", statusLabel:"状态", activeCurrenciesTimePlayed:"当前可用货币 & 游戏时长", weapons:"武器",
         freeRename:"免费改名", top500Eligible:"TOP500 资格",
         yes:"有", no:"无", viewSkins:"查看皮肤", buyNow:"立即购买", copyId:"复制 ID", copied:"已复制",
         missingScreenshot:"该账号暂未提供皮肤截图链接。",

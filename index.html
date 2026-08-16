@@ -17,7 +17,7 @@
   <meta name="twitter:description" content="Curated Overwatch accounts with clear listings, secure handover, and long-term support." />
   <meta name="twitter:image" content="https://roshine.love/assets/og.jpg" />
   <link rel="icon" href="./assets/logo.png" />
-  <link rel="stylesheet" href="./assets/main.css?v=12" />
+  <link rel="stylesheet" href="./assets/main.css?v=13" />
 </head>
 <body>
 
@@ -106,19 +106,18 @@
           <span aria-hidden="true">↺</span>
           <span id="resetAccountFiltersLabel">Reset filters</span>
         </button>
+        <button
+          class="mobile-filter-toggle"
+          id="mobileFilterToggle"
+          type="button"
+          aria-controls="accountsFilterPanel"
+          aria-expanded="false"
+        >
+          <span class="mobile-filter-icon" aria-hidden="true">☰</span>
+          <span id="mobileFilterLabel">Filter &amp; Sort</span>
+          <span class="mobile-filter-count" id="mobileFilterCount" hidden>0</span>
+        </button>
       </div>
-
-      <button
-        class="mobile-filter-toggle"
-        id="mobileFilterToggle"
-        type="button"
-        aria-controls="accountsFilterPanel"
-        aria-expanded="false"
-      >
-        <span class="mobile-filter-icon" aria-hidden="true">☰</span>
-        <span id="mobileFilterLabel">Filter &amp; Sort</span>
-        <span class="mobile-filter-count" id="mobileFilterCount" hidden>0</span>
-      </button>
 
       <div class="accounts-filter-backdrop" id="accountsFilterBackdrop" aria-hidden="true"></div>
       <div class="accounts-filter-panel" id="accountsFilterPanel" role="region" aria-labelledby="accountsFilterTitle">
@@ -135,9 +134,9 @@
             class="accounts-control accounts-search"
             id="accountSearch"
             type="search"
-            placeholder="Search account keywords, e.g. Cyber Demon"
+            placeholder="Search accounts"
             autocomplete="off"
-            aria-label="Search account keywords"
+            aria-label="Search accounts"
           />
           <div class="accounts-select-picker" data-select-picker data-accent="green">
             <select class="accounts-control accounts-select-native" id="accountStatusFilter" aria-label="Filter availability status">
@@ -365,6 +364,6 @@
       </nav>
     </div>
   </footer>
-  <script src="./assets/main.js?v=14" defer></script>
+  <script src="./assets/main.js?v=15" defer></script>
 </body>
 </html>

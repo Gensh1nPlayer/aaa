@@ -325,6 +325,14 @@
       overflow-wrap: anywhere;
       word-break: normal;
     }
+    .ac-level-inline-meta {
+      display: inline-flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-inline-start: 6px;
+      vertical-align: middle;
+    }
     .ac-level-meta,
     .ac-header-badges {
       display: flex;
@@ -1195,7 +1203,7 @@
 
     @media (max-width: 700px) {
       body.filter-drawer-open { overflow: hidden; }
-      .accounts-toolbar { justify-content: flex-start; margin-bottom: 7px; }
+      .accounts-toolbar { justify-content: space-between; gap: 10px; margin-bottom: 7px; }
       .inventory-reset-btn { min-height: 34px; }
       .accounts-filter-panel {
         position: fixed;
@@ -1280,21 +1288,20 @@
       .accounts-apply-btn { width: 100%; min-height: 44px; }
       .mobile-filter-toggle {
         display: inline-flex;
-        position: fixed;
-        z-index: 119;
-        inset-inline-end: 16px;
-        bottom: calc(16px + env(safe-area-inset-bottom));
+        position: static;
+        z-index: auto;
+        flex: 0 0 auto;
         align-items: center;
         justify-content: center;
         gap: 8px;
-        min-height: 48px;
-        padding: 10px 15px;
+        min-height: 34px;
+        padding: 7px 12px;
         border: 1px solid rgba(41,182,255,0.34);
         border-radius: 999px;
         background: linear-gradient(135deg, rgba(21,39,59,0.98), rgba(28,18,48,0.98));
         color: #fff;
-        box-shadow: 0 12px 34px rgba(0,0,0,0.48), 0 0 22px rgba(41,182,255,0.14);
-        font-size: 0.75rem;
+        box-shadow: 0 8px 22px rgba(0,0,0,0.32), 0 0 18px rgba(41,182,255,0.12);
+        font-size: 0.7rem;
         font-weight: 900;
         letter-spacing: 0.035em;
         cursor: pointer;
