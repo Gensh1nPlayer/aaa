@@ -332,6 +332,7 @@
       gap: 6px;
       margin-inline-start: 6px;
       vertical-align: middle;
+      transform: translateY(-0.17em);
     }
     .ac-level-meta {
       display: flex;
