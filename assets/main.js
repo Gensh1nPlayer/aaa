@@ -973,16 +973,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 <span class="ac-resource-label">${ui.playtime}</span>
                 <span class="ac-resource-value">${numberFormatter.format(playtimeAmount)}H</span>
               </div>` : '',
-              mythicPrismsAmount > 0 ? `<div class="ac-resource-item ac-resource-item-mythic">
-                <span class="ac-resource-label">${ui.mythicPrisms}</span>
-                <span class="ac-resource-value ac-highlight-mythic-prisms">${numberFormatter.format(mythicPrismsAmount)}</span>
-              </div>` : '',
               competitivePointsAmount > 0 ? `<div class="ac-resource-item ac-resource-item-competitive">
                 <span class="ac-resource-label">${ui.compPointsAll}</span>
                 <span class="ac-resource-value">${numberFormatter.format(competitivePointsAmount)}</span>
               </div>` : ''
             ].filter(Boolean).join('');
-            const resourceItemCount = [creditsAmount, coinsAmount, playtimeAmount, mythicPrismsAmount, competitivePointsAmount]
+            const resourceItemCount = [creditsAmount, coinsAmount, playtimeAmount, competitivePointsAmount]
               .filter(amount => amount > 0).length;
             const resourceStrip = resourceItems
               ? `<div class="ac-resource-strip" style="--resource-count:${resourceItemCount};">${resourceItems}</div>`
@@ -990,6 +986,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const rankText = String(rank || '').trim();
             const rankFact = rankText ? highlightRankText(rankText) : '—';
+            const prismsFact = mythicPrismsAmount > 0
+              ? `<div class="ac-keyfact is-premium"><span class="ac-keyfact-label">${ui.mythicPrisms}</span><span class="ac-keyfact-value ac-highlight-mythic-prisms">${numberFormatter.format(mythicPrismsAmount)}</span></div>`
+              : '';
 
             const card = document.createElement('div');
             card.className = 'account-card';
@@ -1031,6 +1030,7 @@ document.addEventListener("DOMContentLoaded", () => {
                   <span class="ac-keyfact-label">${ui.top500Eligible}</span>
                   <span class="ac-keyfact-value">${formatAvailability(top500Eligible)}</span>
                 </div>
+                ${prismsFact}
               </div>
               ${styledHighlights ? `
                 <div class="ac-highlights">
