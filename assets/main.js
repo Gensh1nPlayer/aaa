@@ -1901,10 +1901,10 @@ document.addEventListener("DOMContentLoaded", () => {
       if (urlLang && i18n[urlLang]) return urlLang;
 
       const saved = localStorage.getItem(LANG_KEY);
-      if (saved && i18n[saved]) return saved;
+      if (saved && saved !== "zh" && i18n[saved]) return saved;
 
       const nav = (navigator.language || "en").toLowerCase();
-      if (nav.startsWith("zh")) return "zh";
+      if (nav.startsWith("zh")) return "en";
       if (nav.startsWith("fr")) return "fr";
       if (nav.startsWith("de")) return "de";
       if (nav.startsWith("ar")) return "ar";
