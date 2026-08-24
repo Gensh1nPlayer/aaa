@@ -955,8 +955,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const highlightsCollapsible = highlightLines.length > 5 || highlightsPlainLength > 430;
 
             const numberFormatter = new Intl.NumberFormat(document.documentElement.lang || 'en');
-            const compactRank = String(rank || '').replace(/<br\s*\/?\s*>/gi, ' • ');
-            const rankFact = compactRank ? highlightRankText(compactRank) : '—';
+            const rankText = String(rank || '').trim();
+            const rankFact = rankText ? highlightRankText(rankText) : '—';
             const prismsFact = mythicPrismsAmount > 0
               ? `<div class="ac-keyfact is-premium"><span class="ac-keyfact-label">${ui.mythicPrisms}</span><span class="ac-keyfact-value ac-highlight-mythic-prisms">${numberFormatter.format(mythicPrismsAmount)}</span></div>`
               : '';

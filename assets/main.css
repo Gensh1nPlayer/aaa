@@ -484,12 +484,10 @@
     }
     .ac-skin-name {
       color: #d8b4fe;
-      font-weight: 800;
-      text-shadow: 0 0 9px rgba(192,132,252,0.24);
+      font-weight: 400;
     }
     .ac-special-skin {
-      font-weight: 900;
-      letter-spacing: 0.01em;
+      font-weight: 400;
     }
     .ac-special-skin-pink {
       color: #ff8fd1;
