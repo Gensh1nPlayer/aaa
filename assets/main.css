@@ -1151,7 +1151,7 @@
     .ac-keyfact-rank .ac-keyfact-value { color: #cbd8ef; }
     .ac-resource-strip {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       overflow: hidden;
     }
     .ac-resource-item {
@@ -1376,6 +1376,6 @@
       .ac-keyfacts { grid-template-columns: 1fr; }
       .ac-keyfact-wide,
       .ac-resource-strip { grid-column: auto; }
-      .ac-resource-strip { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .ac-resource-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
     }
 

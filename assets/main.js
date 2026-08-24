@@ -140,6 +140,12 @@ document.addEventListener("DOMContentLoaded", () => {
         return parseTaggedAmount(acct, 'mythicPrisms', 'Mythic\\s+Prisms?');
       }
 
+      function getCompetitivePoints(acct) {
+        const legacyPoints = parseTaggedAmount(acct, 'legacyCompetitivePoints', 'Legacy\\s+Competitive\\s+Points?');
+        const competitivePoints = parseTaggedAmount(acct, 'competitivePoints', '(?:Competitive|Comp)\\s+Points?');
+        return legacyPoints + competitivePoints;
+      }
+
       function getDirectAmount(acct, fieldName) {
         const value = acct?.[fieldName];
         return value !== null && value !== undefined && String(value).trim() !== ''
@@ -506,9 +512,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
           visibleAccounts.forEach(acct => {
-            const { id, highlights = '', weapons = '', balance = '', rank = '', screenshot = '' } = acct;
-            const balanceDisplay = getBalanceDisplay(acct);
-            const hasBalance = balanceDisplay.length > 0;
+            const { id, highlights = '', weapons = '', rank = '', screenshot = '' } = acct;
             const hasWeapons = String(weapons ?? '').trim().length > 0;
             const level = String(acct.level ?? '');
             const status = String(acct.status ?? 'In Stock');
@@ -519,6 +523,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const coinsAmount = getCoins(acct);
             const playtimeAmount = getPlaytime(acct);
             const mythicPrismsAmount = getMythicPrisms(acct);
+            const competitivePointsAmount = getCompetitivePoints(acct);
 
             let statusClass = 'status-instock';
             let statusText = status;
@@ -1005,6 +1010,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     <span class="ac-resource-label">${ui.playtime}</span>
                     <span class="ac-resource-value">${numberFormatter.format(playtimeAmount)}H</span>
                   </div>
+                  ${competitivePointsAmount > 0 ? `
+                  <div class="ac-resource-item ac-resource-item-competitive">
+                    <span class="ac-resource-label">${ui.compPointsAll}</span>
+                    <span class="ac-resource-value">${numberFormatter.format(competitivePointsAmount)}</span>
+                  </div>` : ''}
                 </div>
                 <div class="ac-keyfact ac-keyfact-boolean ${freeNameChange ? 'is-positive' : 'is-negative'}">
                   <span class="ac-keyfact-label">${ui.freeRename}</span>
@@ -1024,10 +1034,8 @@ document.addEventListener("DOMContentLoaded", () => {
                       <span class="ac-highlights-toggle-label">${ui.showMore}</span>
                       <span class="ac-highlights-toggle-arrow" aria-hidden="true">⌄</span>
                     </button>` : ''}
-                </div>` : ''}
-              ${hasBalance || hasWeapons ? `<div class="ac-details">
-                ${hasBalance ? `<div class="ac-detail"><strong>${ui.activeCurrenciesTimePlayed}:</strong><br>${highlightBalanceText(balanceDisplay)}</div>` : ''}
-                ${hasWeapons ? `<div class="ac-detail"><strong>${ui.weapons}:</strong><br>${applyColorMap(weapons)}</div>` : ''}
+                </div>` : ''}              ${hasWeapons ? `<div class="ac-details">
+                <div class="ac-detail"><strong>${ui.weapons}:</strong><br>${applyColorMap(weapons)}</div>
               </div>` : ''}
               <div class="ac-utility-actions">
                 <button type="button" class="btn btn-outline" data-copy-account="${escapeAccountText(id)}"># ${ui.copyId}</button>
@@ -1659,6 +1667,8 @@ document.addEventListener("DOMContentLoaded", () => {
         activeFilters:"Active filters", clearFilter:"Remove this filter", searchLabel:"Search", applyFilters:"Show {count} accounts",
         showMore:"Show more skins", showLess:"Show fewer skins", playtime:"Playtime", credits:"Credits", coins:"Coins",
         mythicPrisms:"Mythic Prisms",
+        compPointsAll:"نقاط التنافس (الإجمالي)",
+        compPointsAll:"Comp Points (All)",
         searchPlaceholder:"Search accounts",
         searchAria:"Search accounts",
         typeAria:"Filter game version",
@@ -1673,7 +1683,7 @@ document.addEventListener("DOMContentLoaded", () => {
         results:"{shown} / {total} accounts",
         empty:"No accounts match the current search and filters.",
         loadError:"Unable to load account inventory.",
-        rank:"Rank", price:"Price", level:"Level", statusLabel:"Status", activeCurrenciesTimePlayed:"Active Currencies & Time Played", weapons:"Weapons",
+        rank:"Rank", price:"Price", level:"Level", statusLabel:"Status", weapons:"Weapons",
         freeRename:"Free rename", top500Eligible:"TOP500 Eligible",
         yes:"Yes", no:"No", viewSkins:"View Skins", buyNow:"Buy Now", copyId:"Copy ID", copied:"Copied",
         missingScreenshot:"The screenshot link is missing from this account.",
@@ -1685,6 +1695,7 @@ document.addEventListener("DOMContentLoaded", () => {
         activeFilters:"Filtres actifs", clearFilter:"Retirer ce filtre", searchLabel:"Recherche", applyFilters:"Afficher {count} comptes",
         showMore:"Afficher plus de skins", showLess:"Afficher moins de skins", playtime:"Temps de jeu", credits:"Crédits", coins:"Coins",
         mythicPrisms:"Prismes mythiques",
+        compPointsAll:"Pts compét. (total)",
         searchPlaceholder:"Rechercher des comptes",
         searchAria:"Rechercher dans les comptes",
         typeAria:"Filtrer la version du jeu",
@@ -1699,7 +1710,7 @@ document.addEventListener("DOMContentLoaded", () => {
         results:"{shown} / {total} comptes",
         empty:"Aucun compte ne correspond à la recherche et aux filtres actuels.",
         loadError:"Impossible de charger l’inventaire des comptes.",
-        rank:"Rang", price:"Prix", level:"Niveau", statusLabel:"Statut", activeCurrenciesTimePlayed:"Monnaies disponibles et temps de jeu", weapons:"Armes",
+        rank:"Rang", price:"Prix", level:"Niveau", statusLabel:"Statut", weapons:"Armes",
         freeRename:"Renommage gratuit", top500Eligible:"Éligible TOP500",
         yes:"Oui", no:"Non", viewSkins:"Voir les skins", buyNow:"Acheter", copyId:"Copier l’ID", copied:"Copié",
         missingScreenshot:"Le lien de capture est absent pour ce compte.",
@@ -1711,6 +1722,7 @@ document.addEventListener("DOMContentLoaded", () => {
         activeFilters:"Aktive Filter", clearFilter:"Diesen Filter entfernen", searchLabel:"Suche", applyFilters:"{count} Accounts anzeigen",
         showMore:"Mehr Skins anzeigen", showLess:"Weniger Skins anzeigen", playtime:"Spielzeit", credits:"Credits", coins:"Coins",
         mythicPrisms:"Mythische Prismen",
+        compPointsAll:"Comp-Punkte (gesamt)",
         searchPlaceholder:"Accounts suchen",
         searchAria:"Accounts suchen",
         typeAria:"Spielversion filtern",
@@ -1725,7 +1737,7 @@ document.addEventListener("DOMContentLoaded", () => {
         results:"{shown} / {total} Accounts",
         empty:"Keine Accounts entsprechen der aktuellen Suche und den Filtern.",
         loadError:"Das Account-Inventar konnte nicht geladen werden.",
-        rank:"Rang", price:"Preis", level:"Level", statusLabel:"Status", activeCurrenciesTimePlayed:"Verfügbare Währungen & Spielzeit", weapons:"Waffen",
+        rank:"Rang", price:"Preis", level:"Level", statusLabel:"Status", weapons:"Waffen",
         freeRename:"Kostenlose Umbenennung", top500Eligible:"TOP500-berechtigt",
         yes:"Ja", no:"Nein", viewSkins:"Skins ansehen", buyNow:"Jetzt kaufen", copyId:"ID kopieren", copied:"Kopiert",
         missingScreenshot:"Für diesen Account fehlt der Screenshot-Link.",
@@ -1751,7 +1763,7 @@ document.addEventListener("DOMContentLoaded", () => {
         results:"{shown} / {total} حساب",
         empty:"لا توجد حسابات تطابق البحث والفلاتر الحالية.",
         loadError:"تعذر تحميل مخزون الحسابات.",
-        rank:"الرتبة", price:"السعر", level:"المستوى", statusLabel:"الحالة", activeCurrenciesTimePlayed:"العملات المتاحة ووقت اللعب", weapons:"الأسلحة",
+        rank:"الرتبة", price:"السعر", level:"المستوى", statusLabel:"الحالة", weapons:"الأسلحة",
         freeRename:"تغيير اسم مجاني", top500Eligible:"مؤهل TOP500",
         yes:"نعم", no:"لا", viewSkins:"عرض السكنات", buyNow:"اشترِ الآن", copyId:"نسخ ID", copied:"تم النسخ",
         missingScreenshot:"رابط الصور غير متوفر لهذا الحساب.",
@@ -1763,6 +1775,7 @@ document.addEventListener("DOMContentLoaded", () => {
         activeFilters:"当前筛选", clearFilter:"移除此筛选条件", searchLabel:"检索", applyFilters:"查看 {count} 个账号",
         showMore:"展开更多皮肤", showLess:"收起皮肤详情", playtime:"游戏时长", credits:"Credits", coins:"Coins",
         mythicPrisms:"神话棱晶",
+        compPointsAll:"竞技点数（总计）",
         searchPlaceholder:"搜索账号",
         searchAria:"搜索账号",
         typeAria:"筛选游戏版本",
@@ -1777,7 +1790,7 @@ document.addEventListener("DOMContentLoaded", () => {
         results:"显示 {shown} / 共 {total} 个账号",
         empty:"没有符合当前检索及筛选条件的账号。",
         loadError:"账号库存加载失败。",
-        rank:"段位", price:"价格", level:"等级", statusLabel:"状态", activeCurrenciesTimePlayed:"当前可用货币 & 游戏时长", weapons:"武器",
+        rank:"段位", price:"价格", level:"等级", statusLabel:"状态", weapons:"武器",
         freeRename:"免费改名", top500Eligible:"TOP500 资格",
         yes:"有", no:"无", viewSkins:"查看皮肤", buyNow:"立即购买", copyId:"复制 ID", copied:"已复制",
         missingScreenshot:"该账号暂未提供皮肤截图链接。",
