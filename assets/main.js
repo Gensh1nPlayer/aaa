@@ -146,52 +146,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return legacyPoints + competitivePoints;
       }
 
-      function getDirectAmount(acct, fieldName) {
-        const value = acct?.[fieldName];
-        return value !== null && value !== undefined && String(value).trim() !== ''
-          ? parseNumber(value)
-          : 0;
-      }
-
-      function formatInventoryAmount(value) {
-        return new Intl.NumberFormat(document.documentElement.lang || 'en').format(value);
-      }
-
-      // Future inventory exports may store normalized numeric fields without a balance string.
-      // Build the legacy display text on the fly so those records remain readable.
-      function getBalanceDisplay(acct) {
-        const rawBalance = String(acct?.balance ?? '').trim();
-        if (rawBalance) return rawBalance;
-
-        const timeItems = [];
-        const playtime = getPlaytime(acct);
-        const gamesPlayed = getDirectAmount(acct, 'gamesPlayed');
-        if (playtime > 0) timeItems.push(`${formatInventoryAmount(playtime)}H`);
-        if (gamesPlayed > 0) timeItems.push(`${formatInventoryAmount(gamesPlayed)}G`);
-
-        const lines = [];
-        if (timeItems.length) lines.push(`⏱ ${timeItems.join(' • ')}`);
-
-        const mythicPrisms = getMythicPrisms(acct);
-        if (mythicPrisms > 0) lines.push(`💎 ${formatInventoryAmount(mythicPrisms)} Mythic Prisms`);
-
-        const currencyItems = [];
-        const coins = getCoins(acct);
-        const credits = getCredits(acct);
-        if (coins > 0) currencyItems.push(`${formatInventoryAmount(coins)} Coins`);
-        if (credits > 0) currencyItems.push(`${formatInventoryAmount(credits)} Credits`);
-        if (currencyItems.length) lines.push(`🪙 ${currencyItems.join(' • ')}`);
-
-        const pointItems = [];
-        const legacyPoints = getDirectAmount(acct, 'legacyCompetitivePoints');
-        const competitivePoints = getDirectAmount(acct, 'competitivePoints');
-        if (legacyPoints > 0) pointItems.push(`${formatInventoryAmount(legacyPoints)} Legacy Competitive Points`);
-        if (competitivePoints > 0) pointItems.push(`${formatInventoryAmount(competitivePoints)} Competitive Points`);
-        if (pointItems.length) lines.push(`🏅 ${pointItems.join(' • ')}`);
-
-        return lines.join('<br>');
-      }
-
       function getLevelTotal(acct) {
         const levelText = String(acct?.level ?? '').replace(/OW[12]/gi, '');
         const values = levelText.match(/\d+(?:\.\d+)?/g);
@@ -690,57 +644,6 @@ document.addEventListener("DOMContentLoaded", () => {
                   `<span class="ac-rank-ready">${readyText}</span>`
                 );
               });
-
-              return res;
-            }
-
-            function highlightBalanceText(text) {
-              if (!text) return '';
-              let res = escapeAccountTextWithBreaks(text);
-
-              // Playtime greater than 300H: yellow
-              res = res.replace(/(\d[\d,]*)\s*H\b/gi, (match, rawNum) => {
-                const num = Number(String(rawNum).replace(/,/g, ''));
-                return num > 300 ? `<span class="ac-highlight-yellow">${match}</span>` : match;
-              });
-
-              // Games greater than 1000G: yellow
-              res = res.replace(/(\d[\d,]*)\s*G\b/gi, (match, rawNum) => {
-                const num = Number(String(rawNum).replace(/,/g, ''));
-                return num > 1000 ? `<span class="ac-highlight-yellow">${match}</span>` : match;
-              });
-
-              // Coins / Overwatch Coins greater than 800: yellow
-              res = res.replace(/(\d[\d,]*)\s*(?:Overwatch\s*)?Coins\b/gi, (match, rawNum) => {
-                const num = Number(String(rawNum).replace(/,/g, ''));
-                return num > 800 ? `<span class="ac-highlight-yellow">${match}</span>` : match;
-              });
-              // Any amount of Mythic Prisms: pink
-              res = res.replace(/\b\d[\d,]*\s+Mythic\s+Prisms\b/gi, (match) => {
-                return `<span class="ac-highlight-mythic-prisms">${match}</span>`;
-              });
-
-              // Credits greater than 10000: yellow
-              res = res.replace(/(\d[\d,]*)\s*Credits\b/gi, (match, rawNum) => {
-                const num = Number(String(rawNum).replace(/,/g, ''));
-                return num > 10000 ? `<span class="ac-highlight-yellow">${match}</span>` : match;
-              });
-
-              // Competitive points variants greater than 3000: yellow + bold
-              res = res.replace(
-                /(\d[\d,]*)\s*((?:Legacy\s*)?(?:Competitive|Comp)\s*Points)\b/gi,
-                (match, rawNum, label) => {
-                  const num = Number(String(rawNum).replace(/,/g, ''));
-                  return num > 3000 ? `<span class="ac-highlight-yellow">${rawNum} ${label}</span>` : match;
-                }
-              );
-
-              // Apply the same animated weapon-choice effect when this
-              // description appears in the balance block instead of weapons.
-              res = res.replace(
-                specialWeaponChoicePattern,
-                match => `<span class="ac-special-weapon-choice">${match}</span>`
-              );
 
               return res;
             }
