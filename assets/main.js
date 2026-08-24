@@ -140,6 +140,12 @@ document.addEventListener("DOMContentLoaded", () => {
         return parseTaggedAmount(acct, 'mythicPrisms', 'Mythic\\s+Prisms?');
       }
 
+      function getCompetitivePoints(acct) {
+        const legacyPoints = parseTaggedAmount(acct, 'legacyCompetitivePoints', 'Legacy\\s+Competitive\\s+Points?');
+        const competitivePoints = parseTaggedAmount(acct, 'competitivePoints', '(?:Competitive|Comp)\\s+Points?');
+        return legacyPoints + competitivePoints;
+      }
+
       function getDirectAmount(acct, fieldName) {
         const value = acct?.[fieldName];
         return value !== null && value !== undefined && String(value).trim() !== ''
@@ -506,9 +512,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
           visibleAccounts.forEach(acct => {
-            const { id, highlights = '', weapons = '', balance = '', rank = '', screenshot = '' } = acct;
-            const balanceDisplay = getBalanceDisplay(acct);
-            const hasBalance = balanceDisplay.length > 0;
+            const { id, highlights = '', weapons = '', rank = '', screenshot = '' } = acct;
             const hasWeapons = String(weapons ?? '').trim().length > 0;
             const level = String(acct.level ?? '');
             const status = String(acct.status ?? 'In Stock');
@@ -519,6 +523,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const coinsAmount = getCoins(acct);
             const playtimeAmount = getPlaytime(acct);
             const mythicPrismsAmount = getMythicPrisms(acct);
+            const competitivePointsAmount = getCompetitivePoints(acct);
 
             let statusClass = 'status-instock';
             let statusText = status;
@@ -538,8 +543,8 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!isNaN(numPrice) && numPrice >= 100) isValuable = true;
             if (top500Eligible) isValuable = true;
 
-            // Shared priority color rules. These are protected before the broader
-            // legacy replacements run, preventing nested spans and color overrides.
+            // Special Mythic/Skin rules are the source of truth for configured items.
+            // Shared rules below only cover general labels that are not special items.
             const specialSkinRules = [
               {
                 pattern: /\b(?:Pink\s+Mercy|Noire|Los\s+Muertos\s+Weapon|LE\s+SSERAFIM|Nerf\s+Gelfire\s+Pro\s+Weapon|Hard\s+Light\s+Weapon|Nerf\s+Sungerang\s+Weapon|Ange\s+de\s+la\s+Mort|Rose\s+Gold|Thunder|Haroeris|Luchador|All[-\s]Stars|OWL\s+Tokens|Good\s+and\s+Evil|Mayhem\s+Biker|Mythic\s+Prisms)(?![A-Za-z0-9_])/gi,
@@ -548,11 +553,40 @@ document.addEventListener("DOMContentLoaded", () => {
               { pattern: /\bMidas(?![A-Za-z0-9_])/gi, className: 'ac-special-skin-gold' },
               { pattern: /\bHeart\s+of\s+Hope(?![A-Za-z0-9_])/gi, className: 'ac-special-skin-hope' },
               {
-                pattern: /\b(?:Cyber\s+Demon|Zeus|Amaterasu|Galactic\s+Emperor|Adventurer|A-7000\s+Wargod|Onryō|Grand\s+Beast|Ancient\s+Caller|Vengeance|Calamity\s+Empress|Anubis|Spellbinder|Thor|Pixiu|Horang|Ultraviolet\s+Sentinel|Divine\s+Druid|Cyber\s+Fuel|Divine\s+Desperado|Magma\s+Titan|Celestial\s+Guardian|Hop\s+Online!|Volted\s+Overdrive|Ra|Ascendant\s+Phoenix|World\s+Forger|Bound\s+Demon|Midnight\s+Sun|Deliverance|Lead\s+Rose|Dame\s+Chance|Merciful\s+Magitech|Steel\s+Death|Gilded|Iridescent|Dawn|Blazing\s+Sunsetter|Spirit\s+Keeper|Star\s+Shooter|Sumi-ichimonji)(?![A-Za-z0-9_])/gi,
+                pattern: /\b(?:Cyber\s+Demon|Zeus|Amaterasu|Galactic\s+Emperor|Adventurer|A-7000\s+Wargod|Onryō|Grand\s+Beast|Ancient\s+Caller|Vengeance|Calamity\s+Empress|Anubis|Spellbinder|Thor|Pixiu|Horang|Ultraviolet\s+Sentinel|Divine\s+Druid|Cyber\s+Fuel|Divine\s+Desperado|Magma\s+Titan|Celestial\s+Guardian|Hop\s+Online!|Volted\s+Overdrive|Ra|Ascendant\s+Phoenix|World\s+Forger|Bound\s+Demon|Midnight\s+Sun|Deliverance|Lead\s+Rose|Dame\s+Chance|Merciful\s+Magitech|Steel\s+Death|Gilded|Iridescent|Dawn|Blazing\s+Sunsetter|Spirit\s+Keeper|Star\s+Shooter|Sumi-ichimonji|Koi\s+of\s+Duality|Capsule\s+Cannon|Eternal\s+Crystal)(?![A-Za-z0-9_])/gi,
                 className: 'ac-special-skin-mythic'
               }
             ];
             const specialWeaponChoicePattern = /\bChoice\s+of\s+(?:\d+|one|two|three|four|five|six|seven|eight|nine|ten)\s+(?:additional\s+)?Gold\s*\/\s*Jade\s*\/\s*Galactic(?:\s*\/\s*Crimson\s+Wolf)?\s+Weapon(?:s|\s+Skins?)?\b/gi;
+            const sharedColorRules = [
+              { pattern: /Top 500 Challenger Tier/g, className: 'ac-color-red' },
+              { pattern: /TOP 500/g, className: 'ac-color-red' },
+              { pattern: /Top 500/g, className: 'ac-color-red' },
+              { pattern: /Hide My Name/g, className: 'ac-color-red' },
+              { pattern: /Stacked Account/g, className: 'ac-color-red' },
+              { pattern: /Premium Battle Pass/g, className: 'ac-color-purple' },
+              { pattern: /Premium BP/g, className: 'ac-color-purple' },
+              { pattern: /Ultimate BP/g, className: 'ac-color-purple' },
+              { pattern: /Galactic/g, className: 'ac-color-purple' },
+              { pattern: /Japanese/g, className: 'ac-color-pink' },
+              { pattern: /Grandmaster/g, className: 'ac-color-pink' },
+              { pattern: /Master/g, className: 'ac-color-pink' },
+              { pattern: /Comic Book/g, className: 'ac-color-pink' },
+              { pattern: /Pink/g, className: 'ac-color-pink' },
+              { pattern: /Endorsement Level 4/g, className: 'ac-color-pink' },
+              { pattern: /Endorsement Level 5/g, className: 'ac-color-pink-strong' },
+              { pattern: /Brick/g, className: 'ac-color-pink-soft' },
+              { pattern: /D\.VA/g, className: 'ac-color-blue' },
+              { pattern: /Golden/g, className: 'ac-color-gold' },
+              { pattern: /OW1 - Season/g, className: 'ac-color-gold' },
+              { pattern: /Competitor/g, className: 'ac-color-gold' },
+              { pattern: /JADE/g, className: 'ac-color-green' },
+              { pattern: /Endorsement Level 2/g, className: 'ac-color-green-bright' },
+              { pattern: /Endorsement Level 3/g, className: 'ac-color-green-bright' },
+              { pattern: /DPS Main/g, className: 'ac-color-green' },
+              { pattern: /Sup Main/g, className: 'ac-color-green' },
+              { pattern: /Tank Main/g, className: 'ac-color-green' }
+            ];
 
             // Custom Color Dictionary
             function applyColorMap(text) {
@@ -578,91 +612,29 @@ document.addEventListener("DOMContentLoaded", () => {
                 return token;
               });
 
-              // Red
-			  res = res.replace(/Top 500 Challenger Tier/g, '<span style="color: #ef4444; font-weight: 700;">Top 500 Challenger Tier</span>');
-			  res = res.replace(/TOP 500/g, '<span style="color: #ef4444; font-weight: 700;">TOP 500</span>');
-              res = res.replace(/Top 500/g, '<span style="color: #ef4444; font-weight: 700;">TOP 500</span>');
-              res = res.replace(/Hide My Name/g, '<span style="color: #ef4444; font-weight: 700;">Hide My Name</span>');
-              res = res.replace(/Stacked Account/g, '<span style="color: #ef4444; font-weight: 700;">Stacked Account</span>');
-              // Purple
-              res = res.replace(/Premium Battle Pass/g, '<span style="color: #c084fc; font-weight: 700;">Premium Battle Pass</span>');
-              res = res.replace(/Premium BP/g, '<span style="color: #c084fc; font-weight: 700;">Premium BP</span>');
-			  res = res.replace(/Ultimate BP/g, '<span style="color: #c084fc; font-weight: 700;">Ultimate BP</span>');
-			  res = res.replace(/Galactic Emperor/g, '<span style="color: #c084fc; font-weight: 700;">Galactic Emperor</span>');
-              res = res.replace(/Galactic/g, '<span style="color: #c084fc; font-weight: 700;">Galactic</span>');
-              res = res.replace(/Anubis/g, '<span style="color: #c084fc; font-weight: 700;">Anubis</span>');
-              res = res.replace(/Calamity Empress/g, '<span style="color: #c084fc; font-weight: 700;">Calamity Empress</span>');
-              res = res.replace(/A-7000 Wargod/g, '<span style="color: #c084fc; font-weight: 700;">A-7000 Wargod</span>');
-              res = res.replace(/Amaterasu/g, '<span style="color: #c084fc; font-weight: 700;">Amaterasu</span>');
-              res = res.replace(/Vengeance/g, '<span style="color: #c084fc; font-weight: 700;">Vengeance</span>');
-              res = res.replace(/Lead Rose/g, '<span style="color: #c084fc; font-weight: 700;">Lead Rose</span>');
-              res = res.replace(/Ultraviolet Sentinel/g, '<span style="color: #c084fc; font-weight: 700;">Ultraviolet Sentinel</span>');
-              res = res.replace(/Zeus/g, '<span style="color: #c084fc; font-weight: 700;">Zeus</span>');
-			  res = res.replace(/Adventurer/g, '<span style="color: #c084fc; font-weight: 700;">Adventurer</span>');
-              res = res.replace(/Deliverance/g, '<span style="color: #c084fc; font-weight: 700;">Deliverance</span>');
-              res = res.replace(/Steel Death/g, '<span style="color: #c084fc; font-weight: 700;">Steel Death</span>');
-              res = res.replace(/Onryō/g, '<span style="color: #c084fc; font-weight: 700;">Onryō</span>');
-              res = res.replace(/Pixiu/g, '<span style="color: #c084fc; font-weight: 700;">Pixiu</span>');
-              res = res.replace(/Blazing Sunsetter/g, '<span style="color: #c084fc; font-weight: 700;">Blazing Sunsetter</span>');
-			  res = res.replace(/Celestial Guardian/g, '<span style="color: #c084fc; font-weight: 700;">Celestial Guardian</span>');
-              res = res.replace(/Ancient Caller/g, '<span style="color: #c084fc; font-weight: 700;">Ancient Caller</span>');
-              res = res.replace(/Midnight Sun/g, '<span style="color: #c084fc; font-weight: 700;">Midnight Sun</span>');
-              res = res.replace(/Spellbinder/g, '<span style="color: #c084fc; font-weight: 700;">Spellbinder</span>');
-              res = res.replace(/Cyber Demon/g, '<span style="color: #c084fc; font-weight: 700;">Cyber Demon</span>');
-              res = res.replace(/Thor/g, '<span style="color: #c084fc; font-weight: 700;">Thor</span>');
-              res = res.replace(/Grand Beast/g, '<span style="color: #c084fc; font-weight: 700;">Grand Beast</span>');
-              res = res.replace(/Spirit Keeper/g, '<span style="color: #c084fc; font-weight: 700;">Spirit Keeper</span>');
-              res = res.replace(/Horang/g, '<span style="color: #c084fc; font-weight: 700;">Horang</span>');
-              res = res.replace(/Cyber Fuel/g, '<span style="color: #c084fc; font-weight: 700;">Cyber Fuel</span>');
-              res = res.replace(/Star Shooter/g, '<span style="color: #c084fc; font-weight: 700;">Star Shooter</span>');
-              res = res.replace(/Heart of Hope/g, '<span style="color: #c084fc; font-weight: 700;">Heart of Hope</span>');
-              res = res.replace(/Divine Druid/g, '<span style="color: #c084fc; font-weight: 700;">Divine Druid</span>');
-              res = res.replace(/Hop Online!/g, '<span style="color: #c084fc; font-weight: 700;">Hop Online!</span>');
-			  res = res.replace(/Sumi-ichimonji/g, '<span style="color: #c084fc; font-weight: 700;">Sumi-ichimonji</span>');
-              // Blue
-              res = res.replace(/D\.VA/g, '<span style="color: #60a5fa; font-weight: 700;">D.VA</span>');
+              // Normalize aliases before applying color classes.
+              res = res.replace(/Support Main/g, 'Sup Main');
+              const protectedColorSpans = [];
+              sharedColorRules.forEach(({ pattern, className }) => {
+                res = res.replace(pattern, match => {
+                  const token = `__COLOR_SHARED_${protectedColorSpans.length}__`;
+                  protectedColorSpans.push({ match, className });
+                  return token;
+                });
+              });
+
               // Gold
-              res = res.replace(/Golden/g, '<span style="color: #facc15; font-weight: 700;">Golden</span>');
-              res = res.replace(/OW1 - Season/g, '<span style="color: #facc15; font-weight: 700;">OW1 - Season</span>');
-              res = res.replace(/Competitor/g, '<span style="color: #facc15; font-weight: 700;">Competitor</span>');
               res = res.replace(
                   /Edition\s*\((2016|2017|2018|2019|2020)\)/g,
-                  'Edition (<span style="color:#facc15;font-weight:700;">$1</span>)'
+                  'Edition (<span class="ac-color-gold">$1</span>)'
               );
-              // Pink
-              res = res.replace(/Los Muertos Weapon/g, '<span style="color: #F379F3; font-weight: 700;">Los Muertos Weapon</span>');
-			  res = res.replace(/LE SSERAFIM/g, '<span style="color: #F379F3; font-weight: 700;">LE SSERAFIM</span>');
-              res = res.replace(/Nerf Gelfire Pro Weapon/g, '<span style="color: #F379F3; font-weight: 700;">Nerf Gelfire Pro Weapon</span>');
-              res = res.replace(/Hard Light Weapon/g, '<span style="color: #F379F3; font-weight: 700;">Hard Light Weapon</span>');
-			  res = res.replace(/Japanese/g, '<span style="color: #F379F3; font-weight: 700;">Japanese</span>');
-              res = res.replace(/Nerf Sungerang Weapon/g, '<span style="color: #F379F3; font-weight: 700;">Nerf Sungerang Weapon</span>');
-              res = res.replace(/Ange de la Mort/g, '<span style="color: #F379F3; font-weight: 700;">Ange de la Mort</span>');
-              res = res.replace(/Rose Gold/g, '<span style="color: #F379F3; font-weight: 700;">Rose Gold</span>');
-              res = res.replace(/Thunder/g, '<span style="color: #F379F3; font-weight: 700;">Thunder</span>');
-              res = res.replace(/Haroeris/g, '<span style="color: #F379F3; font-weight: 700;">Haroeris</span>');			  
-              res = res.replace(/Midas/g, '<span style="color: #F379F3; font-weight: 700;">Midas</span>');
-              res = res.replace(/Mythic Prisms/g, '<span style="color: #F379F3; font-weight: 700;">Mythic Prisms</span>');
-			  res = res.replace(/Mayhem Biker/g, '<span style="color: #F379F3; font-weight: 700;">Mayhem Biker</span>');
-              res = res.replace(/Good and Evil/g, '<span style="color: #F379F3; font-weight: 700;">Good and Evil</span>');
-              res = res.replace(/OWL Tokens/g, '<span style="color: #F379F3; font-weight: 700;">OWL Tokens</span>');
-			  res = res.replace(/Grandmaster/g, '<span style="color: #F379F3; font-weight: 700;">Grandmaster</span>');
-              res = res.replace(/Master/g, '<span style="color: #F379F3; font-weight: 700;">Master</span>');
-              res = res.replace(/Luchador/g, '<span style="color: #F379F3; font-weight: 700;">Luchador</span>');
-              res = res.replace(/All-Stars/g, '<span style="color: #F379F3; font-weight: 700;">All-Stars</span>');
-              res = res.replace(/Comic Book/g, '<span style="color: #F379F3; font-weight: 700;">Comic Book</span>');
-              res = res.replace(/Pink/g, '<span style="color: #F379F3; font-weight: 700;">Pink</span>');
-              res = res.replace(/Noire/g, '<span style="color: #F379F3; font-weight: 700;">Noire</span>');
-              res = res.replace(/Endorsement Level 4/g, '<span style="color: #F379F3; font-weight: 700;">Endorsement Level 4</span>');
-              res = res.replace(/Endorsement Level 5/g, '<span style="color: #F379F3; font-weight: 800;">Endorsement Level 5</span>');
-              res = res.replace(/Brick/g, '<span style="color: #f472b6; font-weight: 700;">Brick</span>');
-              // Green
-              res = res.replace(/JADE/g, '<span style="color: #4ade80; font-weight: 700;">JADE</span>');
-              res = res.replace(/Endorsement Level 2/g, '<span style="color: #00ff7f; font-weight: 700;">Endorsement Level 2</span>');
-              res = res.replace(/Endorsement Level 3/g, '<span style="color: #00ff7f; font-weight: 700;">Endorsement Level 3</span>');
-              res = res.replace(/DPS Main/g, '<span style="color: #4ade80; font-weight: 700;">DPS Main</span>');
-              res = res.replace(/Sup Main/g, '<span style="color: #4ade80; font-weight: 700;">Sup Main</span>');
-              res = res.replace(/Support Main/g, '<span style="color: #4ade80; font-weight: 700;">Sup Main</span>');
-              res = res.replace(/Tank Main/g, '<span style="color: #4ade80; font-weight: 700;">Tank Main</span>');
+
+              protectedColorSpans.forEach((entry, index) => {
+                res = res.replace(
+                  `__COLOR_SHARED_${index}__`,
+                  `<span class="${entry.className}">${entry.match}</span>`
+                );
+              });
 
               protectedSpecialSkins.forEach((entry, index) => {
                 res = res.replace(
@@ -988,8 +960,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const highlightsCollapsible = highlightLines.length > 5 || highlightsPlainLength > 430;
 
             const numberFormatter = new Intl.NumberFormat(document.documentElement.lang || 'en');
-            const compactRank = String(rank || '').replace(/<br\s*\/?\s*>/gi, ' • ');
-            const rankFact = compactRank ? highlightRankText(compactRank) : '—';
+            const rankText = String(rank || '').trim();
+            const rankFact = rankText ? highlightRankText(rankText) : '—';
             const prismsFact = mythicPrismsAmount > 0
               ? `<div class="ac-keyfact is-premium"><span class="ac-keyfact-label">${ui.mythicPrisms}</span><span class="ac-keyfact-value ac-highlight-mythic-prisms">${numberFormatter.format(mythicPrismsAmount)}</span></div>`
               : '';
@@ -1038,6 +1010,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     <span class="ac-resource-label">${ui.playtime}</span>
                     <span class="ac-resource-value">${numberFormatter.format(playtimeAmount)}H</span>
                   </div>
+                  ${competitivePointsAmount > 0 ? `
+                  <div class="ac-resource-item ac-resource-item-competitive">
+                    <span class="ac-resource-label">${ui.compPointsAll}</span>
+                    <span class="ac-resource-value">${numberFormatter.format(competitivePointsAmount)}</span>
+                  </div>` : ''}
                 </div>
                 <div class="ac-keyfact ac-keyfact-boolean ${freeNameChange ? 'is-positive' : 'is-negative'}">
                   <span class="ac-keyfact-label">${ui.freeRename}</span>
@@ -1057,10 +1034,8 @@ document.addEventListener("DOMContentLoaded", () => {
                       <span class="ac-highlights-toggle-label">${ui.showMore}</span>
                       <span class="ac-highlights-toggle-arrow" aria-hidden="true">⌄</span>
                     </button>` : ''}
-                </div>` : ''}
-              ${hasBalance || hasWeapons ? `<div class="ac-details">
-                ${hasBalance ? `<div class="ac-detail"><strong>${ui.activeCurrenciesTimePlayed}:</strong><br>${highlightBalanceText(balanceDisplay)}</div>` : ''}
-                ${hasWeapons ? `<div class="ac-detail"><strong>${ui.weapons}:</strong><br>${applyColorMap(weapons)}</div>` : ''}
+                </div>` : ''}              ${hasWeapons ? `<div class="ac-details">
+                <div class="ac-detail"><strong>${ui.weapons}:</strong><br>${applyColorMap(weapons)}</div>
               </div>` : ''}
               <div class="ac-utility-actions">
                 <button type="button" class="btn btn-outline" data-copy-account="${escapeAccountText(id)}"># ${ui.copyId}</button>
@@ -1692,6 +1667,7 @@ document.addEventListener("DOMContentLoaded", () => {
         activeFilters:"Active filters", clearFilter:"Remove this filter", searchLabel:"Search", applyFilters:"Show {count} accounts",
         showMore:"Show more skins", showLess:"Show fewer skins", playtime:"Playtime", credits:"Credits", coins:"Coins",
         mythicPrisms:"Mythic Prisms",
+        compPointsAll:"Comp Points (All)",
         searchPlaceholder:"Search accounts",
         searchAria:"Search accounts",
         typeAria:"Filter game version",
@@ -1706,7 +1682,7 @@ document.addEventListener("DOMContentLoaded", () => {
         results:"{shown} / {total} accounts",
         empty:"No accounts match the current search and filters.",
         loadError:"Unable to load account inventory.",
-        rank:"Rank", price:"Price", level:"Level", statusLabel:"Status", activeCurrenciesTimePlayed:"Active Currencies & Time Played", weapons:"Weapons",
+        rank:"Rank", price:"Price", level:"Level", statusLabel:"Status", weapons:"Weapons",
         freeRename:"Free rename", top500Eligible:"TOP500 Eligible",
         yes:"Yes", no:"No", viewSkins:"View Skins", buyNow:"Buy Now", copyId:"Copy ID", copied:"Copied",
         missingScreenshot:"The screenshot link is missing from this account.",
@@ -1718,6 +1694,7 @@ document.addEventListener("DOMContentLoaded", () => {
         activeFilters:"Filtres actifs", clearFilter:"Retirer ce filtre", searchLabel:"Recherche", applyFilters:"Afficher {count} comptes",
         showMore:"Afficher plus de skins", showLess:"Afficher moins de skins", playtime:"Temps de jeu", credits:"Crédits", coins:"Coins",
         mythicPrisms:"Prismes mythiques",
+        compPointsAll:"Pts compét. (total)",
         searchPlaceholder:"Rechercher des comptes",
         searchAria:"Rechercher dans les comptes",
         typeAria:"Filtrer la version du jeu",
@@ -1732,7 +1709,7 @@ document.addEventListener("DOMContentLoaded", () => {
         results:"{shown} / {total} comptes",
         empty:"Aucun compte ne correspond à la recherche et aux filtres actuels.",
         loadError:"Impossible de charger l’inventaire des comptes.",
-        rank:"Rang", price:"Prix", level:"Niveau", statusLabel:"Statut", activeCurrenciesTimePlayed:"Monnaies disponibles et temps de jeu", weapons:"Armes",
+        rank:"Rang", price:"Prix", level:"Niveau", statusLabel:"Statut", weapons:"Armes",
         freeRename:"Renommage gratuit", top500Eligible:"Éligible TOP500",
         yes:"Oui", no:"Non", viewSkins:"Voir les skins", buyNow:"Acheter", copyId:"Copier l’ID", copied:"Copié",
         missingScreenshot:"Le lien de capture est absent pour ce compte.",
@@ -1744,6 +1721,7 @@ document.addEventListener("DOMContentLoaded", () => {
         activeFilters:"Aktive Filter", clearFilter:"Diesen Filter entfernen", searchLabel:"Suche", applyFilters:"{count} Accounts anzeigen",
         showMore:"Mehr Skins anzeigen", showLess:"Weniger Skins anzeigen", playtime:"Spielzeit", credits:"Credits", coins:"Coins",
         mythicPrisms:"Mythische Prismen",
+        compPointsAll:"Comp-Punkte (gesamt)",
         searchPlaceholder:"Accounts suchen",
         searchAria:"Accounts suchen",
         typeAria:"Spielversion filtern",
@@ -1758,7 +1736,7 @@ document.addEventListener("DOMContentLoaded", () => {
         results:"{shown} / {total} Accounts",
         empty:"Keine Accounts entsprechen der aktuellen Suche und den Filtern.",
         loadError:"Das Account-Inventar konnte nicht geladen werden.",
-        rank:"Rang", price:"Preis", level:"Level", statusLabel:"Status", activeCurrenciesTimePlayed:"Verfügbare Währungen & Spielzeit", weapons:"Waffen",
+        rank:"Rang", price:"Preis", level:"Level", statusLabel:"Status", weapons:"Waffen",
         freeRename:"Kostenlose Umbenennung", top500Eligible:"TOP500-berechtigt",
         yes:"Ja", no:"Nein", viewSkins:"Skins ansehen", buyNow:"Jetzt kaufen", copyId:"ID kopieren", copied:"Kopiert",
         missingScreenshot:"Für diesen Account fehlt der Screenshot-Link.",
@@ -1770,6 +1748,7 @@ document.addEventListener("DOMContentLoaded", () => {
         activeFilters:"الفلاتر النشطة", clearFilter:"إزالة هذا الفلتر", searchLabel:"البحث", applyFilters:"عرض {count} حساب",
         showMore:"عرض المزيد من السكنات", showLess:"عرض سكنات أقل", playtime:"وقت اللعب", credits:"Credits", coins:"Coins",
         mythicPrisms:"Mythic Prisms",
+        compPointsAll:"نقاط التنافس (الإجمالي)",
         searchPlaceholder:"البحث في الحسابات",
         searchAria:"البحث في الحسابات",
         typeAria:"تصفية إصدار اللعبة",
@@ -1784,7 +1763,7 @@ document.addEventListener("DOMContentLoaded", () => {
         results:"{shown} / {total} حساب",
         empty:"لا توجد حسابات تطابق البحث والفلاتر الحالية.",
         loadError:"تعذر تحميل مخزون الحسابات.",
-        rank:"الرتبة", price:"السعر", level:"المستوى", statusLabel:"الحالة", activeCurrenciesTimePlayed:"العملات المتاحة ووقت اللعب", weapons:"الأسلحة",
+        rank:"الرتبة", price:"السعر", level:"المستوى", statusLabel:"الحالة", weapons:"الأسلحة",
         freeRename:"تغيير اسم مجاني", top500Eligible:"مؤهل TOP500",
         yes:"نعم", no:"لا", viewSkins:"عرض السكنات", buyNow:"اشترِ الآن", copyId:"نسخ ID", copied:"تم النسخ",
         missingScreenshot:"رابط الصور غير متوفر لهذا الحساب.",
@@ -1796,6 +1775,7 @@ document.addEventListener("DOMContentLoaded", () => {
         activeFilters:"当前筛选", clearFilter:"移除此筛选条件", searchLabel:"检索", applyFilters:"查看 {count} 个账号",
         showMore:"展开更多皮肤", showLess:"收起皮肤详情", playtime:"游戏时长", credits:"Credits", coins:"Coins",
         mythicPrisms:"神话棱晶",
+        compPointsAll:"竞技点数（总计）",
         searchPlaceholder:"搜索账号",
         searchAria:"搜索账号",
         typeAria:"筛选游戏版本",
@@ -1810,7 +1790,7 @@ document.addEventListener("DOMContentLoaded", () => {
         results:"显示 {shown} / 共 {total} 个账号",
         empty:"没有符合当前检索及筛选条件的账号。",
         loadError:"账号库存加载失败。",
-        rank:"段位", price:"价格", level:"等级", statusLabel:"状态", activeCurrenciesTimePlayed:"当前可用货币 & 游戏时长", weapons:"武器",
+        rank:"段位", price:"价格", level:"等级", statusLabel:"状态", weapons:"武器",
         freeRename:"免费改名", top500Eligible:"TOP500 资格",
         yes:"有", no:"无", viewSkins:"查看皮肤", buyNow:"立即购买", copyId:"复制 ID", copied:"已复制",
         missingScreenshot:"该账号暂未提供皮肤截图链接。",
@@ -2288,3 +2268,4 @@ document.addEventListener("DOMContentLoaded", () => {
       applyLang(lang);
       localStorage.setItem(LANG_KEY, lang);
     });
+
