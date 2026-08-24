@@ -342,16 +342,16 @@
     .ac-level-tag {
       display: inline-flex;
       align-items: center;
-      min-height: 24px;
-      padding: 3px 8px;
+      min-height: 26px;
+      padding: 4px 9px;
       border-radius: 999px;
       border: 1px solid rgba(255,255,255,0.09);
       background: rgba(255,255,255,0.04);
       color: var(--text-muted);
-      font-size: 0.66rem;
-      font-weight: 800;
-      line-height: 1;
-      letter-spacing: 0.04em;
+      font-size: clamp(0.82rem, 1.05vw, 0.95rem);
+      font-weight: 850;
+      line-height: 1.05;
+      letter-spacing: 0.02em;
       white-space: nowrap;
     }
     .ac-level-tag.game-version { font-weight: 900; }
