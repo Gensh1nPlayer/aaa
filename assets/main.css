@@ -333,8 +333,7 @@
       margin-inline-start: 6px;
       vertical-align: middle;
     }
-    .ac-level-meta,
-    .ac-header-badges {
+    .ac-level-meta {
       display: flex;
       align-items: center;
       flex-wrap: wrap;
@@ -398,7 +397,6 @@
       white-space: nowrap;
       box-shadow: 0 0 8px rgba(250, 204, 21, 0.45);
     }
-    .ac-id { font-size: 1rem; font-weight: 800; color: #fff; }
     .ac-status {
       display: inline-flex;
       align-items: center;
@@ -583,32 +581,16 @@
     .ac-color-pink-strong { font-weight: 800; }
     .ac-color-pink-soft { color: #f472b6; }
     .ac-color-blue { color: #60a5fa; }
-    .ac-color-gold,
-    .ac-highlight-yellow { color: #facc15; }
+    .ac-color-gold { color: #facc15; }
     .ac-color-green,
     .ac-rank-ready,
-    .ac-highlight-namechange-yes,
     .ac-availability-yes { color: #4ade80; }
     .ac-color-green-bright { color: #00ff7f; }
     .ac-highlight-rank-master { font-weight: 800; text-shadow: 0 0 8px rgba(239, 68, 68, 0.35); }
     .ac-rank-ready { font-weight: 900; text-shadow: 0 0 9px rgba(74, 222, 128, 0.35); }
-    .ac-highlight-yellow { font-weight: 800; text-shadow: 0 0 8px rgba(250, 204, 21, 0.35); }
     .ac-highlight-mythic-prisms { font-weight: 800; text-shadow: 0 0 8px rgba(243, 121, 243, 0.35); }
-    .ac-highlight-namechange-yes,
     .ac-availability-yes { font-weight: 900; text-shadow: 0 0 8px rgba(74, 222, 128, 0.35); }
     .ac-availability-no { color: #fb7185; font-weight: 900; text-shadow: 0 0 8px rgba(251, 113, 133, 0.25); }
-    .ac-feature-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 8px 10px;
-      border: 1px solid rgba(255,255,255,0.055);
-      border-radius: 10px;
-      background: rgba(255,255,255,0.022);
-    }
-    .ac-feature-row strong { color: #cbd7ed; }
-
     .ac-utility-actions { display: grid; grid-template-columns: 1fr; gap: 9px; }
     .ac-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
     .ac-utility-actions { margin-top: auto; margin-bottom: 9px; }
