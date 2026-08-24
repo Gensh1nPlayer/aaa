@@ -565,12 +565,39 @@
       letter-spacing: 0.055em;
       text-transform: uppercase;
     }
-    .ac-highlight-rank-master { color: #ef4444; font-weight: 800; text-shadow: 0 0 8px rgba(239, 68, 68, 0.35); }
-    .ac-rank-ready { color: #4ade80; font-weight: 900; text-shadow: 0 0 9px rgba(74, 222, 128, 0.35); }
-    .ac-highlight-yellow { color: #facc15; font-weight: 800; text-shadow: 0 0 8px rgba(250, 204, 21, 0.35); }
-    .ac-highlight-mythic-prisms { color: #F379F3; font-weight: 800; text-shadow: 0 0 8px rgba(243, 121, 243, 0.35); }
+    .ac-color-red,
+    .ac-color-purple,
+    .ac-color-pink,
+    .ac-color-pink-strong,
+    .ac-color-pink-soft,
+    .ac-color-blue,
+    .ac-color-gold,
+    .ac-color-green,
+    .ac-color-green-bright {
+      font-weight: 700;
+    }
+    .ac-color-red,
+    .ac-highlight-rank-master { color: #ef4444; }
+    .ac-color-purple { color: #c084fc; }
+    .ac-color-pink,
+    .ac-color-pink-strong,
+    .ac-highlight-mythic-prisms { color: #F379F3; }
+    .ac-color-pink-strong { font-weight: 800; }
+    .ac-color-pink-soft { color: #f472b6; }
+    .ac-color-blue { color: #60a5fa; }
+    .ac-color-gold,
+    .ac-highlight-yellow { color: #facc15; }
+    .ac-color-green,
+    .ac-rank-ready,
     .ac-highlight-namechange-yes,
-    .ac-availability-yes { color: #4ade80; font-weight: 900; text-shadow: 0 0 8px rgba(74, 222, 128, 0.35); }
+    .ac-availability-yes { color: #4ade80; }
+    .ac-color-green-bright { color: #00ff7f; }
+    .ac-highlight-rank-master { font-weight: 800; text-shadow: 0 0 8px rgba(239, 68, 68, 0.35); }
+    .ac-rank-ready { font-weight: 900; text-shadow: 0 0 9px rgba(74, 222, 128, 0.35); }
+    .ac-highlight-yellow { font-weight: 800; text-shadow: 0 0 8px rgba(250, 204, 21, 0.35); }
+    .ac-highlight-mythic-prisms { font-weight: 800; text-shadow: 0 0 8px rgba(243, 121, 243, 0.35); }
+    .ac-highlight-namechange-yes,
+    .ac-availability-yes { font-weight: 900; text-shadow: 0 0 8px rgba(74, 222, 128, 0.35); }
     .ac-availability-no { color: #fb7185; font-weight: 900; text-shadow: 0 0 8px rgba(251, 113, 133, 0.25); }
     .ac-feature-row {
       display: flex;
@@ -780,6 +807,21 @@
     }
     @media (max-width: 480px) {
       .header-actions .btn { display: none; }
+      .hero {
+        min-height: 78vh;
+        padding: 112px 0 64px;
+      }
+      #accounts.section {
+        padding-top: 56px;
+      }
+      #accounts .section-header {
+        margin-bottom: 28px;
+      }
+      #accounts .accounts-update-note {
+        margin-top: 12px;
+        padding: 7px 10px;
+        font-size: 0.74rem;
+      }
       .hero-cta { flex-direction: column; }
       .hero-cta .btn { width: 100%; }
       .accounts-tools { grid-template-columns: 1fr; }
@@ -1338,3 +1380,4 @@
       .ac-resource-strip { grid-column: auto; }
       .ac-resource-strip { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     }
+
