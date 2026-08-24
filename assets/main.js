@@ -960,7 +960,10 @@ document.addEventListener("DOMContentLoaded", () => {
             const highlightsCollapsible = highlightLines.length > 5 || highlightsPlainLength > 430;
 
             const numberFormatter = new Intl.NumberFormat(document.documentElement.lang || 'en');
-            const resourceValueClass = (value, threshold) => value > threshold ? ' ac-resource-value-threshold' : '';
+            const resourceValueClass = (value, threshold, inclusive = false) => {
+              const isHighlighted = inclusive ? value >= threshold : value > threshold;
+              return isHighlighted ? ' ac-resource-value-threshold' : '';
+            };
             const resourceItems = [
               creditsAmount > 0 ? `<div class="ac-resource-item">
                 <span class="ac-resource-label">${ui.credits}</span>
@@ -972,11 +975,11 @@ document.addEventListener("DOMContentLoaded", () => {
               </div>` : '',
               playtimeAmount > 0 ? `<div class="ac-resource-item">
                 <span class="ac-resource-label">${ui.playtime}</span>
-                <span class="ac-resource-value${resourceValueClass(playtimeAmount, 300)}">${numberFormatter.format(playtimeAmount)}H</span>
+                <span class="ac-resource-value"><span class="${resourceValueClass(playtimeAmount, 300).trim()}">${numberFormatter.format(playtimeAmount)}</span>H</span>
               </div>` : '',
               competitivePointsAmount > 0 ? `<div class="ac-resource-item ac-resource-item-competitive">
                 <span class="ac-resource-label">${ui.compPointsAll}</span>
-                <span class="ac-resource-value${resourceValueClass(competitivePointsAmount, 3000)}">${numberFormatter.format(competitivePointsAmount)}</span>
+                <span class="ac-resource-value${resourceValueClass(competitivePointsAmount, 3000, true)}">${numberFormatter.format(competitivePointsAmount)}</span>
               </div>` : ''
             ].filter(Boolean).join('');
             const resourceItemCount = [creditsAmount, coinsAmount, playtimeAmount, competitivePointsAmount]
@@ -987,8 +990,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const rankText = String(rank || '').trim();
             const rankFact = rankText ? highlightRankText(rankText) : '—';
+            const mythicPrismsValueClass = mythicPrismsAmount > 50 ? ' ac-highlight-mythic-prisms' : '';
             const prismsFact = mythicPrismsAmount > 0
-              ? `<div class="ac-keyfact is-premium"><span class="ac-keyfact-label">${ui.mythicPrisms}</span><span class="ac-keyfact-value ac-highlight-mythic-prisms">${numberFormatter.format(mythicPrismsAmount)}</span></div>`
+              ? `<div class="ac-keyfact is-premium"><span class="ac-keyfact-label">${ui.mythicPrisms}</span><span class="ac-keyfact-value${mythicPrismsValueClass}">${numberFormatter.format(mythicPrismsAmount)}</span></div>`
               : '';
 
             const card = document.createElement('div');
