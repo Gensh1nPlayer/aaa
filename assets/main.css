@@ -1183,11 +1183,10 @@
       line-height: 1.15;
       white-space: nowrap;
     }
-    .ac-resource-value.ac-resource-value-threshold {
+    .ac-resource-value-threshold {
       color: #facc15;
       text-shadow: 0 0 8px rgba(250, 204, 21, 0.35);
     }
-    .ac-resource-value.ac-resource-value-mythic,
     .ac-keyfact-value.ac-highlight-mythic-prisms {
       color: #F379F3;
       font-weight: 800;
