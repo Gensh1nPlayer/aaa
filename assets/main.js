@@ -580,7 +580,7 @@ document.addEventListener("DOMContentLoaded", () => {
               { pattern: /Golden/g, className: 'ac-color-gold' },
               { pattern: /OW1 - Season/g, className: 'ac-color-gold' },
               { pattern: /Competitor/g, className: 'ac-color-gold' },
-              { pattern: /JADE/g, className: 'ac-color-green' },
+              { pattern: /\bJade\b/gi, className: 'ac-color-green' },
               { pattern: /Endorsement Level 2/g, className: 'ac-color-green-bright' },
               { pattern: /Endorsement Level 3/g, className: 'ac-color-green-bright' },
               { pattern: /DPS Main/g, className: 'ac-color-green' },
