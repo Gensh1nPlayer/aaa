@@ -1187,6 +1187,10 @@
       color: #facc15;
       text-shadow: 0 0 8px rgba(250, 204, 21, 0.35);
     }
+    .ac-resource-value-critical {
+      color: #F379F3;
+      text-shadow: 0 0 8px rgba(243, 121, 243, 0.35);
+    }
     .ac-keyfact-value.ac-highlight-mythic-prisms {
       color: #F379F3;
       font-weight: 800;
