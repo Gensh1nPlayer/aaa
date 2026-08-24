@@ -394,7 +394,7 @@
   const savedLanguage = localStorage.getItem("roshine_lang");
   const initialLanguage = supportedLanguages.includes(languageFromUrl)
     ? languageFromUrl
-    : (supportedLanguages.includes(savedLanguage) ? savedLanguage : "en");
+    : (supportedLanguages.includes(savedLanguage) && savedLanguage !== "zh" ? savedLanguage : "en");
 
   function buildToc() {
     const content = document.getElementById("policyContent");
