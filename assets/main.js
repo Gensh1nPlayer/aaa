@@ -979,7 +979,7 @@ document.addEventListener("DOMContentLoaded", () => {
               </div>` : '',
               competitivePointsAmount > 0 ? `<div class="ac-resource-item ac-resource-item-competitive">
                 <span class="ac-resource-label">${ui.compPointsAll}</span>
-                <span class="ac-resource-value${resourceValueClass(competitivePointsAmount, 3000)}">${numberFormatter.format(competitivePointsAmount)}</span>
+                <span class="ac-resource-value${resourceValueClass(competitivePointsAmount, 3000, 9000)}">${numberFormatter.format(competitivePointsAmount)}</span>
               </div>` : ''
             ].filter(Boolean).join('');
             const resourceItemCount = [creditsAmount, coinsAmount, playtimeAmount, competitivePointsAmount]
