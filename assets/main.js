@@ -960,26 +960,26 @@ document.addEventListener("DOMContentLoaded", () => {
             const highlightsCollapsible = highlightLines.length > 5 || highlightsPlainLength > 430;
 
             const numberFormatter = new Intl.NumberFormat(document.documentElement.lang || 'en');
-            const resourceValueClass = (value, threshold, inclusive = false) => {
-              const isHighlighted = inclusive ? value >= threshold : value > threshold;
-              return isHighlighted ? ' ac-resource-value-threshold' : '';
+            const resourceValueClass = (value, yellowThreshold, pinkThreshold = null) => {
+              if (pinkThreshold !== null && value >= pinkThreshold) return ' ac-resource-value-critical';
+              return value >= yellowThreshold ? ' ac-resource-value-threshold' : '';
             };
             const resourceItems = [
               creditsAmount > 0 ? `<div class="ac-resource-item">
                 <span class="ac-resource-label">${ui.credits}</span>
-                <span class="ac-resource-value${resourceValueClass(creditsAmount, 10000)}">${numberFormatter.format(creditsAmount)}</span>
+                <span class="ac-resource-value${resourceValueClass(creditsAmount, 10000, 20000)}">${numberFormatter.format(creditsAmount)}</span>
               </div>` : '',
               coinsAmount > 0 ? `<div class="ac-resource-item">
                 <span class="ac-resource-label">${ui.coins}</span>
-                <span class="ac-resource-value${resourceValueClass(coinsAmount, 800)}">${numberFormatter.format(coinsAmount)}</span>
+                <span class="ac-resource-value${resourceValueClass(coinsAmount, 800, 2000)}">${numberFormatter.format(coinsAmount)}</span>
               </div>` : '',
               playtimeAmount > 0 ? `<div class="ac-resource-item">
                 <span class="ac-resource-label">${ui.playtime}</span>
-                <span class="ac-resource-value"><span class="${resourceValueClass(playtimeAmount, 300).trim()}">${numberFormatter.format(playtimeAmount)}</span>H</span>
+                <span class="ac-resource-value"><span class="${resourceValueClass(playtimeAmount, 100, 300).trim()}">${numberFormatter.format(playtimeAmount)}</span>H</span>
               </div>` : '',
               competitivePointsAmount > 0 ? `<div class="ac-resource-item ac-resource-item-competitive">
                 <span class="ac-resource-label">${ui.compPointsAll}</span>
-                <span class="ac-resource-value${resourceValueClass(competitivePointsAmount, 3000, true)}">${numberFormatter.format(competitivePointsAmount)}</span>
+                <span class="ac-resource-value${resourceValueClass(competitivePointsAmount, 3000)}">${numberFormatter.format(competitivePointsAmount)}</span>
               </div>` : ''
             ].filter(Boolean).join('');
             const resourceItemCount = [creditsAmount, coinsAmount, playtimeAmount, competitivePointsAmount]
