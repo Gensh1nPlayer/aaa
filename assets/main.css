@@ -1171,8 +1171,8 @@
     }
     .ac-resource-item-competitive .ac-resource-label {
       white-space: nowrap;
-      letter-spacing: 0;
-      font-size: clamp(0.43rem, 0.56vw, 0.56rem);
+      letter-spacing: -0.015em;
+      font-size: clamp(0.42rem, 0.5vw, 0.48rem);
     }
     .ac-resource-value {
       display: block;
