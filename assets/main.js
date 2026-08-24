@@ -960,11 +960,36 @@ document.addEventListener("DOMContentLoaded", () => {
             const highlightsCollapsible = highlightLines.length > 5 || highlightsPlainLength > 430;
 
             const numberFormatter = new Intl.NumberFormat(document.documentElement.lang || 'en');
+            const resourceItems = [
+              creditsAmount > 0 ? `<div class="ac-resource-item">
+                <span class="ac-resource-label">${ui.credits}</span>
+                <span class="ac-resource-value">${numberFormatter.format(creditsAmount)}</span>
+              </div>` : '',
+              coinsAmount > 0 ? `<div class="ac-resource-item">
+                <span class="ac-resource-label">${ui.coins}</span>
+                <span class="ac-resource-value">${numberFormatter.format(coinsAmount)}</span>
+              </div>` : '',
+              playtimeAmount > 0 ? `<div class="ac-resource-item">
+                <span class="ac-resource-label">${ui.playtime}</span>
+                <span class="ac-resource-value">${numberFormatter.format(playtimeAmount)}H</span>
+              </div>` : '',
+              mythicPrismsAmount > 0 ? `<div class="ac-resource-item ac-resource-item-mythic">
+                <span class="ac-resource-label">${ui.mythicPrisms}</span>
+                <span class="ac-resource-value ac-highlight-mythic-prisms">${numberFormatter.format(mythicPrismsAmount)}</span>
+              </div>` : '',
+              competitivePointsAmount > 0 ? `<div class="ac-resource-item ac-resource-item-competitive">
+                <span class="ac-resource-label">${ui.compPointsAll}</span>
+                <span class="ac-resource-value">${numberFormatter.format(competitivePointsAmount)}</span>
+              </div>` : ''
+            ].filter(Boolean).join('');
+            const resourceItemCount = [creditsAmount, coinsAmount, playtimeAmount, mythicPrismsAmount, competitivePointsAmount]
+              .filter(amount => amount > 0).length;
+            const resourceStrip = resourceItems
+              ? `<div class="ac-resource-strip" style="--resource-count:${resourceItemCount};">${resourceItems}</div>`
+              : '';
+
             const rankText = String(rank || '').trim();
             const rankFact = rankText ? highlightRankText(rankText) : '—';
-            const prismsFact = mythicPrismsAmount > 0
-              ? `<div class="ac-keyfact is-premium"><span class="ac-keyfact-label">${ui.mythicPrisms}</span><span class="ac-keyfact-value ac-highlight-mythic-prisms">${numberFormatter.format(mythicPrismsAmount)}</span></div>`
-              : '';
 
             const card = document.createElement('div');
             card.className = 'account-card';
@@ -997,25 +1022,7 @@ document.addEventListener("DOMContentLoaded", () => {
                   <span class="ac-keyfact-label">${ui.rank}</span>
                   <span class="ac-keyfact-value">${rankFact}</span>
                 </div>
-                <div class="ac-resource-strip">
-                  <div class="ac-resource-item">
-                    <span class="ac-resource-label">${ui.credits}</span>
-                    <span class="ac-resource-value">${numberFormatter.format(creditsAmount)}</span>
-                  </div>
-                  <div class="ac-resource-item">
-                    <span class="ac-resource-label">${ui.coins}</span>
-                    <span class="ac-resource-value">${numberFormatter.format(coinsAmount)}</span>
-                  </div>
-                  <div class="ac-resource-item">
-                    <span class="ac-resource-label">${ui.playtime}</span>
-                    <span class="ac-resource-value">${numberFormatter.format(playtimeAmount)}H</span>
-                  </div>
-                  ${competitivePointsAmount > 0 ? `
-                  <div class="ac-resource-item ac-resource-item-competitive">
-                    <span class="ac-resource-label">${ui.compPointsAll}</span>
-                    <span class="ac-resource-value">${numberFormatter.format(competitivePointsAmount)}</span>
-                  </div>` : ''}
-                </div>
+                ${resourceStrip}
                 <div class="ac-keyfact ac-keyfact-boolean ${freeNameChange ? 'is-positive' : 'is-negative'}">
                   <span class="ac-keyfact-label">${ui.freeRename}</span>
                   <span class="ac-keyfact-value">${formatAvailability(freeNameChange)}</span>
@@ -1024,7 +1031,6 @@ document.addEventListener("DOMContentLoaded", () => {
                   <span class="ac-keyfact-label">${ui.top500Eligible}</span>
                   <span class="ac-keyfact-value">${formatAvailability(top500Eligible)}</span>
                 </div>
-                ${prismsFact}
               </div>
               ${styledHighlights ? `
                 <div class="ac-highlights">
@@ -1034,7 +1040,8 @@ document.addEventListener("DOMContentLoaded", () => {
                       <span class="ac-highlights-toggle-label">${ui.showMore}</span>
                       <span class="ac-highlights-toggle-arrow" aria-hidden="true">⌄</span>
                     </button>` : ''}
-                </div>` : ''}              ${hasWeapons ? `<div class="ac-details">
+                </div>` : ''}
+              ${hasWeapons ? `<div class="ac-details">
                 <div class="ac-detail"><strong>${ui.weapons}:</strong><br>${applyColorMap(weapons)}</div>
               </div>` : ''}
               <div class="ac-utility-actions">
