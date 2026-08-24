@@ -1151,7 +1151,7 @@
     .ac-keyfact-rank .ac-keyfact-value { color: #cbd8ef; }
     .ac-resource-strip {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(var(--resource-count, 1), minmax(0, 1fr));
       overflow: hidden;
     }
     .ac-resource-item {
@@ -1168,6 +1168,11 @@
       letter-spacing: 0.045em;
       line-height: 1.15;
       text-transform: uppercase;
+    }
+    .ac-resource-item-competitive .ac-resource-label {
+      white-space: nowrap;
+      letter-spacing: 0;
+      font-size: clamp(0.43rem, 0.56vw, 0.56rem);
     }
     .ac-resource-value {
       display: block;
@@ -1376,6 +1381,6 @@
       .ac-keyfacts { grid-template-columns: 1fr; }
       .ac-keyfact-wide,
       .ac-resource-strip { grid-column: auto; }
-      .ac-resource-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .ac-resource-strip { grid-template-columns: repeat(var(--resource-count, 1), minmax(0, 1fr)); }
     }
 
