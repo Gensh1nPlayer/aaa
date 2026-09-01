@@ -519,6 +519,28 @@
       color: transparent;
       text-shadow: 0 0 12px rgba(167, 139, 250, 0.3);
     }
+    .ac-special-weapon-nerf-gelfire,
+    .ac-special-weapon-hard-light,
+    .ac-special-weapon-los-muertos {
+      display: inline;
+      font-weight: 400;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+    }
+    .ac-special-weapon-nerf-gelfire {
+      background-image: linear-gradient(105deg, #ffd166 0%, #ff7a18 34%, #ef4444 72%, #38bdf8 100%);
+      text-shadow: 0 0 10px rgba(255, 122, 24, 0.36);
+    }
+    .ac-special-weapon-hard-light {
+      background-image: linear-gradient(105deg, #f8fafc 0%, #67e8f9 42%, #38bdf8 74%, #facc15 100%);
+      text-shadow: 0 0 10px rgba(56, 189, 248, 0.38);
+    }
+    .ac-special-weapon-los-muertos {
+      background-image: linear-gradient(105deg, #a3e635 0%, #22c55e 34%, #c084fc 70%, #f472b6 100%);
+      text-shadow: 0 0 10px rgba(192, 132, 252, 0.36);
+    }
     .ac-special-weapon-choice {
       display: inline;
       background: linear-gradient(105deg, #facc15 0%, #fff0a6 14%, #4ade80 34%, #86efac 46%, #c084fc 66%, #67e8f9 82%, #facc15 100%);
