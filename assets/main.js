@@ -501,7 +501,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Shared rules below only cover general labels that are not special items.
             const specialSkinRules = [
               {
-                pattern: /\b(?:Hello\s+Kitty\s+and\s+Friends\s+Mega\s+Bundle|Formalwear\s+Mega\s+Bundle|LE\s+SSERAFIM\s+Ultra\s+Bundle|LE\s+SSERAFIM\s+Bundle|Lunar\s+New\s+Year\s+2026\s+Mega\s+Bundle|My\s+Hero\s+Academia\s+Mega\s+Bundle|Invasion\s+Bundle|Kiriko\s+Terrible\s+Tornado\s+Bundle|OWWC\s+Crowdfunding\s+Mega\s+Bundle|Witch\s+Kiriko\s+Bundle)(?![A-Za-z0-9_])/gi,
+                pattern: /\b(?:(?:[\p{Lu}\p{N}][\p{L}\p{N}'’.-]*|and|of|the)\s+){1,7}Bundle\b/gu,
                 className: 'ac-special-skin-pink'
               },
               {
