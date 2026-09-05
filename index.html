@@ -17,7 +17,7 @@
   <meta name="twitter:description" content="Curated Overwatch accounts with clear listings, secure handover, and long-term support." />
   <meta name="twitter:image" content="https://roshine.love/assets/og.jpg" />
   <link rel="icon" href="./assets/logo.png" />
-  <link rel="stylesheet" href="./assets/main.css?v=28" />
+  <link rel="stylesheet" href="./assets/main.css?v=29" />
 </head>
 <body>
 
@@ -139,61 +139,50 @@
             aria-label="Search accounts"
           />
           <div class="accounts-select-picker" data-select-picker data-accent="green">
-            <select class="accounts-control accounts-select-native" id="accountStatusFilter" aria-label="Filter availability status">
-              <option value="instock" selected>In stock</option>
-              <option value="all">All statuses</option>
-              <option value="pending">Pending</option>
+            <select class="accounts-control accounts-select-native" id="accountStatusFilter" aria-label="Filter account status">
+              <option value="instock" selected>In Stock</option>
               <option value="sold">Sold</option>
+              <option value="pending">Pending</option>
+              <option value="all">All Statuses</option>
             </select>
             <button class="accounts-control accounts-select-trigger" type="button" data-select-trigger aria-haspopup="listbox" aria-controls="accountStatusMenu" aria-expanded="false">
-              <span data-select-value>In stock</span><span class="accounts-select-chevron" aria-hidden="true"></span>
+              <span data-select-value>In Stock</span><span class="accounts-select-chevron" aria-hidden="true"></span>
             </button>
             <div class="accounts-select-menu" id="accountStatusMenu" data-select-menu role="listbox" hidden></div>
           </div>
           <div class="accounts-select-picker" data-select-picker data-accent="cyan">
-            <select class="accounts-control accounts-select-native" id="accountTypeFilter" aria-label="Filter game version">
-              <option value="all">All versions</option>
+            <select class="accounts-control accounts-select-native" id="accountTypeFilter" aria-label="Filter account age">
+              <option value="all">Account Age</option>
               <option value="ow1">OW1</option>
               <option value="ow2">OW2</option>
             </select>
             <button class="accounts-control accounts-select-trigger" type="button" data-select-trigger aria-haspopup="listbox" aria-controls="accountTypeMenu" aria-expanded="false">
-              <span data-select-value>All versions</span><span class="accounts-select-chevron" aria-hidden="true"></span>
+              <span data-select-value>Account Age</span><span class="accounts-select-chevron" aria-hidden="true"></span>
             </button>
             <div class="accounts-select-menu" id="accountTypeMenu" data-select-menu role="listbox" hidden></div>
           </div>
           <div class="accounts-select-picker" data-select-picker data-accent="gold">
             <select class="accounts-control accounts-select-native" id="accountPriceFilter" aria-label="Filter price range">
-              <option value="all">All prices</option>
-              <option value="under30">Under $30</option>
+              <option value="all">Price Range</option>
+              <option value="under30">&lt; $30</option>
               <option value="30to100">$30–$100</option>
-              <option value="over100">Over $100</option>
+              <option value="over100">&gt; $100</option>
             </select>
             <button class="accounts-control accounts-select-trigger" type="button" data-select-trigger aria-haspopup="listbox" aria-controls="accountPriceMenu" aria-expanded="false">
-              <span data-select-value>All prices</span><span class="accounts-select-chevron" aria-hidden="true"></span>
+              <span data-select-value>Price Range</span><span class="accounts-select-chevron" aria-hidden="true"></span>
             </button>
             <div class="accounts-select-menu" id="accountPriceMenu" data-select-menu role="listbox" hidden></div>
           </div>
           <div class="accounts-select-picker" data-select-picker data-accent="pink">
             <select class="accounts-control accounts-select-native" id="accountNameChangeFilter" aria-label="Filter free name change">
-              <option value="all">Free rename: All</option>
-              <option value="yes">Free rename: Yes</option>
-              <option value="no">Free rename: No</option>
+              <option value="all">Free Name Change</option>
+              <option value="yes">Free Name: Yes</option>
+              <option value="no">Free Name: No</option>
             </select>
             <button class="accounts-control accounts-select-trigger" type="button" data-select-trigger aria-haspopup="listbox" aria-controls="accountNameChangeMenu" aria-expanded="false">
-              <span data-select-value>Free rename: All</span><span class="accounts-select-chevron" aria-hidden="true"></span>
+              <span data-select-value>Free Name Change</span><span class="accounts-select-chevron" aria-hidden="true"></span>
             </button>
             <div class="accounts-select-menu" id="accountNameChangeMenu" data-select-menu role="listbox" hidden></div>
-          </div>
-          <div class="accounts-select-picker" data-select-picker data-accent="red">
-            <select class="accounts-control accounts-select-native" id="accountTop500Filter" aria-label="Filter TOP500 eligibility">
-              <option value="all">TOP500 Eligible: All</option>
-              <option value="yes">TOP500 Eligible: Yes</option>
-              <option value="no">TOP500 Eligible: No</option>
-            </select>
-            <button class="accounts-control accounts-select-trigger" type="button" data-select-trigger aria-haspopup="listbox" aria-controls="accountTop500Menu" aria-expanded="false">
-              <span data-select-value>TOP500 Eligible: All</span><span class="accounts-select-chevron" aria-hidden="true"></span>
-            </button>
-            <div class="accounts-select-menu" id="accountTop500Menu" data-select-menu role="listbox" hidden></div>
           </div>
           <div class="accounts-select-picker accounts-sort-picker" id="accountsSortPicker" data-select-picker data-accent="purple">
             <select class="accounts-control accounts-select-native accounts-sort-native" id="accountSort" aria-label="Sort accounts">
@@ -208,11 +197,12 @@
                 <option value="playtime-desc">Playtime: High to Low</option>
                 <option value="playtime-asc">Playtime: Low to High</option>
               </optgroup>
-              <optgroup label="Resources">
+              <optgroup label="Wallet or Balance">
                 <option value="coins-desc">Coins: High to Low</option>
                 <option value="coins-asc">Coins: Low to High</option>
                 <option value="credits-desc">Credits: High to Low</option>
                 <option value="credits-asc">Credits: Low to High</option>
+                <option value="mythicPrisms-desc">Mythic Prisms: High to Low</option>
               </optgroup>
             </select>
             <button
@@ -236,6 +226,17 @@
             <span id="applyAccountFiltersLabel">Show accounts</span>
           </button>
         </div>
+      </div>
+
+      <div class="accounts-popular-searches" id="accountPopularSearches" aria-label="Popular account searches">
+        <span class="accounts-popular-label" id="accountPopularSearchesLabel">Popular searches:</span>
+        <button class="account-keyword-chip" type="button" data-account-keyword="TOP500 Eligible" aria-pressed="false">TOP500 Eligible</button>
+        <button class="account-keyword-chip" type="button" data-account-keyword="Grandmaster" aria-pressed="false">Grandmaster</button>
+        <button class="account-keyword-chip" type="button" data-account-keyword="Pink" aria-pressed="false">Pink</button>
+        <button class="account-keyword-chip" type="button" data-account-keyword="Illidan" aria-pressed="false">Illidan</button>
+        <button class="account-keyword-chip" type="button" data-account-keyword="Fresh Rank Ready" aria-pressed="false">Fresh Rank Ready</button>
+        <button class="account-keyword-chip" type="button" data-account-keyword="Stadium" aria-pressed="false">Stadium</button>
+        <button class="account-keyword-chip" type="button" data-account-keyword="Mythic Prisms" aria-pressed="false">Mythic Prisms</button>
       </div>
 
       <div class="active-account-filters" id="activeAccountFilters" aria-live="polite" hidden></div>
@@ -364,7 +365,7 @@
       </nav>
     </div>
   </footer>
-  <script src="./assets/main.js?v=31" defer></script>
+  <script src="./assets/main.js?v=32" defer></script>
 </body>
 </html>
 
