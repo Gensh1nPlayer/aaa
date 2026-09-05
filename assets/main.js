@@ -242,19 +242,27 @@ document.addEventListener("DOMContentLoaded", () => {
         return containsTop500EligibilityKeyword(searchableText);
       }
 
-      function accountMatchesTop500(acct, value) {
-        if (value === 'all') return true;
-        return hasTop500Eligibility(acct) === (value === 'yes');
-      }
-
       function accountMatchesSearch(acct, query) {
-        if (!query) return true;
+        const normalizedQuery = String(query ?? '').trim().replace(/\s+/g, ' ').toLocaleLowerCase();
+        if (!normalizedQuery) return true;
+
         const searchableText = Object.values(acct ?? {})
           .filter(value => value !== null && value !== undefined)
           .join(' ')
           .replace(/<[^>]*>/g, ' ')
-          .toLocaleLowerCase();
-        return searchableText.includes(query);
+          .replace(/\s+/g, ' ')
+          .trim();
+
+        if (/^top\s*500(?:\s+eligible)?$/i.test(normalizedQuery)) {
+          return hasTop500Eligibility(acct);
+        }
+        if (normalizedQuery === 'grandmaster') {
+          return /\b(?:grandmaster|gm)\b/i.test(searchableText);
+        }
+        if (/^mythic\s+prisms?$/i.test(normalizedQuery)) {
+          return getMythicPrisms(acct) > 0 || /\bmythic\s+prisms?\b/i.test(searchableText);
+        }
+        return searchableText.toLocaleLowerCase().includes(normalizedQuery);
       }
 
       function compareAccounts(a, b, sortValue) {
@@ -278,6 +286,9 @@ document.addEventListener("DOMContentLoaded", () => {
             break;
           case 'coins':
             result = getCoins(a) - getCoins(b);
+            break;
+          case 'mythicPrisms':
+            result = getMythicPrisms(a) - getMythicPrisms(b);
             break;
           default:
             return 0;
@@ -305,7 +316,6 @@ document.addEventListener("DOMContentLoaded", () => {
           status: document.getElementById('accountStatusFilter'),
           price: document.getElementById('accountPriceFilter'),
           nameChange: document.getElementById('accountNameChangeFilter'),
-          top500: document.getElementById('accountTop500Filter'),
           sort: document.getElementById('accountSort')
         };
       }
@@ -326,9 +336,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         if (controls.nameChange?.value && controls.nameChange.value !== 'all') {
           active.push({ key: 'nameChange', label: controls.nameChange.selectedOptions[0]?.textContent || controls.nameChange.value });
-        }
-        if (controls.top500?.value && controls.top500.value !== 'all') {
-          active.push({ key: 'top500', label: controls.top500.selectedOptions[0]?.textContent || controls.top500.value });
         }
         if (controls.sort?.value && controls.sort.value !== 'recommended') {
           active.push({ key: 'sort', label: controls.sort.selectedOptions[0]?.textContent || controls.sort.value });
@@ -361,6 +368,12 @@ document.addEventListener("DOMContentLoaded", () => {
         if (applyLabel && shownCount !== null) {
           applyLabel.textContent = ui.applyFilters.replace('{count}', String(shownCount));
         }
+
+        const normalizedQuery = controls.search?.value.trim().toLocaleLowerCase() || '';
+        document.querySelectorAll('[data-account-keyword]').forEach(button => {
+          const keyword = String(button.dataset.accountKeyword ?? '').trim().toLocaleLowerCase();
+          button.setAttribute('aria-pressed', String(Boolean(keyword) && keyword === normalizedQuery));
+        });
       }
 
       function clearAccountFilter(key) {
@@ -370,7 +383,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (key === 'status' && controls.status) controls.status.value = 'instock';
         if (key === 'price' && controls.price) controls.price.value = 'all';
         if (key === 'nameChange' && controls.nameChange) controls.nameChange.value = 'all';
-        if (key === 'top500' && controls.top500) controls.top500.value = 'all';
         if (key === 'sort' && controls.sort) controls.sort.value = 'recommended';
         renderAccounts();
       }
@@ -382,7 +394,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (controls.status) controls.status.value = 'instock';
         if (controls.price) controls.price.value = 'all';
         if (controls.nameChange) controls.nameChange.value = 'all';
-        if (controls.top500) controls.top500.value = 'all';
         if (controls.sort) controls.sort.value = 'recommended';
         renderAccounts();
       }
@@ -437,19 +448,17 @@ document.addEventListener("DOMContentLoaded", () => {
         const statusFilter = document.getElementById('accountStatusFilter');
         const priceFilter = document.getElementById('accountPriceFilter');
         const nameChangeFilter = document.getElementById('accountNameChangeFilter');
-        const top500Filter = document.getElementById('accountTop500Filter');
         const sortSelect = document.getElementById('accountSort');
         const results = document.getElementById('accountsResults');
-        if (!grid || !searchInput || !typeFilter || !statusFilter || !priceFilter || !nameChangeFilter || !top500Filter || !sortSelect || !results) return;
+        if (!grid || !searchInput || !typeFilter || !statusFilter || !priceFilter || !nameChangeFilter || !sortSelect || !results) return;
 
         const ui = getAccountUiText();
-        const query = searchInput.value.trim().toLocaleLowerCase();
+        const query = searchInput.value.trim();
         const visibleAccounts = accountInventory.all
           .filter(acct => accountMatchesType(acct, typeFilter.value))
           .filter(acct => accountMatchesStatus(acct, statusFilter.value))
           .filter(acct => accountMatchesPrice(acct, priceFilter.value))
           .filter(acct => accountMatchesNameChange(acct, nameChangeFilter.value))
-          .filter(acct => accountMatchesTop500(acct, top500Filter.value))
           .filter(acct => accountMatchesSearch(acct, query))
           .slice()
           .sort((a, b) => compareAccounts(a, b, sortSelect.value));
@@ -1014,12 +1023,20 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById('accountStatusFilter')?.addEventListener('change', renderAccounts);
       document.getElementById('accountPriceFilter')?.addEventListener('change', renderAccounts);
       document.getElementById('accountNameChangeFilter')?.addEventListener('change', renderAccounts);
-      document.getElementById('accountTop500Filter')?.addEventListener('change', renderAccounts);
       document.getElementById('accountSort')?.addEventListener('change', renderAccounts);
       document.getElementById('resetAccountFilters')?.addEventListener('click', resetAccountFilters);
       document.getElementById('activeAccountFilters')?.addEventListener('click', (event) => {
         const chip = event.target.closest('[data-clear-filter]');
         if (chip) clearAccountFilter(chip.dataset.clearFilter);
+      });
+      document.getElementById('accountPopularSearches')?.addEventListener('click', event => {
+        const chip = event.target.closest('[data-account-keyword]');
+        const search = document.getElementById('accountSearch');
+        if (!chip || !search) return;
+        const keyword = String(chip.dataset.accountKeyword ?? '').trim();
+        const isActive = search.value.trim().toLocaleLowerCase() === keyword.toLocaleLowerCase();
+        search.value = isActive ? '' : keyword;
+        renderAccounts();
       });
       document.getElementById('mobileFilterToggle')?.addEventListener('click', openAccountFilters);
       document.getElementById('closeAccountFilters')?.addEventListener('click', () => closeAccountFilters({ restoreFocus: true }));
@@ -1588,20 +1605,20 @@ document.addEventListener("DOMContentLoaded", () => {
         toolsAria:"Account inventory controls",
         filterSort:"Filter & Sort", filterSubtitle:"Refine the inventory results", resetFilters:"Reset filters", closeFilters:"Close filters",
         activeFilters:"Active filters", clearFilter:"Remove this filter", searchLabel:"Search", applyFilters:"Show {count} accounts",
+        popularSearches:"Popular searches", popularSearchesAria:"Popular account searches",
         showMore:"Show more skins", showLess:"Show fewer skins", playtime:"Playtime", credits:"Credits", coins:"Coins",
         mythicPrisms:"Mythic Prisms",
         compPointsAll:"Comp Points (All)",
         searchPlaceholder:"Search accounts",
         searchAria:"Search accounts",
-        typeAria:"Filter game version",
-        typeOptions:["All versions", "OW1", "OW2"],
-        statusAria:"Filter availability status", statusOptions:["In stock", "All statuses", "Pending", "Sold"],
-        priceAria:"Filter price range", priceOptions:["All prices", "Under $30", "$30–$100", "Over $100"],
-        nameChangeAria:"Filter free name change", nameChangeOptions:["Free rename: All", "Free rename: Yes", "Free rename: No"],
-        top500Aria:"Filter TOP500 eligibility", top500Options:["TOP500 Eligible: All", "TOP500 Eligible: Yes", "TOP500 Eligible: No"],
+        typeAria:"Filter account age",
+        typeOptions:["Account Age", "OW1", "OW2"],
+        statusAria:"Filter account status", statusOptions:["In Stock", "Sold", "Pending", "All Statuses"],
+        priceAria:"Filter price range", priceOptions:["Price Range", "< $30", "$30–$100", "> $100"],
+        nameChangeAria:"Filter free name change", nameChangeOptions:["Free Name Change", "Free Name: Yes", "Free Name: No"],
         sortAria:"Sort accounts",
-        sortGroups:["Price", "Account progress", "Resources"],
-        sortOptions:["Recommended", "Price: Low to High", "Price: High to Low", "Level: High to Low", "Level: Low to High", "Playtime: High to Low", "Playtime: Low to High", "Coins: High to Low", "Coins: Low to High", "Credits: High to Low", "Credits: Low to High"],
+        sortGroups:["Price", "Account progress", "Wallet or Balance"],
+        sortOptions:["Recommended", "Price: Low to High", "Price: High to Low", "Level: High to Low", "Level: Low to High", "Playtime: High to Low", "Playtime: Low to High", "Coins: High to Low", "Coins: Low to High", "Credits: High to Low", "Credits: Low to High", "Mythic Prisms: High to Low"],
         results:"{shown} / {total} accounts",
         empty:"No accounts match the current search and filters.",
         loadError:"Unable to load account inventory.",
@@ -1615,20 +1632,20 @@ document.addEventListener("DOMContentLoaded", () => {
         toolsAria:"Contrôles de l’inventaire des comptes",
         filterSort:"Filtres et tri", filterSubtitle:"Affinez les résultats de l’inventaire", resetFilters:"Réinitialiser", closeFilters:"Fermer les filtres",
         activeFilters:"Filtres actifs", clearFilter:"Retirer ce filtre", searchLabel:"Recherche", applyFilters:"Afficher {count} comptes",
+        popularSearches:"Recherches populaires", popularSearchesAria:"Recherches populaires de comptes",
         showMore:"Afficher plus de skins", showLess:"Afficher moins de skins", playtime:"Temps de jeu", credits:"Crédits", coins:"Coins",
         mythicPrisms:"Prismes mythiques",
         compPointsAll:"Pts compét. (total)",
         searchPlaceholder:"Rechercher des comptes",
         searchAria:"Rechercher dans les comptes",
-        typeAria:"Filtrer la version du jeu",
-        typeOptions:["Toutes les versions", "OW1", "OW2"],
-        statusAria:"Filtrer la disponibilité", statusOptions:["En stock", "Tous les statuts", "En attente", "Vendu"],
-        priceAria:"Filtrer la tranche de prix", priceOptions:["Tous les prix", "Moins de 30 $", "30–100 $", "Plus de 100 $"],
-        nameChangeAria:"Filtrer le renommage gratuit", nameChangeOptions:["Renommage gratuit : Tous", "Renommage gratuit : Oui", "Renommage gratuit : Non"],
-        top500Aria:"Filtrer l’éligibilité TOP500", top500Options:["Éligible TOP500 : Tous", "Éligible TOP500 : Oui", "Éligible TOP500 : Non"],
+        typeAria:"Filtrer l’âge du compte",
+        typeOptions:["Âge du compte", "OW1", "OW2"],
+        statusAria:"Filtrer le statut du compte", statusOptions:["En stock", "Vendu", "En attente", "Tous les statuts"],
+        priceAria:"Filtrer la tranche de prix", priceOptions:["Tranche de prix", "Moins de 30 $", "30–100 $", "Plus de 100 $"],
+        nameChangeAria:"Filtrer le renommage gratuit", nameChangeOptions:["Renommage gratuit", "Renommage : Oui", "Renommage : Non"],
         sortAria:"Trier les comptes",
-        sortGroups:["Prix", "Progression du compte", "Ressources"],
-        sortOptions:["Recommandé", "Prix : croissant", "Prix : décroissant", "Niveau : décroissant", "Niveau : croissant", "Temps de jeu : décroissant", "Temps de jeu : croissant", "Coins : décroissant", "Coins : croissant", "Crédits : décroissant", "Crédits : croissant"],
+        sortGroups:["Prix", "Progression du compte", "Portefeuille ou solde"],
+        sortOptions:["Recommandé", "Prix : croissant", "Prix : décroissant", "Niveau : décroissant", "Niveau : croissant", "Temps de jeu : décroissant", "Temps de jeu : croissant", "Coins : décroissant", "Coins : croissant", "Crédits : décroissant", "Crédits : croissant", "Prismes mythiques : décroissant"],
         results:"{shown} / {total} comptes",
         empty:"Aucun compte ne correspond à la recherche et aux filtres actuels.",
         loadError:"Impossible de charger l’inventaire des comptes.",
@@ -1642,20 +1659,20 @@ document.addEventListener("DOMContentLoaded", () => {
         toolsAria:"Steuerung des Account-Inventars",
         filterSort:"Filtern & sortieren", filterSubtitle:"Inventarergebnisse eingrenzen", resetFilters:"Filter zurücksetzen", closeFilters:"Filter schließen",
         activeFilters:"Aktive Filter", clearFilter:"Diesen Filter entfernen", searchLabel:"Suche", applyFilters:"{count} Accounts anzeigen",
+        popularSearches:"Beliebte Suchen", popularSearchesAria:"Beliebte Account-Suchen",
         showMore:"Mehr Skins anzeigen", showLess:"Weniger Skins anzeigen", playtime:"Spielzeit", credits:"Credits", coins:"Coins",
         mythicPrisms:"Mythische Prismen",
         compPointsAll:"Comp-Punkte (gesamt)",
         searchPlaceholder:"Accounts suchen",
         searchAria:"Accounts suchen",
-        typeAria:"Spielversion filtern",
-        typeOptions:["Alle Versionen", "OW1", "OW2"],
-        statusAria:"Verfügbarkeit filtern", statusOptions:["Auf Lager", "Alle Status", "Ausstehend", "Verkauft"],
-        priceAria:"Preisspanne filtern", priceOptions:["Alle Preise", "Unter 30 $", "30–100 $", "Über 100 $"],
-        nameChangeAria:"Kostenlose Umbenennung filtern", nameChangeOptions:["Kostenlose Umbenennung: Alle", "Kostenlose Umbenennung: Ja", "Kostenlose Umbenennung: Nein"],
-        top500Aria:"TOP500-Berechtigung filtern", top500Options:["TOP500-berechtigt: Alle", "TOP500-berechtigt: Ja", "TOP500-berechtigt: Nein"],
+        typeAria:"Account-Alter filtern",
+        typeOptions:["Account-Alter", "OW1", "OW2"],
+        statusAria:"Account-Status filtern", statusOptions:["Auf Lager", "Verkauft", "Ausstehend", "Alle Status"],
+        priceAria:"Preisspanne filtern", priceOptions:["Preisspanne", "Unter 30 $", "30–100 $", "Über 100 $"],
+        nameChangeAria:"Kostenlose Umbenennung filtern", nameChangeOptions:["Kostenlose Umbenennung", "Umbenennung: Ja", "Umbenennung: Nein"],
         sortAria:"Accounts sortieren",
-        sortGroups:["Preis", "Account-Fortschritt", "Ressourcen"],
-        sortOptions:["Empfohlen", "Preis: aufsteigend", "Preis: absteigend", "Level: absteigend", "Level: aufsteigend", "Spielzeit: absteigend", "Spielzeit: aufsteigend", "Coins: absteigend", "Coins: aufsteigend", "Credits: absteigend", "Credits: aufsteigend"],
+        sortGroups:["Preis", "Account-Fortschritt", "Wallet oder Guthaben"],
+        sortOptions:["Empfohlen", "Preis: aufsteigend", "Preis: absteigend", "Level: absteigend", "Level: aufsteigend", "Spielzeit: absteigend", "Spielzeit: aufsteigend", "Coins: absteigend", "Coins: aufsteigend", "Credits: absteigend", "Credits: aufsteigend", "Mythische Prismen: absteigend"],
         results:"{shown} / {total} Accounts",
         empty:"Keine Accounts entsprechen der aktuellen Suche und den Filtern.",
         loadError:"Das Account-Inventar konnte nicht geladen werden.",
@@ -1669,20 +1686,20 @@ document.addEventListener("DOMContentLoaded", () => {
         toolsAria:"أدوات التحكم في مخزون الحسابات",
         filterSort:"تصفية وترتيب", filterSubtitle:"تخصيص نتائج المخزون", resetFilters:"إعادة ضبط الفلاتر", closeFilters:"إغلاق الفلاتر",
         activeFilters:"الفلاتر النشطة", clearFilter:"إزالة هذا الفلتر", searchLabel:"البحث", applyFilters:"عرض {count} حساب",
+        popularSearches:"عمليات البحث الشائعة", popularSearchesAria:"عمليات البحث الشائعة عن الحسابات",
         showMore:"عرض المزيد من السكنات", showLess:"عرض سكنات أقل", playtime:"وقت اللعب", credits:"Credits", coins:"Coins",
         mythicPrisms:"Mythic Prisms",
         compPointsAll:"نقاط التنافس (الإجمالي)",
         searchPlaceholder:"البحث في الحسابات",
         searchAria:"البحث في الحسابات",
-        typeAria:"تصفية إصدار اللعبة",
-        typeOptions:["كل الإصدارات", "OW1", "OW2"],
-        statusAria:"تصفية حالة التوفر", statusOptions:["متوفر", "كل الحالات", "قيد الانتظار", "مباع"],
-        priceAria:"تصفية نطاق السعر", priceOptions:["كل الأسعار", "أقل من 30$", "30$–100$", "أكثر من 100$"],
-        nameChangeAria:"تصفية تغيير الاسم المجاني", nameChangeOptions:["تغيير اسم مجاني: الكل", "تغيير اسم مجاني: نعم", "تغيير اسم مجاني: لا"],
-        top500Aria:"تصفية أهلية TOP500", top500Options:["مؤهل TOP500: الكل", "مؤهل TOP500: نعم", "مؤهل TOP500: لا"],
+        typeAria:"تصفية عمر الحساب",
+        typeOptions:["عمر الحساب", "OW1", "OW2"],
+        statusAria:"تصفية حالة الحساب", statusOptions:["متوفر", "مباع", "قيد الانتظار", "كل الحالات"],
+        priceAria:"تصفية نطاق السعر", priceOptions:["نطاق السعر", "أقل من 30$", "30$–100$", "أكثر من 100$"],
+        nameChangeAria:"تصفية تغيير الاسم المجاني", nameChangeOptions:["تغيير الاسم مجانًا", "تغيير الاسم: نعم", "تغيير الاسم: لا"],
         sortAria:"ترتيب الحسابات",
-        sortGroups:["السعر", "تقدم الحساب", "الموارد"],
-        sortOptions:["موصى به", "السعر: تصاعدي", "السعر: تنازلي", "المستوى: تنازلي", "المستوى: تصاعدي", "وقت اللعب: تنازلي", "وقت اللعب: تصاعدي", "Coins: تنازلي", "Coins: تصاعدي", "Credits: تنازلي", "Credits: تصاعدي"],
+        sortGroups:["السعر", "تقدم الحساب", "المحفظة أو الرصيد"],
+        sortOptions:["موصى به", "السعر: تصاعدي", "السعر: تنازلي", "المستوى: تنازلي", "المستوى: تصاعدي", "وقت اللعب: تنازلي", "وقت اللعب: تصاعدي", "Coins: تنازلي", "Coins: تصاعدي", "Credits: تنازلي", "Credits: تصاعدي", "Mythic Prisms: من الأعلى للأدنى"],
         results:"{shown} / {total} حساب",
         empty:"لا توجد حسابات تطابق البحث والفلاتر الحالية.",
         loadError:"تعذر تحميل مخزون الحسابات.",
@@ -1696,20 +1713,20 @@ document.addEventListener("DOMContentLoaded", () => {
         toolsAria:"账号库存筛选与排序",
         filterSort:"筛选与排序", filterSubtitle:"快速缩小库存范围", resetFilters:"清除筛选", closeFilters:"关闭筛选",
         activeFilters:"当前筛选", clearFilter:"移除此筛选条件", searchLabel:"检索", applyFilters:"查看 {count} 个账号",
+        popularSearches:"热门搜索", popularSearchesAria:"热门账号搜索",
         showMore:"展开更多皮肤", showLess:"收起皮肤详情", playtime:"游戏时长", credits:"Credits", coins:"Coins",
         mythicPrisms:"神话棱晶",
         compPointsAll:"竞技点数（总计）",
         searchPlaceholder:"搜索账号",
         searchAria:"搜索账号",
-        typeAria:"筛选游戏版本",
-        typeOptions:["全部版本", "OW1", "OW2"],
-        statusAria:"筛选库存状态", statusOptions:["有库存", "全部状态", "待处理", "已售出"],
-        priceAria:"筛选价格区间", priceOptions:["全部价格", "低于 $30", "$30–$100", "高于 $100"],
-        nameChangeAria:"筛选免费改名", nameChangeOptions:["免费改名：全部", "免费改名：有", "免费改名：无"],
-        top500Aria:"筛选 TOP500 资格", top500Options:["TOP500 资格：全部", "TOP500 资格：有", "TOP500 资格：无"],
+        typeAria:"筛选账号年代",
+        typeOptions:["账号年代", "OW1", "OW2"],
+        statusAria:"筛选库存状态", statusOptions:["有库存", "已售出", "待处理", "全部状态"],
+        priceAria:"筛选价格区间", priceOptions:["价格区间", "低于 $30", "$30–$100", "高于 $100"],
+        nameChangeAria:"筛选免费改名", nameChangeOptions:["免费改名", "改名：有", "改名：无"],
         sortAria:"账号排序",
-        sortGroups:["价格", "账号进度", "资源"],
-        sortOptions:["推荐排序", "价格：从低到高", "价格：从高到低", "等级：从高到低", "等级：从低到高", "游戏时长：从多到少", "游戏时长：从少到多", "Coins：从多到少", "Coins：从少到多", "Credits：从多到少", "Credits：从少到多"],
+        sortGroups:["价格", "账号进度", "钱包或余额"],
+        sortOptions:["推荐排序", "价格：从低到高", "价格：从高到低", "等级：从高到低", "等级：从低到高", "游戏时长：从多到少", "游戏时长：从少到多", "Coins：从多到少", "Coins：从少到多", "Credits：从多到少", "Credits：从少到多", "神话棱晶：从多到少"],
         results:"显示 {shown} / 共 {total} 个账号",
         empty:"没有符合当前检索及筛选条件的账号。",
         loadError:"账号库存加载失败。",
@@ -2098,8 +2115,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const accountStatusFilter = document.getElementById('accountStatusFilter');
       const accountPriceFilter = document.getElementById('accountPriceFilter');
       const accountNameChangeFilter = document.getElementById('accountNameChangeFilter');
-      const accountTop500Filter = document.getElementById('accountTop500Filter');
       const accountSort = document.getElementById('accountSort');
+      const accountPopularSearches = document.getElementById('accountPopularSearches');
+      const accountPopularSearchesLabel = document.getElementById('accountPopularSearchesLabel');
       const mobileFilterLabel = document.getElementById('mobileFilterLabel');
       const resetAccountFiltersLabel = document.getElementById('resetAccountFiltersLabel');
       const accountsFilterTitle = document.getElementById('accountsFilterTitle');
@@ -2119,13 +2137,13 @@ document.addEventListener("DOMContentLoaded", () => {
       if (accountStatusFilter) accountStatusFilter.setAttribute('aria-label', accountUi.statusAria);
       if (accountPriceFilter) accountPriceFilter.setAttribute('aria-label', accountUi.priceAria);
       if (accountNameChangeFilter) accountNameChangeFilter.setAttribute('aria-label', accountUi.nameChangeAria);
-      if (accountTop500Filter) accountTop500Filter.setAttribute('aria-label', accountUi.top500Aria);
       if (accountSort) accountSort.setAttribute('aria-label', accountUi.sortAria);
+      if (accountPopularSearches) accountPopularSearches.setAttribute('aria-label', accountUi.popularSearchesAria);
+      if (accountPopularSearchesLabel) accountPopularSearchesLabel.textContent = `${accountUi.popularSearches}:`;
       setSelectOptionText('accountTypeFilter', accountUi.typeOptions);
       setSelectOptionText('accountStatusFilter', accountUi.statusOptions);
       setSelectOptionText('accountPriceFilter', accountUi.priceOptions);
       setSelectOptionText('accountNameChangeFilter', accountUi.nameChangeOptions);
-      setSelectOptionText('accountTop500Filter', accountUi.top500Options);
       setSelectOptionText('accountSort', accountUi.sortOptions);
       setSelectGroupText('accountSort', accountUi.sortGroups);
       syncAllCustomSelectPickers();
