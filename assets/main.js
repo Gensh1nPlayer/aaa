@@ -344,6 +344,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       function updateAccountFilterUi(ui = getAccountUiText(), shownCount = null) {
+        const controls = getAccountFilterControls();
         const active = getActiveAccountFilters(ui);
         const activeContainer = document.getElementById('activeAccountFilters');
         const resetButton = document.getElementById('resetAccountFilters');
