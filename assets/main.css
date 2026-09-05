@@ -940,15 +940,14 @@
     .accounts-filter-backdrop { display: none; }
     .accounts-filter-panel .accounts-tools {
       grid-template-columns:
-        minmax(220px, 1.2fr)
-        minmax(0, 0.85fr)
-        minmax(0, 0.95fr)
-        minmax(0, 0.95fr)
-        minmax(0, 1.05fr)
-        minmax(0, 1.05fr)
-        minmax(0, 1.15fr);
+        minmax(190px, 1.35fr)
+        minmax(118px, 0.8fr)
+        minmax(118px, 0.82fr)
+        minmax(126px, 0.88fr)
+        minmax(150px, 1.05fr)
+        minmax(150px, 1.1fr);
       gap: 10px;
-      margin-bottom: 10px;
+      margin-bottom: 9px;
     }
     .accounts-filter-panel .accounts-control {
       min-width: 0;
@@ -1101,6 +1100,58 @@
       .accounts-select-native { display: block; }
       .accounts-select-trigger,
       .accounts-select-menu { display: none !important; }
+    }
+
+    .accounts-popular-searches {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      min-width: 0;
+      margin: 0 0 10px;
+      padding: 1px 1px 2px;
+      overflow-x: auto;
+      overscroll-behavior-inline: contain;
+      scrollbar-width: none;
+      position: relative;
+      z-index: 3;
+    }
+    .accounts-popular-searches::-webkit-scrollbar { display: none; }
+    .accounts-popular-label {
+      flex: 0 0 auto;
+      margin-inline-end: 2px;
+      color: #8392b1;
+      font-size: 0.69rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+    }
+    .account-keyword-chip {
+      flex: 0 0 auto;
+      min-height: 29px;
+      padding: 5px 10px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 9px;
+      background: rgba(255,255,255,0.035);
+      color: #aebbd3;
+      font: inherit;
+      font-size: 0.69rem;
+      font-weight: 750;
+      line-height: 1.1;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: color 0.18s ease, border-color 0.18s ease, background 0.18s ease, transform 0.18s ease;
+    }
+    .account-keyword-chip:hover {
+      color: #fff;
+      border-color: rgba(41,182,255,0.32);
+      background: rgba(41,182,255,0.08);
+      transform: translateY(-1px);
+    }
+    .account-keyword-chip[aria-pressed="true"] {
+      color: #fff;
+      border-color: rgba(183,124,255,0.55);
+      background: linear-gradient(135deg, rgba(41,182,255,0.15), rgba(183,124,255,0.18));
+      box-shadow: 0 0 0 2px rgba(183,124,255,0.07), 0 0 18px rgba(41,182,255,0.09);
     }
 
     .active-account-filters {
@@ -1422,6 +1473,17 @@
         font-weight: 950;
       }
       .mobile-filter-count[hidden] { display: none; }
+      .accounts-popular-searches {
+        margin-inline: -2px;
+        padding-inline: 2px;
+      }
+      .accounts-popular-label {
+        position: sticky;
+        inset-inline-start: 0;
+        z-index: 1;
+        padding-inline-end: 5px;
+        background: rgba(8,12,21,0.92);
+      }
       .active-account-filters { margin-bottom: 10px; }
       .active-filter-heading { width: 100%; }
       .ac-keyfacts { gap: 7px; }
