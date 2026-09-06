@@ -873,7 +873,7 @@ document.addEventListener("DOMContentLoaded", () => {
               const categoryHtml = category
                 ? `<span class="ac-skin-category">${escapeAccountText(category)}:</span> `
                 : '';
-              return `<span class="ac-highlight-line ac-skin-line"><span class="ac-highlight-icon">✨</span>${categoryHtml}${styledItems}</span>`;
+              return `<span class="ac-highlight-line ac-skin-line"><span class="ac-highlight-icon">✨</span> ${categoryHtml}${styledItems}</span>`;
             }
 
             const highlightLines = String(highlights || '')
@@ -2298,3 +2298,4 @@ document.addEventListener("DOMContentLoaded", () => {
       applyLang(lang);
       localStorage.setItem(LANG_KEY, lang);
     });
+
