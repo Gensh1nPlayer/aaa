@@ -45,13 +45,25 @@
     </nav>
     <button class="mobile-menu-toggle" id="mobileMenuToggle" type="button" aria-controls="mobileNav" aria-expanded="false" aria-label="Open navigation">☰</button>
     <div class="header-actions">
-      <select class="lang-select" id="langSelect" aria-label="Language">
-        <option value="en">EN</option>
-        <option value="fr">FR</option>
-        <option value="de">DE</option>
-        <option value="ar">AR</option>
-        <option value="zh" hidden>中文</option>
-      </select>
+      <div class="language-picker" id="languagePicker" data-open="false">
+        <select class="lang-select" id="langSelect" aria-hidden="true" tabindex="-1">
+          <option value="en">EN</option>
+          <option value="fr">FR</option>
+          <option value="de">DE</option>
+          <option value="ar">AR</option>
+          <option value="zh" hidden>中文</option>
+        </select>
+        <button class="language-trigger" id="languageTrigger" type="button" aria-label="Language: EN" aria-haspopup="listbox" aria-controls="languageMenu" aria-expanded="false">
+          <span id="languageTriggerValue">EN</span>
+          <span class="language-chevron" aria-hidden="true"></span>
+        </button>
+        <div class="language-menu" id="languageMenu" role="listbox" aria-label="Language" hidden>
+          <button class="language-option" type="button" role="option" data-language-value="en" aria-selected="true">EN</button>
+          <button class="language-option" type="button" role="option" data-language-value="fr" aria-selected="false" tabindex="-1">FR</button>
+          <button class="language-option" type="button" role="option" data-language-value="de" aria-selected="false" tabindex="-1">DE</button>
+          <button class="language-option" type="button" role="option" data-language-value="ar" aria-selected="false" tabindex="-1">AR</button>
+        </div>
+      </div>
       <a href="./auth/" class="btn btn-outline" id="authBtn" style="padding: 8px 16px; font-size: 0.85rem;">
         <span id="authBtnText">Authenticator</span>
       </a>
