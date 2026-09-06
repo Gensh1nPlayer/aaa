@@ -1932,6 +1932,83 @@ document.addEventListener("DOMContentLoaded", () => {
       }, { passive: true });
     }
 
+    function initLanguagePicker() {
+      const picker = document.getElementById('languagePicker');
+      const select = document.getElementById('langSelect');
+      const trigger = document.getElementById('languageTrigger');
+      const triggerValue = document.getElementById('languageTriggerValue');
+      const menu = document.getElementById('languageMenu');
+      if (!picker || !select || !trigger || !triggerValue || !menu) return;
+
+      const getOptions = () => [...menu.querySelectorAll('[data-language-value]')];
+      const sync = () => {
+        const selected = select.options[select.selectedIndex];
+        const label = selected?.textContent?.trim() || select.value.toUpperCase();
+        triggerValue.textContent = label;
+        trigger.setAttribute('aria-label', `Language: ${label}`);
+        getOptions().forEach(option => {
+          const isSelected = option.dataset.languageValue === select.value;
+          option.setAttribute('aria-selected', String(isSelected));
+          option.tabIndex = isSelected ? 0 : -1;
+        });
+      };
+      const setOpen = (open, focusSelected = false) => {
+        picker.dataset.open = String(open);
+        trigger.setAttribute('aria-expanded', String(open));
+        menu.hidden = !open;
+        if (open && focusSelected) {
+          window.requestAnimationFrame(() => {
+            (menu.querySelector('[aria-selected="true"]') || getOptions()[0])?.focus({ preventScroll: true });
+          });
+        }
+      };
+
+      trigger.addEventListener('click', () => setOpen(menu.hidden));
+      trigger.addEventListener('keydown', event => {
+        if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+          event.preventDefault();
+          setOpen(true, true);
+        } else if (event.key === 'Escape') {
+          setOpen(false);
+        }
+      });
+      menu.addEventListener('click', event => {
+        const option = event.target.closest('[data-language-value]');
+        if (!option) return;
+        select.value = option.dataset.languageValue;
+        select.dispatchEvent(new Event('change', { bubbles: true }));
+        setOpen(false);
+        trigger.focus({ preventScroll: true });
+      });
+      menu.addEventListener('keydown', event => {
+        const options = getOptions();
+        const currentIndex = options.indexOf(document.activeElement);
+        let nextIndex = currentIndex;
+        if (event.key === 'ArrowDown') nextIndex = Math.min(options.length - 1, currentIndex + 1);
+        else if (event.key === 'ArrowUp') nextIndex = Math.max(0, currentIndex - 1);
+        else if (event.key === 'Home') nextIndex = 0;
+        else if (event.key === 'End') nextIndex = options.length - 1;
+        else if (event.key === 'Escape') {
+          event.preventDefault();
+          setOpen(false);
+          trigger.focus({ preventScroll: true });
+          return;
+        } else if (event.key === 'Tab') {
+          setOpen(false);
+          return;
+        } else {
+          return;
+        }
+        event.preventDefault();
+        options[nextIndex]?.focus({ preventScroll: true });
+      });
+      select.addEventListener('change', sync);
+      document.addEventListener('pointerdown', event => {
+        if (!picker.contains(event.target)) setOpen(false);
+      });
+      sync();
+    }
+
     function detectLang(){
       const urlLang = new URLSearchParams(window.location.search).get("lang");
       if (urlLang && i18n[urlLang]) return urlLang;
@@ -2210,6 +2287,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     applyLang(detectLang());
+    initLanguagePicker();
     initAllCustomSelectPickers();
     startInventoryCountdown();
     document.addEventListener('visibilitychange', () => {
@@ -2220,4 +2298,3 @@ document.addEventListener("DOMContentLoaded", () => {
       applyLang(lang);
       localStorage.setItem(LANG_KEY, lang);
     });
-
