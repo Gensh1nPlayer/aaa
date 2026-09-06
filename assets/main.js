@@ -510,6 +510,14 @@ document.addEventListener("DOMContentLoaded", () => {
             // Special Mythic/Skin rules are the source of truth for configured items.
             // Shared rules below only cover general labels that are not special items.
             const specialSkinRules = [
+              {
+                pattern: /\b(?:Illidan(?:\s+Genji)?|Tyrande(?:\s+Symmetra)?|BlizzCon(?:\s+2016)?\s+Bastion|BlizzCon(?:\s+2017)?\s+Winston)(?![A-Za-z0-9_])/gi,
+                className: 'ac-special-skin-ultra-rare'
+              },
+              {
+                pattern: /\b(?:Noire(?:\s+Widow(?:maker)?(?:\s+Skin)?)?|Demon\s+Hunter(?:\s+Sombra)?|(?:LEGO\s+)?Brick\s+Bastion)(?![A-Za-z0-9_])/gi,
+                className: 'ac-special-skin-collector'
+              },
               { pattern: /\bNerf\s+Gelfire\s+Pro\s+Weapon\b/gi, className: 'ac-special-weapon-nerf-gelfire' },
               { pattern: /\bHard\s+Light\s+Weapon\b/gi, className: 'ac-special-weapon-hard-light' },
               { pattern: /\bLos\s+Muertos\s+Weapon\b/gi, className: 'ac-special-weapon-los-muertos' },
@@ -518,7 +526,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 className: 'ac-special-skin-pink'
               },
               {
-                pattern: /\b(?:Pink\s+Mercy|Noire|LE\s+SSERAFIM|Nerf\s+Sungerang\s+Weapon|Ange\s+de\s+la\s+Mort|Rose\s+Gold|Thunder|Haroeris|Luchador|All[-\s]Stars|OWL\s+Tokens|Good\s+and\s+Evil|Mayhem\s+Biker|Mythic\s+Prisms)(?![A-Za-z0-9_])/gi,
+                pattern: /\b(?:Pink\s+Mercy|LE\s+SSERAFIM|Nerf\s+Sungerang\s+Weapon|Ange\s+de\s+la\s+Mort|Rose\s+Gold|Thunder|Haroeris|Luchador|All[-\s]Stars|OWL\s+Tokens|Good\s+and\s+Evil|Mayhem\s+Biker|Mythic\s+Prisms)(?![A-Za-z0-9_])/gi,
                 className: 'ac-special-skin-pink'
               },
               { pattern: /\bMidas(?![A-Za-z0-9_])/gi, className: 'ac-special-skin-gold' },

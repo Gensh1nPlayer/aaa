@@ -497,6 +497,22 @@
     .ac-special-skin {
       font-weight: 400;
     }
+    .ac-special-skin-ultra-rare {
+      color: #ff5f73;
+      font-size: 1.08em;
+      font-weight: 900;
+      letter-spacing: 0.015em;
+      text-shadow: 0 0 5px rgba(255, 95, 115, 0.58), 0 0 14px rgba(239, 68, 68, 0.3);
+    }
+    .ac-special-skin-collector {
+      background: linear-gradient(90deg, #ffb454, #ff6b6b 52%, #ff8fd1);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+      font-weight: 750;
+      text-shadow: 0 0 10px rgba(255, 107, 107, 0.28);
+    }
     .ac-special-skin-pink {
       color: #ff8fd1;
       text-shadow: 0 0 11px rgba(255, 105, 180, 0.38);
