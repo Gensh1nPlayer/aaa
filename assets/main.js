@@ -559,7 +559,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 className: 'ac-special-skin-bundle'
               },
               {
-                pattern: /\b(?:Illidan(?:\s+Genji)?|Tyrande(?:\s+Symmetra)?|BlizzCon(?:\s+2016)?\s+Bastion|BlizzCon(?:\s+2017)?\s+Winston)(?![A-Za-z0-9_])/gi,
+                pattern: /\b(?:Illidan(?:\s+Genji)?|Tyrande(?:\s+Symmetra)?|BlizzCon\s+Virtual\s+Ticket\s+2016|BlizzCon(?:\s+2016)?\s+Bastion|BlizzCon(?:\s+2017)?\s+Winston)(?![A-Za-z0-9_])/gi,
                 className: 'ac-special-skin-ultra-rare'
               },
               {

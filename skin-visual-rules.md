@@ -23,6 +23,8 @@
 
 原有：Illidan、Tyrande、BlizzCon Bastion（含 2016）、BlizzCon Winston（含 2017）。
 
+补充：BlizzCon Virtual Ticket 2016，整段名称使用顶级红色高亮，支持大小写与连续空白差异；不扩展到其他年份的 Virtual Ticket。
+
 新增：Pink、Pink Mercy、Rose Gold、Rose Gold Mercy、Brick、LEGO Brick；兼容 Brick Bastion / LEGO Brick Bastion。
 Pink、Brick 缩写受边界与后缀限制，避免把 Pink Cat、Brickhouse 等提升为顶级。
 
