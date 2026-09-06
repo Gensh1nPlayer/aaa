@@ -464,6 +464,7 @@ document.addEventListener("DOMContentLoaded", () => {
           .slice()
           .sort((a, b) => compareAccounts(a, b, sortSelect.value));
 
+        grid.classList.toggle('is-single-result', visibleAccounts.length === 1);
         grid.innerHTML = '';
         results.textContent = ui.results
           .replace('{shown}', visibleAccounts.length)
@@ -522,12 +523,12 @@ document.addEventListener("DOMContentLoaded", () => {
               { pattern: /\bHard\s+Light\s+Weapon\b/gi, className: 'ac-special-weapon-hard-light' },
               { pattern: /\bLos\s+Muertos\s+Weapon\b/gi, className: 'ac-special-weapon-los-muertos' },
               {
-                pattern: /\b(?:(?:[\p{Lu}\p{N}][\p{L}\p{N}'’.-]*|and|of|the)\s+){1,7}Bundle\b/gu,
+                pattern: /\b(?:Pink\s+Mercy|LE\s+SSERAFIM(?:\s+(?:Mega|Ultra|FEARLESS))?\s+Bundle|LE\s+SSERAFIM|Nerf\s+Sungerang\s+Weapon|Ange\s+de\s+la\s+Mort|Rose\s+Gold|Thunder|Haroeris|Luchador|All[-\s]Stars|OWL\s+Tokens|Good\s+and\s+Evil|Mayhem\s+Biker|Mythic\s+Prisms)(?![A-Za-z0-9_])/gi,
                 className: 'ac-special-skin-pink'
               },
               {
-                pattern: /\b(?:Pink\s+Mercy|LE\s+SSERAFIM|Nerf\s+Sungerang\s+Weapon|Ange\s+de\s+la\s+Mort|Rose\s+Gold|Thunder|Haroeris|Luchador|All[-\s]Stars|OWL\s+Tokens|Good\s+and\s+Evil|Mayhem\s+Biker|Mythic\s+Prisms)(?![A-Za-z0-9_])/gi,
-                className: 'ac-special-skin-pink'
+                pattern: /\b(?:(?:[\p{Lu}\p{N}][\p{L}\p{N}'’.-]*|and|of|the)\s+){1,7}Bundle\b/gu,
+                className: 'ac-special-skin-bundle'
               },
               { pattern: /\bMidas(?![A-Za-z0-9_])/gi, className: 'ac-special-skin-gold' },
               { pattern: /\bHeart\s+of\s+Hope(?![A-Za-z0-9_])/gi, className: 'ac-special-skin-hope' },
@@ -1023,6 +1024,7 @@ document.addEventListener("DOMContentLoaded", () => {
           const results = document.getElementById('accountsResults');
           const ui = getAccountUiText();
           if (results) results.textContent = ui.results.replace('{shown}', '0').replace('{total}', '0');
+          grid?.classList.remove('is-single-result');
           if (grid) grid.innerHTML = `<div class="accounts-empty">${ui.loadError}</div>`;
         }
       }
