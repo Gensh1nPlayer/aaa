@@ -510,33 +510,109 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Special Mythic/Skin rules are the source of truth for configured items.
             // Shared rules below only cover general labels that are not special items.
+            // Store display tiers, not Blizzard rarity/availability claims. See skin-visual-rules.md.
+            const skinNamesSource = names => [...new Set(names)].sort((a, b) => b.length - a.length)
+              .map(name => name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\s+/g, '\\s+')).join('|');
+            const skinNamesPattern = names => new RegExp(`\\b(?:${skinNamesSource(names)})(?![A-Za-z0-9_])`, 'gi');
+            const rareSkinNames = [
+              'Ange de la Mort', 'Pirate Ship', 'Dallas Happi', 'Shanghai Happi', 'Happi',
+              'Dallas Summer', 'Shanghai Summer', 'Rock Climber', 'Chained King',
+              'Wicked Reign', 'Wicked', 'Tiger Luchador', 'Lion Luchador', 'Luchador',
+              'Royal Gladiator', 'Royal Knight', 'Clockwork', 'Thunder', 'Flying Ace',
+              'Sylvanas Windrunner', 'Sylvanas', 'Zhulong', 'Zhulang', 'Solaris',
+              'Haroeris', 'Dance Party', 'Good and Evil', 'Mayhem Biker', 'Zen-Nakji',
+              'Crimson Summer', 'Boleiro', 'GOAT', 'GOATS', 'Charged Climber', 'Reigning Climber'
+            ];
+            const shopSkinNames = [
+              // Verified shop/collaboration releases. Free rewards are not inferred as paid.
+              'Saitama', 'Terrible Tornado', 'Genos',
+              'Spike Spiegel', 'Spike', 'Faye Valentine', 'Faye', 'Ed', 'Jet Black', 'Jet',
+              'Porsche', 'Lich King', 'Thrall', 'Diamond Magni',
+              'Deku', 'Uravity', 'All Might', 'Himiko Toga', 'Tomura Shigaraki',
+              'Chun-Li', 'Juri', 'Cammy', 'Ryu', 'Dhalsim', 'Guile', 'M. Bison', 'Blanka',
+              'Optimus Prime', 'Megatron', 'Bumblebee', 'Arcee',
+              'ANTIFRAGILE Dazzle', 'ANTIFRAGILE Traysi', 'ANTIFRAGILE Kira-Kira',
+              'ANTIFRAGILE BB', 'ANTIFRAGILE Slay Star', 'LE SSERAFIM FEARLESS', 'LE SSERAFIM',
+              'Cardboard', 'Turtleship', 'Turtle Ship', 'Cyberdragon', 'Cyber Dragon',
+              'Street Runner', 'Honey Bee', 'Cleric', 'Beach Rescue', 'Owl Guardian', 'Gilded Hunter'
+            ];
+            // 20 franchises plus historical identities. Abbreviations are inventory
+            // conventions; standalone words like Shock, Spark and Fuel are too broad.
+            const owlTeamNames = [
+              'Atlanta Reign', 'ATL', 'Boston Uprising', 'BOS', 'Chengdu Hunters', 'CDH',
+              'Dallas Fuel', 'DAL', 'Florida Mayhem', 'FLO Mayhem', 'FLA', 'Guangzhou Charge', 'GZC',
+              'Hangzhou Spark', 'HZS', 'Houston Outlaws', 'HOU', 'London Spitfire', 'LDN',
+              'Los Angeles Gladiators', 'LA Gladiators', 'LAG', 'GLA',
+              'Los Angeles Valiant', 'LA Valiant', 'LAV', 'New York Excelsior', 'NY Excelsior', 'NYXL', 'NYE',
+              'Paris Eternal', 'PAR', 'Philadelphia Fusion', 'PHL Fusion', 'PHI',
+              'San Francisco Shock', 'SF Shock', 'SFS', 'Seoul Dynasty', 'SEO',
+              'Seoul Infernal', 'SIN', 'Shanghai Dragons', 'SH Dragon', 'SH Dragons', 'SHD', 'Toronto Defiant', 'TOR',
+              'Vancouver Titans', 'VAN', 'Vegas Eternal', 'VEG', 'Washington Justice', 'WAS'
+            ];
+            const esportsSkinPattern = new RegExp(
+              `\\b(?:OW[12]\\s+)?(?:${skinNamesSource(owlTeamNames.filter(name => name.includes(' ')))})(?:\\s+20\\d{2})?(?![A-Za-z0-9_])`, 'gi');
+            const esportsAliasPattern = new RegExp(
+              `\\b(?:OW[12]\\s+)?(?:${skinNamesSource(owlTeamNames.filter(name => !name.includes(' ')))})(?:\\s+20\\d{2})?(?![A-Za-z0-9_])`, 'g');
             const specialSkinRules = [
+              {
+                pattern: /\b(?:[\p{L}\p{N}][\p{L}\p{N}'’.-]*(?:\s+(?:(?:&amp;|&)\s+)?)){1,12}Bundle\b/giu,
+                className: 'ac-special-skin-bundle'
+              },
               {
                 pattern: /\b(?:Illidan(?:\s+Genji)?|Tyrande(?:\s+Symmetra)?|BlizzCon(?:\s+2016)?\s+Bastion|BlizzCon(?:\s+2017)?\s+Winston)(?![A-Za-z0-9_])/gi,
                 className: 'ac-special-skin-ultra-rare'
               },
               {
-                pattern: /\b(?:Noire(?:\s+Widow(?:maker)?(?:\s+Skin)?)?|Demon\s+Hunter(?:\s+Sombra)?|(?:LEGO\s+)?Brick\s+Bastion)(?![A-Za-z0-9_])/gi,
+                pattern: /\b(?:Noire(?:\s+Widow(?:maker)?(?:\s+Skin)?)?|Demon\s+Hunter(?:\s+Sombra)?)(?![A-Za-z0-9_])/gi,
                 className: 'ac-special-skin-collector'
+              },
+              {
+                pattern: /\b(?:Pink\s+Mercy|Rose\s+Gold(?:\s+Mercy)?|(?:LEGO\s+)?Brick(?:\s+Bastion)?|Pink)(?![A-Za-z0-9_])(?=\s*(?:$|[,/;:•(<]|&(?:amp;)?|Bundle\b|Skin\b|Mega\b|Ultra\b))/gi,
+                className: 'ac-special-skin-ultra-rare'
+              },
+              { pattern: skinNamesPattern(rareSkinNames), className: 'ac-special-skin-rare' },
+              { pattern: /\bMM\b/g, className: 'ac-special-skin-rare' },
+              { pattern: /\bRoyal(?=\s*(?:\(|$|[,/;•<]))/gi, className: 'ac-special-skin-rare' },
+              {
+                pattern: /\b(?:(?:20\d{2}\s+)?(?:Atlantic|Pacific)\s+All[-\s]+Stars?|All[-\s]+Stars)(?:\s+Skins?)?(?![A-Za-z0-9_])/gi,
+                className: 'ac-special-skin-rare'
               },
               { pattern: /\bNerf\s+Gelfire\s+Pro\s+Weapon\b/gi, className: 'ac-special-weapon-nerf-gelfire' },
               { pattern: /\bHard\s+Light\s+Weapon\b/gi, className: 'ac-special-weapon-hard-light' },
               { pattern: /\bLos\s+Muertos\s+Weapon\b/gi, className: 'ac-special-weapon-los-muertos' },
               {
-                pattern: /\b(?:Pink\s+Mercy|LE\s+SSERAFIM(?:\s+(?:Mega|Ultra|FEARLESS))?\s+Bundle|LE\s+SSERAFIM|Nerf\s+Sungerang\s+Weapon|Ange\s+de\s+la\s+Mort|Rose\s+Gold|Thunder|Haroeris|Luchador|All[-\s]Stars|OWL\s+Tokens|Good\s+and\s+Evil|Mayhem\s+Biker|Mythic\s+Prisms)(?![A-Za-z0-9_])/gi,
+                pattern: /\b(?:Nerf\s+Sungerang\s+Weapon|OWL\s+Tokens|Mythic\s+Prisms)(?![A-Za-z0-9_])/gi,
                 className: 'ac-special-skin-pink'
-              },
-              {
-                pattern: /\b(?:(?:[\p{Lu}\p{N}][\p{L}\p{N}'’.-]*|and|of|the)\s+){1,7}Bundle\b/gu,
-                className: 'ac-special-skin-bundle'
               },
               { pattern: /\bMidas(?![A-Za-z0-9_])/gi, className: 'ac-special-skin-gold' },
               { pattern: /\bHeart\s+of\s+Hope(?![A-Za-z0-9_])/gi, className: 'ac-special-skin-hope' },
+              // Complete shop titles such as Gilded Hunter / Owl Guardian must win
+              // before the broader Mythic aspect Gilded or the league acronym OWL.
+              { pattern: skinNamesPattern(shopSkinNames), className: 'ac-special-skin-shop' },
               {
                 pattern: /\b(?:Cyber\s+Demon|Zeus|Amaterasu|Galactic\s+Emperor|Adventurer|A-7000\s+Wargod|Onryō|Grand\s+Beast|Ancient\s+Caller|Vengeance|Calamity\s+Empress|Anubis|Spellbinder|Thor|Pixiu|Horang|Ultraviolet\s+Sentinel|Divine\s+Druid|Cyber\s+Fuel|Divine\s+Desperado|Magma\s+Titan|Celestial\s+Guardian|Hop\s+Online!|Volted\s+Overdrive|Ra|Ascendant\s+Phoenix|World\s+Forger|Bound\s+Demon|Midnight\s+Sun|Deliverance|Lead\s+Rose|Dame\s+Chance|Merciful\s+Magitech|Steel\s+Death|Gilded|Iridescent|Dawn|Blazing\s+Sunsetter|Spirit\s+Keeper|Star\s+Shooter|Sumi-ichimonji|Koi\s+of\s+Duality|Capsule\s+Cannon|Eternal\s+Crystal)(?![A-Za-z0-9_])/gi,
                 className: 'ac-special-skin-mythic'
+              },
+              { pattern: esportsSkinPattern, className: 'ac-special-skin-esports' },
+              { pattern: esportsAliasPattern, className: 'ac-special-skin-esports' },
+              {
+                pattern: /\b(?:OW[12]\s+)?(?:OWCS|OWWC|OWL(?!\s+Tokens\b)|Overwatch\s+(?:League|Champions\s+Series|World\s+Cup)|(?:Overwatch\s+)?Contenders|League\s+White\s*\/\s*Gr[ae]y\s+Skins?)(?:\s+20\d{2})?(?![A-Za-z0-9_])/gi,
+                className: 'ac-special-skin-esports'
               }
             ];
+            // Keep a bundle in one span, inheriting its strongest configured tier.
+            function skinMatchClass(rule, match) {
+              if (rule.className !== 'ac-special-skin-bundle') return rule.className;
+              const tierOrder = ['ultra-rare', 'collector', 'rare', 'gold', 'mythic', 'hope', 'esports', 'shop'];
+              for (const tier of tierOrder) {
+                const className = `ac-special-skin-${tier}`;
+                if (specialSkinRules.some(candidate => candidate.className === className &&
+                    new RegExp(candidate.pattern.source, candidate.pattern.flags.replace('g', '')).test(match))) {
+                  return className;
+                }
+              }
+              return rule.className;
+            }
             const specialWeaponChoicePattern = /\bChoice\s+of\s+(?:\d+|one|two|three|four|five|six|seven|eight|nine|ten)\s+(?:additional\s+)?Gold\s*\/\s*Jade\s*\/\s*Galactic(?:\s*\/\s*Crimson\s+Wolf)?\s+Weapon(?:s|\s+Skins?)?\b/gi;
             const sharedColorRules = [
               { pattern: /Top 500 Challenger Tier/g, className: 'ac-color-red' },
@@ -553,10 +629,8 @@ document.addEventListener("DOMContentLoaded", () => {
               { pattern: /Grandmaster/g, className: 'ac-color-pink' },
               { pattern: /Master/g, className: 'ac-color-pink' },
               { pattern: /Comic Book/g, className: 'ac-color-pink' },
-              { pattern: /Pink/g, className: 'ac-color-pink' },
               { pattern: /Endorsement Level 4/g, className: 'ac-color-pink' },
               { pattern: /Endorsement Level 5/g, className: 'ac-color-pink-strong' },
-              { pattern: /Brick/g, className: 'ac-color-pink-soft' },
               { pattern: /D\.VA/g, className: 'ac-color-blue' },
               { pattern: /\bGolden\b/gi, className: 'ac-weapon-golden' },
               { pattern: /OW1 - Season/g, className: 'ac-color-gold' },
@@ -574,17 +648,17 @@ document.addEventListener("DOMContentLoaded", () => {
               if (!text) return text;
               let res = escapeAccountTextWithBreaks(text);
               const protectedSpecialSkins = [];
-              const protectSpecialSkin = (pattern, className) => {
-                res = res.replace(pattern, match => {
+              const protectSpecialSkin = rule => {
+                res = res.replace(rule.pattern, match => {
                   const token = `__COLOR_SPECIAL_SKIN_${protectedSpecialSkins.length}__`;
-                  protectedSpecialSkins.push({ match, className });
+                  protectedSpecialSkins.push({ match, className: skinMatchClass(rule, match) });
                   return token;
                 });
               };
 
               // Protect all configured special series before broader terms such as
               // "Pink", "Master" and "Galactic" are processed.
-              specialSkinRules.forEach(rule => protectSpecialSkin(rule.pattern, rule.className));
+              specialSkinRules.forEach(protectSpecialSkin);
 
               const protectedWeaponChoices = [];
               res = res.replace(specialWeaponChoicePattern, match => {
@@ -791,7 +865,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const heroAliasPattern = `(?:${heroAliasPatterns.join('|')})`;
             const heroSeparatorPattern = '(?:\\/|\\\\|•|&|\\band\\b)';
-            const heroSequencePattern = `${heroAliasPattern}(?:\\s*${heroSeparatorPattern}\\s*${heroAliasPattern})*\\s*(?:\\([^)]*\\))?`;
+            const heroSequencePattern = `${heroAliasPattern}(?:(?:\\s*${heroSeparatorPattern}\\s*|\\s+)${heroAliasPattern})*\\s*(?:\\([^)]*\\))?`;
             const heroSequenceRegex = new RegExp(`^${heroSequencePattern}$`, 'i');
             const leadingHeroRegex = new RegExp(`^(${heroAliasPattern})(\\s+)(.+)$`, 'i');
             const trailingHeroRegex = new RegExp(`^(.+?)(\\s+)(${heroSequencePattern})$`, 'i');
@@ -804,7 +878,7 @@ document.addEventListener("DOMContentLoaded", () => {
               specialSkinRules.forEach(rule => {
                 styled = styled.replace(rule.pattern, match => {
                   const token = `__SPECIAL_SKIN_${protectedMatches.length}__`;
-                  protectedMatches.push({ match, className: rule.className });
+                  protectedMatches.push({ match, className: skinMatchClass(rule, match) });
                   return token;
                 });
               });
@@ -825,7 +899,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
               // Pink Mercy is a complete skin name, not the adjective "Pink"
               // followed by the hero name "Mercy". Handle it before hero parsing.
-              if (/\bPink\s+Mercy\b/i.test(item)) return styleSkinName(item);
+              if (/\b(?:Pink|Rose\s+Gold)\s+Mercy\b/i.test(item) || /\bBundle\b/i.test(item)) return styleSkinName(item);
 
               // A pure hero name or hero list stays in the regular text style.
               if (heroSequenceRegex.test(item)) return escapeAccountText(item);
@@ -859,19 +933,23 @@ document.addEventListener("DOMContentLoaded", () => {
               let category = '';
               let body = line;
               const categoryMatch = line.match(/^([^,:]{2,48}):\s*(.+)$/);
-              if (categoryMatch && /(?:skins?|owcs|owl|owwc|mvp|all[- ]?stars?|team|decennium)/i.test(categoryMatch[1])) {
+              if (categoryMatch && !/\bSoldier$/i.test(categoryMatch[1]) &&
+                  /(?:skins?|owcs|owl|owwc|mvp|all[- ]?stars?|team|decennium)/i.test(categoryMatch[1])) {
                 category = categoryMatch[1].trim();
                 body = categoryMatch[2].trim();
               }
 
               const styledItems = body
-                .split(/\s*,\s*/)
-                .map(styleSkinItem)
+                .split(/(\s*[,，;；]\s*)/)
+                .map((item, index) => index % 2
+                  ? `<span aria-hidden="true">${escapeAccountText(item)}</span>`
+                  : styleSkinItem(item))
                 .filter(Boolean)
-                .join('<span aria-hidden="true">, </span>');
+                .join('');
 
+              const esportsCategory = /\b(?:OW[12]|OWL|OWCS|OWWC|League|Team|Contenders)\b/i.test(category);
               const categoryHtml = category
-                ? `<span class="ac-skin-category">${escapeAccountText(category)}:</span> `
+                ? `<span class="ac-skin-category${esportsCategory ? ' ac-special-skin-esports' : ''}">${escapeAccountText(category)}:</span> `
                 : '';
               return `<span class="ac-highlight-line ac-skin-line"><span class="ac-highlight-icon">✨</span> ${categoryHtml}${styledItems}</span>`;
             }
@@ -2298,4 +2376,3 @@ document.addEventListener("DOMContentLoaded", () => {
       applyLang(lang);
       localStorage.setItem(LANG_KEY, lang);
     });
-

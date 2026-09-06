@@ -606,11 +606,26 @@
       font-weight: 400;
     }
     .ac-special-skin-ultra-rare {
-      color: #ff5f73;
-      font-size: 1.08em;
-      font-weight: 900;
+      color: #ff8295;
+      font-size: 1.06em;
+      font-weight: 800;
       letter-spacing: 0.015em;
-      text-shadow: 0 0 5px rgba(255, 95, 115, 0.58), 0 0 14px rgba(239, 68, 68, 0.3);
+      text-shadow: 0 0 4px rgba(255, 95, 115, 0.62), 0 0 11px rgba(239, 68, 68, 0.36);
+    }
+    .ac-special-skin-rare {
+      color: #f8d58b;
+      font-weight: 600;
+      text-shadow: 0 0 4px rgba(248, 213, 139, 0.38), 0 0 9px rgba(245, 158, 11, 0.2);
+    }
+    .ac-special-skin-esports {
+      color: #93ddea;
+      font-weight: 500;
+      text-shadow: 0 0 5px rgba(103, 232, 249, 0.32);
+    }
+    .ac-special-skin-shop {
+      color: #c7b9ed;
+      font-weight: 400;
+      text-shadow: 0 0 5px rgba(183, 156, 235, 0.24);
     }
     .ac-special-skin-collector {
       background: linear-gradient(90deg, #ffb454, #ff6b6b 52%, #ff8fd1);
@@ -625,11 +640,13 @@
       color: #ff8fd1;
     }
     .ac-special-skin-bundle {
-      color: #c4b5fd;
+      color: #d3c3ff;
       font-weight: 500;
+      text-shadow: 0 0 4px rgba(196, 181, 253, 0.42), 0 0 9px rgba(167, 139, 250, 0.25);
     }
     .ac-special-skin-gold {
       color: #facc15;
+      font-weight: 600;
       text-shadow: 0 0 11px rgba(250, 204, 21, 0.38);
     }
     .ac-special-skin-hope {
@@ -640,11 +657,14 @@
       text-shadow: 0 0 12px rgba(251, 113, 133, 0.25);
     }
     .ac-special-skin-mythic {
-      background: linear-gradient(90deg, #f0abfc, #a78bfa 48%, #67e8f9);
+      background: linear-gradient(100deg, #f5b5ff, #c4b5fd 48%, #91edff);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      text-shadow: 0 0 12px rgba(167, 139, 250, 0.3);
+      -webkit-text-fill-color: transparent;
+      font-weight: 600;
+      text-shadow: 0 0 3px rgba(213, 180, 255, 0.5), 0 0 8px rgba(167, 139, 250, 0.46);
+      filter: drop-shadow(0 0 2px rgba(167, 139, 250, 0.25));
     }
     .ac-special-weapon-nerf-gelfire,
     .ac-special-weapon-hard-light,
@@ -687,7 +707,18 @@
     }
     .ac-skin-category {
       color: #67e8f9;
-      font-weight: 800;
+      font-weight: 600;
+    }
+    .ac-skin-category.ac-special-skin-esports { color: #93ddea; }
+    /* Static glow preserves wrapping and avoids per-skin animation cost on mobile. */
+    @media (forced-colors: active) {
+      .ac-special-skin, .ac-skin-category {
+        background: none;
+        color: CanvasText;
+        -webkit-text-fill-color: currentColor;
+        text-shadow: none;
+        filter: none;
+      }
     }
     .ac-highlight-icon {
       display: inline-block;
