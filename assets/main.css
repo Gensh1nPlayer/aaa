@@ -7,6 +7,13 @@
       --neon3: #33ffcc;
       --glass-bg: rgba(10, 14, 22, 0.5);
       --glass-border: rgba(255, 255, 255, 0.08);
+      --ac-font-label: 0.625rem;
+      --ac-font-meta: 0.72rem;
+      --ac-font-body: 0.82rem;
+      --ac-font-title: clamp(1rem, 1.15vw, 1.06rem);
+      --ac-font-price: 1.45rem;
+      --ac-weight-label: 800;
+      --ac-weight-strong: 900;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -274,6 +281,10 @@
       z-index: 1;
       align-items: stretch;
     }
+    .accounts-grid.is-single-result {
+      grid-template-columns: minmax(0, 430px);
+      justify-content: center;
+    }
     .account-card {
       min-width: 0;
       background: linear-gradient(155deg, rgba(255,255,255,0.035), rgba(255,255,255,0.012));
@@ -312,8 +323,8 @@
       min-width: 0;
       margin: 0;
       color: #e2e8f0;
-      font-size: clamp(1.02rem, 1.3vw, 1.22rem);
-      font-weight: 850;
+      font-size: var(--ac-font-title);
+      font-weight: var(--ac-weight-label);
       line-height: 1.22;
       letter-spacing: -0.025em;
     }
@@ -349,8 +360,8 @@
       border: 1px solid rgba(255,255,255,0.09);
       background: rgba(255,255,255,0.04);
       color: var(--text-muted);
-      font-size: 0.66rem;
-      font-weight: 800;
+      font-size: var(--ac-font-label);
+      font-weight: var(--ac-weight-label);
       line-height: 1;
       letter-spacing: 0.04em;
       white-space: nowrap;
@@ -399,8 +410,8 @@
       border-radius: 6px;
       background: linear-gradient(90deg, #facc15, #fbbf24);
       color: #000;
-      font-size: 0.72rem;
-      font-weight: 900;
+      font-size: var(--ac-font-meta);
+      font-weight: var(--ac-weight-strong);
       line-height: 1;
       letter-spacing: 0.07em;
       text-transform: uppercase;
@@ -418,8 +429,8 @@
       padding: 6px 10px;
       border-radius: 999px;
       background: rgba(255,255,255,0.05);
-      font-size: 0.68rem;
-      font-weight: 800;
+      font-size: var(--ac-font-label);
+      font-weight: var(--ac-weight-label);
       line-height: 1;
       letter-spacing: 0.04em;
       text-transform: uppercase;
@@ -449,8 +460,8 @@
     .ac-price {
       min-width: 0;
       color: var(--neon3);
-      font-size: 1.48rem;
-      font-weight: 900;
+      font-size: var(--ac-font-price);
+      font-weight: var(--ac-weight-strong);
       line-height: 1;
       letter-spacing: 0.02em;
     }
@@ -461,8 +472,8 @@
       border-radius: 999px;
       background: rgba(255,255,255,0.035);
       padding: 4px 8px;
-      font-size: 0.68rem;
-      font-weight: 750;
+      font-size: var(--ac-font-label);
+      font-weight: 700;
       line-height: 1;
       white-space: nowrap;
     }
@@ -475,7 +486,7 @@
       padding: 11px 12px;
       border-radius: 12px;
       border: 1px solid rgba(255,255,255,0.055);
-      font-size: 0.82rem;
+      font-size: var(--ac-font-body);
       line-height: 1.48;
       word-break: normal;
       overflow-wrap: anywhere;
@@ -491,7 +502,7 @@
       color: #aebbd3;
     }
     .ac-skin-name {
-      color: #d8b4fe;
+      color: #b8c4d8;
       font-weight: 400;
     }
     .ac-special-skin {
@@ -510,12 +521,15 @@
       background-clip: text;
       color: transparent;
       -webkit-text-fill-color: transparent;
-      font-weight: 750;
+      font-weight: var(--ac-weight-label);
       text-shadow: 0 0 10px rgba(255, 107, 107, 0.28);
     }
     .ac-special-skin-pink {
       color: #ff8fd1;
-      text-shadow: 0 0 11px rgba(255, 105, 180, 0.38);
+    }
+    .ac-special-skin-bundle {
+      color: #c4b5fd;
+      font-weight: 500;
     }
     .ac-special-skin-gold {
       color: #facc15;
@@ -604,8 +618,8 @@
       display: inline-block;
       margin-bottom: 2px;
       color: #dbe6fb;
-      font-size: 0.7rem;
-      font-weight: 850;
+      font-size: var(--ac-font-label);
+      font-weight: var(--ac-weight-label);
       letter-spacing: 0.055em;
       text-transform: uppercase;
     }
@@ -664,8 +678,8 @@
     .ac-highlight-rank-master { font-weight: 800; text-shadow: 0 0 8px rgba(239, 68, 68, 0.35); }
     .ac-rank-ready { font-weight: 900; text-shadow: 0 0 9px rgba(74, 222, 128, 0.35); }
     .ac-highlight-mythic-prisms { font-weight: 800; text-shadow: 0 0 8px rgba(243, 121, 243, 0.35); }
-    .ac-availability-yes { font-weight: 900; text-shadow: 0 0 8px rgba(74, 222, 128, 0.35); }
-    .ac-availability-no { color: #fb7185; font-weight: 900; text-shadow: 0 0 8px rgba(251, 113, 133, 0.25); }
+    .ac-availability-yes { font-weight: var(--ac-weight-label); }
+    .ac-availability-no { color: #fb7185; font-weight: var(--ac-weight-label); }
     .ac-utility-actions { display: grid; grid-template-columns: 1fr; gap: 9px; }
     .ac-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
     .ac-utility-actions { margin-top: auto; margin-bottom: 9px; }
@@ -885,12 +899,12 @@
       .accounts-grid { grid-template-columns: 1fr; }
       .account-card { padding: 17px; }
       .ac-title-row { gap: 8px; }
-      .ac-level-title { font-size: 1rem; }
-      .ac-status { min-height: 29px; padding: 6px 8px; font-size: 0.61rem; }
-      .ac-premium-badge { font-size: 0.66rem; }
+      .ac-level-title { font-size: var(--ac-font-title); }
+      .ac-status { min-height: 29px; padding: 6px 8px; font-size: var(--ac-font-label); }
+      .ac-premium-badge { font-size: 0.68rem; }
       .ac-price { font-size: 1.36rem; }
-      .ac-account-id { font-size: 0.64rem; }
-      .ac-highlights { font-size: 0.79rem; }
+      .ac-account-id { font-size: var(--ac-font-label); }
+      .ac-highlights { font-size: var(--ac-font-body); }
       .faq-list details { padding: 15px 16px; }
       .faq-list summary { font-size: 0.82rem; line-height: 1.45; }
       .faq-guide-grid { grid-template-columns: 1fr; }
@@ -1151,7 +1165,7 @@
       color: #aebbd3;
       font: inherit;
       font-size: 0.69rem;
-      font-weight: 750;
+      font-weight: 700;
       line-height: 1.1;
       white-space: nowrap;
       cursor: pointer;
@@ -1201,7 +1215,7 @@
       background: rgba(41,182,255,0.065);
       color: #bfe9ff;
       font-size: 0.69rem;
-      font-weight: 750;
+      font-weight: 700;
       line-height: 1.1;
       cursor: pointer;
       transition: 0.2s ease;
@@ -1242,8 +1256,8 @@
     .ac-resource-strip { grid-column: 1 / -1; }
     .ac-keyfact-label {
       color: #7f8eac;
-      font-size: 0.61rem;
-      font-weight: 850;
+      font-size: var(--ac-font-label);
+      font-weight: var(--ac-weight-label);
       letter-spacing: 0.07em;
       line-height: 1.15;
       text-transform: uppercase;
@@ -1251,8 +1265,8 @@
     .ac-keyfact-value {
       min-width: 0;
       color: #dce8fb;
-      font-size: 0.77rem;
-      font-weight: 700;
+      font-size: var(--ac-font-meta);
+      font-weight: 600;
       line-height: 1.35;
       overflow-wrap: anywhere;
     }
@@ -1271,8 +1285,8 @@
     .ac-resource-label {
       display: block;
       color: #7f8eac;
-      font-size: 0.57rem;
-      font-weight: 800;
+      font-size: var(--ac-font-label);
+      font-weight: var(--ac-weight-label);
       letter-spacing: 0.045em;
       line-height: 1.15;
       text-transform: uppercase;
@@ -1280,14 +1294,14 @@
     .ac-resource-item-competitive .ac-resource-label {
       white-space: normal;
       letter-spacing: 0;
-      font-size: 0.57rem;
+      font-size: var(--ac-font-label);
     }
     .ac-resource-value {
       display: block;
       margin-top: 3px;
       color: #f1f6ff;
       font-size: 0.79rem;
-      font-weight: 900;
+      font-weight: var(--ac-weight-strong);
       line-height: 1.15;
       white-space: nowrap;
     }
@@ -1357,8 +1371,8 @@
       border-top: 1px solid rgba(255,255,255,0.055);
       background: rgba(255,255,255,0.025);
       color: #8edcff;
-      font-size: 0.68rem;
-      font-weight: 850;
+      font-size: var(--ac-font-meta);
+      font-weight: var(--ac-weight-label);
       letter-spacing: 0.035em;
       cursor: pointer;
       transition: background 0.2s ease, color 0.2s ease;
@@ -1486,7 +1500,7 @@
         background: #29b6ff;
         color: #03111b;
         font-size: 0.68rem;
-        font-weight: 950;
+        font-weight: var(--ac-weight-strong);
       }
       .mobile-filter-count[hidden] { display: none; }
       .accounts-popular-searches {
@@ -1502,11 +1516,12 @@
       }
       .active-account-filters { margin-bottom: 10px; }
       .active-filter-heading { width: 100%; }
+      .accounts-grid.is-single-result { grid-template-columns: 1fr; justify-content: stretch; }
       .ac-keyfacts { gap: 7px; }
       .ac-keyfact { min-height: 49px; padding: 8px 9px; }
       .ac-resource-item { padding: 8px 5px; }
-      .ac-resource-label { font-size: 0.53rem; }
-      .ac-resource-value { font-size: 0.72rem; }
+      .ac-resource-label { font-size: var(--ac-font-label); }
+      .ac-resource-value { font-size: 0.78rem; }
     }
 
     @media (max-width: 380px) {
