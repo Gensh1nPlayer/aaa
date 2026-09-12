@@ -512,7 +512,8 @@ document.addEventListener("DOMContentLoaded", () => {
             // Shared rules below only cover general labels that are not special items.
             // Store display tiers, not Blizzard rarity/availability claims. See skin-visual-rules.md.
             const skinNamesSource = names => [...new Set(names)].sort((a, b) => b.length - a.length)
-              .map(name => name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\s+/g, '\\s+')).join('|');
+              .map(name => name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\s+/g, '\\s+')
+                .replace(/'/g, "(?:'|&#039;|&#39;|&apos;)")).join('|');
             const skinNamesPattern = names => new RegExp(`\\b(?:${skinNamesSource(names)})(?![A-Za-z0-9_])`, 'gi');
             const rareSkinNames = [
               'Midas', 'Ange de la Mort', 'Pirate Ship', 'Dallas Happi', 'Shanghai Happi', 'Happi',
@@ -540,7 +541,25 @@ document.addEventListener("DOMContentLoaded", () => {
               'Nyan Café', 'Nyan Cafe', 'Formalwear', 'Heir', 'Evening Wear', 'Poolside', 'Witch', 'FEARLESS',
               '2B', '9S', 'A2', 'Commander White', 'Adam',
               'Izanami', 'Sekhmet', 'Nezha', 'Artemis', 'Shango', 'Fancy Fleece', 'Fancy Fangs',
-              'Street Rebel'
+              'Street Rebel',
+              // Collection titles and individual skins; visual grouping is not a claim of exclusivity.
+              'YoRHa', 'Project YoRHa', 'LE SSERAFIM Mega', 'Blue Flame', 'Fawksey James',
+              'exo-FAUNA', 'exo-L2PUS', 'exo-L5O', 'exo-L50', 'exo-PANT6RA', 'exo-URS4', 'exo-VU7PES',
+              'White Rabbit', 'Raging Rabbit', 'Bunny Business', 'Siberian Hare',
+              'Heavenly Hop', 'Spacebun', 'Bash Bunny',
+              'Ultrawatch', 'Lifeguard', 'Masked Mischief', 'asked Mischief',
+              'Heist', 'Cyber Oni', 'Oni', 'Witches', 'Infernal Witch', 'Black Cats', 'Black Cat',
+              'My Hero Academia', 'One-Punch Man', 'One Punch Man', 'Garou', 'Hellish Blizzard', 'Mumen Rider',
+              'Cowboy Bebop', 'Ein', 'Avatar: The Last Airbender', 'Aang', 'Appa', 'Zuko', 'Toph', 'Suki', 'Katara',
+              'Gundam Wing', 'Wing Zero', 'Wing Gundam Zero', 'Epyon', 'Gundam Epyon',
+              'Deathscythe', 'Gundam Deathscythe Hell', 'Tallgeese',
+              'G.I. Joe', 'Snake Eyes', 'Scarlett', 'Baroness', 'Cobra Commander', 'Destro',
+              'Persona 5', 'Phantom Thieves', 'Joker', 'Panther', 'Fox',
+              'Mephisto', 'Paladin', 'Warlock', 'Rogue', 'Lilith', 'Inarius', 'Imperius', 'Azmodan',
+              'Butcher', 'Barbarian', 'Nightraven', 'Hatred’s Reckoning', "Hatred's Reckoning",
+              'Lich Queen', 'Devourer', 'Xal’atath', "Xal'atath", 'Blackhand', 'Sin’dorei', "Sin'dorei", 'Magni',
+              'Feria Shen', 'Wei Qing', 'Shayol Wei', 'Viper Ning', 'Yueshan', 'Wuchen', 'Scarlet Bride',
+              'YOASOBI', 'Dragon Star', 'Spirit Star', 'Fire Star', 'Fox Star', 'Space Star', 'Date Night', 'Scuba'
             ];
             // 20 franchises plus historical identities. Abbreviations are inventory
             // conventions; standalone words like Shock, Spark and Fuel are too broad.
@@ -566,7 +585,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 className: 'ac-special-currency'
               },
               {
-                pattern: /\b(?:[\p{L}\p{N}][\p{L}\p{N}'’.-]*(?:\s+(?:(?:&amp;|&)\s+)?)){1,12}Bundle\b/giu,
+                pattern: /\b(?:[\p{L}\p{N}](?:[\p{L}\p{N}'’.-]|&#0?39;|&apos;)*(?:\s+(?:(?:&amp;|&)\s+)?)){1,12}Bundle\b/giu,
                 className: 'ac-special-skin-bundle'
               },
               {
@@ -594,6 +613,8 @@ document.addEventListener("DOMContentLoaded", () => {
               // Complete shop titles such as Gilded Hunter / Owl Guardian must win
               // before the broader Mythic aspect Gilded or the league acronym OWL.
               { pattern: skinNamesPattern(shopSkinNames), className: 'ac-special-skin-shop' },
+              // Short collaboration titles must not recolor hero names or a Mythic title.
+              { pattern: /(?<!\b(?:Junker|Junk)\s+)\bQueen(?![A-Za-z0-9_])|(?<!\bDivine\s+)\bDruid(?![A-Za-z0-9_])|\bSkull(?=\s*(?:Genji\b|Bundle\b|$))/gi, className: 'ac-special-skin-shop' },
               {
                 pattern: /\b(?:Heart\s+of\s+Hope|Tokyo\s+Rebel|Void\s+Dancer|Cyber\s+Demon|Zeus|Amaterasu|Galactic\s+Emperor|Adventurer|A-7000\s+Wargod|Onryō|Grand\s+Beast|Ancient\s+Caller|Vengeance|Calamity\s+Empress|Anubis|Spellbinder|Thor|Pixiu|Horang|Ultraviolet\s+Sentinel|Divine\s+Druid|Cyber\s+Fuel|Divine\s+Desperado|Magma\s+Titan|Celestial\s+Guardian|Hop\s+Online!|Volted\s+Overdrive|Ra|Ascendant\s+Phoenix|World\s+Forger|Bound\s+Demon|Midnight\s+Sun|Deliverance|Lead\s+Rose|Dame\s+Chance|Merciful\s+Magitech|Steel\s+Death|Gilded|Iridescent|Dawn|Blazing\s+Sunsetter|Spirit\s+Keeper|Star\s+Shooter|Sumi-ichimonji|Koi\s+of\s+Duality|Capsule\s+Cannon|Eternal\s+Crystal)(?![A-Za-z0-9_])/gi,
                 className: 'ac-special-skin-mythic'

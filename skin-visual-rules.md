@@ -76,9 +76,9 @@ OW1 SFS 2018 Hanzo/Rein、OW1 TOR(Rein/Hog/Ball/Cass)、OW2 HZS(Echo/Kiri) 等�
 
 参考：[OWL 战队名单](https://overwatch.fandom.com/wiki/Overwatch_League)、[Blizzard OWL 库存公告](https://overwatch.blizzard.com/en-us/news/24096017/complete-your-collection-with-the-overwatch-league-inventory-sale/)、[2023 战队皮肤更新](https://overwatch.blizzard.com/en-us/news/patch-notes/live/2023/03/)。
 
-## 商店／联动／Bundle 皮肤名单：76 个名称 / 别名条目
+## 商店／联动／Bundle 皮肤名单：176 个名称 / 别名条目
 
-名称可能有简写或合写，因此 76 个条目不等于 76 款不同皮肤。这一展示层级也涵盖活动、礼包和系列外观，不代表每款皮肤只可付费取得。
+名称可能有简写或合写，因此 176 个条目不等于 176 款不同皮肤；另有 Queen、Druid、Skull 三条短名上下文规则。这一展示层级也涵盖活动、礼包和系列外观，不代表每款皮肤只可付费取得。
 
 | 来源 / 系列 | 纳入规则的名称 |
 | --- | --- |
@@ -141,6 +141,56 @@ Fandom 正文直连被站点限制；使用可检索的索引摘录交叉核对�
 - [Young Gods / Fleece and Fangs 官方公告](https://news.blizzard.com/en-us/article/24295381/reign-of-talon-season-4-heroes-of-busan-brings-out-the-best)
 
 上述为本次已收集并加入的系列；没有声明穷尽所有历史商店礼包。用户之前列出的 Lunar New Year / Invasion 等完整 Bundle 名称仍由通用 Bundle 规则着色，但不从礼包标题猜测具体皮肤名称。
+
+## 2026-09-13 联动／礼包扩充
+
+本轮新增 100 个数组条目及 Queen / Druid / Skull 上下文匹配。全部沿用商店／Bundle 的玫瑰红→粉色→金色渐变与柔光，不提高为顶级稀有。
+
+| 系列 | 本轮新增名称或别名 |
+| --- | --- |
+| YoRHa | YoRHa、Project YoRHa；2B / 9S / A2 / Commander White / Adam 已有 |
+| LE SSERAFIM | Blue Flame、Fawksey James、LE SSERAFIM Mega（省略 Bundle 的库存写法）；原版及 FEARLESS 已有 |
+| exo-FAUNA | exo-FAUNA、exo-L2PUS（Ashe）、exo-L5O（Brigitte，兼容 L50）、exo-PANT6RA（Vendetta）、exo-URS4（Hazard）、exo-VU7PES（Kiriko） |
+| White Rabbit | White Rabbit、Raging Rabbit（Vendetta）、Bunny Business（Domina）、Siberian Hare（Zarya）、Heavenly Hop（Mercy）、Spacebun（Juno）、Bash Bunny（Brigitte） |
+| Ultrawatch / Lifeguard | Ultrawatch、Lifeguard；系列包含不同获取渠道，不认定全部属于同一个付费礼包 |
+| Masked Mischief | Masked Mischief、Heist、Cyber Oni、Oni；asked Mischief 仅为用户拼写兼容，不修改库存原文 |
+| Witches / Black Cats | Witches、Infernal Witch、Black Cats、Black Cat；Witch 已有。Witches 完整礼包成员尚未核实，不据标题猜测其余成员 |
+| One-Punch Man | One-Punch Man / One Punch Man、Garou、Hellish Blizzard、Mumen Rider |
+| Cowboy Bebop / My Hero Academia | Cowboy Bebop、Ein、My Hero Academia；其他已知成员原有规则保留 |
+| Avatar | Avatar: The Last Airbender、Aang、Appa、Zuko、Toph、Suki、Katara |
+| Gundam Wing | Gundam Wing、Wing Zero / Wing Gundam Zero、Epyon / Gundam Epyon、Deathscythe / Gundam Deathscythe Hell、Tallgeese |
+| G.I. Joe | G.I. Joe、Snake Eyes、Scarlett、Baroness、Cobra Commander、Destro |
+| Persona 5 | Persona 5、Phantom Thieves、Joker、Panther、Fox；Queen / Skull 采用上下文规则 |
+| Diablo | Mephisto、Paladin、Warlock、Rogue、Lilith、Inarius、Imperius、Azmodan、Butcher、Barbarian、Nightraven、Hatred’s Reckoning（兼容直撇号）；Druid 使用上下文规则 |
+| Warcraft | Lich Queen、Devourer、Xal’atath、Blackhand、Sin’dorei、Magni（撇号兼容）；Illidan / Tyrande / Sylvanas 原等级不变 |
+| Naraka（区域限定资料） | Feria Shen、Wei Qing / Shayol Wei、Viper Ning、Yueshan、Wuchen、Scarlet Bride；不表示国际服可获取 |
+| YOASOBI | YOASOBI、Dragon Star、Spirit Star、Fire Star、Fox Star、Space Star |
+| Loverwatch | Date Night、Scuba |
+
+本轮验收包含用户列出的 YoRHa、LE SSERAFIM Ultra / FEARLESS Mega / Mega、exo-FAUNA、White Rabbit、Ultrawatch、Lifeguard、My Hero Academia、Masked Mischief（含 asked 拼写）、Witches、Black Cats 全部礼包用例。
+
+兼容修复：名称中的英文撇号支持 HTML 转义形式；含撇号的完整 Bundle 不再从中途开始着色。Queen 不匹配 Junker Queen / Junk Queen，Druid 不截断 Divine Druid。✨ 空格、换行、货币、武器及既有高等级匹配保持不变。
+
+核对来源（部分来源为商店截图报道或可检索的 Wiki 索引，并非全部官方公告）：
+
+- [LE SSERAFIM 官方返场与 Blue Flame](https://overwatch.blizzard.com/en-us/news/24177860/dale-un-remix-al-ritmo-con-overwatch-2-x-le-sserafim/)
+- [exo-FAUNA 商店记录](https://overwatch.judgehype.com/news/boutique-du-27-janvier-2026-lot-xxl-exo-faune-lot-ashe-exo-l2pus-lot-kiriko-exo-vu7pes-183827/)
+- [White Rabbit 六款皮肤与商店截图](https://esports.gg/guides/overwatch/overwatch-bunny-skins-now-live-for-zarya-domina-vendetta-and-more/)
+- [Ultrawatch / Lifeguard 官方赛季公告](https://overwatch.blizzard.com/en-us/news/24104272/when-the-forces-of-evil-rise-season-11-super-mega-ultrawatch-is-here/)
+- [Masked Mischief 三款皮肤展示](https://www.youtube.com/watch?v=6IBwcbcyEgo)
+- [Witches / Infernal Witch 用户购买记录，非官方名单](https://us.forums.blizzard.com/en/blizzard/t/selling-me-back-a-skin-i-already-purchased-blizz/55396)
+- [Black Cats 礼包实测](https://www.wakanosekai.com.br/2024/12/overwatch-2-conferindo-o-pacote-black-cats.html)
+- [One-Punch Man 第二轮官方公告](https://news.blizzard.com/en-gb/article/24223313/one-punch-man-x-overwatch-2)
+- [Avatar 官方公告](https://news.blizzard.com/en-us/article/24165460/overwatch-2-x-avatar-the-last-airbender-collab)
+- [Gundam 官方合作方公告](https://www.bandainamcoent.com/news/gundam-wing-marks-30th-anniversary-celebrations-with-overwatch-2-collaboration)
+- [G.I. Joe 官方公告](https://overwatch.blizzard.com/en-us/news/24204897/)
+- [Persona 五款实际礼包](https://dotesports.com/overwatch/news/overwatch-2-persona-5-phantom-thieves-skins)
+- [Diablo 官方名单](https://news.blizzard.com/en-us/article/24266709/overwatch-x-hatreds-reckoning)
+- [跨系列名称交叉核对](https://esports.gg/news/overwatch/all-overwatch-2-collaborations-and-crossover-skins/)
+- [YOASOBI 六款名称资料](https://www.cravingtech.com/overwatch-x-yoasobi-collaboration.html)
+- [Wiki 主题索引：区域限定及历史联动](https://overwatch.fandom.com/wiki/Themed_skins)
+
+范围说明：本轮扩充已核实的名称与用户指定标题，不声称穷尽所有历史 Bundle。未来未知的完整 xxx Bundle 仍由通用规则着色，但不会凭标题自动推断内含皮肤。
 
 ## 货币效果
 
