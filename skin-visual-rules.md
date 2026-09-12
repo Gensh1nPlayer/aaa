@@ -76,9 +76,11 @@ OW1 SFS 2018 Hanzo/Rein、OW1 TOR(Rein/Hog/Ball/Cass)、OW2 HZS(Echo/Kiri) 等�
 
 参考：[OWL 战队名单](https://overwatch.fandom.com/wiki/Overwatch_League)、[Blizzard OWL 库存公告](https://overwatch.blizzard.com/en-us/news/24096017/complete-your-collection-with-the-overwatch-league-inventory-sale/)、[2023 战队皮肤更新](https://overwatch.blizzard.com/en-us/news/patch-notes/live/2023/03/)。
 
-## 商店／联动／Bundle 皮肤名单：176 个名称 / 别名条目
+## 商店／联动／Bundle 皮肤名单：179 个名称 / 别名条目
 
-名称可能有简写或合写，因此 176 个条目不等于 176 款不同皮肤；另有 Queen、Druid、Skull 三条短名上下文规则。这一展示层级也涵盖活动、礼包和系列外观，不代表每款皮肤只可付费取得。
+名称可能有简写或合写，因此 179 个条目不等于 179 款不同皮肤；另有 Queen、Druid、Skull 三条短名上下文规则。这一展示层级也涵盖活动、礼包和系列外观，不代表每款皮肤只可付费取得。
+
+用户指定补充：Cupid、Cupid Bundles、Charming。覆盖 `Cupid Bundles`、`Cupid Kiriko Bundle`、`Cupid Juno Bundle`、`Charming Soldier: 76`，沿用商店／Bundle 的玫瑰红→粉色→金色渐变和柔光。此处按用户提供的名称配置，不代表新增官方稀有度或可购状态认定。
 
 | 来源 / 系列 | 纳入规则的名称 |
 | --- | --- |
@@ -191,6 +193,12 @@ Fandom 正文直连被站点限制；使用可检索的索引摘录交叉核对�
 - [Wiki 主题索引：区域限定及历史联动](https://overwatch.fandom.com/wiki/Themed_skins)
 
 范围说明：本轮扩充已核实的名称与用户指定标题，不声称穷尽所有历史 Bundle。未来未知的完整 xxx Bundle 仍由通用规则着色，但不会凭标题自动推断内含皮肤。
+
+## 用户确认的联赛简称
+
+- `OWCS`：Overwatch Champions Series，保留赛事简称；不是 Overwatch Chainpainship。
+- `OW1 League`：用户确认指 OW1 联赛灰／白皮肤，库存统一为 `OW1 League Gray/White`，保留后面的英雄列表。
+- 此确认只适用于 OW1 League 描述，不自动更改 OWL1/2、战队皮肤或 OWCS 年份。
 
 ## 货币效果
 
