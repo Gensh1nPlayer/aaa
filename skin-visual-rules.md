@@ -76,9 +76,11 @@ OW1 SFS 2018 Hanzo/Rein、OW1 TOR(Rein/Hog/Ball/Cass)、OW2 HZS(Echo/Kiri) 等�
 
 参考：[OWL 战队名单](https://overwatch.fandom.com/wiki/Overwatch_League)、[Blizzard OWL 库存公告](https://overwatch.blizzard.com/en-us/news/24096017/complete-your-collection-with-the-overwatch-league-inventory-sale/)、[2023 战队皮肤更新](https://overwatch.blizzard.com/en-us/news/patch-notes/live/2023/03/)。
 
-## 商店／联动／Bundle 皮肤名单：179 个名称 / 别名条目
+## 商店／联动／Bundle 皮肤名单：181 个名称 / 别名条目
 
-名称可能有简写或合写，因此 179 个条目不等于 179 款不同皮肤；另有 Queen、Druid、Skull 三条短名上下文规则。这一展示层级也涵盖活动、礼包和系列外观，不代表每款皮肤只可付费取得。
+名称可能有简写或合写，因此 181 个条目不等于 181 款不同皮肤；另有 Queen、Druid、Skull 三条短名上下文规则。这一展示层级也涵盖活动、礼包和系列外观，不代表每款皮肤只可付费取得。
+
+用户指定新增：`10-Years Cheers`、`Comic Book`，采用商店／联动渐变柔光；支持单独名称及后接 Tracer 等英雄名，不作官方获取渠道认定。
 
 用户指定补充：Cupid、Cupid Bundles、Charming。覆盖 `Cupid Bundles`、`Cupid Kiriko Bundle`、`Cupid Juno Bundle`、`Charming Soldier: 76`，沿用商店／Bundle 的玫瑰红→粉色→金色渐变和柔光。此处按用户提供的名称配置，不代表新增官方稀有度或可购状态认定。
 

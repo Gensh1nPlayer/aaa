@@ -543,7 +543,7 @@ document.addEventListener("DOMContentLoaded", () => {
               'Izanami', 'Sekhmet', 'Nezha', 'Artemis', 'Shango', 'Fancy Fleece', 'Fancy Fangs',
               'Street Rebel',
               // User-requested Cupid collection and Charming Soldier: 76.
-              'Cupid', 'Cupid Bundles', 'Charming',
+              'Cupid', 'Cupid Bundles', 'Charming', '10-Years Cheers', 'Comic Book',
               // Collection titles and individual skins; visual grouping is not a claim of exclusivity.
               'YoRHa', 'Project YoRHa', 'LE SSERAFIM Mega', 'Blue Flame', 'Fawksey James',
               'exo-FAUNA', 'exo-L2PUS', 'exo-L5O', 'exo-L50', 'exo-PANT6RA', 'exo-URS4', 'exo-VU7PES',
