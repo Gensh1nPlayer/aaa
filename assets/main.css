@@ -618,14 +618,9 @@
       text-shadow: 0 0 4px rgba(248, 213, 139, 0.38), 0 0 9px rgba(245, 158, 11, 0.2);
     }
     .ac-special-skin-esports {
-      color: #93ddea;
-      font-weight: 500;
-      text-shadow: 0 0 5px rgba(103, 232, 249, 0.32);
-    }
-    .ac-special-skin-shop {
-      color: #c7b9ed;
-      font-weight: 400;
-      text-shadow: 0 0 5px rgba(183, 156, 235, 0.24);
+      color: #a5efff;
+      font-weight: 650;
+      text-shadow: 0 0 3px rgba(103, 232, 249, 0.6), 0 0 9px rgba(56, 189, 248, 0.38);
     }
     .ac-special-skin-collector {
       background: linear-gradient(90deg, #ffb454, #ff6b6b 52%, #ff8fd1);
@@ -636,35 +631,18 @@
       font-weight: var(--ac-weight-label);
       text-shadow: 0 0 10px rgba(255, 107, 107, 0.28);
     }
-    .ac-special-skin-pink {
-      color: #ff8fd1;
-    }
-    .ac-special-skin-bundle {
-      color: #d3c3ff;
-      font-weight: 500;
-      text-shadow: 0 0 4px rgba(196, 181, 253, 0.42), 0 0 9px rgba(167, 139, 250, 0.25);
-    }
-    .ac-special-skin-gold {
-      color: #facc15;
-      font-weight: 600;
-      text-shadow: 0 0 11px rgba(250, 204, 21, 0.38);
-    }
-    .ac-special-skin-hope {
-      background: linear-gradient(90deg, #fb7185, #f9a8d4, #facc15);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-shadow: 0 0 12px rgba(251, 113, 133, 0.25);
-    }
-    .ac-special-skin-mythic {
-      background: linear-gradient(100deg, #f5b5ff, #c4b5fd 48%, #91edff);
+    /* One visual palette for Mythics, shop skins and complete bundles. */
+    .ac-special-skin-mythic,
+    .ac-special-skin-shop,
+    .ac-special-skin-bundle,
+    .ac-special-currency {
+      background: linear-gradient(90deg, #fb7185, #f9a8d4 50%, #facc15);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
       -webkit-text-fill-color: transparent;
       font-weight: 600;
-      text-shadow: 0 0 3px rgba(213, 180, 255, 0.5), 0 0 8px rgba(167, 139, 250, 0.46);
-      filter: drop-shadow(0 0 2px rgba(167, 139, 250, 0.25));
+      text-shadow: 0 0 4px rgba(251, 113, 133, 0.38), 0 0 10px rgba(249, 168, 212, 0.25);
     }
     .ac-special-weapon-nerf-gelfire,
     .ac-special-weapon-hard-light,
@@ -709,10 +687,10 @@
       color: #67e8f9;
       font-weight: 600;
     }
-    .ac-skin-category.ac-special-skin-esports { color: #93ddea; }
+    .ac-skin-category.ac-special-skin-esports { color: #a5efff; font-weight: 650; }
     /* Static glow preserves wrapping and avoids per-skin animation cost on mobile. */
     @media (forced-colors: active) {
-      .ac-special-skin, .ac-skin-category {
+      .ac-special-skin, .ac-skin-category, .ac-special-currency {
         background: none;
         color: CanvasText;
         -webkit-text-fill-color: currentColor;
@@ -766,8 +744,7 @@
     .ac-highlight-rank-master { color: #ef4444; }
     .ac-color-purple { color: #c084fc; }
     .ac-color-pink,
-    .ac-color-pink-strong,
-    .ac-highlight-mythic-prisms { color: #F379F3; }
+    .ac-color-pink-strong { color: #F379F3; }
     .ac-color-pink-strong { font-weight: 800; }
     .ac-color-pink-soft { color: #f472b6; }
     .ac-color-blue { color: #60a5fa; }
@@ -805,7 +782,6 @@
     }
     .ac-highlight-rank-master { font-weight: 800; text-shadow: 0 0 8px rgba(239, 68, 68, 0.35); }
     .ac-rank-ready { font-weight: 900; text-shadow: 0 0 9px rgba(74, 222, 128, 0.35); }
-    .ac-highlight-mythic-prisms { font-weight: 800; text-shadow: 0 0 8px rgba(243, 121, 243, 0.35); }
     .ac-availability-yes { font-weight: var(--ac-weight-label); }
     .ac-availability-no { color: #fb7185; font-weight: var(--ac-weight-label); }
     .ac-utility-actions { display: grid; grid-template-columns: 1fr; gap: 9px; }
@@ -1050,7 +1026,6 @@
       }
       #bg-canvas { display: none; }
     }
-
 
     /* Inventory UX optimization: key facts, collapsible highlights, reset chips and mobile filter drawer */
     .accounts-toolbar {
@@ -1439,11 +1414,6 @@
     }
     .ac-resource-value-critical {
       color: #F379F3;
-      text-shadow: 0 0 8px rgba(243, 121, 243, 0.35);
-    }
-    .ac-keyfact-value.ac-highlight-mythic-prisms {
-      color: #F379F3;
-      font-weight: 800;
       text-shadow: 0 0 8px rgba(243, 121, 243, 0.35);
     }
     .ac-keyfact.is-positive {

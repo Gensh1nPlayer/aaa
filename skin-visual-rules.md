@@ -1,6 +1,6 @@
 # 皮肤视觉分级与名称规则
 
-核对日期：2026-09-06。以 GitHub 的 assets/main.js、assets/main.css 为实际规则来源。
+核对日期：2026-09-12。以 GitHub 的 assets/main.js、assets/main.css 为实际规则来源。
 
 这是 Roshine 的展示层级，不是 Blizzard 的官方稀有度分类；也不表示某皮肤目前绝版或只能付费取得。商店名单是已核实的首批名单，不是全游戏所有历史付费皮肤的穷尽清单。未确认名字保留普通样式。
 
@@ -10,13 +10,12 @@
 | --- | --- | --- | --- |
 | 顶级收藏 | 珊瑚红 #ff8295 | 800 / 1.06em | 最明显的双层红光 |
 | 次级稀有 | 暖金 #f8d58b | 600 / 原字号 | 中等金色柔光 |
-| Midas | 亮金 #facc15 | 600 / 原字号 | 保留专属金光 |
-| 联赛、战队 | 冰蓝 #93ddea | 500 / 原字号 | 轻量冰蓝光 |
-| 已核实的商店皮肤 | 淡紫 #c7b9ed | 400 / 原字号 | 轻量紫光 |
-| 普通 Bundle | 薰衣草紫 #d3c3ff | 500 / 原字号 | 双层柔光 |
-| Mythic | 粉紫 → 浅紫 → 冰青渐变 | 600 / 原字号 | 增强文字柔光及微弱投影 |
+| 联赛、战队 | 亮冰蓝 #a5efff | 650 / 原字号 | 增强双层冰蓝柔光 |
+| 商店／联动／普通 Bundle | 玫瑰红 → 粉色 → 金色渐变 | 600 / 原字号 | 双层粉红柔光 |
+| Mythic | 与商店／Bundle 共用上述渐变 | 600 / 原字号 | 双层粉红柔光 |
+| OWL Tokens / Mythic Prisms | 与上述渐变一致 | 600 / 原字号 | 数值与名称一起着色 |
 
-保留 Noire / Demon Hunter 的既有收藏配色、Heart of Hope 与武器的专属色。
+保留 Noire / Demon Hunter 的既有收藏配色；Midas 并入次级稀有，Heart of Hope 并入 Mythic。Nerf Sungerang / Slingerang Weapon 与 Nerf Gelfire Pro Weapon 共用黄橙红蓝渐变。
 效果为静态柔光，支持正常换行，不新增循环动画。高对比度系统模式回退到实色文字。
 
 ## 顶级收藏
@@ -73,13 +72,13 @@ OW1 SFS 2018 Hanzo/Rein、OW1 TOR(Rein/Hog/Ball/Cass)、OW2 HZS(Echo/Kiri) 等�
 
 赛事标识：OWL、OWCS、OWWC、Contenders，以及完整英文名称。
 栏目标签：OWL Collection、OW1 Team Skin、OW1 League White/Gray Skins 等。
-英雄名仍保持普通文字。Owl Guardian 按完整商店皮肤名处理，不误判为 OWL；OWL Tokens 保持货币规则。
+英雄名仍保持普通文字。Owl Guardian 按完整商店皮肤名处理，不误判为 OWL；OWL Tokens 在赛事缩写之前匹配，并包含前面的金额。
 
 参考：[OWL 战队名单](https://overwatch.fandom.com/wiki/Overwatch_League)、[Blizzard OWL 库存公告](https://overwatch.blizzard.com/en-us/news/24096017/complete-your-collection-with-the-overwatch-league-inventory-sale/)、[2023 战队皮肤更新](https://overwatch.blizzard.com/en-us/news/patch-notes/live/2023/03/)。
 
-## 首批商店皮肤名单：49 个名称 / 别名条目
+## 商店／联动／Bundle 皮肤名单：76 个名称 / 别名条目
 
-名称可能有简写或合写，因此 49 个条目不等于 49 款不同皮肤。
+名称可能有简写或合写，因此 76 个条目不等于 76 款不同皮肤。这一展示层级也涵盖活动、礼包和系列外观，不代表每款皮肤只可付费取得。
 
 | 来源 / 系列 | 纳入规则的名称 |
 | --- | --- |
@@ -113,11 +112,48 @@ Gilded Hunter 先于 Gilded 匹配，不套用神话外观样式。
 
 Fandom 正文直连被站点限制；使用可检索的索引摘录交叉核对，未声称完整抓取全部皮肤资料。
 
+## 2026-09-12 新增名单及来源
+
+神话补充：
+- Tokyo Rebel（Hanzo）：[官方 Season 3 公告](https://overwatch.blizzard.com/en-us/news/24271881/)。
+- Void Dancer（Widowmaker）：官方 @PlayOverwatch 发布文案的[可检索镜像](https://www.sotwe.com/playoverwatch)，并与 [Blizzard Steam 新神话礼包（9 月 8 日）](https://store.steampowered.com/app/4815800/)交叉核对。官方新闻正文抓取未成功，不声称已完整读取该篇公告。
+- Heart of Hope（Juno）：本次由专属样式迁入神话规则。
+- Koi of Duality、Eternal Crystal 已存在，依据[官方 Season 4 公告](https://news.blizzard.com/en-us/article/24295381/reign-of-talon-season-4-heroes-of-busan-brings-out-the-best)保留。
+
+新增 27 个商店／Bundle 名称及别名：
+| 系列 | 新增匹配名称 | 对应英雄或范围 |
+| --- | --- | --- |
+| Hello Kitty and Friends | Hello Kitty、Cinnamoroll、Pompompurin、My Melody、Kuromi、Keroppi | Juno、Kiriko、Mercy、D.Va、Widowmaker、Lúcio |
+| Nyan Café | Nyan Café、Nyan Cafe（无重音别名） | Orisa、Reaper、Ashe、Kiriko、Sierra |
+| Formalwear | Formalwear、Heir、Evening Wear | Formalwear Mercy、Heir Hanzo、Evening Wear Tracer；同时兼容其他 Formalwear 系列名称 |
+| Project YoRHa | 2B、9S、A2、Commander White、Adam | Kiriko、Wuyang、Vendetta、Mercy、Lifeweaver |
+| Young Gods | Izanami、Sekhmet、Nezha、Artemis、Shango | Kiriko、Jetpack Cat、Wuyang、Freja、Doomfist |
+| Fleece and Fangs | Fancy Fleece、Fancy Fangs | Juno / Mei / Hanzo；Reaper / Vendetta / Mercy |
+| Street Rebels | Street Rebel | 系列名称 |
+| 已有用户礼包用例 | Poolside、Witch、FEARLESS | 不带 Bundle 后缀时也识别 |
+
+资料：
+- [Hello Kitty 官方联动公告](https://overwatch.blizzard.com/en-us/news/24244456/amicizia-ma-eroica-grazie-a-overwatch-x-hello-kitty-friends/)
+- [Nyan Café / Street Rebels 官方公告](https://overwatch.blizzard.com/en-us/news/24271881/)
+- [Project YoRHa 官方公告（德语）](https://news.blizzard.com/de-de/article/24266704/die-mitte-von-saison-1-setzt-eure-eroberung-der-neuen-aera-fort)
+- [Formalwear 官方冬季活动公告](https://overwatch.blizzard.com/en-us/news/24033785/a-flurry-of-fun-returns-to-overwatch-2-winter-wonderland-begins-december-19/)
+- [Formalwear Mega Bundle 具体内容核对](https://esportsinsider.com/overwatch-2-formalwear-mega-bundle-details)
+- [Young Gods / Fleece and Fangs 官方公告](https://news.blizzard.com/en-us/article/24295381/reign-of-talon-season-4-heroes-of-busan-brings-out-the-best)
+
+上述为本次已收集并加入的系列；没有声明穷尽所有历史商店礼包。用户之前列出的 Lunar New Year / Invasion 等完整 Bundle 名称仍由通用 Bundle 规则着色，但不从礼包标题猜测具体皮肤名称。
+
+## 货币效果
+
+- 数值和货币名一起匹配，如 `2,100 OWL Tokens`、`80 Mythic Prisms`。
+- 支持普通数值、逗号千分位、空格／不换行空格千分位；保留原始文字格式。
+- 卡片的 Mythic Prisms 独立栏也使用相同彩色效果，所有正数均着色；原先大于 50 的粉色条件由本次规则取代。
+- 所有语言共用颜色样式；独立栏目继续显示已有翻译。
+
 ## 匹配与维护
 
 - 特殊名字优先于普通短词；同组内优先匹配较长名称。
 - Bundle 作为完整名称匹配，支持小写、Café 等重音字母、Mega / Ultra 和 and / &。
-- Bundle 命中更高等级皮肤时整体沿用该等级，避免一段名称产生互相嵌套的颜色。
+- Bundle 命中更高等级皮肤时整体沿用该等级，避免一段名称产生互相嵌套的颜色。优先顺序：ultra-rare → collector → rare → mythic → esports → shop；普通 Bundle 与 shop 共用视觉样式。
 - 分隔符支持英文、中文逗号及分号，保留原始标点。
 - 保护 Soldier: 76 中的冒号，不将其识别为栏目标题。
 - 保留 ✨ 后空格、库存中的换行及原有皮肤拼写。

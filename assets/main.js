@@ -515,7 +515,7 @@ document.addEventListener("DOMContentLoaded", () => {
               .map(name => name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\s+/g, '\\s+')).join('|');
             const skinNamesPattern = names => new RegExp(`\\b(?:${skinNamesSource(names)})(?![A-Za-z0-9_])`, 'gi');
             const rareSkinNames = [
-              'Ange de la Mort', 'Pirate Ship', 'Dallas Happi', 'Shanghai Happi', 'Happi',
+              'Midas', 'Ange de la Mort', 'Pirate Ship', 'Dallas Happi', 'Shanghai Happi', 'Happi',
               'Dallas Summer', 'Shanghai Summer', 'Rock Climber', 'Chained King',
               'Wicked Reign', 'Wicked', 'Tiger Luchador', 'Lion Luchador', 'Luchador',
               'Royal Gladiator', 'Royal Knight', 'Clockwork', 'Thunder', 'Flying Ace',
@@ -534,7 +534,13 @@ document.addEventListener("DOMContentLoaded", () => {
               'ANTIFRAGILE Dazzle', 'ANTIFRAGILE Traysi', 'ANTIFRAGILE Kira-Kira',
               'ANTIFRAGILE BB', 'ANTIFRAGILE Slay Star', 'LE SSERAFIM FEARLESS', 'LE SSERAFIM',
               'Cardboard', 'Turtleship', 'Turtle Ship', 'Cyberdragon', 'Cyber Dragon',
-              'Street Runner', 'Honey Bee', 'Cleric', 'Beach Rescue', 'Owl Guardian', 'Gilded Hunter'
+              'Street Runner', 'Honey Bee', 'Cleric', 'Beach Rescue', 'Owl Guardian', 'Gilded Hunter',
+              // Bundle collection names verified in the source notes (2026-09-12).
+              'Hello Kitty', 'Cinnamoroll', 'Pompompurin', 'My Melody', 'Kuromi', 'Keroppi',
+              'Nyan Café', 'Nyan Cafe', 'Formalwear', 'Heir', 'Evening Wear', 'Poolside', 'Witch', 'FEARLESS',
+              '2B', '9S', 'A2', 'Commander White', 'Adam',
+              'Izanami', 'Sekhmet', 'Nezha', 'Artemis', 'Shango', 'Fancy Fleece', 'Fancy Fangs',
+              'Street Rebel'
             ];
             // 20 franchises plus historical identities. Abbreviations are inventory
             // conventions; standalone words like Shock, Spark and Fuel are too broad.
@@ -554,6 +560,11 @@ document.addEventListener("DOMContentLoaded", () => {
             const esportsAliasPattern = new RegExp(
               `\\b(?:OW[12]\\s+)?(?:${skinNamesSource(owlTeamNames.filter(name => !name.includes(' ')))})(?:\\s+20\\d{2})?(?![A-Za-z0-9_])`, 'g');
             const specialSkinRules = [
+              {
+                // Protect the amount and currency together, before league names.
+                pattern: /\b(?:\d+(?:[,\u00a0\u202f ]\d{3})*(?:\.\d+)?\s+)?(?:OWL\s+Tokens?|Mythic\s+Prisms?)(?![A-Za-z0-9_])/gi,
+                className: 'ac-special-currency'
+              },
               {
                 pattern: /\b(?:[\p{L}\p{N}][\p{L}\p{N}'’.-]*(?:\s+(?:(?:&amp;|&)\s+)?)){1,12}Bundle\b/giu,
                 className: 'ac-special-skin-bundle'
@@ -577,20 +588,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 pattern: /\b(?:(?:20\d{2}\s+)?(?:Atlantic|Pacific)\s+All[-\s]+Stars?|All[-\s]+Stars)(?:\s+Skins?)?(?![A-Za-z0-9_])/gi,
                 className: 'ac-special-skin-rare'
               },
-              { pattern: /\bNerf\s+Gelfire\s+Pro\s+Weapon\b/gi, className: 'ac-special-weapon-nerf-gelfire' },
+              { pattern: /\bNerf\s+(?:Gelfire\s+Pro|Sungerang|Slingerang)(?:\s+Weapon)?\b/gi, className: 'ac-special-weapon-nerf-gelfire' },
               { pattern: /\bHard\s+Light\s+Weapon\b/gi, className: 'ac-special-weapon-hard-light' },
               { pattern: /\bLos\s+Muertos\s+Weapon\b/gi, className: 'ac-special-weapon-los-muertos' },
-              {
-                pattern: /\b(?:Nerf\s+Sungerang\s+Weapon|OWL\s+Tokens|Mythic\s+Prisms)(?![A-Za-z0-9_])/gi,
-                className: 'ac-special-skin-pink'
-              },
-              { pattern: /\bMidas(?![A-Za-z0-9_])/gi, className: 'ac-special-skin-gold' },
-              { pattern: /\bHeart\s+of\s+Hope(?![A-Za-z0-9_])/gi, className: 'ac-special-skin-hope' },
               // Complete shop titles such as Gilded Hunter / Owl Guardian must win
               // before the broader Mythic aspect Gilded or the league acronym OWL.
               { pattern: skinNamesPattern(shopSkinNames), className: 'ac-special-skin-shop' },
               {
-                pattern: /\b(?:Cyber\s+Demon|Zeus|Amaterasu|Galactic\s+Emperor|Adventurer|A-7000\s+Wargod|Onryō|Grand\s+Beast|Ancient\s+Caller|Vengeance|Calamity\s+Empress|Anubis|Spellbinder|Thor|Pixiu|Horang|Ultraviolet\s+Sentinel|Divine\s+Druid|Cyber\s+Fuel|Divine\s+Desperado|Magma\s+Titan|Celestial\s+Guardian|Hop\s+Online!|Volted\s+Overdrive|Ra|Ascendant\s+Phoenix|World\s+Forger|Bound\s+Demon|Midnight\s+Sun|Deliverance|Lead\s+Rose|Dame\s+Chance|Merciful\s+Magitech|Steel\s+Death|Gilded|Iridescent|Dawn|Blazing\s+Sunsetter|Spirit\s+Keeper|Star\s+Shooter|Sumi-ichimonji|Koi\s+of\s+Duality|Capsule\s+Cannon|Eternal\s+Crystal)(?![A-Za-z0-9_])/gi,
+                pattern: /\b(?:Heart\s+of\s+Hope|Tokyo\s+Rebel|Void\s+Dancer|Cyber\s+Demon|Zeus|Amaterasu|Galactic\s+Emperor|Adventurer|A-7000\s+Wargod|Onryō|Grand\s+Beast|Ancient\s+Caller|Vengeance|Calamity\s+Empress|Anubis|Spellbinder|Thor|Pixiu|Horang|Ultraviolet\s+Sentinel|Divine\s+Druid|Cyber\s+Fuel|Divine\s+Desperado|Magma\s+Titan|Celestial\s+Guardian|Hop\s+Online!|Volted\s+Overdrive|Ra|Ascendant\s+Phoenix|World\s+Forger|Bound\s+Demon|Midnight\s+Sun|Deliverance|Lead\s+Rose|Dame\s+Chance|Merciful\s+Magitech|Steel\s+Death|Gilded|Iridescent|Dawn|Blazing\s+Sunsetter|Spirit\s+Keeper|Star\s+Shooter|Sumi-ichimonji|Koi\s+of\s+Duality|Capsule\s+Cannon|Eternal\s+Crystal)(?![A-Za-z0-9_])/gi,
                 className: 'ac-special-skin-mythic'
               },
               { pattern: esportsSkinPattern, className: 'ac-special-skin-esports' },
@@ -603,7 +608,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Keep a bundle in one span, inheriting its strongest configured tier.
             function skinMatchClass(rule, match) {
               if (rule.className !== 'ac-special-skin-bundle') return rule.className;
-              const tierOrder = ['ultra-rare', 'collector', 'rare', 'gold', 'mythic', 'hope', 'esports', 'shop'];
+              const tierOrder = ['ultra-rare', 'collector', 'rare', 'mythic', 'esports', 'shop'];
               for (const tier of tierOrder) {
                 const className = `ac-special-skin-${tier}`;
                 if (specialSkinRules.some(candidate => candidate.className === className &&
@@ -998,9 +1003,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const rankText = String(rank || '').trim();
             const rankFact = rankText ? highlightRankText(rankText) : '—';
-            const mythicPrismsValueClass = mythicPrismsAmount > 50 ? ' ac-highlight-mythic-prisms' : '';
             const prismsFact = mythicPrismsAmount > 0
-              ? `<div class="ac-keyfact is-premium"><span class="ac-keyfact-label">${ui.mythicPrisms}</span><span class="ac-keyfact-value${mythicPrismsValueClass}">${numberFormatter.format(mythicPrismsAmount)}</span></div>`
+              ? `<div class="ac-keyfact is-premium"><span class="ac-keyfact-label"><span class="ac-special-currency">${ui.mythicPrisms}</span></span><span class="ac-keyfact-value"><span class="ac-special-currency">${numberFormatter.format(mythicPrismsAmount)}</span></span></div>`
               : '';
 
             const card = document.createElement('div');
