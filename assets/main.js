@@ -544,6 +544,10 @@ document.addEventListener("DOMContentLoaded", () => {
               'Street Rebel',
               // User-requested Cupid collection and Charming Soldier: 76.
               'Cupid', 'Cupid Bundles', 'Charming', '10-Years Cheers', 'Comic Book',
+              // User-selected visual group; not a claim of official collaboration rarity.
+              'Cyber Detective', 'Hashimoto', 'Music Festival', 'Archangel', 'Yatagarasu',
+              'Water Warrior', 'Bai Ze', 'Inari', 'Sea Soldier', 'Azure Drake',
+              '8-Bit', 'Vigilante', 'Lucky Lioness',
               'Blizzard Mythic Gift', 'Blizzard Mythic Gift — Choose 1 Mythic Skin',
               // Collection titles and individual skins; visual grouping is not a claim of exclusivity.
               'YoRHa', 'Project YoRHa', 'LE SSERAFIM Mega', 'Blue Flame', 'Fawksey James',
@@ -658,15 +662,15 @@ document.addEventListener("DOMContentLoaded", () => {
               { pattern: /Grandmaster/g, className: 'ac-color-pink' },
               { pattern: /Master/g, className: 'ac-color-pink' },
               { pattern: /Comic Book/g, className: 'ac-color-pink' },
-              { pattern: /Endorsement Level 4/g, className: 'ac-color-pink' },
-              { pattern: /Endorsement Level 5/g, className: 'ac-color-pink-strong' },
+              { pattern: /\bEndorsement Lv\. 2\b/g, className: 'ac-endorsement-2' },
+              { pattern: /\bEndorsement Lv\. 3\b/g, className: 'ac-endorsement-3' },
+              { pattern: /\bEndorsement Lv\. 4\b/g, className: 'ac-endorsement-4' },
+              { pattern: /\bEndorsement Lv\. 5\b/g, className: 'ac-endorsement-5' },
               { pattern: /D\.VA/g, className: 'ac-color-blue' },
               { pattern: /\bGolden\b/gi, className: 'ac-weapon-golden' },
               { pattern: /OW1 - Season/g, className: 'ac-color-gold' },
               { pattern: /Competitor/g, className: 'ac-color-gold' },
               { pattern: /\bJade\b/gi, className: 'ac-weapon-jade' },
-              { pattern: /Endorsement Level 2/g, className: 'ac-color-green-bright' },
-              { pattern: /Endorsement Level 3/g, className: 'ac-color-green-bright' },
               { pattern: /DPS Main/g, className: 'ac-color-green' },
               { pattern: /Sup Main/g, className: 'ac-color-green' },
               { pattern: /Tank Main/g, className: 'ac-color-green' }
@@ -698,6 +702,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
               // Normalize aliases before applying color classes.
               res = res.replace(/Support Main/g, 'Sup Main');
+              res = res.replace(/\bEndorsement\s+(?:Level|Lv\.?)\s*([1-5])(?![\w.])/gi, 'Endorsement Lv. $1');
               const protectedColorSpans = [];
               sharedColorRules.forEach(({ pattern, className }) => {
                 res = res.replace(pattern, match => {
@@ -929,6 +934,12 @@ document.addEventListener("DOMContentLoaded", () => {
               // Pink Mercy is a complete skin name, not the adjective "Pink"
               // followed by the hero name "Mercy". Handle it before hero parsing.
               if (/\b(?:Pink|Rose\s+Gold)\s+Mercy\b/i.test(item) || /\bBundle\b/i.test(item)) return styleSkinName(item);
+
+              // "Soldier" belongs to this skin title, not a Soldier: 76 hero suffix.
+              const seaSoldier = item.match(/^(Sea\s+Soldier)(?:\s+(.+))?$/i);
+              if (seaSoldier && (!seaSoldier[2] || heroSequenceRegex.test(seaSoldier[2]))) {
+                return styleSkinName(seaSoldier[1]) + (seaSoldier[2] ? ' ' + escapeAccountText(seaSoldier[2]) : '');
+              }
 
               // A pure hero name or hero list stays in the regular text style.
               if (heroSequenceRegex.test(item)) return escapeAccountText(item);

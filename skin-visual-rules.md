@@ -1,5 +1,15 @@
 # 皮肤视觉分级与名称规则
 
+## 2026-09-14 补充
+
+商店／联动视觉组新增：Cyber Detective、Hashimoto、Music Festival、Archangel、
+Yatagarasu、Water Warrior、Bai Ze、Inari、Sea Soldier、Azure Drake、8-Bit、
+Vigilante、Lucky Lioness。沿用该组渐变柔光；属于用户指定的视觉分组，不代表官方联动归类。
+
+Endorsement 统一显示为 Endorsement Lv.，兼容旧 Level 写法。
+Lv. 2 使用低强度灰绿无光；Lv. 3 绿色柔光；Lv. 4 粉色加强柔光；
+Lv. 5 静态彩虹渐变柔光。字号保持与正文一致，不使用闪烁动画。
+
 核对日期：2026-09-12。以 GitHub 的 assets/main.js、assets/main.css 为实际规则来源。
 
 这是 Roshine 的展示层级，不是 Blizzard 的官方稀有度分类；也不表示某皮肤目前绝版或只能付费取得。商店名单是已核实的首批名单，不是全游戏所有历史付费皮肤的穷尽清单。未确认名字保留普通样式。
