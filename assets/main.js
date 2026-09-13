@@ -544,6 +544,7 @@ document.addEventListener("DOMContentLoaded", () => {
               'Street Rebel',
               // User-requested Cupid collection and Charming Soldier: 76.
               'Cupid', 'Cupid Bundles', 'Charming', '10-Years Cheers', 'Comic Book',
+              'Blizzard Mythic Gift', 'Blizzard Mythic Gift — Choose 1 Mythic Skin',
               // Collection titles and individual skins; visual grouping is not a claim of exclusivity.
               'YoRHa', 'Project YoRHa', 'LE SSERAFIM Mega', 'Blue Flame', 'Fawksey James',
               'exo-FAUNA', 'exo-L2PUS', 'exo-L5O', 'exo-L50', 'exo-PANT6RA', 'exo-URS4', 'exo-VU7PES',

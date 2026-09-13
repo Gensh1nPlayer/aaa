@@ -76,9 +76,11 @@ OW1 SFS 2018 Hanzo/Rein、OW1 TOR(Rein/Hog/Ball/Cass)、OW2 HZS(Echo/Kiri) 等�
 
 参考：[OWL 战队名单](https://overwatch.fandom.com/wiki/Overwatch_League)、[Blizzard OWL 库存公告](https://overwatch.blizzard.com/en-us/news/24096017/complete-your-collection-with-the-overwatch-league-inventory-sale/)、[2023 战队皮肤更新](https://overwatch.blizzard.com/en-us/news/patch-notes/live/2023/03/)。
 
-## 商店／联动／Bundle 皮肤名单：181 个名称 / 别名条目
+## 商店／联动／Bundle 皮肤名单：183 个名称 / 别名条目
 
-名称可能有简写或合写，因此 181 个条目不等于 181 款不同皮肤；另有 Queen、Druid、Skull 三条短名上下文规则。这一展示层级也涵盖活动、礼包和系列外观，不代表每款皮肤只可付费取得。
+名称可能有简写或合写，因此 183 个条目不等于 183 款不同皮肤；另有 Queen、Druid、Skull 三条短名上下文规则。这一展示层级也涵盖活动、礼包和系列外观，不代表每款皮肤只可付费取得。
+
+用户确认的可兑换权益：`Blizzard Mythic Gift`。推荐完整展示文案：`Blizzard Mythic Gift — Choose 1 Mythic Skin`。两种写法均采用商店／联动渐变柔光，完整展示文案整体高亮。此条为可兑换权益，不是已拥有的具体皮肤；实际兑换范围以权益说明为准，不增加无限制任选承诺。现有库存未出现该名称，因此本次不向任何账号新增权益。
 
 用户指定新增：`10-Years Cheers`、`Comic Book`，采用商店／联动渐变柔光；支持单独名称及后接 Tracer 等英雄名，不作官方获取渠道认定。
 
