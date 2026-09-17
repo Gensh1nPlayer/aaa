@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Roshine Account Store</title>
-  <meta name="description" content="Premium Overwatch accounts with secure delivery." />
+  <meta name="description" content="Overwatch accounts worth keeping, with clear listings, guided handover, and support after purchase." />
   <meta name="theme-color" content="#05060b" />
   <link rel="canonical" href="https://roshine.love/" />
   <meta property="og:type" content="website" />
@@ -17,7 +17,11 @@
   <meta name="twitter:description" content="Curated Overwatch accounts with clear listings, secure handover, and long-term support." />
   <meta name="twitter:image" content="https://roshine.love/assets/og.jpg" />
   <link rel="icon" href="./assets/logo.png" />
-  <link rel="stylesheet" href="./assets/main.css?v=33" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700;800&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./assets/main.css?v=34" />
+  <link rel="stylesheet" href="./assets/redesign.css?v=6" />
 </head>
 <body>
 
@@ -51,7 +55,8 @@
           <option value="fr">FR</option>
           <option value="de">DE</option>
           <option value="ar">AR</option>
-          <option value="zh" hidden>中文</option>
+          <option value="ja">日本語</option>
+          <option value="zh">中文</option>
         </select>
         <button class="language-trigger" id="languageTrigger" type="button" aria-label="Language: EN" aria-haspopup="listbox" aria-controls="languageMenu" aria-expanded="false">
           <span id="languageTriggerValue">EN</span>
@@ -62,6 +67,8 @@
           <button class="language-option" type="button" role="option" data-language-value="fr" aria-selected="false" tabindex="-1">FR</button>
           <button class="language-option" type="button" role="option" data-language-value="de" aria-selected="false" tabindex="-1">DE</button>
           <button class="language-option" type="button" role="option" data-language-value="ar" aria-selected="false" tabindex="-1">AR</button>
+          <button class="language-option" type="button" role="option" data-language-value="ja" aria-selected="false" tabindex="-1">日本語</button>
+          <button class="language-option" type="button" role="option" data-language-value="zh" aria-selected="false" tabindex="-1">中文</button>
         </div>
       </div>
       <a href="./auth/" class="btn btn-outline" id="authBtn" style="padding: 8px 16px; font-size: 0.85rem;">
@@ -84,14 +91,63 @@
     
     <!-- Hero -->
     <section class="hero" id="home">
-      <div class="hero-kicker" id="heroKicker">⚡ Trusted since 2021</div>
-      <h1 class="hero-title" id="heroTitle">ROSHINE ACCOUNT STORE</h1>
-      <div class="hero-subbrand" id="heroSubbrand" style="display:none;"></div>
-      <p class="hero-intro" id="heroIntro">
-        Since 2021, Roshine Account Store has delivered curated Overwatch accounts with a streamlined purchase flow and long-term support. Five years in operation, built for consistency, clarity, and buyer confidence.
-      </p>
-      <div class="hero-cta" id="heroCta">
-          <a href="#accounts" class="btn btn-primary" id="ctaExplore">View Stock &amp; Purchase</a>
+      <div class="rd-hero-orbit" aria-hidden="true"><span></span><i></i></div>
+      <div class="rd-hero-grid">
+        <div class="rd-hero-copy rd-reveal">
+          <div class="rd-status-row">
+            <span class="rd-status rd-status-purple"><i></i><span data-rd-key="openSince">Open since 2021</span></span>
+            <span class="rd-status rd-status-green"><i></i><span data-rd-key="liveInventory">Live inventory</span></span>
+          </div>
+          <div class="hero-kicker" id="heroKicker">✦ Roshine · Selling since 2021</div>
+          <h1 class="hero-title" id="heroTitle">FIND YOUR NEXT MAIN ACCOUNT</h1>
+          <div class="hero-subbrand" id="heroSubbrand" style="display:none;"></div>
+          <p class="hero-intro" id="heroIntro">From rare limited skins and clean ranked-ready accounts to currency-loaded profiles, stacked OW1 collections, high-rank mains, and Top 500-ready picks—browse real stock, compare every detail, and choose the account that fits how you play.</p>
+          <div class="hero-cta" id="heroCta">
+            <a href="#accounts" class="btn btn-primary" id="ctaExplore">Browse live stock</a>
+            <a href="#services" class="btn btn-outline rd-secondary-cta"><span data-rd-key="howToBuy">How to buy</span><b>↓</b></a>
+          </div>
+          <dl class="rd-hero-stats" aria-label="Live stock summary">
+            <div><dt id="rdAvailableCount">—</dt><dd data-rd-key="availableNow">available now</dd></div>
+            <div><dt id="rdVersionSplit">— / —</dt><dd data-rd-key="owSplit">OW1 / OW2</dd></div>
+            <div><dt id="rdPriceRange">—</dt><dd data-rd-key="currentRange">current range</dd></div>
+          </dl>
+        </div>
+      </div>
+      <a class="rd-scroll-cue" href="#storefront" aria-label="Scroll to store overview"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 9 7 7 7-7" /></svg></a>
+    </section>
+
+    <section class="rd-storefront section" id="storefront">
+      <div class="rd-section-heading rd-reveal">
+        <div><span class="section-kicker" data-rd-key="moreThanAccounts">MORE THAN ACCOUNTS</span><h2 class="section-title" data-rd-key="storeTitle">Everything around your order, in one place.</h2></div>
+        <p class="section-desc" data-rd-key="storeDesc">Start with the live account list, then use Discord when you are ready to confirm availability, payment, or a service request.</p>
+      </div>
+      <div class="rd-offer-grid">
+        <article class="rd-offer-card rd-reveal"><div class="rd-offer-icon">⌁</div><small>01 · LIVE STOCK</small><h3 data-rd-key="accountsOffer">Overwatch accounts</h3><p data-rd-key="accountsOfferDesc">From clean starter accounts to OW1 collections, rare cosmetics, rank-ready options, and stacked inventories.</p><a href="#accounts"><span data-rd-key="browseAccounts">Browse accounts</span><b>↗</b></a></article>
+        <article class="rd-offer-card rd-reveal" data-delay="80"><div class="rd-offer-icon">◈</div><small>02 · OPTIONAL</small><h3 data-rd-key="currencyOffer">Discount Coins &amp; Mythic Prisms</h3><p data-rd-key="currencyOfferDesc">Availability changes. Ask on Discord for the current delivery method, pricing, and eligibility before ordering.</p><a href="#contact"><span data-rd-key="checkAvailability">Check availability</span><b>↗</b></a></article>
+        <article class="rd-offer-card rd-reveal" data-delay="160"><div class="rd-offer-icon">✦</div><small>03 · ELIGIBILITY APPLIES</small><h3 data-rd-key="serviceOffer">Account services</h3><p data-rd-key="serviceOfferDesc">Region-change assistance and unban appeal support for eligible accounts. Results depend on the account and official review.</p><a href="#warranty"><span data-rd-key="reviewServices">Review services</span><b>↗</b></a></article>
+      </div>
+      <div class="rd-trust-strip rd-reveal">
+        <span><i>01</i><b data-rd-key="fastDelivery">Fast handover after payment</b></span><span><i>02</i><b data-rd-key="directSupport">Direct support through Discord</b></span><span><i>03</i><b data-rd-key="warrantyScope">Clear warranty scope</b></span><span><i>04</i><b data-rd-key="paymentChoices">Card, PayPal, crypto &amp; gift cards</b></span>
+      </div>
+    </section>
+
+    <section class="rd-story section" id="story">
+      <div class="rd-section-heading rd-reveal">
+        <div><span class="section-kicker" data-rd-key="storyKicker">FROM A GOOGLE SHEET TO ROSHINE</span><h2 class="section-title" data-rd-key="storyTitle">Built on referrals, not ad spend.</h2></div>
+        <p class="section-desc" data-rd-key="storyIntro">I started trading Overwatch accounts with friends in 2021. What began as a small list for people I knew grew through repeat buyers and recommendations—not paid promotion.</p>
+      </div>
+      <div class="rd-story-layout">
+        <div class="rd-story-timeline rd-reveal">
+          <article><time>2021</time><div><h3 data-rd-key="storyStartTitle">A small start</h3><p data-rd-key="storyStartText">The first accounts were sourced for friends, personal use, and a small circle of buyers. Every deal was handled directly.</p></div></article>
+          <article><time data-rd-key="storyMarketplaceYear">MARKETPLACE</time><div><h3 data-rd-key="storyMarketplaceTitle">IGVault Top 3 Overwatch seller</h3><p data-rd-key="storyMarketplaceText">The store later ranked among IGVault’s Top 3 Overwatch sellers. High platform fees eventually made a direct Discord store the better way to serve returning buyers.</p></div></article>
+          <article><time data-rd-key="storyDiscordYear">DISCORD</time><div><h3 data-rd-key="storyDiscordTitle">Word of mouth did the work</h3><p data-rd-key="storyDiscordText">Advertising stayed close to zero. Buyers came back, introduced friends, and helped the community grow across Europe, the United States, Japan, and beyond.</p></div></article>
+          <article><time>2026</time><div><h3 data-rd-key="storyWebsiteTitle">The list became a real storefront</h3><p data-rd-key="storyWebsiteText">The original Google Sheet moved here, with searchable live stock and Imgur screenshots so each account is easier to compare before opening a ticket.</p></div></article>
+        </div>
+        <aside class="rd-story-note rd-reveal" data-delay="100">
+          <span data-rd-key="priceKicker">WHY THE PRICE IS DIFFERENT</span><h3 data-rd-key="priceTitle">Not the cheapest account. A safer handover.</h3><p data-rd-key="priceText">I do not compete with anonymous, mass-listed accounts on price. You pay more for a clearer account history, screenshots, direct answers before payment, guided delivery, and support if a verified previous-owner problem appears later.</p>
+          <ul><li data-rd-key="pricePointOne">Account details and availability confirmed before payment</li><li data-rd-key="pricePointTwo">Stripe, PayPal, Binance and Bitcoin options</li><li data-rd-key="pricePointThree">Recovery first, then replacement, refund or fair compensation when covered</li></ul>
+          <small data-rd-key="priceFootnote">Warranty eligibility depends on the cause, available proof, and safe account handling after delivery.</small>
+        </aside>
       </div>
     </section>
 
@@ -164,14 +220,25 @@
           </div>
           <div class="accounts-select-picker" data-select-picker data-accent="cyan">
             <select class="accounts-control accounts-select-native" id="accountTypeFilter" aria-label="Filter Overwatch version">
-              <option value="all">Overwatch Version</option>
+              <option value="all">OW1 / OW2</option>
               <option value="ow1">OW1</option>
               <option value="ow2">OW2</option>
             </select>
             <button class="accounts-control accounts-select-trigger" type="button" data-select-trigger aria-haspopup="listbox" aria-controls="accountTypeMenu" aria-expanded="false">
-              <span data-select-value>Overwatch Version</span><span class="accounts-select-chevron" aria-hidden="true"></span>
+              <span data-select-value>OW1 / OW2</span><span class="accounts-select-chevron" aria-hidden="true"></span>
             </button>
             <div class="accounts-select-menu" id="accountTypeMenu" data-select-menu role="listbox" hidden></div>
+          </div>
+          <div class="accounts-select-picker" data-select-picker data-accent="pink">
+            <select class="accounts-control accounts-select-native" id="accountNameChangeFilter" aria-label="Filter free name change">
+              <option value="all">Free Name Change</option>
+              <option value="yes">Free Name: Yes</option>
+              <option value="no">Free Name: No</option>
+            </select>
+            <button class="accounts-control accounts-select-trigger" type="button" data-select-trigger aria-haspopup="listbox" aria-controls="accountNameChangeMenu" aria-expanded="false">
+              <span data-select-value>Free Name Change</span><span class="accounts-select-chevron" aria-hidden="true"></span>
+            </button>
+            <div class="accounts-select-menu" id="accountNameChangeMenu" data-select-menu role="listbox" hidden></div>
           </div>
           <div class="accounts-select-picker" data-select-picker data-accent="gold">
             <select class="accounts-control accounts-select-native" id="accountPriceFilter" aria-label="Filter price range">
@@ -184,17 +251,6 @@
               <span data-select-value>Price Range</span><span class="accounts-select-chevron" aria-hidden="true"></span>
             </button>
             <div class="accounts-select-menu" id="accountPriceMenu" data-select-menu role="listbox" hidden></div>
-          </div>
-          <div class="accounts-select-picker" data-select-picker data-accent="pink">
-            <select class="accounts-control accounts-select-native" id="accountNameChangeFilter" aria-label="Filter free name change">
-              <option value="all">Free Name Change</option>
-              <option value="yes">Free Name: Yes</option>
-              <option value="no">Free Name: No</option>
-            </select>
-            <button class="accounts-control accounts-select-trigger" type="button" data-select-trigger aria-haspopup="listbox" aria-controls="accountNameChangeMenu" aria-expanded="false">
-              <span data-select-value>Free Name Change</span><span class="accounts-select-chevron" aria-hidden="true"></span>
-            </button>
-            <div class="accounts-select-menu" id="accountNameChangeMenu" data-select-menu role="listbox" hidden></div>
           </div>
           <div class="accounts-select-picker accounts-sort-picker" id="accountsSortPicker" data-select-picker data-accent="purple">
             <select class="accounts-control accounts-select-native accounts-sort-native" id="accountSort" aria-label="Sort accounts">
@@ -280,6 +336,19 @@
           <li>💬 Join Discord and send the ID/screenshot to confirm availability and total.</li>
           <li>✅ After payment, receive login info and the security handover package.</li>
         </ul>
+        <section class="rd-payment-showcase" aria-labelledby="paymentMethodsTitle">
+          <div class="rd-payment-heading">
+            <h3 id="paymentMethodsTitle"><span data-rd-key="paymentWord">PAYMENT</span> <strong data-rd-key="methodsWord">METHODS</strong></h3>
+            <p data-rd-key="paymentDesc">Cards are processed through Stripe. Pay with Visa, Mastercard, PayPal, Bitcoin, or supported gift cards.</p>
+          </div>
+          <div class="rd-payment-icons" aria-label="Payment methods">
+            <div class="rd-payment-method" title="Mastercard"><svg viewBox="0 0 96 64" role="img" aria-label="Mastercard"><circle cx="38" cy="32" r="20"/><circle cx="58" cy="32" r="20"/><path d="M48 17a20 20 0 0 1 0 30 20 20 0 0 1 0-30Z"/></svg><span>Mastercard</span></div>
+            <div class="rd-payment-method" title="Visa"><svg viewBox="0 0 96 64" role="img" aria-label="Visa"><rect x="8" y="14" width="80" height="36" rx="7"/><text x="48" y="39" text-anchor="middle">VISA</text></svg><span>Visa</span></div>
+            <div class="rd-payment-method" title="Bitcoin"><svg viewBox="0 0 64 64" role="img" aria-label="Bitcoin"><circle cx="32" cy="32" r="25"/><path d="M37 18c8 1 9 10 3 13 9 3 7 15-2 16M24 15v34m8-34v34M20 20h17c9 0 9 12 0 12H20h18c10 0 10 14 0 14H20"/></svg><span>Bitcoin</span></div>
+            <div class="rd-payment-method" title="Gift Cards"><svg viewBox="0 0 64 64" role="img" aria-label="Gift cards"><path d="M9 27h46v28H9zM6 19h52v10H6zM32 19v36M18 19c-8-8 5-16 14 0M46 19c8-8-5-16-14 0"/></svg><span>Gift Cards</span></div>
+            <div class="rd-payment-method" title="PayPal"><svg viewBox="0 0 64 64" role="img" aria-label="PayPal"><path d="M23 8h20c12 0 16 8 13 18-3 11-12 15-24 15h-7l-4 15H9L23 8Z"/><path d="M28 16h14c8 0 10 5 8 10-2 7-8 9-17 9h-6"/></svg><span>PayPal</span></div>
+          </div>
+        </section>
         <div class="actions-group">
           <a class="btn btn-primary" href="https://discord.gg/WYqfYXW29U" id="btnDiscord" target="_blank" rel="noopener">Order via Discord</a>
         </div>
@@ -360,6 +429,7 @@
         </p>
       </div>
       <div class="glass-panel narrow-panel" style="text-align: center; padding: 40px;">
+        <p class="rd-contact-note" data-rd-key="contactNote">Send the account ID—or a screenshot if that is easier. We will confirm what is available and answer any questions before payment.</p>
         <div class="actions-group">
           <a class="btn btn-primary" href="https://discord.gg/WYqfYXW29U" id="btnContact" target="_blank" rel="noopener">Discord</a>
           <a class="btn btn-outline" href="mailto:roshine_store@roshine.love" id="btnEmail">Email</a>
@@ -373,7 +443,7 @@
   <footer class="footer">
     <div class="container">
       <div class="footer-line1" id="footerLine1">© 2021–2026 Roshine Account Store.</div>
-      <div class="footer-line2" id="footerLine2">All rights reserved — your reliable account supplier.</div>
+      <div class="footer-line2" id="footerLine2">Overwatch accounts, straight answers, and support that doesn’t disappear after checkout.</div>
       <nav class="footer-nav">
         <a href="https://roshine.love/" id="footHome">Home</a>
         <a href="#services" id="footServices">Services</a>
@@ -383,6 +453,9 @@
       </nav>
     </div>
   </footer>
-  <script src="./assets/main.js?v=41" defer></script>
+  <script src="./assets/main.js?v=43" defer></script>
+  <button class="rd-search-launcher" id="rdSearchLauncher" type="button"><span aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></span><b data-rd-key="searchStock">Search stock</b><i aria-hidden="true"></i><kbd>Ctrl</kbd><kbd>K</kbd></button>
+  <script src="./assets/redesign.js?v=6" defer></script>
+  <script src="./assets/void-effects.js?v=1" defer></script>
 </body>
 </html>

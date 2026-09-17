@@ -2,7 +2,7 @@
   "use strict";
 
   const pageKey = document.body.dataset.policyPage === "terms" ? "terms" : "privacy";
-  const supportedLanguages = ["en", "fr", "de", "ar", "zh"];
+  const supportedLanguages = ["en", "fr", "de", "ar", "ja", "zh"];
   let tocObserver = null;
 
   const copy = {
@@ -12,13 +12,13 @@
       a11y: { skip: "Skip to policy content", openNav: "Open navigation", closeNav: "Close navigation", mobileNav: "Mobile navigation" },
       footer: {
         line1: "© 2021–2026 Roshine Account Store.",
-        line2: "All rights reserved — your reliable account supplier.",
+        line2: "Overwatch accounts, straight answers, and support that continues after checkout.",
         nav: { home: "Home", services: "Services", contact: "Contact", privacy: "Privacy", terms: "Terms" }
       },
       ui: {
         home: "Home",
         contents: "On this page",
-        updated: "Updated July 22, 2026",
+        updated: "Updated September 16, 2026",
         staticSite: "Static storefront",
         privacy: "Privacy",
         terms: "Terms",
@@ -27,7 +27,7 @@
       privacy: {
         kicker: "PRIVACY & DATA",
         title: "Privacy Policy",
-        intro: "A clear summary of what the static storefront stores, what information we receive when you contact us, and how order-related data is handled.",
+        intro: "What stays in your browser, what we receive when you open a Discord order, and what we keep for delivery, warranty, and dispute support—explained without the legal fog.",
         body: `<h2>1. Scope and current site model</h2>
           <p>This policy applies when you browse <a href="../">roshine.love</a>, view the account inventory, use the private Authenticator utility, or contact Roshine through Discord or email. The public storefront is a <strong>static website</strong>: it does not require a customer account and does not use a public ordering bot.</p>
 
@@ -68,7 +68,7 @@
       terms: {
         kicker: "STORE TERMS",
         title: "Terms of Service",
-        intro: "The current rules for inventory listings, manual Discord orders, account verification, delivery, warranty and buyer responsibilities.",
+        intro: "What we confirm before payment, what you receive at handover, when warranty applies, and what both sides need to do if something goes wrong.",
         body: `<h2>1. Acceptance and eligibility</h2>
           <p>By placing an order with Roshine, you confirm that you can lawfully purchase digital goods in your location, that the information you provide is accurate, and that you accept these terms together with the warranty information shown on the storefront.</p>
 
@@ -117,14 +117,14 @@
         nav: { home: "Accueil", services: "Services", contact: "Contact", privacy: "Confidentialité", terms: "Conditions" }
       },
       ui: {
-        home: "Accueil", contents: "Sur cette page", updated: "Mis à jour le 22 juillet 2026", staticSite: "Vitrine statique",
+        home: "Accueil", contents: "Sur cette page", updated: "Mis à jour le 16 septembre 2026", staticSite: "Vitrine statique",
         privacy: "Confidentialité", terms: "Conditions",
         note: "Cette page décrit la vitrine Roshine et le parcours de commande actuels. Elle fournit des informations générales et ne constitue pas un conseil juridique."
       },
       privacy: {
         kicker: "CONFIDENTIALITÉ & DONNÉES",
         title: "Politique de confidentialité",
-        intro: "Un résumé clair de ce que la vitrine statique conserve, des informations reçues lorsque vous nous contactez et du traitement des données de commande.",
+        intro: "Ce qui reste dans votre navigateur, ce que nous recevons lors d’une commande Discord et ce que nous conservons pour la livraison, la garantie et les litiges, en termes simples.",
         body: `<h2>1. Portée et fonctionnement du site</h2>
           <p>Cette politique s'applique lorsque vous consultez <a href="../">roshine.love</a>, l'inventaire, l'outil Authenticator privé ou lorsque vous contactez Roshine via Discord ou e-mail. La vitrine publique est un <strong>site statique</strong> : aucun compte client n'est requis et aucun bot public ne prend les commandes.</p>
           <h2>2. Informations conservées par le site</h2>
@@ -150,7 +150,7 @@
       terms: {
         kicker: "CONDITIONS DE VENTE",
         title: "Conditions d'utilisation",
-        intro: "Les règles actuelles concernant l'inventaire, les commandes manuelles sur Discord, la vérification, la livraison, la garantie et les responsabilités de l'acheteur.",
+        intro: "Ce que nous confirmons avant le paiement, ce que vous recevez au transfert, quand la garantie s’applique et les responsabilités de chacun en cas de problème.",
         body: `<h2>1. Acceptation et éligibilité</h2>
           <p>En commandant auprès de Roshine, vous confirmez pouvoir acheter légalement des biens numériques dans votre juridiction, fournir des informations exactes et accepter ces conditions ainsi que la garantie présentée sur la vitrine.</p>
           <h2>2. Inventaire et exactitude des annonces</h2>
@@ -185,14 +185,14 @@
         nav: { home: "Home", services: "Services", contact: "Kontakt", privacy: "Datenschutz", terms: "AGB" }
       },
       ui: {
-        home: "Home", contents: "Auf dieser Seite", updated: "Aktualisiert am 22. Juli 2026", staticSite: "Statische Website",
+        home: "Home", contents: "Auf dieser Seite", updated: "Aktualisiert am 16. September 2026", staticSite: "Statische Website",
         privacy: "Datenschutz", terms: "AGB",
         note: "Diese Seite beschreibt den aktuellen Roshine-Shop und Bestellablauf. Sie dient der allgemeinen Information und ist keine Rechtsberatung."
       },
       privacy: {
         kicker: "DATENSCHUTZ & DATEN",
         title: "Datenschutzerklärung",
-        intro: "Eine klare Übersicht darüber, was der statische Shop speichert, welche Angaben wir bei einer Kontaktaufnahme erhalten und wie Bestelldaten behandelt werden.",
+        intro: "Was im Browser bleibt, was wir bei einer Discord-Bestellung erhalten und was wir für Übergabe, Garantie und Streitfälle speichern – klar erklärt.",
         body: `<h2>1. Geltungsbereich und Website-Modell</h2>
           <p>Diese Erklärung gilt beim Besuch von <a href="../">roshine.love</a>, des Inventars, des privaten Authenticator-Tools sowie bei Kontakt über Discord oder E-Mail. Der öffentliche Shop ist eine <strong>statische Website</strong>: Ein Kundenkonto ist nicht erforderlich und Bestellungen laufen nicht über einen öffentlichen Bot.</p>
           <h2>2. Von der Website gespeicherte Daten</h2>
@@ -218,7 +218,7 @@
       terms: {
         kicker: "SHOP-BEDINGUNGEN",
         title: "Nutzungsbedingungen",
-        intro: "Die aktuellen Regeln für Inventar, manuelle Discord-Bestellungen, Prüfung, Lieferung, Garantie und Pflichten des Käufers.",
+        intro: "Was vor der Zahlung bestätigt wird, was du bei der Übergabe erhältst, wann die Garantie greift und was beide Seiten bei Problemen tun müssen.",
         body: `<h2>1. Zustimmung und Berechtigung</h2>
           <p>Mit einer Bestellung bestätigen Sie, digitale Güter an Ihrem Standort rechtmäßig erwerben zu dürfen, richtige Angaben zu machen und diese Bedingungen sowie die im Shop beschriebene Garantie zu akzeptieren.</p>
           <h2>2. Inventar und Listing-Genauigkeit</h2>
@@ -253,14 +253,14 @@
         nav: { home: "الرئيسية", services: "الخدمات", contact: "تواصل", privacy: "الخصوصية", terms: "الشروط" }
       },
       ui: {
-        home: "الرئيسية", contents: "في هذه الصفحة", updated: "آخر تحديث: 22 يوليو 2026", staticSite: "واجهة ثابتة",
+        home: "الرئيسية", contents: "في هذه الصفحة", updated: "آخر تحديث: 16 سبتمبر 2026", staticSite: "واجهة ثابتة",
         privacy: "الخصوصية", terms: "الشروط",
         note: "تصف هذه الصفحة واجهة Roshine ومسار الطلب الحاليين. وهي معلومات عامة وليست استشارة قانونية."
       },
       privacy: {
         kicker: "الخصوصية والبيانات",
         title: "سياسة الخصوصية",
-        intro: "ملخص واضح لما تخزنه الواجهة الثابتة، وما نستلمه عند تواصلك معنا، وكيفية التعامل مع بيانات الطلب.",
+        intro: "ما يبقى داخل متصفحك، وما نستلمه عند فتح طلب عبر Discord، وما نحتفظ به للتسليم والضمان والنزاعات، بصياغة واضحة.",
         body: `<h2>1. النطاق وطبيعة الموقع</h2>
           <p>تنطبق هذه السياسة عند تصفح <a href="../">roshine.love</a> أو المخزون أو أداة Authenticator الخاصة، وعند التواصل مع Roshine عبر Discord أو البريد. الواجهة العامة <strong>موقع ثابت</strong> لا يتطلب حساب عميل ولا يستخدم روبوتاً عاماً للطلبات.</p>
           <h2>2. المعلومات التي يخزنها الموقع</h2>
@@ -286,7 +286,7 @@
       terms: {
         kicker: "شروط المتجر",
         title: "شروط الاستخدام",
-        intro: "القواعد الحالية للمخزون والطلبات اليدوية عبر Discord والتحقق والتسليم والضمان ومسؤوليات المشتري.",
+        intro: "ما نؤكده قبل الدفع، وما تستلمه عند التسليم، ومتى ينطبق الضمان، وما يجب على الطرفين فعله عند حدوث مشكلة.",
         body: `<h2>1. القبول والأهلية</h2>
           <p>عند الطلب من Roshine تؤكد قدرتك القانونية على شراء الأصول الرقمية في موقعك، وصحة معلوماتك، وقبول هذه الشروط ومعلومات الضمان الظاهرة في الواجهة.</p>
           <h2>2. المخزون ودقة الوصف</h2>
@@ -311,24 +311,91 @@
       }
     },
 
+    ja: {
+      nav: { home: "ホーム", accounts: "在庫", services: "購入方法", warranty: "保証", faq: "FAQ", contact: "お問い合わせ" },
+      auth: "Authenticator",
+      a11y: { skip: "ポリシー本文へ移動", openNav: "メニューを開く", closeNav: "メニューを閉じる", mobileNav: "モバイルメニュー" },
+      footer: {
+        line1: "© 2021–2026 Roshine Account Store.",
+        line2: "分かりやすいアカウント情報、率直な回答、購入後も続くサポート。",
+        nav: { home: "ホーム", services: "サービス", contact: "お問い合わせ", privacy: "プライバシー", terms: "利用規約" }
+      },
+      ui: {
+        home: "ホーム", contents: "このページの内容", updated: "2026年9月16日更新", staticSite: "静的ストアフロント",
+        privacy: "プライバシー", terms: "利用規約",
+        note: "このページは現在のRoshineストアと注文手順について説明する一般情報であり、法律上の助言ではありません。"
+      },
+      privacy: {
+        kicker: "プライバシー & データ",
+        title: "プライバシーポリシー",
+        intro: "ブラウザ内に残る情報、Discord注文時に受け取る情報、引き渡し・保証・紛争対応のために保管する情報を分かりやすく説明します。",
+        body: `<h2>1. 適用範囲と現在のサイト構成</h2>
+          <p>このポリシーは、<a href="../">roshine.love</a>の閲覧、在庫確認、プライベートAuthenticatorツールの利用、Discordまたはメールでのお問い合わせに適用されます。公開ストアは顧客アカウントを必要としない<strong>静的ウェブサイト</strong>です。</p>
+          <h2>2. ウェブサイトが保存する情報</h2>
+          <p>サイトは選択言語を記憶するためにブラウザのローカルストレージを使用します。在庫の検索・並び替えはブラウザ内で処理され、送信されません。AuthenticatorのPrivate Keyもブラウザ内で処理される設計です。第三者へ送らないでください。</p>
+          <p>ホスティングまたはCDN事業者は、配信、安全性、信頼性のためにIPアドレス、ブラウザ、閲覧ページ、時刻など通常の技術情報を処理する場合があります。</p>
+          <h2>3. お問い合わせ時に受け取る情報</h2>
+          <p>Discordまたはメールで送信されたハンドル名、メールアドレス、アカウントID、スクリーンショット、メッセージ、サポート履歴を受け取る場合があります。注文と無関係な機密情報は送らないでください。</p>
+          <h2>4. 注文と支払い</h2>
+          <p>注文はDiscordで手動確認します。アカウントID、注文日時、引き渡し状況、サポート・紛争記録を必要な範囲で保持する場合があります。支払いは外部事業者が処理し、このサイトがカード番号全体を意図的に収集・保存することはありません。</p>
+          <h2>5. 情報の利用目的</h2>
+          <ul><li>在庫、支払い、引き渡しの確認。</li><li>アカウント引き渡し、保証、アフターサポート。</li><li>不正、悪用、セキュリティ事故、紛争の調査。</li><li>サイトの安全性と信頼性の維持。</li><li>適用される法的義務への対応。</li></ul>
+          <h2>6. 共有と開示</h2>
+          <p>ホスティング、通信、支払い、注文サポートに必要な範囲でサービス事業者と共有します。第三者広告のために個人情報を販売しません。</p>
+          <h2>7. 保存期間と安全性</h2>
+          <p>注文・サポート記録は、引き渡し確認、保証、紛争、不正防止、法的要件に合理的に必要な期間のみ保持します。固有のパスワードを使用し、復旧情報とPrivate Keyを秘密にしてください。</p>
+          <h2>8. 選択とリクエスト</h2>
+          <p>ブラウザから保存済み言語設定を削除できます。適用される場合、正当な記録保持要件に従い、注文・サポート情報の開示、訂正、削除を依頼できます。</p>
+          <h2>9. 外部サービス</h2>
+          <p>Discord、Battle.net、メール、支払い事業者はそれぞれのプライバシーポリシーに従います。Roshineがそれらのデータ処理を管理するものではありません。</p>
+          <h2>10. 未成年者、更新、お問い合わせ</h2>
+          <p>本サービスは未成年者を対象としていません。サイトや注文手順の変更に合わせて本ポリシーを更新する場合があります。お問い合わせは<a href="mailto:roshine_store@roshine.love">roshine_store@roshine.love</a>または<a href="../#contact">お問い合わせセクション</a>をご利用ください。</p>`
+      },
+      terms: {
+        kicker: "ストア利用条件", title: "利用規約",
+        intro: "支払い前に確認する内容、引き渡し時に受け取るもの、保証の適用条件、問題発生時に双方が行うことをまとめています。",
+        body: `<h2>1. 同意と利用資格</h2>
+          <p>Roshineへ注文することで、居住地域でデジタル商品を適法に購入でき、提供情報が正確で、本規約とサイトに表示された保証内容へ同意することを確認します。</p>
+          <h2>2. 在庫と掲載情報</h2>
+          <p>販売状況は注文の進行に合わせて更新され、新しい在庫は通常7日単位で追加されます。Discordで確認するまで在庫は保証されません。既知のチート、悪用、規約違反履歴があるアカウントは除外します。</p>
+          <p>掲載内容は確認時点の状態です。重要な情報は確認・引き渡し時にゲーム内およびBattle.net記録と照合できます。</p>
+          <h2>3. 注文、価格、支払い</h2>
+          <p>注文はアカウントIDまたはスクリーンショットを使いDiscordで手動処理します。支払い前に価格、在庫、支払い方法、手数料を確認してください。Roshineを名乗る未確認の相手へ支払わないでください。</p>
+          <h2>4. 引き渡しと確認</h2>
+          <p>多くの注文は入金確認後すみやかに引き渡します。高額アカウントは追加確認が必要な場合があります。購入者は受領後できるだけ早く、通常30分以内にログイン情報とアカウントを確認してください。</p>
+          <h2>5. 返金と掲載内容の訂正</h2>
+          <p>正しく引き渡されたデジタル商品は原則最終取引です。初回ログインできない、未開示の異常状態がある、重要な掲載情報を確認できない場合は、訂正、交換、返金の対象となることがあります。セキュリティ情報を変更する前にご連絡ください。</p>
+          <h2>6. 保証と購入後サポート</h2>
+          <p>元所有者に起因する取り戻し、侵害、恒久的消失が確認された場合、証拠確認と復旧を先に行い、復旧できなければ状況と在庫に応じて同等品交換、返金または適正な補償を案内します。地域変更とBAN異議申し立ては有料オプションで、公式結果は保証されません。</p>
+          <h2>7. 購入者の責任</h2>
+          <ul><li>ログイン情報、復旧情報、Private Keyを安全に保管し共有しないこと。</li><li>引き渡し手順に従い、初期期間は安定した端末とIPを使用すること。</li><li>チート、悪用、詐欺、規約違反に使用しないこと。</li><li>保証・紛争対応時に正確な証拠を提示すること。</li></ul>
+          <h2>8. プラットフォーム上のリスク</h2>
+          <p>アカウント取引はBlizzardに公式サポートされていません。地域、端末、IP、セキュリティ情報の変更は制限を引き起こす場合があり、プラットフォームの判断はRoshineの管理外です。</p>
+          <h2>9. 責任と変更</h2>
+          <p>Roshineは掲載と保証で明示した約束に責任を負います。情報共有、誤用、規約違反、サポート対象外の変更、第三者プラットフォームの判断による損失には責任を負いません。</p>
+          <h2>10. お問い合わせ</h2>
+          <p>注文、保証、紛争に関するサポートは、サイト上の公式<a href="../#contact">Discordまたはメール</a>からアカウントIDを添えてご連絡ください。</p>`
+      }
+    },
+
     zh: {
       nav: { home: "主页", accounts: "库存", services: "服务", warranty: "售后", faq: "常见问题", contact: "联系" },
       auth: "Authenticator",
       a11y: { skip: "跳到政策正文", openNav: "打开导航", closeNav: "关闭导航", mobileNav: "移动端导航" },
       footer: {
         line1: "© 2021–2026 Roshine Account Store。",
-        line2: "All rights reserved — your reliable account supplier.",
+        line2: "账号信息说清楚，购买问题直接答，交付之后也继续提供支持。",
         nav: { home: "主页", services: "服务", contact: "联系", privacy: "隐私", terms: "条款" }
       },
       ui: {
-        home: "主页", contents: "本页目录", updated: "更新于 2026 年 7 月 22 日", staticSite: "纯静态网站",
+        home: "主页", contents: "本页目录", updated: "更新于 2026 年 9 月 16 日", staticSite: "纯静态网站",
         privacy: "隐私政策", terms: "服务条款",
         note: "本页面按照 Roshine 当前网站与下单流程编写，仅用于一般信息说明，不构成法律意见。"
       },
       privacy: {
         kicker: "隐私与数据",
         title: "隐私政策",
-        intro: "清晰说明纯静态网站会保存什么、你联系我们时会提供什么，以及订单相关信息如何被使用。",
+        intro: "用简单的话说明：哪些信息只留在浏览器里、Discord 下单时我们会收到什么，以及交付、质保与争议处理中会保留哪些记录。",
         body: `<h2>1. 适用范围与当前网站模式</h2>
           <p>本政策适用于你浏览 <a href="../">roshine.love</a>、查看账号库存、使用私人 Authenticator 工具，以及通过 Discord 或邮件联系 Roshine 的场景。当前公开网站为<strong>纯静态网站</strong>：无需注册客户账号，也不使用公开下单机器人。</p>
           <h2>2. 网站本身保存的信息</h2>
@@ -354,7 +421,7 @@
       terms: {
         kicker: "商店规则",
         title: "服务条款",
-        intro: "与当前网站同步的库存展示、Discord 人工下单、账号核验、交付、质保及买家责任规则。",
+        intro: "付款前会确认什么、交接时你会收到什么、哪些情况适用质保，以及出现问题时双方分别需要做什么。",
         body: `<h2>1. 接受条款与购买资格</h2>
           <p>向 Roshine 下单即表示：你可以在所在地区合法购买数字商品；你提供的信息真实准确；并接受本条款及主页展示的质保说明。</p>
           <h2>2. 库存与商品描述</h2>
@@ -392,9 +459,18 @@
 
   const languageFromUrl = new URLSearchParams(window.location.search).get("lang");
   const savedLanguage = localStorage.getItem("roshine_lang");
+  const edgeLanguage = String(window.__ROSHINE_EDGE_LANG__ || "").toLowerCase();
+  const browserLanguage = (() => {
+    const locale = String(navigator.language || "en").toLowerCase();
+    return supportedLanguages.find(language => locale.startsWith(language)) || "en";
+  })();
   const initialLanguage = supportedLanguages.includes(languageFromUrl)
     ? languageFromUrl
-    : (supportedLanguages.includes(savedLanguage) && savedLanguage !== "zh" ? savedLanguage : "en");
+    : supportedLanguages.includes(savedLanguage)
+      ? savedLanguage
+      : supportedLanguages.includes(edgeLanguage)
+        ? edgeLanguage
+        : browserLanguage;
 
   function buildToc() {
     const content = document.getElementById("policyContent");
@@ -465,6 +541,14 @@
     if (content) content.innerHTML = page.body;
     const selector = document.getElementById("langSelect");
     if (selector) selector.value = language;
+    const triggerValue = document.getElementById("languageTriggerValue");
+    if (triggerValue) triggerValue.textContent = language === "ja" ? "日本語" : language === "zh" ? "中文" : language.toUpperCase();
+    document.getElementById("languageTrigger")?.setAttribute("aria-label", `Language: ${triggerValue?.textContent || language.toUpperCase()}`);
+    document.querySelectorAll("[data-language-value]").forEach(option => {
+      const selected = option.dataset.languageValue === language;
+      option.setAttribute("aria-selected", String(selected));
+      option.tabIndex = selected ? 0 : -1;
+    });
 
     const privacyUrl = languageUrl("privacy", language);
     const termsUrl = languageUrl("terms", language);
@@ -514,9 +598,44 @@
   });
 
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && mobileMenuToggle?.getAttribute("aria-expanded") === "true") closeMobileNav(true);
+    if (event.key !== "Escape") return;
+    if (mobileMenuToggle?.getAttribute("aria-expanded") === "true") closeMobileNav(true);
+    const picker = document.getElementById("languagePicker");
+    if (picker?.dataset.open === "true") {
+      picker.dataset.open = "false";
+      document.getElementById("languageMenu")?.setAttribute("hidden", "");
+      document.getElementById("languageTrigger")?.setAttribute("aria-expanded", "false");
+      document.getElementById("languageTrigger")?.focus();
+    }
   });
 
+  const languagePicker = document.getElementById("languagePicker");
+  const languageTrigger = document.getElementById("languageTrigger");
+  const languageMenu = document.getElementById("languageMenu");
+  const closeLanguageMenu = () => {
+    if (!languagePicker || !languageMenu || !languageTrigger) return;
+    languagePicker.dataset.open = "false";
+    languageMenu.hidden = true;
+    languageTrigger.setAttribute("aria-expanded", "false");
+  };
+  languageTrigger?.addEventListener("click", () => {
+    const opening = languagePicker?.dataset.open !== "true";
+    if (!languagePicker || !languageMenu) return;
+    languagePicker.dataset.open = String(opening);
+    languageMenu.hidden = !opening;
+    languageTrigger.setAttribute("aria-expanded", String(opening));
+    if (opening) languageMenu.querySelector('[aria-selected="true"]')?.focus();
+  });
+  languageMenu?.addEventListener("click", event => {
+    const option = event.target.closest("[data-language-value]");
+    if (!option) return;
+    applyLanguage(option.dataset.languageValue, true);
+    closeLanguageMenu();
+    languageTrigger?.focus();
+  });
+  document.addEventListener("click", event => {
+    if (languagePicker && !languagePicker.contains(event.target)) closeLanguageMenu();
+  });
   document.getElementById("langSelect")?.addEventListener("change", (event) => applyLanguage(event.target.value, true));
   applyLanguage(initialLanguage);
 })();

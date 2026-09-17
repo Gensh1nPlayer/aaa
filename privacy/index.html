@@ -14,8 +14,12 @@
   <meta property="og:image" content="https://roshine.love/assets/og.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" href="../assets/logo.png" />
-  <link rel="stylesheet" href="../assets/main.css?v=26" />
-  <link rel="stylesheet" href="../assets/policy.css?v=2" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700;800&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/main.css?v=34" />
+  <link rel="stylesheet" href="../assets/policy.css?v=3" />
+  <link rel="stylesheet" href="../assets/site-shell.css?v=4" />
 </head>
 <body class="policy-page" data-policy-page="privacy">
   <a class="skip-link" id="skipLink" href="#policyContent">Skip to policy content</a>
@@ -40,13 +44,11 @@
     </nav>
     <button class="mobile-menu-toggle" id="mobileMenuToggle" type="button" aria-controls="mobileNav" aria-expanded="false" aria-label="Open navigation">☰</button>
     <div class="header-actions">
-      <select class="lang-select" id="langSelect" aria-label="Language">
-        <option value="en">EN</option>
-        <option value="fr">FR</option>
-        <option value="de">DE</option>
-        <option value="ar">AR</option>
-        <option value="zh" hidden>中文</option>
-      </select>
+      <div class="language-picker" id="languagePicker" data-open="false">
+        <select class="lang-select" id="langSelect" aria-hidden="true" tabindex="-1"><option value="en">EN</option><option value="fr">FR</option><option value="de">DE</option><option value="ar">AR</option><option value="ja">日本語</option><option value="zh">中文</option></select>
+        <button class="language-trigger" id="languageTrigger" type="button" aria-label="Language: EN" aria-haspopup="listbox" aria-controls="languageMenu" aria-expanded="false"><span id="languageTriggerValue">EN</span><span class="language-chevron" aria-hidden="true"></span></button>
+        <div class="language-menu" id="languageMenu" role="listbox" aria-label="Language" hidden><button class="language-option" type="button" role="option" data-language-value="en" aria-selected="true">EN</button><button class="language-option" type="button" role="option" data-language-value="fr" aria-selected="false" tabindex="-1">FR</button><button class="language-option" type="button" role="option" data-language-value="de" aria-selected="false" tabindex="-1">DE</button><button class="language-option" type="button" role="option" data-language-value="ar" aria-selected="false" tabindex="-1">AR</button><button class="language-option" type="button" role="option" data-language-value="ja" aria-selected="false" tabindex="-1">日本語</button><button class="language-option" type="button" role="option" data-language-value="zh" aria-selected="false" tabindex="-1">中文</button></div>
+      </div>
       <a href="../auth/" class="btn btn-outline" style="padding:8px 16px;font-size:.85rem">
         <span id="authBtnText">Authenticator</span>
       </a>
@@ -73,9 +75,9 @@
     <section class="policy-hero" aria-labelledby="policyTitle">
       <div class="policy-kicker" id="policyKicker">PRIVACY &amp; DATA</div>
       <h1 class="policy-title" id="policyTitle">Privacy Policy</h1>
-      <p class="policy-intro" id="policyIntro">A clear summary of what the static storefront stores, what information we receive when you contact us, and how order-related data is handled.</p>
+      <p class="policy-intro" id="policyIntro">What stays in your browser, what we receive when you open a Discord order, and what we keep for delivery, warranty, and dispute support—explained without the legal fog.</p>
       <div class="policy-meta">
-        <span class="policy-meta-item"><span class="policy-meta-dot" aria-hidden="true"></span><span id="policyUpdated">Updated July 22, 2026</span></span>
+        <span class="policy-meta-item"><span class="policy-meta-dot" aria-hidden="true"></span><span id="policyUpdated">Updated September 16, 2026</span></span>
         <span class="policy-meta-item" id="policyStatic">Static storefront</span>
       </div>
       <nav class="policy-switcher" aria-label="Legal pages">
@@ -121,7 +123,7 @@
 
   <footer class="footer">
     <div class="footer-line1" id="footerLine1">© 2021–2026 Roshine Account Store.</div>
-    <div class="footer-line2" id="footerLine2">All rights reserved — your reliable account supplier.</div>
+    <div class="footer-line2" id="footerLine2">Overwatch accounts, straight answers, and support that continues after checkout.</div>
     <nav class="footer-nav" aria-label="Footer navigation">
       <a href="../#home" id="footHome">Home</a>
       <a href="../#services" id="footServices">Services</a>
@@ -131,7 +133,8 @@
     </nav>
   </footer>
 
-  <script src="../assets/policy.js?v=3" defer></script>
+  <script src="../assets/policy.js?v=5" defer></script>
+  <script src="../assets/void-effects.js?v=1" defer></script>
 </body>
 </html>
 

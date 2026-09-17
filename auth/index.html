@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Authenticator — Roshine Account Store</title>
   <link rel="icon" href="/assets/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700;800&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet" />
 
   <style>
     :root{
@@ -534,6 +537,7 @@
       .scanlines{ opacity:.03 !important; }
     }
   </style>
+  <link rel="stylesheet" href="../assets/site-shell.css?v=4" />
 </head>
 
 <body>
@@ -564,7 +568,8 @@
           <option value="fr">FR</option>
           <option value="de">DE</option>
           <option value="ar">AR</option>
-          <option value="zh" hidden>中文</option>
+          <option value="ja">日本語</option>
+          <option value="zh">中文</option>
         </select>
         <button class="language-trigger" id="languageTrigger" type="button" aria-label="Language: EN" aria-haspopup="listbox" aria-controls="languageMenu" aria-expanded="false">
           <span id="languageTriggerValue">EN</span>
@@ -575,6 +580,8 @@
           <button class="language-option" type="button" role="option" data-language-value="fr" aria-selected="false" tabindex="-1">FR</button>
           <button class="language-option" type="button" role="option" data-language-value="de" aria-selected="false" tabindex="-1">DE</button>
           <button class="language-option" type="button" role="option" data-language-value="ar" aria-selected="false" tabindex="-1">AR</button>
+          <button class="language-option" type="button" role="option" data-language-value="ja" aria-selected="false" tabindex="-1">日本語</button>
+          <button class="language-option" type="button" role="option" data-language-value="zh" aria-selected="false" tabindex="-1">中文</button>
         </div>
       </div>
       <a href="/auth/" class="btn btn-outline" id="authBtn" aria-current="page" style="padding: 8px 16px; font-size: 0.85rem;">
@@ -602,6 +609,7 @@
             <span id="panelTitleText">Authenticator</span>
           </div>
         </div>
+        <p class="auth-intro" id="authIntro">Generate the current Battle.net verification code from a key supplied during account handover. Everything runs locally in this browser.</p>
 
         <div class="code" id="code">--------</div>
         <div class="hint" id="remain"></div>
@@ -609,6 +617,7 @@
 
         <div class="field-label" id="secretLabel">Please enter your Private Key</div>
         <input id="secret" class="neon-border" placeholder="Private Key" autocomplete="off" spellcheck="false" />
+        <p class="auth-local-note" id="privacyHint">Your key is processed only in this browser and is not sent to the storefront.</p>
 
         <div class="row">
           <button class="primary neon-border" id="copy">Copy Code</button>
@@ -622,57 +631,6 @@
   </main>
 
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      // --- Background Rain Animation ---
-      const canvas = document.getElementById('bg-canvas');
-      if (canvas) {
-        const ctx = canvas.getContext('2d');
-        let width, height;
-        const drops = [];
-
-        function initRain() {
-          width = canvas.width = window.innerWidth || document.documentElement.clientWidth || 1080;
-          height = canvas.height = window.innerHeight || document.documentElement.clientHeight || 1920;
-          drops.length = 0;
-          const numDrops = Math.floor(width / 15);
-          for (let i = 0; i < numDrops; i++) {
-            drops.push({
-              x: Math.random() * width,
-              y: Math.random() * height,
-              speed: Math.random() * 1.5 + 0.5,
-              length: Math.random() * 15 + 10,
-              opacity: Math.random() * 0.4 + 0.1,
-              color: Math.random() > 0.5 ? '41, 182, 255' : '183, 124, 255'
-            });
-          }
-        }
-
-        window.addEventListener('resize', initRain);
-        window.addEventListener('load', initRain);
-        initRain();
-
-        function drawRain() {
-          ctx.clearRect(0, 0, width, height);
-          drops.forEach(drop => {
-            ctx.beginPath();
-            ctx.moveTo(drop.x, drop.y);
-            ctx.lineTo(drop.x, drop.y + drop.length);
-            ctx.strokeStyle = `rgba(${drop.color}, ${drop.opacity})`;
-            ctx.lineWidth = 1;
-            ctx.stroke();
-            
-            drop.y += drop.speed;
-            if (drop.y > height) {
-              drop.y = -drop.length;
-              drop.x = Math.random() * width;
-            }
-          });
-          requestAnimationFrame(drawRain);
-        }
-        drawRain();
-      }
-    });
-
     const DIGITS = 8;
     const PERIOD = 30;
     const LANG_KEY = "roshine_lang";
@@ -683,7 +641,9 @@
         auth:"Authenticator",
         a11y:{openNav:"Open navigation",closeNav:"Close navigation",mobileNav:"Mobile navigation"},
         panelTitle:"Authenticator",
+        intro:"Generate the current Battle.net verification code from a key supplied during account handover. Everything runs locally in this browser.",
         secretLabel:"Please enter your Private Key",
+        privacyHint:"Your key is processed only in this browser and is not sent to the storefront.",
         placeholder:"Private Key",
         copy:"Copy Code",
         clear:"Clear Key",
@@ -691,14 +651,16 @@
         copyBlocked:"Copy blocked",
         enterKeyError:"Enter your Private Key",
         invalidKey:"Invalid Private Key",
-        footer:"© 2021–2026 Roshine Account Store. All rights reserved — your reliable account supplier."
+        footer:"© 2021–2026 Roshine Account Store. Your key stays in this browser."
       },
       fr: {
         nav:{home:"Accueil",accounts:"Comptes",services:"Services",warranty:"Garantie",faq:"FAQ",contact:"Contact"},
         auth:"Authenticator",
         a11y:{openNav:"Ouvrir la navigation",closeNav:"Fermer la navigation",mobileNav:"Navigation mobile"},
         panelTitle:"Authenticator",
+        intro:"Générez le code Battle.net actuel à partir de la clé remise avec le compte. Tout est traité localement dans ce navigateur.",
         secretLabel:"Veuillez entrer votre clé privée",
+        privacyHint:"Votre clé est traitée uniquement dans ce navigateur et n’est pas envoyée à la boutique.",
         placeholder:"Clé privée",
         copy:"Copier le code",
         clear:"Effacer",
@@ -713,7 +675,9 @@
         auth:"Authenticator",
         a11y:{openNav:"Navigation öffnen",closeNav:"Navigation schließen",mobileNav:"Mobile Navigation"},
         panelTitle:"Authenticator",
+        intro:"Erzeuge den aktuellen Battle.net-Code aus dem bei der Übergabe erhaltenen Schlüssel. Alles läuft lokal in diesem Browser.",
         secretLabel:"Bitte Private Key eingeben",
+        privacyHint:"Dein Schlüssel wird nur in diesem Browser verarbeitet und nicht an den Shop gesendet.",
         placeholder:"Private Key",
         copy:"Code kopieren",
         clear:"Löschen",
@@ -728,7 +692,9 @@
         auth:"Authenticator",
         a11y:{openNav:"فتح التنقل",closeNav:"إغلاق التنقل",mobileNav:"التنقل عبر الهاتف"},
         panelTitle:"Authenticator",
+        intro:"أنشئ رمز Battle.net الحالي من المفتاح المستلم عند تسليم الحساب. تتم المعالجة محلياً داخل هذا المتصفح.",
         secretLabel:"يرجى إدخال Private Key",
+        privacyHint:"تتم معالجة المفتاح داخل هذا المتصفح فقط ولا يُرسل إلى المتجر.",
         placeholder:"Private Key",
         copy:"نسخ الرمز",
         clear:"مسح",
@@ -738,12 +704,31 @@
         invalidKey:"Private Key غير صالح",
         footer:"© 2021–2026 Roshine Account Store. جميع الحقوق محفوظة — المورّد الموثوق للحسابات."
       },
+      ja: {
+        nav:{home:"ホーム",accounts:"在庫",services:"購入方法",warranty:"保証",faq:"FAQ",contact:"お問い合わせ"},
+        auth:"Authenticator",
+        a11y:{openNav:"メニューを開く",closeNav:"メニューを閉じる",mobileNav:"モバイルメニュー"},
+        panelTitle:"Authenticator",
+        intro:"アカウント引き渡し時に受け取ったキーから、現在のBattle.net認証コードを生成します。処理はすべてこのブラウザ内で行われます。",
+        secretLabel:"Private Keyを入力してください",
+        privacyHint:"キーはこのブラウザ内だけで処理され、ストアへ送信されません。",
+        placeholder:"Private Key",
+        copy:"コードをコピー",
+        clear:"キーを消去",
+        copied:"コピーしました",
+        copyBlocked:"コピーがブロックされました",
+        enterKeyError:"Private Keyを入力してください",
+        invalidKey:"Private Keyが無効です",
+        footer:"© 2021–2026 Roshine Account Store. キーはブラウザ内で処理されます。"
+      },
       zh: {
         nav:{home:"主页",accounts:"账号",services:"服务",warranty:"质保",faq:"FAQ",contact:"联系"},
         auth:"Authenticator",
         a11y:{openNav:"打开导航",closeNav:"关闭导航",mobileNav:"移动端导航"},
         panelTitle:"Authenticator",
+        intro:"使用账号交接时提供的密钥生成当前 Battle.net 验证码，整个过程只在本浏览器内完成。",
         secretLabel:"请输入你的安全令 Private Key",
+        privacyHint:"Private Key 只在当前浏览器内处理，不会发送到商店服务器。",
         placeholder:"Private Key",
         copy:"复制验证码",
         clear:"清空",
@@ -751,7 +736,7 @@
         copyBlocked:"浏览器禁止复制",
         enterKeyError:"请输入 Private Key",
         invalidKey:"无效的 Private Key",
-        footer:"© 2021–2026 Roshine Account Store. All rights reserved — your reliable account supplier."
+        footer:"© 2021–2026 Roshine Account Store. Private Key 只在当前浏览器内处理。"
       }
     };
 
@@ -760,13 +745,17 @@
       if (urlLang && i18n[urlLang]) return urlLang;
 
       const saved = localStorage.getItem(LANG_KEY) || localStorage.getItem("locale-choice");
-      if (saved && saved !== "zh" && i18n[saved]) return saved;
+      if (saved && i18n[saved]) return saved;
+
+      const edgeLanguage = String(window.__ROSHINE_EDGE_LANG__ || "").toLowerCase();
+      if (edgeLanguage && i18n[edgeLanguage]) return edgeLanguage;
 
       const nav = (navigator.language || "en").toLowerCase();
-      if (nav.startsWith("zh")) return "en";
+      if (nav.startsWith("zh")) return "zh";
       if (nav.startsWith("fr")) return "fr";
       if (nav.startsWith("de")) return "de";
       if (nav.startsWith("ar")) return "ar";
+      if (nav.startsWith("ja")) return "ja";
       return "en";
     }
 
@@ -904,7 +893,9 @@
       document.getElementById("authBtnText").textContent = i18n[lang].auth;
 
       document.getElementById("panelTitleText").textContent = i18n[lang].panelTitle;
+      document.getElementById("authIntro").textContent = i18n[lang].intro;
       document.getElementById("secretLabel").textContent = i18n[lang].secretLabel;
+      document.getElementById("privacyHint").textContent = i18n[lang].privacyHint;
       document.getElementById("secret").placeholder = i18n[lang].placeholder;
       document.getElementById("copy").textContent = i18n[lang].copy;
       document.getElementById("clear").textContent = i18n[lang].clear;
@@ -1044,5 +1035,6 @@
     tick();
     gen();
   </script>
+  <script src="../assets/void-effects.js?v=1" defer></script>
 </body>
 </html>

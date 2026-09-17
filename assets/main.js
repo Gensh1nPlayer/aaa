@@ -1216,56 +1216,50 @@ document.addEventListener("DOMContentLoaded", () => {
     const i18n = {
       en: {
         metaTitle:"Roshine Account Store",
-        metaDesc:"Premium Overwatch accounts with secure delivery.",
+        metaDesc:"Overwatch accounts worth keeping, with clear listings, guided handover, and support after purchase.",
         nav: { home:"Home", accounts:"Accounts", services:"Services", warranty:"Warranty", faq:"FAQ", contact:"Contact" },
         accountsKicker:"🎮 INVENTORY",
-        accountsTitle:"Accounts",
-        accountsDesc:"Browse our currently available stock. Select an account and order via Discord.",
+        accountsTitle:"Pick your account",
+        accountsDesc:"Search by skin, collection, price, or account type. When one feels right, send its ID on Discord and we’ll confirm it before you pay.",
         accountsUpdateLabel:"Next planned inventory update:",
         accountsUpdateValue:"In 7 Days",
         accountsUpdateTime:{ day:"{count} Day", days:"{count} Days", hour:"{count} Hour", hours:"{count} Hours", underHour:"Under 1 Hour" },
         auth:"Authenticator",
         a11y:{ skip:"Skip to inventory", openNav:"Open navigation", closeNav:"Close navigation", mobileNav:"Mobile navigation" },
-        heroKicker:"⚡ Trusted since 2021",
-        heroTitle:"ROSHINE ACCOUNT STORE",
+        heroKicker:"✦ Roshine · Selling since 2021",
+        heroTitle:"FIND YOUR NEXT MAIN ACCOUNT",
         heroSubbrand:"",
-        heroIntro:"Since 2021, Roshine Account Store has delivered curated Overwatch accounts with a streamlined purchase flow and long-term support. Five years in operation, built for consistency, clarity, and buyer confidence.",
-        ctaExplore:"View Stock & Purchase",
-        servicesKicker:"✨ SERVICES",
-        servicesTitle:"Listings & Ordering",
-        servicesDesc:"Browse our live inventory above, then order via Discord by sending the account ID or a screenshot.",
+        heroIntro:"From rare limited skins and clean ranked-ready accounts to currency-loaded profiles, stacked OW1 collections, high-rank mains, and Top 500-ready picks—browse real stock, compare every detail, and choose the account that fits how you play.",
+        ctaExplore:"Browse live stock",
+        servicesKicker:"HOW TO BUY",
+        servicesTitle:"From shortlist to sign-in",
+        servicesDesc:"No checkout maze. Pick an account, send the ID, and we’ll handle the rest with you on Discord.",
         servicesList:[
-          "📄 Browse the listings and filter by availability, game version, price, account features, or keywords.",
-          "🧾 Copy the account ID (or screenshot the row you want).",
-          "💬 Join Discord and send the ID/screenshot to confirm availability and total.",
-          "✅ After payment, receive login info and the security handover package."
+          "Browse the live list and search by availability, version, price, account feature, or skin keyword.",
+          "Copy the account ID—or take a screenshot if that’s quicker.",
+          "Send it in a purchase ticket. We’ll confirm availability, the total, and any details you want checked.",
+          "Once payment is confirmed, we’ll send the login information and guide you through the handover."
         ],
         btnDiscord:"Order via Discord",
 
         warrantyKicker:"🛡️ WARRANTY",
-        warrantyTitle:"Warranty & Security",
-        warrantyDesc:"Clear scope, transparent process, long-term protection.",
+        warrantyTitle:"What happens after you buy",
+        warrantyDesc:"You get the account details, a clear handover, and help if an ownership-related problem appears later.",
         warrantyCards:[
-          { icon:"🛡️", badge:"PRIMARY", badgeType:"primary", title:"Lifetime Security Warranty",
-            desc:"If the account is reclaimed, hacked, or permanently lost due to previous owner issues, we provide a full replacement (equal value) or full compensation." },
-          { icon:"📂", badge:"PROOF", badgeType:"primary", title:"Verified Ownership Handover",
-            desc:"You receive the security handover package (as applicable): original email access, Battle.net/Steam, authenticator transfer support, account ID, and available recovery details." },
-          { icon:"⚡", badge:"FAST", badgeType:"primary", title:"Fast Delivery",
-            desc:"Most accounts are delivered within 5 minutes after confirmed payment (rare high-tier accounts may require extra preparation)." },
-          { icon:"♾️", badge:"FREE", badgeType:"primary", title:"Unlimited Free Unlock Support (OW2)",
-            desc:"If unlock-related issues occur on eligible Overwatch 2 accounts, we provide unlimited assistance." },
-          { icon:"🔄", badge:"PAID", badgeType:"paid", title:"Region Update Service",
-            desc:"Optional paid service. Region changes are handled only when supported by platform policy." },
-          { icon:"🚫", badge:"PAID", badgeType:"paid", title:"Unban Appeal Assistance",
-            desc:"Optional paid service. We help prepare and submit an appeal; approval is not guaranteed and depends on official review." }
+          { icon:"🛡️", badge:"CORE", badgeType:"primary", title:"Lifetime security warranty", desc:"If an account is reclaimed or lost because of a previous-owner issue, we review the available proof and try recovery first. If recovery fails, we arrange an equal-value replacement, refund, or fair compensation based on the case and available stock." },
+          { icon:"📂", badge:"HANDOVER", badgeType:"primary", title:"Account details included", desc:"Delivery includes the available login, email, recovery, order, and authenticator information for that account. What is included is confirmed before payment." },
+          { icon:"⚡", badge:"DELIVERY", badgeType:"primary", title:"Fast, guided delivery", desc:"Most orders are handed over shortly after payment. Higher-value accounts may take a little longer while we double-check the details." },
+          { icon:"♾️", badge:"SUPPORT", badgeType:"primary", title:"OW2 SMS support", desc:"Eligible OW2 accounts include continued help with SMS unlock-related issues. Open a support ticket if the lock appears." },
+          { icon:"🔄", badge:"OPTIONAL", badgeType:"paid", title:"Region-change assistance", desc:"A paid service for eligible accounts and regions. Availability, cooldowns, and pricing are confirmed before the request starts." },
+          { icon:"🚫", badge:"OPTIONAL", badgeType:"paid", title:"Unban appeal support", desc:"For eligible store accounts, we can help prepare an appeal. Results are never guaranteed and remain subject to official review." }
         ],
 
         faqKicker:"❓ FAQ",
         faqTitle:"Frequently Asked Questions",
-        faqDesc:"Quick answers to the questions that most buyers ask before ordering.",
-        faq1:"Are the accounts safe? — Every account comes from a real player and has a normal play history—not a scripted, botted, studio-farmed, or mass-produced account. We exclude accounts with known histories of cheating, abuse, or other rule violations. Key listing details can be cross-checked against official in-game and Battle.net records during verification.",
-        faq2:"How fast is delivery? — Most orders are delivered within 5 minutes after payment. Rare top-tier accounts may require additional preparation time.",
-        faq3:"Payment methods supported? — Credit card, PayPal, crypto, and selected gift cards. Confirm availability and fees on Discord.",
+        faqDesc:"The practical stuff buyers usually ask before opening a ticket.",
+        faq1:"Where do the accounts come from? — Listings come from real player accounts with normal play history. We do not intentionally list botted, farmed, or mass-produced accounts, and known cheating or abuse history is excluded. Ask us to confirm any detail that matters to you before payment.",
+        faq2:"How fast is delivery? — Most orders are ready shortly after payment. Higher-value accounts can take a little longer because we double-check the handover first.",
+        faq3:"What can I pay with? — Card payments are available through Stripe or PayPal, with Apple Pay and Google Pay where supported. Binance, Bitcoin, and selected gift cards may also be available; fees and availability are confirmed in the ticket.",
         faq4:"How often is the stock updated? — Sales status is updated in real time as accounts are sold, while new stock is typically added every 7 days. The countdown above shows the next planned stock update.",
         faq5:{
           question:"How to use the Battle.net Authenticator?",
@@ -1295,14 +1289,14 @@ document.addEventListener("DOMContentLoaded", () => {
         btnOrder:"Order via Discord",
 
         contactKicker:"💬 CONTACT",
-        contactTitle:"Reach us",
-        contactDesc:"For the fastest response, message us on Discord with the account ID (or a screenshot). You can also email us anytime.",
+        contactTitle:"Want a second opinion?",
+        contactDesc:"Send the account ID on Discord and tell us what you care about—skins, rank, budget, or account age. We’ll help you compare before you decide.",
         btnContact:"Discord",
         btnEmail:"Email",
         footerNav: { home:"Home", services:"Services", contact:"Contact", privacy:"Privacy", terms:"Terms" },
 
         footer1:"© 2021–2026 Roshine Account Store.",
-        footer2:"All rights reserved — your reliable account supplier."
+        footer2:"Overwatch accounts, straight answers, and support that doesn’t disappear after checkout."
       },
 
       fr: {
@@ -1320,7 +1314,7 @@ document.addEventListener("DOMContentLoaded", () => {
         heroKicker:"⚡ Fiable depuis 2021",
         heroTitle:"ROSHINE",
         heroSubbrand:"Boutique de comptes Overwatch",
-        heroIntro:"Depuis 2021, Roshine Account Store propose des comptes Overwatch sélectionnés, avec un processus d’achat simple et un support durable. Cinq ans d’activité, axés sur la clarté, la stabilité et la confiance.",
+        heroIntro:"Skins rares et limités, comptes propres prêts pour le classé, profils chargés en monnaies, collections OW1 très fournies, hauts rangs et options Top 500 : parcourez le stock réel et comparez chaque détail avant de choisir.",
         ctaExplore:"Voir le stock & acheter",
         servicesKicker:"✨ SERVICES",
         servicesTitle:"Liste & Commande",
@@ -1411,7 +1405,7 @@ document.addEventListener("DOMContentLoaded", () => {
         heroKicker:"⚡ Vertrauenswürdig seit 2021",
         heroTitle:"ROSHINE",
         heroSubbrand:"Overwatch Account Store",
-        heroIntro:"Seit 2021 liefert Roshine Account Store kuratierte Overwatch-Accounts mit einem klaren Kaufprozess und langfristigem Support. Fünf Jahre Betrieb – für Beständigkeit, Transparenz und Vertrauen.",
+        heroIntro:"Seltene limitierte Skins, saubere rankbereite Accounts, Profile mit vielen Währungen, umfangreiche OW1-Sammlungen, High-Rank- und Top-500-Optionen – echter Bestand mit klaren Details zum Vergleichen.",
         ctaExplore:"Bestand ansehen & kaufen",
         servicesKicker:"✨ SERVICES",
         servicesTitle:"Listings & Bestellung",
@@ -1502,7 +1496,7 @@ document.addEventListener("DOMContentLoaded", () => {
         heroKicker:"⚡ موثوق منذ 2021",
         heroTitle:"ROSHINE",
         heroSubbrand:"متجر حسابات Overwatch",
-        heroIntro:"منذ 2021 يقدّم Roshine Account Store حسابات Overwatch مختارة بعناية مع خطوات شراء واضحة ودعم طويل المدى. خمس سنوات تشغيل مبنية على الثبات والوضوح والثقة.",
+        heroIntro:"من السكنات النادرة والمحدودة والحسابات النظيفة الجاهزة للتصنيف إلى حسابات العملات ومجموعات OW1 الكبيرة والرتب العالية وخيارات Top 500 — تصفح المخزون الحقيقي وقارن التفاصيل قبل الاختيار.",
         ctaExplore:"عرض المخزون والشراء",
         servicesKicker:"✨ الخدمات",
         servicesTitle:"القائمة والطلب",
@@ -1578,58 +1572,108 @@ document.addEventListener("DOMContentLoaded", () => {
         footer2:"جميع الحقوق محفوظة — المورّد الموثوق للحسابات."
       },
 
+      ja: {
+        metaTitle:"Roshine Account Store",
+        metaDesc:"分かりやすい出品情報、引き渡しサポート、購入後の保証を備えたOverwatchアカウントストア。",
+        nav: { home:"ホーム", accounts:"在庫", services:"購入方法", warranty:"保証", faq:"FAQ", contact:"お問い合わせ" },
+        accountsKicker:"🎮 リアルタイム在庫",
+        accountsTitle:"自分に合うアカウントを探す",
+        accountsDesc:"検索とフィルターで候補を絞り、気になるアカウントのIDをDiscordで送ってください。お支払い前に在庫と詳細を確認します。",
+        accountsUpdateLabel:"次回の在庫追加予定：",
+        accountsUpdateValue:"7日以内",
+        accountsUpdateTime:{ day:"{count}日", days:"{count}日", hour:"{count}時間", hours:"{count}時間", underHour:"1時間以内" },
+        auth:"Authenticator",
+        a11y:{ skip:"在庫へ移動", openNav:"メニューを開く", closeNav:"メニューを閉じる", mobileNav:"モバイルメニュー" },
+        heroKicker:"✦ Roshine · 2021年から販売",
+        heroTitle:"次のメインアカウントを見つけよう",
+        heroSubbrand:"",
+        heroIntro:"希少・限定スキン、クリーンなランク対応アカウント、通貨を多く持つアカウント、充実したOW1コレクション、高ランク、Top 500向けまで。実在庫の詳細を比較して、自分に合う一つを選べます。",
+        ctaExplore:"在庫を見る",
+        servicesKicker:"購入方法",
+        servicesTitle:"選ぶところからログインまで",
+        servicesDesc:"複雑なチェックアウトはありません。アカウントを選び、IDを送れば、その後はDiscordで直接サポートします。",
+        servicesList:[
+          "リアルタイム在庫を検索し、価格、バージョン、ランク、コレクションで絞り込みます。",
+          "アカウントIDをコピーします。スクリーンショットでも構いません。",
+          "購入チケットで送信してください。在庫、合計金額、確認したい内容をお答えします。",
+          "お支払い確認後、ログイン情報をお渡しし、引き渡しを案内します。"
+        ],
+        btnDiscord:"Discordで注文",
+        warrantyKicker:"🛡️ 保証",
+        warrantyTitle:"購入後のサポート",
+        warrantyDesc:"アカウント情報、引き渡し方法、保証範囲をお支払い前に分かりやすくお伝えします。",
+        warrantyCards:[
+          { icon:"🛡️", badge:"基本保証", badgeType:"primary", title:"長期セキュリティ保証", desc:"元所有者に起因する取り戻しや消失が確認された場合、利用可能な証拠を確認し、まず復旧を試みます。復旧できない場合は、状況と在庫に応じて同等品への交換、返金または適正な補償を案内します。" },
+          { icon:"📂", badge:"引き渡し", badgeType:"primary", title:"利用可能なアカウント情報を提供", desc:"各アカウントで利用できるログイン、メール、復旧、注文履歴、Authenticator情報を引き渡します。含まれる内容はお支払い前に確認できます。" },
+          { icon:"⚡", badge:"配送", badgeType:"primary", title:"迅速で分かりやすい引き渡し", desc:"多くの注文は入金確認後すみやかに対応します。高額アカウントは情報を再確認するため、少し時間がかかる場合があります。" },
+          { icon:"♾️", badge:"サポート", badgeType:"primary", title:"OW2 SMSロックサポート", desc:"対象となるOW2アカウントでは、SMSロックに関する継続サポートを提供します。問題が出た場合はサポートチケットを開いてください。" },
+          { icon:"🔄", badge:"オプション", badgeType:"paid", title:"地域変更サポート", desc:"対象アカウント・地域向けの有料サービスです。可否、クールダウン、料金は開始前に確認します。" },
+          { icon:"🚫", badge:"オプション", badgeType:"paid", title:"BAN異議申し立てサポート", desc:"対象のストア購入アカウントについて申請準備をサポートします。結果は保証されず、最終判断は公式審査によります。" }
+        ],
+        faqKicker:"❓ FAQ",
+        faqTitle:"よくある質問",
+        faqDesc:"購入チケットを開く前によく聞かれる内容です。",
+        faq1:"アカウントはどこから来ますか？ — 通常のプレイ履歴を持つ実際のプレイヤーアカウントを掲載しています。BOT、ファーム、大量生産アカウントを意図的に掲載せず、既知のチートや不正利用履歴があるものは除外しています。重要な点はお支払い前に確認してください。",
+        faq2:"引き渡しはどのくらいかかりますか？ — 多くの注文は入金確認後すみやかに対応します。高額アカウントは引き渡し情報を再確認するため、少し時間がかかる場合があります。",
+        faq3:"どの支払い方法が使えますか？ — StripeまたはPayPalによるカード決済、対応環境ではApple PayとGoogle Pay、さらにBinance、Bitcoin、一部ギフトカードを利用できます。手数料と可否はチケットで確認します。",
+        faq4:"在庫はどのくらいの頻度で更新されますか？ — 販売済み・保留中の状態は注文の進行に合わせて更新され、新しいアカウントは通常週単位で追加されます。上のカウントダウンは次回予定を示します。",
+        faq5:{ question:"Battle.net Authenticatorの使い方は？", intro:"roshine.love/auth はBattle.net Authenticator用のプライベートツールです。引き渡し情報にあるPrivate Keyを貼り付け、認証を求められたときに表示中のコードをBattle.netアプリへ入力します。", linkLabel:"roshine.love/auth", sections:[{ icon:"📌", title:"Authenticatorについて", items:["コードは30秒ごとに更新されます。", "各コードは一度だけ使用できます。", "期限が切れた場合は次のコードを待って再試行してください。"] }] },
+        faq6:{ question:"Overwatchアカウントへログインするには？", intro:"引き渡されたBattle.net情報でログインし、アプリが求めた場合のみAuthenticator認証を行います。", sections:[{ icon:"🎮", title:"Overwatchアカウントへのログイン", ordered:true, items:["Battle.netデスクトップアプリを開きます。", "提供されたBattle.net情報でログインします。", "求められた場合は現在のAuthenticatorコードで認証します。"] }] },
+        faq7:{ question:"アカウントのメールへアクセスするには？", intro:"引き渡されたメール情報を使います。Authenticatorの有無によって認証方法が異なります。", sections:[{ icon:"✉️", title:"メールへのアクセス", items:["提供されたメール情報でlive.comへログインします。", "Authenticatorがある場合は提供されたQRコードをGoogle Authenticatorで使用し、ない場合はメールとパスワードでログインします。", "ログイン後、自分の復旧用メールを追加することをおすすめします。"] }] },
+        faq8:"セキュリティ情報はいつ変更すべきですか？ — 同じ端末と安定したIPを使い、約7日待ってからパスワード、復旧用メール、地域などを変更することをおすすめします。ロックや認証問題の可能性は下げられますが、プラットフォーム上のリスクを完全にはなくせません。",
+        faq9:{ question:"アカウントを安全に保つには？", intro:"引き渡し後すぐに情報を保存し、すべてのログイン・復旧手段を安全に管理してください。", sections:[{ icon:"🔐", title:"セキュリティの推奨事項", items:["メール、Authenticator、復旧情報を安全に保管してください。", "公共または不安定なIP、VPN、プロキシ、共有ネットワークを避けてください。", "アカウント情報を他人と共有しないでください。"] }] },
+        btnStock:"在庫を見る", btnOrder:"Discordで注文",
+        contactKicker:"💬 お問い合わせ", contactTitle:"どれを選ぶか迷っていますか？", contactDesc:"DiscordでアカウントIDを送り、スキン、ランク、予算、アカウント年数など重視する点を教えてください。決める前に比較をお手伝いします。", btnContact:"Discord", btnEmail:"メール",
+        footerNav: { home:"ホーム", services:"サービス", contact:"お問い合わせ", privacy:"プライバシー", terms:"利用規約" },
+        footer1:"© 2021–2026 Roshine Account Store.", footer2:"分かりやすいアカウント情報、率直な回答、購入後も続くサポート。"
+      },
+
       zh: {
         metaTitle:"Roshine 账号商店",
-        metaDesc:"高质量守望先锋账号，安全交付。",
+        metaDesc:"守望先锋账号实时库存，信息清楚展示，提供交接指导与购买后售后支持。",
         nav: { home:"主页", accounts:"库存", services:"服务", warranty:"售后", faq:"常见问题", contact:"联系" },
         accountsKicker:"🎮 库存",
-        accountsTitle:"账号库存",
-        accountsDesc:"浏览当前可售库存，选择账号后通过 Discord 下单。",
+        accountsTitle:"挑一个真正适合你的账号",
+        accountsDesc:"可以按皮肤、系列、价格或账号类型搜索。看中后把账号 ID 发到 Discord，我们会在付款前替你确认库存和细节。",
         accountsUpdateLabel:"下次计划更新库存：",
         accountsUpdateValue:"7 天后",
         accountsUpdateTime:{ day:"{count} 天", days:"{count} 天", hour:"{count} 小时", hours:"{count} 小时", underHour:"不足 1 小时" },
         auth:"Authenticator",
         a11y:{ skip:"跳到账号库存", openNav:"打开导航", closeNav:"关闭导航", mobileNav:"移动端导航" },
-        heroKicker:"⚡ 自 2021 年稳定运营",
-        heroTitle:"ROSHINE",
+        heroKicker:"✦ Roshine · 自 2021 年持续运营",
+        heroTitle:"找到你的下一个主力账号",
         heroSubbrand:"守望先锋账号商店",
-        heroIntro:"Roshine Account Store 自 2021 年起持续提供精选 Overwatch 账号，流程清晰、交付稳定、支持长期售后。已稳定运行 5 年，专注于可靠性与买家信心。",
-        ctaExplore:"查看库存并购买",
-        servicesKicker:"✨ 服务",
-        servicesTitle:"库存与下单",
-        servicesDesc:"浏览上方当前可售库存，通过 Discord 发送账号 ID 或截图即可确认并购买。",
+        heroIntro:"从稀有限定皮肤、干净排位号和货币号，到适合收藏的高库存 OW1 老账号、精品堆皮号、高段位号与五百强账号，全部来自当前真实库存。先把细节比较清楚，再挑真正适合你的账号。",
+        ctaExplore:"浏览实时库存",
+        servicesKicker:"购买流程",
+        servicesTitle:"从挑选账号到顺利登录",
+        servicesDesc:"不用绕复杂的结账流程。挑中账号、发送 ID，后续确认、付款和交接都在 Discord 里直接沟通。",
         servicesList:[
-          "📄 浏览账号，并按库存状态、游戏版本、价格、账号特征或关键词筛选。",
-          "🧾 复制账号 ID（或截图对应行）。",
-          "💬 加入 Discord 发送 ID/截图，确认库存与总价。",
-          "✅ 付款后交付登录信息与安全资料包。"
+          "浏览实时库存，可按状态、版本、价格、账号特点或皮肤关键词筛选。",
+          "复制账号 ID；觉得截图更方便，也可以直接截图。",
+          "在购买工单中发送 ID 或截图，我们会确认库存、总价和你想核对的细节。",
+          "确认付款后交付登录资料，并一步步协助完成账号交接。"
         ],
         btnDiscord:"通过 Discord 下单",
 
         warrantyKicker:"🛡️ 质保",
-        warrantyTitle:"质保与安全",
-        warrantyDesc:"范围明确、流程透明、长期保障更可控。",
+        warrantyTitle:"买完之后，我们怎么负责",
+        warrantyDesc:"交付哪些资料、遇到问题怎么处理、哪些情况属于质保，付款前都会说明清楚。",
         warrantyCards:[
-          { icon:"🛡️", badge:"核心", badgeType:"primary", title:"终身安全质保",
-            desc:"若因原持有人找回/被盗/永久丢失等安全问题导致账号失效：提供等值替换或全额补偿。" },
-          { icon:"📂", badge:"凭证", badgeType:"primary", title:"完整资料交接",
-            desc:"安全资料包（按实际情况）：原邮箱权限、Battle.net / Steam、令牌转移协助、账号 ID 及可用恢复资料。" },
-          { icon:"⚡", badge:"极速", badgeType:"primary", title:"极速交付",
-            desc:"多数订单在确认付款后 5 分钟内完成交付（少数顶级账号可能需要额外整理时间）。" },
-          { icon:"♾️", badge:"免费", badgeType:"primary", title:"OW2 免费解锁支持（不限次）",
-            desc:"仅适用于守望先锋 2 账号：如出现解锁相关问题，提供不限次数协助。" },
-          { icon:"🔄", badge:"付费", badgeType:"paid", title:"区服变更服务",
-            desc:"可选付费服务。仅在平台政策允许范围内协助区服调整。" },
-          { icon:"🚫", badge:"付费", badgeType:"paid", title:"解封申诉协助",
-            desc:"可选付费服务。协助整理并提交申诉材料；最终结果以官方审核为准（不保证通过）。" }
+          { icon:"🛡️", badge:"核心质保", badgeType:"primary", title:"长期安全质保", desc:"如果确认是前任号主找回或其他原持有人问题导致账号丢失，我们会先核对证据并尝试恢复；恢复失败后，再根据具体情况和现有库存安排等值更换、退款或合理补偿。" },
+          { icon:"📂", badge:"资料交接", badgeType:"primary", title:"账号可用资料一并交付", desc:"按该账号实际情况交付登录、邮箱、恢复、订单记录与 Authenticator 等可用资料；具体包含什么，会在付款前确认。" },
+          { icon:"⚡", badge:"交付", badgeType:"primary", title:"快速且有人协助的交付", desc:"多数订单会在确认付款后尽快交付；价格较高的账号可能需要多一点时间，我们会先把资料再核对一遍。" },
+          { icon:"♾️", badge:"售后", badgeType:"primary", title:"OW2 SMS 锁定支持", desc:"符合条件的 OW2 账号如遇 SMS 解锁相关问题，可继续通过售后工单寻求协助。" },
+          { icon:"🔄", badge:"可选服务", badgeType:"paid", title:"区服变更协助", desc:"仅适用于符合条件的账号与地区。能否处理、冷却时间和价格会在开始前确认。" },
+          { icon:"🚫", badge:"可选服务", badgeType:"paid", title:"解封申诉协助", desc:"可为符合条件的本店账号协助整理申诉内容；最终结果由官方审核决定，无法保证通过。" }
         ],
 
         faqKicker:"❓ FAQ",
         faqTitle:"常见问题",
-        faqDesc:"下单前最常问的几个点，直接看这里。",
-        faq1:"账号是否安全？— 所有账号均来自真人玩家并具有正常游戏记录，不是脚本号、机器人号、工作室批量号或其他破坏游戏规则的账号。我们不会上架存在已知作弊、滥用或其他违规历史的账号；每条商品描述中的关键信息均可在核验时通过游戏内与 Battle.net 官方记录交叉确认。",
-        faq2:"多久交付？— 大部分订单在付款后 5 分钟内完成交付；少数顶级账号可能需要额外整理时间。",
-        faq3:"支持哪些付款方式？— 支持信用卡、PayPal、虚拟货币及部分礼品卡；具体可用方式与手续费请在 Discord 确认。",
+        faqDesc:"买家开工单前最常问的实际问题，都整理在这里。",
+        faq1:"账号从哪里来？— 上架的是有正常游戏记录的真人玩家账号。我们不会故意上架机器人号、工作室批量号或已知存在作弊、滥用记录的账号。付款前如果有特别在意的内容，可以让我们再确认。",
+        faq2:"多久交付？— 多数订单会在付款后尽快交付。高价值账号需要先复核交接资料，可能会多花一点时间。",
+        faq3:"支持哪些付款方式？— 可通过 Stripe 或 PayPal 使用银行卡，支持时也可使用 Apple Pay、Google Pay；Binance、Bitcoin 与部分礼品卡需在工单中确认可用性和手续费。",
         faq4:"库存多久更新？— 账号销售状态会实时更新；新库存通常每 7 天补充一次。上方倒计时显示下一次计划更新时间。",
         faq5:{
           question:"如何使用 Battle.net Authenticator？",
@@ -1659,14 +1703,14 @@ document.addEventListener("DOMContentLoaded", () => {
         btnOrder:"Discord 下单",
 
         contactKicker:"💬 联系",
-        contactTitle:"联系我们",
-        contactDesc:"最快方式：Discord（发送账号 ID 或截图）。也可随时通过邮箱联系我们。",
+        contactTitle:"拿不准选哪个？",
+        contactDesc:"把账号 ID 发到 Discord，再告诉我们你更看重皮肤、排位、预算还是账号年份。付款前，我们可以帮你一起比较。",
         btnContact:"Discord",
         btnEmail:"Email",
         footerNav: { home:"主页", services:"服务", contact:"联系", privacy:"隐私", terms:"条款" },
 
         footer1:"© 2021–2026 Roshine Account Store。",
-        footer2:"All rights reserved — your reliable account supplier."
+        footer2:"账号信息说清楚，购买问题直接答，交付之后也不会突然消失。"
       }
     };
 
@@ -1713,7 +1757,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       element.dataset.targetTimestamp = String(target);
       try {
-        const locale = { en:'en-US', fr:'fr-FR', de:'de-DE', ar:'ar', zh:'zh-CN' }[lang] || lang;
+      const locale = { en:'en-US', fr:'fr-FR', de:'de-DE', ar:'ar', ja:'ja-JP', zh:'zh-CN' }[lang] || lang;
         element.title = new Intl.DateTimeFormat(locale, {
           dateStyle: 'medium', timeStyle: 'short', timeZone: 'Asia/Shanghai'
         }).format(new Date(target));
@@ -1740,7 +1784,7 @@ document.addEventListener("DOMContentLoaded", () => {
         searchPlaceholder:"Search accounts",
         searchAria:"Search accounts",
         typeAria:"Filter Overwatch version",
-        typeOptions:["Overwatch Version", "OW1", "OW2"],
+        typeOptions:["OW1 / OW2", "OW1", "OW2"],
         statusAria:"Filter account status", statusOptions:["In Stock", "Sold", "Pending", "All Statuses"],
         priceAria:"Filter price range", priceOptions:["Price Range", "< $30", "$30–$100", "> $100"],
         nameChangeAria:"Filter free name change", nameChangeOptions:["Free Name Change", "Free Name: Yes", "Free Name: No"],
@@ -1767,7 +1811,7 @@ document.addEventListener("DOMContentLoaded", () => {
         searchPlaceholder:"Rechercher des comptes",
         searchAria:"Rechercher dans les comptes",
         typeAria:"Filtrer la version d’Overwatch",
-        typeOptions:["Version d’Overwatch", "OW1", "OW2"],
+        typeOptions:["OW1 / OW2", "OW1", "OW2"],
         statusAria:"Filtrer le statut du compte", statusOptions:["En stock", "Vendu", "En attente", "Tous les statuts"],
         priceAria:"Filtrer la tranche de prix", priceOptions:["Tranche de prix", "Moins de 30 $", "30–100 $", "Plus de 100 $"],
         nameChangeAria:"Filtrer le renommage gratuit", nameChangeOptions:["Renommage gratuit", "Renommage : Oui", "Renommage : Non"],
@@ -1794,7 +1838,7 @@ document.addEventListener("DOMContentLoaded", () => {
         searchPlaceholder:"Accounts suchen",
         searchAria:"Accounts suchen",
         typeAria:"Nach Overwatch-Version filtern",
-        typeOptions:["Overwatch-Version", "OW1", "OW2"],
+        typeOptions:["OW1 / OW2", "OW1", "OW2"],
         statusAria:"Account-Status filtern", statusOptions:["Auf Lager", "Verkauft", "Ausstehend", "Alle Status"],
         priceAria:"Preisspanne filtern", priceOptions:["Preisspanne", "Unter 30 $", "30–100 $", "Über 100 $"],
         nameChangeAria:"Kostenlose Umbenennung filtern", nameChangeOptions:["Kostenlose Umbenennung", "Umbenennung: Ja", "Umbenennung: Nein"],
@@ -1821,7 +1865,7 @@ document.addEventListener("DOMContentLoaded", () => {
         searchPlaceholder:"البحث في الحسابات",
         searchAria:"البحث في الحسابات",
         typeAria:"تصفية حسب إصدار Overwatch",
-        typeOptions:["إصدار Overwatch", "OW1", "OW2"],
+        typeOptions:["OW1 / OW2", "OW1", "OW2"],
         statusAria:"تصفية حالة الحساب", statusOptions:["متوفر", "مباع", "قيد الانتظار", "كل الحالات"],
         priceAria:"تصفية نطاق السعر", priceOptions:["نطاق السعر", "أقل من 30$", "30$–100$", "أكثر من 100$"],
         nameChangeAria:"تصفية تغيير الاسم المجاني", nameChangeOptions:["تغيير الاسم مجانًا", "تغيير الاسم: نعم", "تغيير الاسم: لا"],
@@ -1837,6 +1881,25 @@ document.addEventListener("DOMContentLoaded", () => {
         missingScreenshot:"رابط الصور غير متوفر لهذا الحساب.",
         premiumAccount:"حساب مميز", statusInStock:"متوفر", statusSold:"مباع", statusPending:"قيد الانتظار"
       },
+      ja: {
+        toolsAria:"アカウント在庫の検索・絞り込み",
+        filterSort:"絞り込みと並び替え", filterSubtitle:"在庫から候補を絞り込みます", resetFilters:"条件をリセット", closeFilters:"フィルターを閉じる",
+        activeFilters:"適用中の条件", clearFilter:"この条件を外す", searchLabel:"検索", applyFilters:"{count}件を表示",
+        popularSearches:"人気の検索", popularSearchesAria:"アカウントの人気検索",
+        showMore:"スキンをさらに表示", showLess:"スキンを閉じる", playtime:"プレイ時間", credits:"クレジット", coins:"コイン",
+        mythicPrisms:"ミシック・プリズム", compPointsAll:"ライバル・ダスト（合計）",
+        searchPlaceholder:"アカウントを検索", searchAria:"アカウントを検索",
+        typeAria:"Overwatchバージョンで絞り込む", typeOptions:["OW1 / OW2", "OW1", "OW2"],
+        statusAria:"在庫状況で絞り込む", statusOptions:["販売中", "販売済み", "保留中", "すべての状態"],
+        priceAria:"価格帯で絞り込む", priceOptions:["価格帯", "$30未満", "$30–$100", "$100超"],
+        nameChangeAria:"無料ネーム変更で絞り込む", nameChangeOptions:["無料ネーム変更", "無料変更：あり", "無料変更：なし"],
+        sortAria:"アカウントを並び替える", sortGroups:["価格", "アカウント進行度", "ウォレット・残高"],
+        sortOptions:["おすすめ", "価格：安い順", "価格：高い順", "レベル：高い順", "レベル：低い順", "プレイ時間：多い順", "プレイ時間：少ない順", "コイン：多い順", "コイン：少ない順", "クレジット：多い順", "クレジット：少ない順", "ミシック・プリズム：多い順"],
+        results:"{shown} / {total}件", empty:"現在の検索・絞り込み条件に一致するアカウントはありません。", loadError:"アカウント在庫を読み込めませんでした。",
+        rank:"ランク", price:"価格", level:"レベル", statusLabel:"状態", weapons:"武器", freeRename:"無料ネーム変更", top500Eligible:"TOP500対象",
+        yes:"はい", no:"いいえ", viewSkins:"スキンを見る", buyNow:"購入する", copyId:"IDをコピー", copied:"コピーしました",
+        missingScreenshot:"このアカウントにはスクリーンショットリンクがありません。", premiumAccount:"プレミアムアカウント", statusInStock:"販売中", statusSold:"販売済み", statusPending:"保留中"
+      },
       zh: {
         toolsAria:"账号库存筛选与排序",
         filterSort:"筛选与排序", filterSubtitle:"快速缩小库存范围", resetFilters:"清除筛选", closeFilters:"关闭筛选",
@@ -1848,7 +1911,7 @@ document.addEventListener("DOMContentLoaded", () => {
         searchPlaceholder:"搜索账号",
         searchAria:"搜索账号",
         typeAria:"筛选守望先锋版本",
-        typeOptions:["守望先锋版本", "OW1", "OW2"],
+        typeOptions:["OW1 / OW2", "OW1", "OW2"],
         statusAria:"筛选库存状态", statusOptions:["有库存", "已售出", "待处理", "全部状态"],
         priceAria:"筛选价格区间", priceOptions:["价格区间", "低于 $30", "$30–$100", "高于 $100"],
         nameChangeAria:"筛选免费改名", nameChangeOptions:["免费改名", "改名：有", "改名：无"],
@@ -2131,13 +2194,18 @@ document.addEventListener("DOMContentLoaded", () => {
       if (urlLang && i18n[urlLang]) return urlLang;
 
       const saved = localStorage.getItem(LANG_KEY);
-      if (saved && saved !== "zh" && i18n[saved]) return saved;
+      if (saved && i18n[saved]) return saved;
+
+      // Hosting/CDN geo logic may set this before main.js without exposing visitor IPs to a third party.
+      const edgeLanguage = String(window.__ROSHINE_EDGE_LANG__ || '').toLowerCase();
+      if (edgeLanguage && i18n[edgeLanguage]) return edgeLanguage;
 
       const nav = (navigator.language || "en").toLowerCase();
-      if (nav.startsWith("zh")) return "en";
+      if (nav.startsWith("zh")) return "zh";
       if (nav.startsWith("fr")) return "fr";
       if (nav.startsWith("de")) return "de";
       if (nav.startsWith("ar")) return "ar";
+      if (nav.startsWith("ja")) return "ja";
       return "en";
     }
 
@@ -2151,12 +2219,21 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
+    const warrantyIcons = [
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 19 6v5c0 4.6-2.8 8.2-7 10-4.2-1.8-7-5.4-7-10V6l7-3Z"/><path d="m9.2 12 1.8 1.8 3.9-4"/></svg>',
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7.5h6l1.6 2H20v8.5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7.5Z"/><path d="M4 10h16"/></svg>',
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m13.2 2-7 11H12l-1.2 9 7-12H12l1.2-8Z"/></svg>',
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 8.5 6.8 10.2a3.8 3.8 0 1 0 5.4 5.4l1.7-1.7"/><path d="m15.5 15.5 1.7-1.7a3.8 3.8 0 1 0-5.4-5.4l-1.7 1.7"/><path d="m9.5 14.5 5-5"/></svg>',
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 13.6-5.7L20 8.7"/><path d="M20 4v4.7h-4.7"/><path d="M20 12a8 8 0 0 1-13.6 5.7L4 15.3"/><path d="M4 20v-4.7h4.7"/></svg>',
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z"/><path d="M8.8 15.2 15.2 8.8"/></svg>'
+    ];
+
     function setWarrantyCards(cards){
       const grid = document.getElementById("warrantyGrid");
       if (!grid) return;
       grid.innerHTML = "";
 
-      cards.forEach(c=>{
+      cards.forEach((c, index)=>{
         const card = document.createElement("div");
         card.className = "warranty-card";
 
@@ -2168,7 +2245,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const icon = document.createElement("span");
         icon.className = "wcard-icon";
-        icon.textContent = c.icon || "🛡️";
+        icon.innerHTML = warrantyIcons[index % warrantyIcons.length];
 
         const title = document.createElement("span");
         title.className = "wcard-title";
@@ -2177,12 +2254,7 @@ document.addEventListener("DOMContentLoaded", () => {
         titleWrap.appendChild(icon);
         titleWrap.appendChild(title);
 
-        const badge = document.createElement("span");
-        badge.className = "wcard-badge " + (c.badgeType === "paid" ? "badge-paid" : "badge-primary");
-        badge.textContent = c.badge || "";
-
         top.appendChild(titleWrap);
-        top.appendChild(badge);
 
         const desc = document.createElement("p");
         desc.className = "wcard-desc";

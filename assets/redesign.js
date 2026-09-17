@@ -1,0 +1,183 @@
+(() => {
+  const copy = {
+    en: {
+      openSince:'Open since 2021', liveInventory:'Live inventory', howToBuy:'How to buy', availableNow:'available now', owSplit:'OW1 / OW2', currentRange:'current range',
+      featuredDrop:'FEATURED STOCK', activeCurrency:'Active Currencies & Time Played', viewDetails:'View details →', clearDetails:'Clear account details', guidedHandover:'Guided handover',
+      moreThanAccounts:'MORE THAN ACCOUNTS', storeTitle:'Everything around your order, in one place.', storeDesc:'Start with the live account list, then use Discord when you are ready to confirm availability, payment, or a service request.',
+      accountsOffer:'Overwatch accounts', accountsOfferDesc:'From clean starter accounts to OW1 collections, rare cosmetics, rank-ready options, and stacked inventories.', browseAccounts:'Browse accounts',
+      currencyOffer:'Discount Coins & Mythic Prisms', currencyOfferDesc:'Availability changes. Ask on Discord for the current delivery method, pricing, and eligibility before ordering.', checkAvailability:'Check availability',
+      serviceOffer:'Account services', serviceOfferDesc:'Region-change assistance and unban appeal support for eligible accounts. Results depend on the account and official review.', reviewServices:'Review services',
+      fastDelivery:'Fast handover after payment', directSupport:'Direct support through Discord', warrantyScope:'Clear warranty scope', paymentChoices:'Card, PayPal, crypto & gift cards',
+      storyKicker:'FROM A GOOGLE SHEET TO ROSHINE', storyTitle:'Built on referrals, not ad spend.', storyIntro:'I started trading Overwatch accounts with friends in 2021. What began as a small list for people I knew grew through repeat buyers and recommendations—not paid promotion.',
+      storyStartTitle:'A small start', storyStartText:'The first accounts were sourced for friends, personal use, and a small circle of buyers. Every deal was handled directly.',
+      storyMarketplaceYear:'MARKETPLACE', storyMarketplaceTitle:'IGVault Top 3 Overwatch seller', storyMarketplaceText:'The store later ranked among IGVault’s Top 3 Overwatch sellers. High platform fees eventually made a direct Discord store the better way to serve returning buyers.',
+      storyDiscordYear:'DISCORD', storyDiscordTitle:'Word of mouth did the work', storyDiscordText:'Advertising stayed close to zero. Buyers came back, introduced friends, and helped the community grow across Europe, the United States, Japan, and beyond.',
+      storyWebsiteTitle:'The list became a real storefront', storyWebsiteText:'The original Google Sheet moved here, with searchable live stock and Imgur screenshots so each account is easier to compare before opening a ticket.',
+      priceKicker:'WHY THE PRICE IS DIFFERENT', priceTitle:'Not the cheapest account. A safer handover.', priceText:'I do not compete with anonymous, mass-listed accounts on price. You pay more for a clearer account history, screenshots, direct answers before payment, guided delivery, and support if a verified previous-owner problem appears later.',
+      pricePointOne:'Account details and availability confirmed before payment', pricePointTwo:'Stripe, PayPal, Binance and Bitcoin options', pricePointThree:'Recovery first, then replacement, refund or fair compensation when covered', priceFootnote:'Warranty eligibility depends on the cause, available proof, and safe account handling after delivery.',
+      paymentWord:'PAYMENT', methodsWord:'METHODS', paymentDesc:'Cards are processed through Stripe. Pay with Visa, Mastercard, PayPal, Bitcoin, or supported gift cards.', contactNote:'Send the account ID—or a screenshot if that is easier. We will confirm what is available and answer any questions before payment.', searchStock:'Search stock'
+    },
+    fr: {
+      openSince:'Ouvert depuis 2021', liveInventory:'Stock en direct', howToBuy:'Comment acheter', availableNow:'disponibles', owSplit:'OW1 / OW2', currentRange:'fourchette actuelle',
+      featuredDrop:'SÉLECTION', activeCurrency:'Monnaies disponibles & temps de jeu', viewDetails:'Voir les détails →', clearDetails:'Informations claires', guidedHandover:'Transfert accompagné',
+      moreThanAccounts:'PLUS QUE DES COMPTES', storeTitle:'Tout ce qui entoure votre commande, au même endroit.', storeDesc:'Commencez par le stock en direct, puis utilisez Discord pour confirmer la disponibilité, le paiement ou une demande de service.',
+      accountsOffer:'Comptes Overwatch', accountsOfferDesc:'Comptes récents, collections OW1, cosmétiques rares, options classées et inventaires complets.', browseAccounts:'Voir les comptes',
+      currencyOffer:'Coins & prismes mythiques à prix réduit', currencyOfferDesc:'La disponibilité varie. Vérifiez sur Discord la méthode, le tarif et l’éligibilité avant de commander.', checkAvailability:'Vérifier la disponibilité',
+      serviceOffer:'Services de compte', serviceOfferDesc:'Aide au changement de région et aux appels de bannissement pour les comptes éligibles. Le résultat dépend de l’examen officiel.', reviewServices:'Voir les services',
+      fastDelivery:'Transfert rapide après paiement', directSupport:'Support direct sur Discord', warrantyScope:'Garantie clairement définie', paymentChoices:'Carte, PayPal, crypto et cartes cadeaux',
+      storyKicker:'DE GOOGLE SHEETS À ROSHINE', storyTitle:'Une boutique construite par les recommandations.', storyIntro:'J’ai commencé à échanger des comptes Overwatch avec des amis en 2021. La petite liste de départ a grandi grâce aux clients fidèles et au bouche-à-oreille, sans publicité payante.',
+      storyStartTitle:'Des débuts simples', storyStartText:'Les premiers comptes étaient destinés à des amis, à un usage personnel et à un petit cercle d’acheteurs. Chaque vente était gérée directement.',
+      storyMarketplaceYear:'MARKETPLACE', storyMarketplaceTitle:'Ancien vendeur Overwatch Top 3 sur IGVault', storyMarketplaceText:'La boutique s’est ensuite classée parmi les trois meilleurs vendeurs Overwatch d’IGVault. Les frais élevés ont rendu la vente directe sur Discord plus adaptée aux clients fidèles.',
+      storyDiscordYear:'DISCORD', storyDiscordTitle:'Le bouche-à-oreille a fait le reste', storyDiscordText:'La publicité est restée presque inexistante. Les clients sont revenus, ont recommandé la boutique et ont développé la communauté en Europe, aux États-Unis, au Japon et ailleurs.',
+      storyWebsiteTitle:'La liste est devenue une vraie boutique', storyWebsiteText:'L’ancien Google Sheet est maintenant un stock consultable, avec des captures Imgur pour comparer plus facilement chaque compte avant d’ouvrir un ticket.',
+      priceKicker:'POURQUOI LE PRIX EST DIFFÉRENT', priceTitle:'Pas le compte le moins cher. Un transfert plus sûr.', priceText:'Je ne cherche pas à battre le prix des comptes anonymes vendus en masse. Le tarif couvre un historique plus clair, des captures, des réponses avant paiement, un transfert accompagné et un support en cas de problème vérifié lié à l’ancien propriétaire.',
+      pricePointOne:'Détails et disponibilité confirmés avant le paiement', pricePointTwo:'Paiement par Stripe, PayPal, Binance ou Bitcoin', pricePointThree:'Récupération d’abord, puis remplacement, remboursement ou compensation si le cas est couvert', priceFootnote:'La garantie dépend de la cause, des preuves disponibles et de la bonne sécurisation du compte après la livraison.',
+      paymentWord:'MOYENS DE', methodsWord:'PAIEMENT', paymentDesc:'Les cartes sont traitées par Stripe. Payez par Visa, Mastercard, PayPal, Bitcoin ou carte cadeau prise en charge.', contactNote:'Envoyez l’ID du compte, ou une capture si c’est plus simple. Nous confirmons la disponibilité et répondons avant le paiement.', searchStock:'Rechercher'
+    },
+    de: {
+      openSince:'Seit 2021 geöffnet', liveInventory:'Live-Bestand', howToBuy:'So funktioniert es', availableNow:'jetzt verfügbar', owSplit:'OW1 / OW2', currentRange:'aktuelle Spanne',
+      featuredDrop:'AUSGEWÄHLTER BESTAND', activeCurrency:'Verfügbare Währungen & Spielzeit', viewDetails:'Details ansehen →', clearDetails:'Klare Accountdaten', guidedHandover:'Begleitete Übergabe',
+      moreThanAccounts:'MEHR ALS ACCOUNTS', storeTitle:'Alles rund um deine Bestellung an einem Ort.', storeDesc:'Starte mit dem Live-Bestand und nutze Discord, wenn du Verfügbarkeit, Zahlung oder einen Service klären möchtest.',
+      accountsOffer:'Overwatch-Accounts', accountsOfferDesc:'Von frischen Starter-Accounts bis zu OW1-Sammlungen, seltenen Cosmetics, Rank-Optionen und großen Inventaren.', browseAccounts:'Accounts ansehen',
+      currencyOffer:'Günstige Coins & Mythic Prisms', currencyOfferDesc:'Die Verfügbarkeit ändert sich. Frage vor der Bestellung auf Discord nach Methode, Preis und Voraussetzungen.', checkAvailability:'Verfügbarkeit prüfen',
+      serviceOffer:'Account-Services', serviceOfferDesc:'Hilfe bei Regionswechseln und Entbannungsanträgen für geeignete Accounts. Das Ergebnis hängt von der offiziellen Prüfung ab.', reviewServices:'Services ansehen',
+      fastDelivery:'Schnelle Übergabe nach Zahlung', directSupport:'Direkter Support über Discord', warrantyScope:'Klare Garantiebedingungen', paymentChoices:'Karte, PayPal, Krypto & Gift Cards',
+      storyKicker:'VON GOOGLE SHEETS ZU ROSHINE', storyTitle:'Durch Empfehlungen gewachsen, nicht durch Werbung.', storyIntro:'2021 begann ich, Overwatch-Accounts mit Freunden zu handeln. Aus einer kleinen Liste wurde durch Stammkunden und Empfehlungen ein internationaler Shop – ohne bezahlte Werbung.',
+      storyStartTitle:'Ein kleiner Anfang', storyStartText:'Die ersten Accounts waren für Freunde, den Eigenbedarf und einen kleinen Käuferkreis. Jeder Kauf wurde direkt betreut.',
+      storyMarketplaceYear:'MARKTPLATZ', storyMarketplaceTitle:'Ehemaliger IGVault Top-3-Overwatch-Verkäufer', storyMarketplaceText:'Später gehörte der Shop zu den Top 3 der Overwatch-Verkäufer auf IGVault. Wegen der hohen Gebühren war ein direkter Discord-Shop schließlich die bessere Lösung für Stammkunden.',
+      storyDiscordYear:'DISCORD', storyDiscordTitle:'Mundpropaganda hat den Shop aufgebaut', storyDiscordText:'Werbung gab es fast keine. Käufer kamen zurück, empfahlen Freunde und ließen die Community in Europa, den USA, Japan und weiteren Regionen wachsen.',
+      storyWebsiteTitle:'Aus der Liste wurde ein richtiger Shop', storyWebsiteText:'Die frühere Google-Sheet-Liste ist jetzt ein durchsuchbarer Live-Bestand mit Imgur-Screenshots, damit Accounts vor dem Ticket leichter vergleichbar sind.',
+      priceKicker:'WARUM DER PREIS ANDERS IST', priceTitle:'Nicht der billigste Account. Eine sicherere Übergabe.', priceText:'Ich konkurriere nicht mit anonymen Massenangeboten um den niedrigsten Preis. Bezahlt werden nachvollziehbarere Daten, Screenshots, klare Antworten vor der Zahlung, begleitete Übergabe und Hilfe bei einem bestätigten Problem mit dem Vorbesitzer.',
+      pricePointOne:'Accountdaten und Verfügbarkeit vor Zahlung bestätigt', pricePointTwo:'Stripe, PayPal, Binance und Bitcoin', pricePointThree:'Zuerst Wiederherstellung, danach Ersatz, Erstattung oder faire Entschädigung bei gedeckten Fällen', priceFootnote:'Die Garantie hängt von Ursache, Nachweisen und sicherem Umgang mit dem Account nach der Übergabe ab.',
+      paymentWord:'ZAHLUNGS', methodsWord:'ARTEN', paymentDesc:'Kartenzahlungen laufen über Stripe. Möglich sind Visa, Mastercard, PayPal, Bitcoin und unterstützte Gift Cards.', contactNote:'Sende die Account-ID oder einfach einen Screenshot. Wir bestätigen die Verfügbarkeit und beantworten Fragen vor der Zahlung.', searchStock:'Bestand suchen'
+    },
+    ar: {
+      openSince:'نعمل منذ 2021', liveInventory:'مخزون مباشر', howToBuy:'طريقة الشراء', availableNow:'متاح الآن', owSplit:'OW1 / OW2', currentRange:'النطاق الحالي',
+      featuredDrop:'حساب مميز', activeCurrency:'العملات المتاحة ووقت اللعب', viewDetails:'عرض التفاصيل ←', clearDetails:'تفاصيل واضحة', guidedHandover:'تسليم بمساعدة',
+      moreThanAccounts:'أكثر من مجرد حسابات', storeTitle:'كل ما تحتاجه لطلبك في مكان واحد.', storeDesc:'ابدأ بالمخزون المباشر، ثم استخدم Discord لتأكيد التوفر أو الدفع أو طلب خدمة.',
+      accountsOffer:'حسابات Overwatch', accountsOfferDesc:'حسابات جديدة ومجموعات OW1 وعناصر نادرة وخيارات تنافسية ومخزونات كبيرة.', browseAccounts:'تصفح الحسابات',
+      currencyOffer:'عملات وMythic Prisms مخفضة', currencyOfferDesc:'يتغير التوفر. اسأل عبر Discord عن طريقة التسليم والسعر والأهلية قبل الطلب.', checkAvailability:'تحقق من التوفر',
+      serviceOffer:'خدمات الحساب', serviceOfferDesc:'مساعدة تغيير المنطقة واستئناف الحظر للحسابات المؤهلة. النتيجة تعتمد على الحساب والمراجعة الرسمية.', reviewServices:'عرض الخدمات',
+      fastDelivery:'تسليم سريع بعد الدفع', directSupport:'دعم مباشر عبر Discord', warrantyScope:'نطاق ضمان واضح', paymentChoices:'بطاقة وPayPal وعملات رقمية وبطاقات هدايا',
+      storyKicker:'من GOOGLE SHEETS إلى ROSHINE', storyTitle:'متجر نما بالتوصيات لا بالإعلانات.', storyIntro:'بدأت بيع وتبادل حسابات Overwatch مع الأصدقاء في 2021. تحولت القائمة الصغيرة إلى متجر يخدم عملاء متكررين بفضل التوصيات، من دون حملات إعلانية مدفوعة.',
+      storyStartTitle:'بداية صغيرة', storyStartText:'كانت الحسابات الأولى للأصدقاء والاستخدام الشخصي ودائرة صغيرة من المشترين، وكان كل طلب يُدار بشكل مباشر.',
+      storyMarketplaceYear:'السوق', storyMarketplaceTitle:'بائع Overwatch سابق ضمن أفضل 3 على IGVault', storyMarketplaceText:'وصل المتجر لاحقاً إلى أفضل ثلاثة بائعين لحسابات Overwatch على IGVault. بسبب الرسوم المرتفعة أصبح متجر Discord المباشر أفضل للعملاء المتكررين.',
+      storyDiscordYear:'DISCORD', storyDiscordTitle:'التوصيات بنت المجتمع', storyDiscordText:'بقي الإعلان شبه معدوم. عاد المشترون وعرّفوا أصدقاءهم، فنما المجتمع في أوروبا والولايات المتحدة واليابان ومناطق أخرى.',
+      storyWebsiteTitle:'تحولت القائمة إلى متجر فعلي', storyWebsiteText:'انتقلت قائمة Google Sheets القديمة إلى مخزون مباشر قابل للبحث مع صور Imgur لتسهيل مقارنة الحسابات قبل فتح تذكرة.',
+      priceKicker:'لماذا السعر مختلف', priceTitle:'ليس الأرخص، لكنه تسليم أكثر أماناً.', priceText:'لا أنافس الحسابات المجهولة المعروضة بكميات كبيرة على أقل سعر. السعر يشمل تاريخاً أوضح وصوراً وإجابات قبل الدفع وتسليماً بمساعدة ودعماً عند ثبوت مشكلة مرتبطة بالمالك السابق.',
+      pricePointOne:'تأكيد تفاصيل الحساب وتوفره قبل الدفع', pricePointTwo:'خيارات Stripe وPayPal وBinance وBitcoin', pricePointThree:'محاولة الاسترداد أولاً ثم الاستبدال أو الاسترداد المالي أو التعويض العادل للحالات المشمولة', priceFootnote:'تعتمد أهلية الضمان على السبب والأدلة المتاحة وطريقة حماية الحساب بعد التسليم.',
+      paymentWord:'طرق', methodsWord:'الدفع', paymentDesc:'تُعالج البطاقات عبر Stripe. تتوفر Visa وMastercard وPayPal وBitcoin وبطاقات الهدايا المدعومة.', contactNote:'أرسل ID الحساب أو لقطة شاشة. سنؤكد التوفر ونجيب عن أسئلتك قبل الدفع.', searchStock:'ابحث في المخزون'
+    },
+    ja: {
+      openSince:'2021年から運営', liveInventory:'リアルタイム在庫', howToBuy:'購入方法', availableNow:'販売中', owSplit:'OW1 / OW2', currentRange:'現在の価格帯',
+      featuredDrop:'注目アカウント', activeCurrency:'利用可能な通貨 & プレイ時間', viewDetails:'詳細を見る →', clearDetails:'明確なアカウント情報', guidedHandover:'引き渡しサポート',
+      moreThanAccounts:'アカウント販売だけではありません', storeTitle:'購入前から引き渡し後まで、一か所で。', storeDesc:'リアルタイム在庫から選び、在庫確認・支払い・サービスの相談はDiscordで直接行えます。',
+      accountsOffer:'Overwatchアカウント', accountsOfferDesc:'初心者向けからOW1コレクション、希少スキン、ランク向け、大型インベントリまで。', browseAccounts:'アカウントを見る',
+      currencyOffer:'割引コイン & ミシック・プリズム', currencyOfferDesc:'在庫状況は変わります。注文前にDiscordで現在の方法、価格、対象条件をご確認ください。', checkAvailability:'在庫を確認',
+      serviceOffer:'アカウントサービス', serviceOfferDesc:'対象アカウント向けに地域変更やBAN異議申し立てをサポートします。結果は公式審査により、保証されません。', reviewServices:'サービスを見る',
+      fastDelivery:'入金確認後すみやかに引き渡し', directSupport:'Discordで直接サポート', warrantyScope:'明確な保証範囲', paymentChoices:'カード、PayPal、暗号資産、ギフトカード',
+      storyKicker:'GOOGLE SHEETSからROSHINEへ', storyTitle:'広告ではなく、紹介で育ったストア。', storyIntro:'2021年、友人とのOverwatchアカウント売買から始めました。小さなリストが、リピーターと紹介によって少しずつ広がりました。',
+      storyStartTitle:'小さなスタート', storyStartText:'最初は友人、自分用、そして少人数の購入者向けでした。すべての取引を直接対応していました。',
+      storyMarketplaceYear:'マーケット', storyMarketplaceTitle:'元IGVault Overwatchトップ3セラー', storyMarketplaceText:'その後、IGVaultでOverwatch部門トップ3に入りました。高い手数料をきっかけに、リピーターへ直接対応できるDiscord販売へ移行しました。',
+      storyDiscordYear:'DISCORD', storyDiscordTitle:'口コミで広がりました', storyDiscordText:'広告はほぼ使っていません。購入者が戻り、友人を紹介してくれたことで、欧州、米国、日本などにコミュニティが広がりました。',
+      storyWebsiteTitle:'リストから本格的なストアへ', storyWebsiteText:'以前のGoogle Sheets在庫表を、検索できるリアルタイム在庫とImgurスクリーンショットを備えたサイトへ移行しました。',
+      priceKicker:'価格が違う理由', priceTitle:'最安値ではなく、より安心できる引き渡し。', priceText:'匿名の大量出品と最安値を競うつもりはありません。明確な履歴、スクリーンショット、支払い前の確認、引き渡しサポート、そして元所有者に関する確認済みトラブルへの対応を含む価格です。',
+      pricePointOne:'支払い前に詳細と在庫を確認', pricePointTwo:'Stripe、PayPal、Binance、Bitcoinに対応', pricePointThree:'対象ケースは復旧を優先し、その後に交換・返金・適正な補償', priceFootnote:'保証対象は原因、確認できる証拠、引き渡し後の安全な管理状況によって判断されます。',
+      paymentWord:'お支払い', methodsWord:'方法', paymentDesc:'カード決済はStripe経由です。Visa、Mastercard、PayPal、Bitcoin、対応ギフトカードを利用できます。', contactNote:'アカウントID、または分かりやすいスクリーンショットを送ってください。支払い前に在庫とご質問を確認します。', searchStock:'在庫を検索'
+    },
+    zh: {
+      openSince:'自 2021 年持续运营', liveInventory:'实时库存', howToBuy:'查看购买流程', availableNow:'当前可售', owSplit:'OW1 / OW2', currentRange:'当前价格区间',
+      featuredDrop:'精选库存', activeCurrency:'当前可用货币 & 游戏时长', viewDetails:'查看详情 →', clearDetails:'账号信息清楚展示', guidedHandover:'提供交接指导',
+      moreThanAccounts:'不只是账号库存', storeTitle:'购买前后需要的内容，都放在这里。', storeDesc:'先从实时库存挑选账号，需要确认库存、付款方式或增值服务时，再通过 Discord 直接沟通。',
+      accountsOffer:'守望先锋账号', accountsOfferDesc:'从干净初始号、排位号到 OW1 老账号、稀有皮肤与高库存收藏账号。', browseAccounts:'浏览账号',
+      currencyOffer:'折扣金币与神话棱晶', currencyOfferDesc:'库存和交付方式可能变化，下单前请通过 Discord 确认当前价格、方式与适用条件。', checkAvailability:'询问当前库存',
+      serviceOffer:'账号增值服务', serviceOfferDesc:'为符合条件的账号提供区服变更与解封申诉协助，最终结果取决于账号情况和官方审核。', reviewServices:'查看服务说明',
+      fastDelivery:'确认付款后尽快交接', directSupport:'通过 Discord 直接沟通', warrantyScope:'质保范围写清楚', paymentChoices:'银行卡、PayPal、虚拟币与礼品卡',
+      storyKicker:'从 GOOGLE SHEETS 到 ROSHINE', storyTitle:'不是靠投广告，而是靠顾客介绍走到今天。', storyIntro:'2021 年，我最开始只是和朋友互相联系买卖账号，也会留一些自用。从一张只给熟人看的号单开始，后来靠回头客和顾客推荐，慢慢做成了现在的店。',
+      storyStartTitle:'从熟人之间的小买卖开始', storyStartText:'第一批账号主要给朋友、自用和少量买家，每一单都是我自己直接沟通、确认和交接。',
+      storyMarketplaceYear:'第三方平台时期', storyMarketplaceTitle:'曾是 IGVault 守望先锋 Top 3 卖家', storyMarketplaceText:'后来店铺做到过 IGVault 守望先锋卖家前三。因为平台手续费越来越高，我转到 Discord 自己经营，也能更直接地服务回头客。',
+      storyDiscordYear:'DISCORD', storyDiscordTitle:'几乎没有宣传，全靠口碑', storyDiscordText:'顾客买过以后再次回来，也会介绍朋友。客户逐渐遍布欧洲、美国、日本和其他地区。',
+      storyWebsiteTitle:'从谷歌号单搬到独立网站', storyWebsiteText:'原来的 Google Sheets 号单现在变成了可搜索的实时库存，并保留 Imgur 截图，让买家开工单前就能更方便地对比账号。',
+      priceKicker:'为什么价格不一样', priceTitle:'可能不是最便宜，但交接和售后更踏实。', priceText:'我不会和来源不明、批量上架的低价账号拼最低价。多出来的价格对应的是更清楚的账号情况、截图、付款前确认、交接指导，以及在确认属于前任号主问题时提供后续处理。',
+      pricePointOne:'付款前确认账号信息与当前库存', pricePointTwo:'支持 Stripe、PayPal、Binance 与 Bitcoin', pricePointThree:'符合质保时先尝试找回，失败后再按情况退换、退款或合理补偿', priceFootnote:'是否属于质保范围，需要结合问题原因、可提供的证据，以及交付后的账号使用和保管情况判断。',
+      paymentWord:'付款', methodsWord:'方式', paymentDesc:'银行卡通过 Stripe 处理，也支持 Visa、Mastercard、PayPal、Bitcoin 和适用的礼品卡。', contactNote:'发送账号 ID 即可；觉得截图更方便，也可以直接发截图。我们会在付款前确认库存并回答你的问题。', searchStock:'搜索库存'
+    }
+  };
+
+  const getLanguage = () => {
+    const value = document.getElementById('langSelect')?.value || document.documentElement.lang || 'en';
+    return copy[value] ? value : 'en';
+  };
+
+  function applyRedesignCopy() {
+    const language = getLanguage();
+    document.querySelectorAll('[data-rd-key]').forEach(element => {
+      const value = copy[language][element.dataset.rdKey];
+      if (value) element.textContent = value;
+    });
+  }
+
+  function parsePrice(value) {
+    const number = Number(String(value || '').replace(/[^0-9.]/g, ''));
+    return Number.isFinite(number) ? number : null;
+  }
+
+  async function updateLiveSummary() {
+    try {
+      const response = await fetch('./accounts.json', { cache: 'no-store' });
+      if (!response.ok) throw new Error(`Inventory request failed: ${response.status}`);
+      const payload = await response.json();
+      const accounts = Array.isArray(payload.accounts) ? payload.accounts : [];
+      const available = accounts.filter(account => /in\s*stock/i.test(String(account.status || '')));
+      const ow1 = available.filter(account => /\bOW1\b/i.test(String(account.level || ''))).length;
+      const ow2 = available.filter(account => /\bOW2\b/i.test(String(account.level || ''))).length;
+      const prices = available.map(account => parsePrice(account.price)).filter(value => value !== null);
+      const minimum = prices.length ? Math.min(...prices) : null;
+      const maximum = prices.length ? Math.max(...prices) : null;
+      document.getElementById('rdAvailableCount').textContent = String(available.length);
+      document.getElementById('rdVersionSplit').textContent = `${ow1} / ${ow2}`;
+      document.getElementById('rdPriceRange').textContent = minimum === null ? '—' : `$${minimum.toFixed(0)}–$${maximum.toFixed(0)}`;
+    } catch (error) {
+      console.warn('[redesign] Live summary unavailable', error);
+    }
+  }
+
+  function openStockSearch() {
+    const search = document.getElementById('accountSearch');
+    const accounts = document.getElementById('accounts');
+    const mobileToggle = document.getElementById('mobileFilterToggle');
+    accounts?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (window.innerWidth <= 700 && mobileToggle?.getAttribute('aria-expanded') !== 'true') mobileToggle?.click();
+    window.setTimeout(() => search?.focus({ preventScroll: true }), window.innerWidth <= 700 ? 380 : 650);
+  }
+
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reducedMotion) {
+    document.body.classList.add('rd-motion');
+    document.querySelectorAll('.rd-reveal').forEach(element => {
+      element.style.setProperty('--rd-delay', `${element.dataset.delay || 0}ms`);
+    });
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('rd-visible');
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: .1 });
+    document.querySelectorAll('.rd-reveal').forEach(element => observer.observe(element));
+  }
+
+  const languageSelect = document.getElementById('langSelect');
+  languageSelect?.addEventListener('change', () => window.setTimeout(applyRedesignCopy));
+  document.getElementById('rdSearchLauncher')?.addEventListener('click', openStockSearch);
+  document.addEventListener('keydown', event => {
+    if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
+      event.preventDefault();
+      openStockSearch();
+    }
+  });
+  window.addEventListener('scroll', () => document.querySelector('.header')?.classList.toggle('rd-scrolled', scrollY > 20), { passive: true });
+
+  applyRedesignCopy();
+  updateLiveSummary();
+})();
