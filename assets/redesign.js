@@ -1,7 +1,7 @@
 (() => {
   const copy = {
     en: {
-      openSince:'Open since 2021', liveInventory:'Live inventory', howToBuy:'How to buy', availableNow:'available now', owSplit:'OW1 / OW2', currentRange:'current range',
+      openSince:'Open since 2021', liveInventory:'Live inventory', howToBuy:'How to buy', availableNow:'available now', owSplit:'OW1 / OW2', currentRange:'current range', accountsSold:'accounts sold',
       featuredDrop:'FEATURED STOCK', activeCurrency:'Active Currencies & Time Played', viewDetails:'View details →', clearDetails:'Clear account details', guidedHandover:'Guided handover',
       moreThanAccounts:'MORE THAN ACCOUNTS', storeTitle:'Everything around your order, in one place.', storeDesc:'Start with the live account list, then use Discord when you are ready to confirm availability, payment, or a service request.',
       accountsOffer:'Overwatch accounts', accountsOfferDesc:'From clean starter accounts to OW1 collections, rare cosmetics, rank-ready options, and stacked inventories.', browseAccounts:'Browse accounts',
@@ -18,7 +18,7 @@
       paymentWord:'PAYMENT', methodsWord:'METHODS', paymentDesc:'Cards are processed through Stripe. Pay with Visa, Mastercard, PayPal, Bitcoin, or supported gift cards.', contactNote:'Send the account ID—or a screenshot if that is easier. We will confirm what is available and answer any questions before payment.', searchStock:'Search stock'
     },
     fr: {
-      openSince:'Ouvert depuis 2021', liveInventory:'Stock en direct', howToBuy:'Comment acheter', availableNow:'disponibles', owSplit:'OW1 / OW2', currentRange:'fourchette actuelle',
+      openSince:'Ouvert depuis 2021', liveInventory:'Stock en direct', howToBuy:'Comment acheter', availableNow:'disponibles', owSplit:'OW1 / OW2', currentRange:'fourchette actuelle', accountsSold:'comptes vendus',
       featuredDrop:'SÉLECTION', activeCurrency:'Monnaies disponibles & temps de jeu', viewDetails:'Voir les détails →', clearDetails:'Informations claires', guidedHandover:'Transfert accompagné',
       moreThanAccounts:'PLUS QUE DES COMPTES', storeTitle:'Tout ce qui entoure votre commande, au même endroit.', storeDesc:'Commencez par le stock en direct, puis utilisez Discord pour confirmer la disponibilité, le paiement ou une demande de service.',
       accountsOffer:'Comptes Overwatch', accountsOfferDesc:'Comptes récents, collections OW1, cosmétiques rares, options classées et inventaires complets.', browseAccounts:'Voir les comptes',
@@ -35,7 +35,7 @@
       paymentWord:'MOYENS DE', methodsWord:'PAIEMENT', paymentDesc:'Les cartes sont traitées par Stripe. Payez par Visa, Mastercard, PayPal, Bitcoin ou carte cadeau prise en charge.', contactNote:'Envoyez l’ID du compte, ou une capture si c’est plus simple. Nous confirmons la disponibilité et répondons avant le paiement.', searchStock:'Rechercher'
     },
     de: {
-      openSince:'Seit 2021 geöffnet', liveInventory:'Live-Bestand', howToBuy:'So funktioniert es', availableNow:'jetzt verfügbar', owSplit:'OW1 / OW2', currentRange:'aktuelle Spanne',
+      openSince:'Seit 2021 geöffnet', liveInventory:'Live-Bestand', howToBuy:'So funktioniert es', availableNow:'jetzt verfügbar', owSplit:'OW1 / OW2', currentRange:'aktuelle Spanne', accountsSold:'Accounts verkauft',
       featuredDrop:'AUSGEWÄHLTER BESTAND', activeCurrency:'Verfügbare Währungen & Spielzeit', viewDetails:'Details ansehen →', clearDetails:'Klare Accountdaten', guidedHandover:'Begleitete Übergabe',
       moreThanAccounts:'MEHR ALS ACCOUNTS', storeTitle:'Alles rund um deine Bestellung an einem Ort.', storeDesc:'Starte mit dem Live-Bestand und nutze Discord, wenn du Verfügbarkeit, Zahlung oder einen Service klären möchtest.',
       accountsOffer:'Overwatch-Accounts', accountsOfferDesc:'Von frischen Starter-Accounts bis zu OW1-Sammlungen, seltenen Cosmetics, Rank-Optionen und großen Inventaren.', browseAccounts:'Accounts ansehen',
@@ -52,7 +52,7 @@
       paymentWord:'ZAHLUNGS', methodsWord:'ARTEN', paymentDesc:'Kartenzahlungen laufen über Stripe. Möglich sind Visa, Mastercard, PayPal, Bitcoin und unterstützte Gift Cards.', contactNote:'Sende die Account-ID oder einfach einen Screenshot. Wir bestätigen die Verfügbarkeit und beantworten Fragen vor der Zahlung.', searchStock:'Bestand suchen'
     },
     ar: {
-      openSince:'نعمل منذ 2021', liveInventory:'مخزون مباشر', howToBuy:'طريقة الشراء', availableNow:'متاح الآن', owSplit:'OW1 / OW2', currentRange:'النطاق الحالي',
+      openSince:'نعمل منذ 2021', liveInventory:'مخزون مباشر', howToBuy:'طريقة الشراء', availableNow:'متاح الآن', owSplit:'OW1 / OW2', currentRange:'النطاق الحالي', accountsSold:'حساباً تم بيعه',
       featuredDrop:'حساب مميز', activeCurrency:'العملات المتاحة ووقت اللعب', viewDetails:'عرض التفاصيل ←', clearDetails:'تفاصيل واضحة', guidedHandover:'تسليم بمساعدة',
       moreThanAccounts:'أكثر من مجرد حسابات', storeTitle:'كل ما تحتاجه لطلبك في مكان واحد.', storeDesc:'ابدأ بالمخزون المباشر، ثم استخدم Discord لتأكيد التوفر أو الدفع أو طلب خدمة.',
       accountsOffer:'حسابات Overwatch', accountsOfferDesc:'حسابات جديدة ومجموعات OW1 وعناصر نادرة وخيارات تنافسية ومخزونات كبيرة.', browseAccounts:'تصفح الحسابات',
@@ -69,7 +69,7 @@
       paymentWord:'طرق', methodsWord:'الدفع', paymentDesc:'تُعالج البطاقات عبر Stripe. تتوفر Visa وMastercard وPayPal وBitcoin وبطاقات الهدايا المدعومة.', contactNote:'أرسل ID الحساب أو لقطة شاشة. سنؤكد التوفر ونجيب عن أسئلتك قبل الدفع.', searchStock:'ابحث في المخزون'
     },
     ja: {
-      openSince:'2021年から運営', liveInventory:'リアルタイム在庫', howToBuy:'購入方法', availableNow:'販売中', owSplit:'OW1 / OW2', currentRange:'現在の価格帯',
+      openSince:'2021年から運営', liveInventory:'リアルタイム在庫', howToBuy:'購入方法', availableNow:'販売中', owSplit:'OW1 / OW2', currentRange:'現在の価格帯', accountsSold:'販売済みアカウント',
       featuredDrop:'注目アカウント', activeCurrency:'利用可能な通貨 & プレイ時間', viewDetails:'詳細を見る →', clearDetails:'明確なアカウント情報', guidedHandover:'引き渡しサポート',
       moreThanAccounts:'アカウント販売だけではありません', storeTitle:'購入前から引き渡し後まで、一か所で。', storeDesc:'リアルタイム在庫から選び、在庫確認・支払い・サービスの相談はDiscordで直接行えます。',
       accountsOffer:'Overwatchアカウント', accountsOfferDesc:'初心者向けからOW1コレクション、希少スキン、ランク向け、大型インベントリまで。', browseAccounts:'アカウントを見る',
