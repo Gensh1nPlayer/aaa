@@ -2,7 +2,7 @@
   "use strict";
 
   const pageKey = document.body.dataset.policyPage === "terms" ? "terms" : "privacy";
-  const supportedLanguages = ["en", "fr", "de", "ar", "ja", "zh"];
+  const supportedLanguages = ["en", "fr", "de", "ar", "ja"];
   let tocObserver = null;
 
   const copy = {
@@ -18,7 +18,7 @@
       ui: {
         home: "Home",
         contents: "On this page",
-        updated: "Updated September 16, 2026",
+        updated: "Updated September 20, 2026",
         staticSite: "Static storefront",
         privacy: "Privacy",
         terms: "Terms",
@@ -60,7 +60,7 @@
           <p>You can clear the saved language preference through your browser. Where applicable, you may ask us to access, correct or delete information associated with your order or support conversation, subject to legitimate record-keeping requirements.</p>
 
           <h2>9. External services</h2>
-          <p>Discord, Battle.net, email and payment providers operate under their own privacy policies. Links to those services do not mean that Roshine controls their data practices.</p>
+          <p>The site currently loads display fonts from Google Fonts, which may receive ordinary request data such as your IP address and browser information. Discord, Battle.net, email and payment providers operate under their own privacy policies. Links to those services do not mean that Roshine controls their data practices.</p>
 
           <h2>10. Minors, updates and contact</h2>
           <p>The service is not intended for minors. We may revise this policy when the storefront or order process changes and will update the date shown above. For privacy requests, email <a href="mailto:roshine_store@roshine.love">roshine_store@roshine.love</a> or use the <a href="../#contact">contact section</a>.</p>`
@@ -117,7 +117,7 @@
         nav: { home: "Accueil", services: "Services", contact: "Contact", privacy: "Confidentialité", terms: "Conditions" }
       },
       ui: {
-        home: "Accueil", contents: "Sur cette page", updated: "Mis à jour le 16 septembre 2026", staticSite: "Vitrine statique",
+        home: "Accueil", contents: "Sur cette page", updated: "Mis à jour le 20 septembre 2026", staticSite: "Vitrine statique",
         privacy: "Confidentialité", terms: "Conditions",
         note: "Cette page décrit la vitrine Roshine et le parcours de commande actuels. Elle fournit des informations générales et ne constitue pas un conseil juridique."
       },
@@ -143,7 +143,7 @@
           <h2>8. Vos choix et demandes</h2>
           <p>Vous pouvez effacer la préférence de langue dans votre navigateur. Lorsque la loi le permet, vous pouvez demander l'accès, la correction ou la suppression des informations liées à votre commande ou à vos échanges, sous réserve des obligations légitimes de conservation.</p>
           <h2>9. Services externes</h2>
-          <p>Discord, Battle.net, l'e-mail et les prestataires de paiement appliquent leurs propres politiques de confidentialité. Roshine ne contrôle pas leurs pratiques.</p>
+          <p>Le site charge actuellement ses polices d’affichage depuis Google Fonts, qui peut recevoir des données de requête ordinaires telles que l’adresse IP et les informations du navigateur. Discord, Battle.net, l'e-mail et les prestataires de paiement appliquent leurs propres politiques de confidentialité. Roshine ne contrôle pas leurs pratiques.</p>
           <h2>10. Mineurs, mises à jour et contact</h2>
           <p>Le service n'est pas destiné aux mineurs. Cette politique peut évoluer avec la vitrine ou le parcours de commande. Pour une demande de confidentialité : <a href="mailto:roshine_store@roshine.love">roshine_store@roshine.love</a> ou la <a href="../#contact">section Contact</a>.</p>`
       },
@@ -185,7 +185,7 @@
         nav: { home: "Home", services: "Services", contact: "Kontakt", privacy: "Datenschutz", terms: "AGB" }
       },
       ui: {
-        home: "Home", contents: "Auf dieser Seite", updated: "Aktualisiert am 16. September 2026", staticSite: "Statische Website",
+        home: "Home", contents: "Auf dieser Seite", updated: "Aktualisiert am 20. September 2026", staticSite: "Statische Website",
         privacy: "Datenschutz", terms: "AGB",
         note: "Diese Seite beschreibt den aktuellen Roshine-Shop und Bestellablauf. Sie dient der allgemeinen Information und ist keine Rechtsberatung."
       },
@@ -211,7 +211,7 @@
           <h2>8. Ihre Wahlmöglichkeiten</h2>
           <p>Die gespeicherte Sprachwahl kann im Browser gelöscht werden. Soweit anwendbar, können Sie Auskunft, Berichtigung oder Löschung Ihrer Bestell- und Supportdaten verlangen, vorbehaltlich legitimer Aufbewahrungspflichten.</p>
           <h2>9. Externe Dienste</h2>
-          <p>Discord, Battle.net, E-Mail- und Zahlungsanbieter haben eigene Datenschutzrichtlinien. Roshine kontrolliert deren Datenverarbeitung nicht.</p>
+          <p>Die Website lädt derzeit Anzeigeschriften von Google Fonts. Dabei können übliche Anfragedaten wie IP-Adresse und Browserinformationen an Google übermittelt werden. Discord, Battle.net, E-Mail- und Zahlungsanbieter haben eigene Datenschutzrichtlinien. Roshine kontrolliert deren Datenverarbeitung nicht.</p>
           <h2>10. Minderjährige, Änderungen und Kontakt</h2>
           <p>Der Service richtet sich nicht an Minderjährige. Änderungen am Shop oder Bestellprozess können zu einer Aktualisierung führen. Datenschutzanfragen an <a href="mailto:roshine_store@roshine.love">roshine_store@roshine.love</a> oder über den <a href="../#contact">Kontaktbereich</a>.</p>`
       },
@@ -253,7 +253,7 @@
         nav: { home: "الرئيسية", services: "الخدمات", contact: "تواصل", privacy: "الخصوصية", terms: "الشروط" }
       },
       ui: {
-        home: "الرئيسية", contents: "في هذه الصفحة", updated: "آخر تحديث: 16 سبتمبر 2026", staticSite: "واجهة ثابتة",
+        home: "الرئيسية", contents: "في هذه الصفحة", updated: "آخر تحديث: 20 سبتمبر 2026", staticSite: "واجهة ثابتة",
         privacy: "الخصوصية", terms: "الشروط",
         note: "تصف هذه الصفحة واجهة Roshine ومسار الطلب الحاليين. وهي معلومات عامة وليست استشارة قانونية."
       },
@@ -279,7 +279,7 @@
           <h2>8. خياراتك وطلباتك</h2>
           <p>يمكنك حذف تفضيل اللغة من المتصفح. وحيث ينطبق، يمكنك طلب الوصول أو التصحيح أو الحذف لبيانات الطلب والدعم، مع مراعاة متطلبات الاحتفاظ المشروعة.</p>
           <h2>9. الخدمات الخارجية</h2>
-          <p>لدى Discord وBattle.net والبريد ومزودي الدفع سياسات خصوصية مستقلة، ولا تتحكم Roshine في ممارساتهم.</p>
+          <p>يحمّل الموقع حالياً خطوط العرض من Google Fonts، وقد تتلقى بيانات طلب معتادة مثل عنوان IP ومعلومات المتصفح. لدى Discord وBattle.net والبريد ومزودي الدفع سياسات خصوصية مستقلة، ولا تتحكم Roshine في ممارساتهم.</p>
           <h2>10. القاصرون والتحديث والتواصل</h2>
           <p>الخدمة غير مخصصة للقاصرين. قد نحدّث السياسة عند تغيير الواجهة أو الطلب. لطلبات الخصوصية: <a href="mailto:roshine_store@roshine.love">roshine_store@roshine.love</a> أو <a href="../#contact">قسم التواصل</a>.</p>`
       },
@@ -321,7 +321,7 @@
         nav: { home: "ホーム", services: "サービス", contact: "お問い合わせ", privacy: "プライバシー", terms: "利用規約" }
       },
       ui: {
-        home: "ホーム", contents: "このページの内容", updated: "2026年9月16日更新", staticSite: "静的ストアフロント",
+        home: "ホーム", contents: "このページの内容", updated: "2026年9月20日更新", staticSite: "静的ストアフロント",
         privacy: "プライバシー", terms: "利用規約",
         note: "このページは現在のRoshineストアと注文手順について説明する一般情報であり、法律上の助言ではありません。"
       },
@@ -347,7 +347,7 @@
           <h2>8. 選択とリクエスト</h2>
           <p>ブラウザから保存済み言語設定を削除できます。適用される場合、正当な記録保持要件に従い、注文・サポート情報の開示、訂正、削除を依頼できます。</p>
           <h2>9. 外部サービス</h2>
-          <p>Discord、Battle.net、メール、支払い事業者はそれぞれのプライバシーポリシーに従います。Roshineがそれらのデータ処理を管理するものではありません。</p>
+          <p>現在、表示フォントはGoogle Fontsから読み込まれ、IPアドレスやブラウザ情報など通常のリクエスト情報がGoogleへ送信される場合があります。Discord、Battle.net、メール、支払い事業者はそれぞれのプライバシーポリシーに従います。Roshineがそれらのデータ処理を管理するものではありません。</p>
           <h2>10. 未成年者、更新、お問い合わせ</h2>
           <p>本サービスは未成年者を対象としていません。サイトや注文手順の変更に合わせて本ポリシーを更新する場合があります。お問い合わせは<a href="mailto:roshine_store@roshine.love">roshine_store@roshine.love</a>または<a href="../#contact">お問い合わせセクション</a>をご利用ください。</p>`
       },
@@ -378,73 +378,6 @@
       }
     },
 
-    zh: {
-      nav: { home: "主页", accounts: "库存", services: "服务", warranty: "售后", faq: "常见问题", contact: "联系" },
-      auth: "Authenticator",
-      a11y: { skip: "跳到政策正文", openNav: "打开导航", closeNav: "关闭导航", mobileNav: "移动端导航" },
-      footer: {
-        line1: "© 2021–2026 Roshine Account Store。",
-        line2: "账号信息说清楚，购买问题直接答，交付之后也继续提供支持。",
-        nav: { home: "主页", services: "服务", contact: "联系", privacy: "隐私", terms: "条款" }
-      },
-      ui: {
-        home: "主页", contents: "本页目录", updated: "更新于 2026 年 9 月 16 日", staticSite: "纯静态网站",
-        privacy: "隐私政策", terms: "服务条款",
-        note: "本页面按照 Roshine 当前网站与下单流程编写，仅用于一般信息说明，不构成法律意见。"
-      },
-      privacy: {
-        kicker: "隐私与数据",
-        title: "隐私政策",
-        intro: "用简单的话说明：哪些信息只留在浏览器里、Discord 下单时我们会收到什么，以及交付、质保与争议处理中会保留哪些记录。",
-        body: `<h2>1. 适用范围与当前网站模式</h2>
-          <p>本政策适用于你浏览 <a href="../">roshine.love</a>、查看账号库存、使用私人 Authenticator 工具，以及通过 Discord 或邮件联系 Roshine 的场景。当前公开网站为<strong>纯静态网站</strong>：无需注册客户账号，也不使用公开下单机器人。</p>
-          <h2>2. 网站本身保存的信息</h2>
-          <p>网站仅使用浏览器本地存储记住你选择的语言。库存筛选与排序完全在浏览器本地运行，不会提交给我们。Authenticator 工具也在浏览器本地处理 Private Key；请勿把该密钥发送给任何人。</p>
-          <p>托管或 CDN 服务商可能会为网页传输、安全和稳定性处理常规技术请求信息，例如 IP 地址、浏览器类型、访问页面与时间。</p>
-          <h2>3. 主动联系我们时提供的信息</h2>
-          <p>当你通过 Discord 或邮件联系我们时，我们会收到你主动发送的内容，例如 Discord 名称、邮箱、账号 ID、截图、聊天内容与售后记录。请勿发送与订单无关的敏感个人信息。</p>
-          <h2>4. 订单与支付信息</h2>
-          <p>所有订单均通过 Discord 人工确认。为完成交付与售后，我们可能保留账号 ID、下单时间、交付状态，以及必要的支持或争议记录。支付由第三方支付服务商处理；本网站不会主动收集或保存完整银行卡号。</p>
-          <h2>5. 信息使用目的</h2>
-          <ul><li>确认库存、付款与交付状态。</li><li>完成账号资料交接、质保与售后支持。</li><li>处理欺诈、滥用、安全事件或交易争议。</li><li>维护网站的安全性与稳定性。</li><li>在适用情况下履行法律义务。</li></ul>
-          <h2>6. 信息共享</h2>
-          <p>我们仅在合理必要范围内与网站托管、通信、支付或订单支持服务商共享信息。我们不会出售个人信息用于第三方广告。</p>
-          <h2>7. 保存期限与安全</h2>
-          <p>订单和售后记录仅在完成交付、履行质保、处理争议、防范欺诈或遵守法律所需的合理期限内保存。任何网络服务都无法保证绝对安全，请使用独立密码，并妥善保管恢复资料与 Private Key。</p>
-          <h2>8. 你的选择与请求</h2>
-          <p>你可以在浏览器中清除已保存的语言偏好。在适用法律允许范围内，你可以请求查询、更正或删除与订单或售后沟通相关的信息，但必要的交易和争议记录可能依法或基于正当理由保留。</p>
-          <h2>9. 外部服务</h2>
-          <p>Discord、Battle.net、邮件和支付平台均适用各自的隐私政策。网站提供相关链接并不代表 Roshine 能够控制这些平台的数据处理方式。</p>
-          <h2>10. 未成年人、政策更新与联系</h2>
-          <p>本服务不面向未成年人。网站功能或下单流程变化时，我们可能更新本政策与上方日期。隐私相关请求请发送至 <a href="mailto:roshine_store@roshine.love">roshine_store@roshine.love</a>，或通过主页的<a href="../#contact">联系区域</a>与我们沟通。</p>`
-      },
-      terms: {
-        kicker: "商店规则",
-        title: "服务条款",
-        intro: "付款前会确认什么、交接时你会收到什么、哪些情况适用质保，以及出现问题时双方分别需要做什么。",
-        body: `<h2>1. 接受条款与购买资格</h2>
-          <p>向 Roshine 下单即表示：你可以在所在地区合法购买数字商品；你提供的信息真实准确；并接受本条款及主页展示的质保说明。</p>
-          <h2>2. 库存与商品描述</h2>
-          <p>账号销售状态实时更新，新库存通常每 7 天补充一次；最终库存以 Discord 人工确认为准。所有账号均来自真人玩家并具有正常游戏记录，不是脚本号、机器人号、工作室批量号或其他破坏游戏规则的账号。我们不会上架存在已知作弊、滥用或其他违规历史的账号。</p>
-          <p>商品描述反映账号核验时的状态。描述中的关键信息可以在核验与交接过程中，通过游戏内与 Battle.net 官方记录交叉确认。</p>
-          <h2>3. 下单、价格与付款</h2>
-          <p>下单通过 Discord 人工完成，请发送账号 ID 或对应截图。付款前需确认账号仍有库存、最终价格、付款方式及可能产生的手续费。请勿向未经核验、但自称代表 Roshine 的个人付款。</p>
-          <h2>4. 交付与验收</h2>
-          <p>大部分订单在确认付款后 5 分钟内完成交付，少数顶级账号可能需要额外整理时间。收到账号后请尽快测试登录信息并检查描述，通常应在交付后的 <strong>30 分钟</strong>内完成；如遇特殊情况无法及时验收，请立即联系我们。</p>
-          <h2>5. 退款与描述纠正</h2>
-          <p>数字商品正确交付后原则上不支持无理由退款。若我们提供的信息导致首次登录失败、账号在交付时存在未披露的异常状态，或关键商品描述无法核验，可根据实际情况提供信息纠正、等值替换或退款。处理前请勿擅自修改安全信息，以便保留核验依据。</p>
-          <h2>6. 质保与售后支持</h2>
-          <p>若因前号主问题导致账号被找回、被盗或永久丢失，核验后按照终身安全质保提供等值替换或全额补偿。符合条件的 OW2 账号还提供不限次数的解锁问题协助。区服变更与解封申诉协助属于可选付费服务，最终官方审核结果不作保证。</p>
-          <h2>7. 买家责任</h2>
-          <ul><li>妥善保管账号密码、恢复资料与 Private Key，不得向他人泄露或共享。</li><li>遵循账号交接说明，在初始安全期内尽量保持同一设备与稳定 IP。</li><li>不得使用账号作弊、滥用、欺诈或从事违反游戏及平台规则的行为。</li><li>申请质保或处理争议时，应提供真实、完整的核验材料。</li></ul>
-          <h2>8. 平台风险提示</h2>
-          <p>账号交易不被 Blizzard 官方支持。登录地区、设备、IP 或安全信息变化可能触发平台风控，相关平台决定不由 Roshine 控制。建议在重大信息变更前保持同一设备与稳定 IP 使用约 7 天；该做法只能降低风险，无法完全消除风险。</p>
-          <h2>9. 责任范围与条款更新</h2>
-          <p>Roshine 对商品描述与质保中明确承诺的内容负责。因买家共享账号、使用不当、违规行为、不受支持的修改或第三方平台决定造成的损失，不属于我们的责任范围。网站服务、售后范围或法律要求发生变化时，本条款可能更新。</p>
-          <h2>10. 联系方式</h2>
-          <p>订单、质保或争议问题请通过主页展示的官方 <a href="../#contact">Discord 或邮箱入口</a>联系我们，并提供账号 ID。</p>`
-      }
-    }
   };
 
   const ids = {
@@ -504,6 +437,16 @@
     return `../${page}/?lang=${encodeURIComponent(language)}`;
   }
 
+  function normalizeUnsupportedLanguageParam() {
+    const url = new URL(window.location.href);
+    const requested = url.searchParams.get("lang");
+    if (!requested || supportedLanguages.includes(requested)) return;
+    url.searchParams.delete("lang");
+    history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
+  }
+
+  normalizeUnsupportedLanguageParam();
+
   function applyLanguage(language, updateUrl = false) {
     if (!supportedLanguages.includes(language)) language = "en";
     const t = copy[language];
@@ -542,7 +485,7 @@
     const selector = document.getElementById("langSelect");
     if (selector) selector.value = language;
     const triggerValue = document.getElementById("languageTriggerValue");
-    if (triggerValue) triggerValue.textContent = language === "ja" ? "日本語" : language === "zh" ? "中文" : language.toUpperCase();
+    if (triggerValue) triggerValue.textContent = language === "ja" ? "日本語" : language.toUpperCase();
     document.getElementById("languageTrigger")?.setAttribute("aria-label", `Language: ${triggerValue?.textContent || language.toUpperCase()}`);
     document.querySelectorAll("[data-language-value]").forEach(option => {
       const selected = option.dataset.languageValue === language;

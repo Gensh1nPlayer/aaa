@@ -7,12 +7,27 @@
   <meta name="description" content="How the Roshine static storefront handles language preferences, contact information, orders and support data." />
   <meta name="theme-color" content="#05060b" />
   <link rel="canonical" href="https://roshine.love/privacy/" />
+  <link rel="alternate" hreflang="en" href="https://roshine.love/privacy/?lang=en" />
+  <link rel="alternate" hreflang="fr" href="https://roshine.love/privacy/?lang=fr" />
+  <link rel="alternate" hreflang="de" href="https://roshine.love/privacy/?lang=de" />
+  <link rel="alternate" hreflang="ar" href="https://roshine.love/privacy/?lang=ar" />
+  <link rel="alternate" hreflang="ja" href="https://roshine.love/privacy/?lang=ja" />
+  <link rel="alternate" hreflang="x-default" href="https://roshine.love/privacy/" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://roshine.love/privacy/" />
+  <meta property="og:site_name" content="Roshine Account Store" />
+  <meta property="og:locale" content="en_US" />
   <meta property="og:title" content="Privacy Policy — Roshine Account Store" />
-  <meta property="og:description" content="A clear summary of privacy and data handling for the current Roshine storefront." />
-  <meta property="og:image" content="https://roshine.love/assets/og.jpg" />
+  <meta property="og:description" content="How the Roshine storefront handles browser preferences, order communication, payment providers and support records." />
+  <meta property="og:image" content="https://roshine.love/assets/og-social.jpg?v=1" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Roshine curated Overwatch account store" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Privacy Policy — Roshine Account Store" />
+  <meta name="twitter:description" content="A clear summary of privacy and data handling across the Roshine storefront and support process." />
+  <meta name="twitter:image" content="https://roshine.love/assets/og-social.jpg?v=1" />
   <link rel="icon" href="../assets/logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -45,9 +60,9 @@
     <button class="mobile-menu-toggle" id="mobileMenuToggle" type="button" aria-controls="mobileNav" aria-expanded="false" aria-label="Open navigation">☰</button>
     <div class="header-actions">
       <div class="language-picker" id="languagePicker" data-open="false">
-        <select class="lang-select" id="langSelect" aria-hidden="true" tabindex="-1"><option value="en">EN</option><option value="fr">FR</option><option value="de">DE</option><option value="ar">AR</option><option value="ja">日本語</option><option value="zh">中文</option></select>
+        <select class="lang-select" id="langSelect" aria-hidden="true" tabindex="-1"><option value="en">EN</option><option value="fr">FR</option><option value="de">DE</option><option value="ar">AR</option><option value="ja">日本語</option></select>
         <button class="language-trigger" id="languageTrigger" type="button" aria-label="Language: EN" aria-haspopup="listbox" aria-controls="languageMenu" aria-expanded="false"><span id="languageTriggerValue">EN</span><span class="language-chevron" aria-hidden="true"></span></button>
-        <div class="language-menu" id="languageMenu" role="listbox" aria-label="Language" hidden><button class="language-option" type="button" role="option" data-language-value="en" aria-selected="true">EN</button><button class="language-option" type="button" role="option" data-language-value="fr" aria-selected="false" tabindex="-1">FR</button><button class="language-option" type="button" role="option" data-language-value="de" aria-selected="false" tabindex="-1">DE</button><button class="language-option" type="button" role="option" data-language-value="ar" aria-selected="false" tabindex="-1">AR</button><button class="language-option" type="button" role="option" data-language-value="ja" aria-selected="false" tabindex="-1">日本語</button><button class="language-option" type="button" role="option" data-language-value="zh" aria-selected="false" tabindex="-1">中文</button></div>
+        <div class="language-menu" id="languageMenu" role="listbox" aria-label="Language" hidden><button class="language-option" type="button" role="option" data-language-value="en" aria-selected="true">EN</button><button class="language-option" type="button" role="option" data-language-value="fr" aria-selected="false" tabindex="-1">FR</button><button class="language-option" type="button" role="option" data-language-value="de" aria-selected="false" tabindex="-1">DE</button><button class="language-option" type="button" role="option" data-language-value="ar" aria-selected="false" tabindex="-1">AR</button><button class="language-option" type="button" role="option" data-language-value="ja" aria-selected="false" tabindex="-1">日本語</button></div>
       </div>
       <a href="../auth/" class="btn btn-outline" style="padding:8px 16px;font-size:.85rem">
         <span id="authBtnText">Authenticator</span>
@@ -133,7 +148,7 @@
     </nav>
   </footer>
 
-  <script src="../assets/policy.js?v=5" defer></script>
+  <script src="../assets/policy.js?v=6" defer></script>
   <script src="../assets/void-effects.js?v=1" defer></script>
 </body>
 </html>

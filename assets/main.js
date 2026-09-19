@@ -1207,6 +1207,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     const LANG_KEY = "roshine_lang";
+    const SUPPORTED_LANGUAGES = ["en", "fr", "de", "ar", "ja"];
     const LINKS = {
       discord: "https://discord.gg/WYqfYXW29U",
       email: "mailto:roshine_store@roshine.love",
@@ -1628,90 +1629,6 @@ document.addEventListener("DOMContentLoaded", () => {
         footer1:"© 2021–2026 Roshine Account Store.", footer2:"分かりやすいアカウント情報、率直な回答、購入後も続くサポート。"
       },
 
-      zh: {
-        metaTitle:"Roshine 账号商店",
-        metaDesc:"守望先锋账号实时库存，信息清楚展示，提供交接指导与购买后售后支持。",
-        nav: { home:"主页", accounts:"库存", services:"服务", warranty:"售后", faq:"常见问题", contact:"联系" },
-        accountsKicker:"🎮 库存",
-        accountsTitle:"挑一个真正适合你的账号",
-        accountsDesc:"可以按皮肤、系列、价格或账号类型搜索。看中后把账号 ID 发到 Discord，我们会在付款前替你确认库存和细节。",
-        accountsUpdateLabel:"下次计划更新库存：",
-        accountsUpdateValue:"7 天后",
-        accountsUpdateTime:{ day:"{count} 天", days:"{count} 天", hour:"{count} 小时", hours:"{count} 小时", underHour:"不足 1 小时" },
-        auth:"Authenticator",
-        a11y:{ skip:"跳到账号库存", openNav:"打开导航", closeNav:"关闭导航", mobileNav:"移动端导航" },
-        heroKicker:"✦ Roshine · 自 2021 年持续运营",
-        heroTitle:"找到你的下一个主力账号",
-        heroSubbrand:"守望先锋账号商店",
-        heroIntro:"从稀有限定皮肤、干净排位号和货币号，到适合收藏的高库存 OW1 老账号、精品堆皮号、高段位号与五百强账号，全部来自当前真实库存。先把细节比较清楚，再挑真正适合你的账号。",
-        ctaExplore:"浏览实时库存",
-        servicesKicker:"购买流程",
-        servicesTitle:"从挑选账号到顺利登录",
-        servicesDesc:"不用绕复杂的结账流程。挑中账号、发送 ID，后续确认、付款和交接都在 Discord 里直接沟通。",
-        servicesList:[
-          "浏览实时库存，可按状态、版本、价格、账号特点或皮肤关键词筛选。",
-          "复制账号 ID；觉得截图更方便，也可以直接截图。",
-          "在购买工单中发送 ID 或截图，我们会确认库存、总价和你想核对的细节。",
-          "确认付款后交付登录资料，并一步步协助完成账号交接。"
-        ],
-        btnDiscord:"通过 Discord 下单",
-
-        warrantyKicker:"🛡️ 质保",
-        warrantyTitle:"买完之后，我们怎么负责",
-        warrantyDesc:"交付哪些资料、遇到问题怎么处理、哪些情况属于质保，付款前都会说明清楚。",
-        warrantyCards:[
-          { icon:"🛡️", badge:"核心质保", badgeType:"primary", title:"长期安全质保", desc:"如果确认是前任号主找回或其他原持有人问题导致账号丢失，我们会先核对证据并尝试恢复；恢复失败后，再根据具体情况和现有库存安排等值更换、退款或合理补偿。" },
-          { icon:"📂", badge:"资料交接", badgeType:"primary", title:"账号可用资料一并交付", desc:"按该账号实际情况交付登录、邮箱、恢复、订单记录与 Authenticator 等可用资料；具体包含什么，会在付款前确认。" },
-          { icon:"⚡", badge:"交付", badgeType:"primary", title:"快速且有人协助的交付", desc:"多数订单会在确认付款后尽快交付；价格较高的账号可能需要多一点时间，我们会先把资料再核对一遍。" },
-          { icon:"♾️", badge:"售后", badgeType:"primary", title:"OW2 SMS 锁定支持", desc:"符合条件的 OW2 账号如遇 SMS 解锁相关问题，可继续通过售后工单寻求协助。" },
-          { icon:"🔄", badge:"可选服务", badgeType:"paid", title:"区服变更协助", desc:"仅适用于符合条件的账号与地区。能否处理、冷却时间和价格会在开始前确认。" },
-          { icon:"🚫", badge:"可选服务", badgeType:"paid", title:"解封申诉协助", desc:"可为符合条件的本店账号协助整理申诉内容；最终结果由官方审核决定，无法保证通过。" }
-        ],
-
-        faqKicker:"❓ FAQ",
-        faqTitle:"常见问题",
-        faqDesc:"买家开工单前最常问的实际问题，都整理在这里。",
-        faq1:"账号从哪里来？— 上架的是有正常游戏记录的真人玩家账号。我们不会故意上架机器人号、工作室批量号或已知存在作弊、滥用记录的账号。付款前如果有特别在意的内容，可以让我们再确认。",
-        faq2:"多久交付？— 多数订单会在付款后尽快交付。高价值账号需要先复核交接资料，可能会多花一点时间。",
-        faq3:"支持哪些付款方式？— 可通过 Stripe 或 PayPal 使用银行卡，支持时也可使用 Apple Pay、Google Pay；Binance、Bitcoin 与部分礼品卡需在工单中确认可用性和手续费。",
-        faq4:"库存多久更新？— 账号销售状态会实时更新；新库存通常每 7 天补充一次。上方倒计时显示下一次计划更新时间。",
-        faq5:{
-          question:"如何使用 Battle.net Authenticator？",
-          intro:"roshine.love/auth 是 Battle.net Authenticator 的私人工具。粘贴随账号资料交付的 Private Key；需要验证时，将当前验证码复制到 Battle.net App 即可。",
-          linkLabel:"roshine.love/auth",
-          sections:[
-            { icon:"📌", title:"Authenticator 使用提示", items:["验证码每 30 秒自动刷新。", "每个验证码只能使用一次。", "如果验证码已过期，请等待新验证码生成后重试。"] }
-          ]
-        },
-        faq6:{
-          question:"如何登录 Overwatch 账号？",
-          intro:"使用随账号交付的 Battle.net 登录信息；仅在客户端要求验证时输入 Authenticator 验证码。",
-          sections:[{ icon:"🎮", title:"Overwatch 账号登录", ordered:true, items:["打开 Battle.net 桌面客户端。", "使用交付的 Battle.net 账号信息登录。", "如系统要求验证，请输入 Authenticator 当前显示的验证码。"] }]
-        },
-        faq7:{
-          question:"如何登录账号邮箱？",
-          intro:"使用随账号交付的邮箱信息登录；具体验证方式取决于邮箱是否绑定了验证器。",
-          sections:[{ icon:"✉️", title:"账号邮箱登录", items:["使用交付的邮箱信息登录 live.com。", "如果邮箱绑定了验证器，请使用 Google Authenticator 扫描交付的二维码完成验证；未绑定时直接使用邮箱和密码登录。", "成功进入邮箱后，建议添加你自己的恢复邮箱以提高安全性。"] }]
-        },
-        faq8:"什么时候修改账号安全信息？— 建议保持同一设备与稳定 IP 使用约 7 天后，再修改密码、恢复邮箱、地区或其他安全设置。这样可降低安全锁定与验证问题，但无法完全消除平台风险。",
-        faq9:{
-          question:"如何保障账号安全？",
-          intro:"交付后立即保存全部账号资料，并保护好所有登录与恢复渠道。",
-          sections:[{ icon:"🔐", title:"账号安全建议", items:["妥善保管邮箱、Authenticator 与恢复资料。", "避免使用公共或不稳定 IP、VPN、代理及共享网络。", "不要向其他人分享账号资料。"] }]
-        },
-        btnStock:"查看库存",
-        btnOrder:"Discord 下单",
-
-        contactKicker:"💬 联系",
-        contactTitle:"拿不准选哪个？",
-        contactDesc:"把账号 ID 发到 Discord，再告诉我们你更看重皮肤、排位、预算还是账号年份。付款前，我们可以帮你一起比较。",
-        btnContact:"Discord",
-        btnEmail:"Email",
-        footerNav: { home:"主页", services:"服务", contact:"联系", privacy:"隐私", terms:"条款" },
-
-        footer1:"© 2021–2026 Roshine Account Store。",
-        footer2:"账号信息说清楚，购买问题直接答，交付之后也不会突然消失。"
-      }
     };
 
     const INVENTORY_COUNTDOWN_HOUR_MS = 60 * 60 * 1000;
@@ -1757,7 +1674,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       element.dataset.targetTimestamp = String(target);
       try {
-      const locale = { en:'en-US', fr:'fr-FR', de:'de-DE', ar:'ar', ja:'ja-JP', zh:'zh-CN' }[lang] || lang;
+      const locale = { en:'en-US', fr:'fr-FR', de:'de-DE', ar:'ar', ja:'ja-JP' }[lang] || lang;
         element.title = new Intl.DateTimeFormat(locale, {
           dateStyle: 'medium', timeStyle: 'short', timeZone: 'Asia/Shanghai'
         }).format(new Date(target));
@@ -1900,33 +1817,6 @@ document.addEventListener("DOMContentLoaded", () => {
         yes:"はい", no:"いいえ", viewSkins:"スキンを見る", buyNow:"購入する", copyId:"IDをコピー", copied:"コピーしました",
         missingScreenshot:"このアカウントにはスクリーンショットリンクがありません。", premiumAccount:"プレミアムアカウント", statusInStock:"販売中", statusSold:"販売済み", statusPending:"保留中"
       },
-      zh: {
-        toolsAria:"账号库存筛选与排序",
-        filterSort:"筛选与排序", filterSubtitle:"快速缩小库存范围", resetFilters:"清除筛选", closeFilters:"关闭筛选",
-        activeFilters:"当前筛选", clearFilter:"移除此筛选条件", searchLabel:"检索", applyFilters:"查看 {count} 个账号",
-        popularSearches:"热门搜索", popularSearchesAria:"热门账号搜索",
-        showMore:"展开更多皮肤", showLess:"收起皮肤详情", playtime:"游戏时长", credits:"Credits", coins:"Coins",
-        mythicPrisms:"神话棱晶",
-        compPointsAll:"竞技点数（总计）",
-        searchPlaceholder:"搜索账号",
-        searchAria:"搜索账号",
-        typeAria:"筛选守望先锋版本",
-        typeOptions:["OW1 / OW2", "OW1", "OW2"],
-        statusAria:"筛选库存状态", statusOptions:["有库存", "已售出", "待处理", "全部状态"],
-        priceAria:"筛选价格区间", priceOptions:["价格区间", "低于 $30", "$30–$100", "高于 $100"],
-        nameChangeAria:"筛选免费改名", nameChangeOptions:["免费改名", "改名：有", "改名：无"],
-        sortAria:"账号排序",
-        sortGroups:["价格", "账号进度", "钱包或余额"],
-        sortOptions:["推荐排序", "价格：从低到高", "价格：从高到低", "等级：从高到低", "等级：从低到高", "游戏时长：从多到少", "游戏时长：从少到多", "Coins：从多到少", "Coins：从少到多", "Credits：从多到少", "Credits：从少到多", "神话棱晶：从多到少"],
-        results:"显示 {shown} / 共 {total} 个账号",
-        empty:"没有符合当前检索及筛选条件的账号。",
-        loadError:"账号库存加载失败。",
-        rank:"段位", price:"价格", level:"等级", statusLabel:"状态", weapons:"武器",
-        freeRename:"免费改名", top500Eligible:"TOP500 资格",
-        yes:"有", no:"无", viewSkins:"查看皮肤", buyNow:"立即购买", copyId:"复制 ID", copied:"已复制",
-        missingScreenshot:"该账号暂未提供皮肤截图链接。",
-        premiumAccount:"精品账号", statusInStock:"有库存", statusSold:"已售出", statusPending:"待处理"
-      }
     };
 
     function getAccountUiText(lang = document.documentElement.lang) {
@@ -2191,23 +2081,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function detectLang(){
       const urlLang = new URLSearchParams(window.location.search).get("lang");
-      if (urlLang && i18n[urlLang]) return urlLang;
+      if (SUPPORTED_LANGUAGES.includes(urlLang)) return urlLang;
 
       const saved = localStorage.getItem(LANG_KEY);
-      if (saved && i18n[saved]) return saved;
+      if (SUPPORTED_LANGUAGES.includes(saved)) return saved;
 
       // Hosting/CDN geo logic may set this before main.js without exposing visitor IPs to a third party.
       const edgeLanguage = String(window.__ROSHINE_EDGE_LANG__ || '').toLowerCase();
-      if (edgeLanguage && i18n[edgeLanguage]) return edgeLanguage;
+      if (SUPPORTED_LANGUAGES.includes(edgeLanguage)) return edgeLanguage;
 
       const nav = (navigator.language || "en").toLowerCase();
-      if (nav.startsWith("zh")) return "zh";
       if (nav.startsWith("fr")) return "fr";
       if (nav.startsWith("de")) return "de";
       if (nav.startsWith("ar")) return "ar";
       if (nav.startsWith("ja")) return "ja";
       return "en";
     }
+
+    function normalizeUnsupportedLanguageParam(){
+      const url = new URL(window.location.href);
+      const requested = url.searchParams.get("lang");
+      if (!requested || SUPPORTED_LANGUAGES.includes(requested)) return;
+      url.searchParams.delete("lang");
+      history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
+    }
+
+    normalizeUnsupportedLanguageParam();
 
     function setList(elId, items){
       const el = document.getElementById(elId);
@@ -2331,7 +2230,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function applyLang(lang){
-      if (!i18n[lang]) lang = "en";
+      if (!SUPPORTED_LANGUAGES.includes(lang)) lang = "en";
       const t = i18n[lang];
 
       document.documentElement.lang = lang;

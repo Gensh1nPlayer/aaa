@@ -4,6 +4,32 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Authenticator — Roshine Account Store</title>
+  <meta name="description" content="Generate the current Battle.net verification code from your handover key. Processing stays local in your browser." />
+  <meta name="theme-color" content="#0a0618" />
+  <meta name="referrer" content="no-referrer" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; frame-src 'none'; form-action 'self'; upgrade-insecure-requests" />
+  <link rel="canonical" href="https://roshine.love/auth/" />
+  <link rel="alternate" hreflang="en" href="https://roshine.love/auth/?lang=en" />
+  <link rel="alternate" hreflang="fr" href="https://roshine.love/auth/?lang=fr" />
+  <link rel="alternate" hreflang="de" href="https://roshine.love/auth/?lang=de" />
+  <link rel="alternate" hreflang="ar" href="https://roshine.love/auth/?lang=ar" />
+  <link rel="alternate" hreflang="ja" href="https://roshine.love/auth/?lang=ja" />
+  <link rel="alternate" hreflang="x-default" href="https://roshine.love/auth/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://roshine.love/auth/" />
+  <meta property="og:site_name" content="Roshine Account Store" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="Battle.net Authenticator Code Generator — Roshine" />
+  <meta property="og:description" content="Generate verification codes locally in your browser from the key supplied during account handover. Nothing is uploaded or stored." />
+  <meta property="og:image" content="https://roshine.love/assets/og-social.jpg?v=1" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Roshine curated Overwatch account store" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Battle.net Authenticator Code Generator — Roshine" />
+  <meta name="twitter:description" content="A browser-local verification code tool for keys supplied during account handover." />
+  <meta name="twitter:image" content="https://roshine.love/assets/og-social.jpg?v=1" />
   <link rel="icon" href="/assets/logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -569,7 +595,6 @@
           <option value="de">DE</option>
           <option value="ar">AR</option>
           <option value="ja">日本語</option>
-          <option value="zh">中文</option>
         </select>
         <button class="language-trigger" id="languageTrigger" type="button" aria-label="Language: EN" aria-haspopup="listbox" aria-controls="languageMenu" aria-expanded="false">
           <span id="languageTriggerValue">EN</span>
@@ -581,7 +606,6 @@
           <button class="language-option" type="button" role="option" data-language-value="de" aria-selected="false" tabindex="-1">DE</button>
           <button class="language-option" type="button" role="option" data-language-value="ar" aria-selected="false" tabindex="-1">AR</button>
           <button class="language-option" type="button" role="option" data-language-value="ja" aria-selected="false" tabindex="-1">日本語</button>
-          <button class="language-option" type="button" role="option" data-language-value="zh" aria-selected="false" tabindex="-1">中文</button>
         </div>
       </div>
       <a href="/auth/" class="btn btn-outline" id="authBtn" aria-current="page" style="padding: 8px 16px; font-size: 0.85rem;">
@@ -604,10 +628,10 @@
     <div class="page">
       <div class="panel" role="region" aria-label="Authenticator panel">
         <div class="panel-top">
-          <div class="panel-title">
+          <h1 class="panel-title">
             <img class="panel-title-logo" src="./logo.png" alt="" width="36" height="36">
             <span id="panelTitleText">Authenticator</span>
-          </div>
+          </h1>
         </div>
         <p class="auth-intro" id="authIntro">Generate the current Battle.net verification code from a key supplied during account handover. Everything runs locally in this browser.</p>
 
@@ -615,8 +639,8 @@
         <div class="hint" id="remain"></div>
         <div class="barwrap"><div class="bar" id="bar"></div></div>
 
-        <div class="field-label" id="secretLabel">Please enter your Private Key</div>
-        <input id="secret" class="neon-border" placeholder="Private Key" autocomplete="off" spellcheck="false" />
+        <label class="field-label" id="secretLabel" for="secret">Please enter your Private Key</label>
+        <input id="secret" class="neon-border" type="password" placeholder="Private Key" autocomplete="off" autocapitalize="none" spellcheck="false" aria-describedby="privacyHint status" />
         <p class="auth-local-note" id="privacyHint">Your key is processed only in this browser and is not sent to the storefront.</p>
 
         <div class="row">
@@ -624,7 +648,7 @@
           <button class="neon-border" id="clear">Clear Key</button>
         </div>
 
-        <div class="status" id="status"></div>
+        <div class="status" id="status" role="status" aria-live="polite"></div>
         <div class="foot" id="footer"></div>
       </div>
     </div>
@@ -634,6 +658,7 @@
     const DIGITS = 8;
     const PERIOD = 30;
     const LANG_KEY = "roshine_lang";
+    const SUPPORTED_LANGUAGES = ["en", "fr", "de", "ar", "ja"];
 
     const i18n = {
       en: {
@@ -721,37 +746,19 @@
         invalidKey:"Private Keyが無効です",
         footer:"© 2021–2026 Roshine Account Store. キーはブラウザ内で処理されます。"
       },
-      zh: {
-        nav:{home:"主页",accounts:"账号",services:"服务",warranty:"质保",faq:"FAQ",contact:"联系"},
-        auth:"Authenticator",
-        a11y:{openNav:"打开导航",closeNav:"关闭导航",mobileNav:"移动端导航"},
-        panelTitle:"Authenticator",
-        intro:"使用账号交接时提供的密钥生成当前 Battle.net 验证码，整个过程只在本浏览器内完成。",
-        secretLabel:"请输入你的安全令 Private Key",
-        privacyHint:"Private Key 只在当前浏览器内处理，不会发送到商店服务器。",
-        placeholder:"Private Key",
-        copy:"复制验证码",
-        clear:"清空",
-        copied:"已复制",
-        copyBlocked:"浏览器禁止复制",
-        enterKeyError:"请输入 Private Key",
-        invalidKey:"无效的 Private Key",
-        footer:"© 2021–2026 Roshine Account Store. Private Key 只在当前浏览器内处理。"
-      }
     };
 
     function detectLang(){
       const urlLang = new URLSearchParams(window.location.search).get("lang");
-      if (urlLang && i18n[urlLang]) return urlLang;
+      if (SUPPORTED_LANGUAGES.includes(urlLang)) return urlLang;
 
       const saved = localStorage.getItem(LANG_KEY) || localStorage.getItem("locale-choice");
-      if (saved && i18n[saved]) return saved;
+      if (SUPPORTED_LANGUAGES.includes(saved)) return saved;
 
       const edgeLanguage = String(window.__ROSHINE_EDGE_LANG__ || "").toLowerCase();
-      if (edgeLanguage && i18n[edgeLanguage]) return edgeLanguage;
+      if (SUPPORTED_LANGUAGES.includes(edgeLanguage)) return edgeLanguage;
 
       const nav = (navigator.language || "en").toLowerCase();
-      if (nav.startsWith("zh")) return "zh";
       if (nav.startsWith("fr")) return "fr";
       if (nav.startsWith("de")) return "de";
       if (nav.startsWith("ar")) return "ar";
@@ -759,6 +766,15 @@
       return "en";
     }
 
+    function normalizeUnsupportedLanguageParam(){
+      const url = new URL(window.location.href);
+      const requested = url.searchParams.get("lang");
+      if (!requested || SUPPORTED_LANGUAGES.includes(requested)) return;
+      url.searchParams.delete("lang");
+      history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
+    }
+
+    normalizeUnsupportedLanguageParam();
     let currentLang = detectLang();
     function t(key){
       return (i18n[currentLang] && i18n[currentLang][key]) || i18n.en[key] || key;
@@ -864,7 +880,7 @@
     }
 
     function applyLang(lang){
-      if (!i18n[lang]) lang = "en";
+      if (!SUPPORTED_LANGUAGES.includes(lang)) lang = "en";
       currentLang = lang;
 
       document.documentElement.lang = lang;
@@ -953,11 +969,19 @@
     }
     function fmt(n){
       const raw = (n % (10**DIGITS)).toString().padStart(DIGITS, "0");
-      return raw; // 不再插入空格
+      return raw;
     }
 
     async function gen(){
       const statusEl = $("status");
+      if (!$("secret").value.trim()) {
+        $("code").textContent = "--------";
+        if (statusEl) {
+          statusEl.textContent = "";
+          statusEl.classList.remove("err", "ok");
+        }
+        return;
+      }
       try{
         const key = hexToBytes($("secret").value);
         const ctr = Math.floor(Date.now()/1000 / PERIOD);

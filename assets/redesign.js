@@ -85,23 +85,6 @@
       pricePointOne:'支払い前に詳細と在庫を確認', pricePointTwo:'Stripe、PayPal、Binance、Bitcoinに対応', pricePointThree:'対象ケースは復旧を優先し、その後に交換・返金・適正な補償', priceFootnote:'保証対象は原因、確認できる証拠、引き渡し後の安全な管理状況によって判断されます。',
       paymentWord:'お支払い', methodsWord:'方法', paymentDesc:'カード決済はStripe経由です。Visa、Mastercard、PayPal、Bitcoin、対応ギフトカードを利用できます。', contactNote:'アカウントID、または分かりやすいスクリーンショットを送ってください。支払い前に在庫とご質問を確認します。', searchStock:'在庫を検索'
     },
-    zh: {
-      openSince:'自 2021 年持续运营', liveInventory:'实时库存', howToBuy:'查看购买流程', availableNow:'当前可售', owSplit:'OW1 / OW2', currentRange:'当前价格区间',
-      featuredDrop:'精选库存', activeCurrency:'当前可用货币 & 游戏时长', viewDetails:'查看详情 →', clearDetails:'账号信息清楚展示', guidedHandover:'提供交接指导',
-      moreThanAccounts:'不只是账号库存', storeTitle:'购买前后需要的内容，都放在这里。', storeDesc:'先从实时库存挑选账号，需要确认库存、付款方式或增值服务时，再通过 Discord 直接沟通。',
-      accountsOffer:'守望先锋账号', accountsOfferDesc:'从干净初始号、排位号到 OW1 老账号、稀有皮肤与高库存收藏账号。', browseAccounts:'浏览账号',
-      currencyOffer:'折扣金币与神话棱晶', currencyOfferDesc:'库存和交付方式可能变化，下单前请通过 Discord 确认当前价格、方式与适用条件。', checkAvailability:'询问当前库存',
-      serviceOffer:'账号增值服务', serviceOfferDesc:'为符合条件的账号提供区服变更与解封申诉协助，最终结果取决于账号情况和官方审核。', reviewServices:'查看服务说明',
-      fastDelivery:'确认付款后尽快交接', directSupport:'通过 Discord 直接沟通', warrantyScope:'质保范围写清楚', paymentChoices:'银行卡、PayPal、虚拟币与礼品卡',
-      storyKicker:'从 GOOGLE SHEETS 到 ROSHINE', storyTitle:'不是靠投广告，而是靠顾客介绍走到今天。', storyIntro:'2021 年，我最开始只是和朋友互相联系买卖账号，也会留一些自用。从一张只给熟人看的号单开始，后来靠回头客和顾客推荐，慢慢做成了现在的店。',
-      storyStartTitle:'从熟人之间的小买卖开始', storyStartText:'第一批账号主要给朋友、自用和少量买家，每一单都是我自己直接沟通、确认和交接。',
-      storyMarketplaceYear:'第三方平台时期', storyMarketplaceTitle:'曾是 IGVault 守望先锋 Top 3 卖家', storyMarketplaceText:'后来店铺做到过 IGVault 守望先锋卖家前三。因为平台手续费越来越高，我转到 Discord 自己经营，也能更直接地服务回头客。',
-      storyDiscordYear:'DISCORD', storyDiscordTitle:'几乎没有宣传，全靠口碑', storyDiscordText:'顾客买过以后再次回来，也会介绍朋友。客户逐渐遍布欧洲、美国、日本和其他地区。',
-      storyWebsiteTitle:'从谷歌号单搬到独立网站', storyWebsiteText:'原来的 Google Sheets 号单现在变成了可搜索的实时库存，并保留 Imgur 截图，让买家开工单前就能更方便地对比账号。',
-      priceKicker:'为什么价格不一样', priceTitle:'可能不是最便宜，但交接和售后更踏实。', priceText:'我不会和来源不明、批量上架的低价账号拼最低价。多出来的价格对应的是更清楚的账号情况、截图、付款前确认、交接指导，以及在确认属于前任号主问题时提供后续处理。',
-      pricePointOne:'付款前确认账号信息与当前库存', pricePointTwo:'支持 Stripe、PayPal、Binance 与 Bitcoin', pricePointThree:'符合质保时先尝试找回，失败后再按情况退换、退款或合理补偿', priceFootnote:'是否属于质保范围，需要结合问题原因、可提供的证据，以及交付后的账号使用和保管情况判断。',
-      paymentWord:'付款', methodsWord:'方式', paymentDesc:'银行卡通过 Stripe 处理，也支持 Visa、Mastercard、PayPal、Bitcoin 和适用的礼品卡。', contactNote:'发送账号 ID 即可；觉得截图更方便，也可以直接发截图。我们会在付款前确认库存并回答你的问题。', searchStock:'搜索库存'
-    }
   };
 
   const getLanguage = () => {
