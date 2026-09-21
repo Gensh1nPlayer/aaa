@@ -66,13 +66,15 @@ body::after { opacity: .5; background: radial-gradient(circle at 12% 18%, rgba(8
 body:not(.policy-page) .wrap { width: min(1120px, calc(100% - 32px)); padding-top: 128px; }
 body:not(.policy-page) #bg-canvas { display: none !important; }
 body:not(.policy-page) .bg-animation::before, body:not(.policy-page) .bg-animation::after, body:not(.policy-page) .bg-animation-3 { opacity: .06 !important; }
-body:not(.policy-page) .page { min-height: calc(100vh - 170px); display: grid; place-items: center; }
+body:not(.policy-page) .page { min-height: calc(100vh - 170px); display: grid; grid-template-columns: minmax(0, min(740px, 100%)); place-content: center; place-items: center; }
 body:not(.policy-page) .panel { position: relative; width: min(620px, 100%); padding: 38px; overflow: hidden; border: 1px solid var(--shell-line-strong); border-radius: 27px; background: radial-gradient(circle at 100% 0, rgba(123,68,240,.2), transparent 37%), linear-gradient(145deg, rgba(19,19,43,.92), rgba(8,9,23,.88)); box-shadow: 0 34px 95px rgba(0,0,0,.46), 0 0 70px rgba(103,52,209,.08), inset 0 1px rgba(255,255,255,.05); }
+body:not(.policy-page) .panel { width: min(740px, 100%); }
 body:not(.policy-page) .panel::before { content: ""; position: absolute; width: 420px; height: 170px; right: -150px; top: 82px; border: 1px solid rgba(157,112,255,.15); border-radius: 50%; transform: rotate(-23deg); box-shadow: 0 0 60px rgba(111,56,226,.1); }
 body:not(.policy-page) .panel::after { content: "AUTH"; position: absolute; right: -18px; bottom: -20px; color: rgba(255,255,255,.022); font-size: 6rem; font-weight: 1000; letter-spacing: -.08em; }
 body:not(.policy-page) .panel-top, body:not(.policy-page) .code, body:not(.policy-page) .hint, body:not(.policy-page) .barwrap, body:not(.policy-page) .field-label, body:not(.policy-page) input, body:not(.policy-page) .row, body:not(.policy-page) .status, body:not(.policy-page) .foot { position: relative; z-index: 1; }
 body:not(.policy-page) .panel-title { font-size: .78rem; letter-spacing: .16em; text-transform: uppercase; }
-body:not(.policy-page) .panel-title-logo { padding: 5px; border: 1px solid rgba(157,111,255,.3); border-radius: 12px; background: rgba(126,70,232,.12); }
+body:not(.policy-page) .panel-title { gap: 16px; margin: 0; font-size: 1.12rem; }
+body:not(.policy-page) .panel-title-logo { width: 58px; height: 58px; padding: 5px; border: 1px solid rgba(157,111,255,.3); border-radius: 15px; background: rgba(126,70,232,.12); }
 body:not(.policy-page) .code { margin: 36px 0 5px; color: #f4f0ff; font-size: clamp(3.5rem, 10vw, 6.8rem); line-height: 1; letter-spacing: -.05em; text-shadow: 0 0 34px rgba(143,83,255,.32); }
 body:not(.policy-page) .barwrap { border-color: rgba(157,112,255,.18); background: rgba(255,255,255,.035); }
 body:not(.policy-page) .bar { background: linear-gradient(90deg, #7941df, #b66cff, #42d9ff); }
@@ -101,6 +103,8 @@ body:not(.policy-page) .foot { color: #686271; }
   .policy-article { padding: 4px 20px 28px; border-radius: 20px; }
   body:not(.policy-page) .wrap { width: calc(100% - 20px); padding-top: 99px; }
   body:not(.policy-page) .panel { padding: 26px 20px; border-radius: 22px; }
+  body:not(.policy-page) .panel-title { gap: 11px; font-size: .94rem; }
+  body:not(.policy-page) .panel-title-logo { width: 46px; height: 46px; }
   body:not(.policy-page) .code { font-size: clamp(3rem, 18vw, 5rem); }
 }
 
