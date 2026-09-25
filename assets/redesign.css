@@ -268,6 +268,7 @@ body::after { opacity: .5; background: radial-gradient(circle at 12% 18%, rgba(8
 .rd-delivery-note span { color: #8f899c; font-size: .75rem; line-height: 1.55; }
 .rd-currency-cta { position: relative; z-index: 1; width: 100%; margin-top: 22px; display: flex; justify-content: center; gap: 15px; }
 .rd-currency-notice { margin-top: 17px; padding: 21px 24px; display: grid; grid-template-columns: 180px 1fr; gap: 20px; border: 1px solid rgba(255,194,82,.15); border-radius: 17px; background: linear-gradient(110deg, rgba(58,39,25,.18), rgba(12,12,28,.68)); }
+.rd-credit-notice { position: relative; z-index: 1; grid-template-columns: 145px 1fr; padding: 17px 18px; border-color: rgba(255,194,82,.18); background: linear-gradient(110deg, rgba(69,45,24,.2), rgba(18,13,35,.58)); }
 .rd-currency-notice strong { color: #e0c999; font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; }
 .rd-currency-notice ul { display: grid; grid-template-columns: 1fr 1fr; gap: 9px 25px; margin: 0; padding: 0; list-style: none; }
 .rd-currency-notice li { position: relative; padding-left: 14px; color: #898391; font-size: .7rem; line-height: 1.55; }
@@ -432,6 +433,7 @@ body.rd-motion .rd-reveal.rd-visible { opacity: 1; transform: none; }
   .rd-currency-card-head .rd-availability { grid-column: 1 / -1; justify-self: start; }
   .rd-price-columns { grid-template-columns: 1fr; }
   .rd-currency-notice { grid-template-columns: 1fr; padding: 19px; }
+  .rd-credit-notice { padding: 16px; }
   .rd-currency-notice ul { grid-template-columns: 1fr; }
   #accounts .section-header { padding-right: 0; }
   .accounts-filter-panel { padding: 0; border: 0; border-radius: 0; background: rgba(7,8,19,.98); }
