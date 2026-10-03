@@ -448,7 +448,6 @@ html[dir="rtl"] .policy-toc a::before {
 }
 
 @media print {
-  .bg-animation,
   .scanlines,
   .header,
   .mobile-nav,

@@ -26,46 +26,6 @@
       line-height: 1.6;
     }
 
-    /* Background Effects */
-    .bg-animation {
-      position: fixed;
-      top: 0; left: 0; width: 100vw; height: 100vh;
-      z-index: -1;
-      overflow: hidden;
-      background: var(--bg);
-    }
-    #bg-canvas {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      pointer-events: none;
-      display: none;
-    }
-    .bg-animation::before, .bg-animation::after, .bg-animation-3 {
-      content: ''; position: absolute; border-radius: 50%;
-      filter: blur(120px); opacity: 0.15;
-      animation: float 20s infinite alternate ease-in-out;
-    }
-    .bg-animation::before {
-      width: 50vw; height: 50vw; background: var(--neon);
-      top: -10%; left: -10%;
-    }
-    .bg-animation::after {
-      width: 60vw; height: 60vw; background: var(--neon2);
-      bottom: -20%; right: -10%; animation-delay: -5s;
-    }
-    .bg-animation-3 {
-      content: ''; position: absolute; border-radius: 50%;
-      filter: blur(120px); opacity: 0.12;
-      animation: float 20s infinite alternate ease-in-out;
-      width: 40vw; height: 40vw; background: var(--neon3);
-      top: 40%; left: 30%; animation-delay: -10s;
-    }
-    @keyframes float {
-      0% { transform: translate(0, 0) scale(1); }
-      100% { transform: translate(5%, 10%) scale(1.1); }
-    }
-
     .scanlines {
       position: fixed; inset: 0; z-index: -1;
       background: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
@@ -733,27 +693,21 @@
     .ac-color-red,
     .ac-color-purple,
     .ac-color-pink,
-    .ac-color-pink-strong,
-    .ac-color-pink-soft,
     .ac-color-blue,
     .ac-color-gold,
-    .ac-color-green,
-    .ac-color-green-bright {
+    .ac-color-green {
       font-weight: 700;
     }
     .ac-color-red,
     .ac-highlight-rank-master { color: #ef4444; }
     .ac-color-purple { color: #c084fc; }
-    .ac-color-pink,
-    .ac-color-pink-strong { color: #F379F3; }
-    .ac-color-pink-strong { font-weight: 800; }
-    .ac-color-pink-soft { color: #f472b6; }
+    .ac-color-pink { color: #F379F3; }
     .ac-color-blue { color: #60a5fa; }
     .ac-color-gold { color: #facc15; }
     .ac-color-green,
     .ac-rank-ready,
     .ac-availability-yes { color: #4ade80; }
-    .ac-color-green-bright { color: #00ff7f; }
+
     /* Endorsement tiers: stable typography, progressively stronger emphasis. */
     .ac-endorsement-2 { color: #a8c4b8; font-weight: 500; text-shadow: none; }
     .ac-endorsement-3 {
@@ -1051,7 +1005,7 @@
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
       }
-      #bg-canvas { display: none; }
+
     }
 
     /* Inventory UX optimization: key facts, collapsible highlights, reset chips and mobile filter drawer */

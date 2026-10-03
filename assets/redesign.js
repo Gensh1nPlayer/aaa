@@ -125,25 +125,19 @@
     return Number.isFinite(number) ? number : null;
   }
 
-  async function updateLiveSummary() {
-    try {
-      const response = await fetch('./accounts.json', { cache: 'no-store' });
-      if (!response.ok) throw new Error(`Inventory request failed: ${response.status}`);
-      const payload = await response.json();
-      const accounts = Array.isArray(payload.accounts) ? payload.accounts : [];
-      const available = accounts.filter(account => /in\s*stock/i.test(String(account.status || '')));
-      const ow1 = available.filter(account => /\bOW1\b/i.test(String(account.level || ''))).length;
-      const ow2 = available.filter(account => /\bOW2\b/i.test(String(account.level || ''))).length;
-      const prices = available.map(account => parsePrice(account.price)).filter(value => value !== null);
-      const minimum = prices.length ? Math.min(...prices) : null;
-      const maximum = prices.length ? Math.max(...prices) : null;
-      document.getElementById('rdAvailableCount').textContent = String(available.length);
-      document.getElementById('rdVersionSplit').textContent = `${ow1} / ${ow2}`;
-      document.getElementById('rdPriceRange').textContent = minimum === null ? '—' : `$${minimum.toFixed(0)}–$${maximum.toFixed(0)}`;
-    } catch (error) {
-      console.warn('[redesign] Live summary unavailable', error);
-    }
+  function updateLiveSummary(accounts) {
+    const available = accounts.filter(account => /in\s*stock/i.test(String(account.status || '')));
+    const ow1 = available.filter(account => /\bOW1\b/i.test(String(account.level || ''))).length;
+    const ow2 = available.filter(account => /\bOW2\b/i.test(String(account.level || ''))).length;
+    const prices = available.map(account => parsePrice(account.price)).filter(value => value !== null);
+    const minimum = prices.length ? Math.min(...prices) : null;
+    const maximum = prices.length ? Math.max(...prices) : null;
+    document.getElementById('rdAvailableCount').textContent = String(available.length);
+    document.getElementById('rdVersionSplit').textContent = `${ow1} / ${ow2}`;
+    document.getElementById('rdPriceRange').textContent = minimum === null ? '—' : `${minimum.toFixed(0)}–${maximum.toFixed(0)}`;
   }
+
+  document.addEventListener('roshine:inventory-loaded', event => updateLiveSummary(event.detail.accounts));
 
   function openStockSearch() {
     const search = document.getElementById('accountSearch');
@@ -155,7 +149,7 @@
   }
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!reducedMotion) {
+  if (!reducedMotion && 'IntersectionObserver' in window) {
     document.body.classList.add('rd-motion');
     document.querySelectorAll('.rd-reveal').forEach(element => {
       element.style.setProperty('--rd-delay', `${element.dataset.delay || 0}ms`);
@@ -182,5 +176,5 @@
   window.addEventListener('scroll', () => document.querySelector('.header')?.classList.toggle('rd-scrolled', scrollY > 20), { passive: true });
 
   applyRedesignCopy();
-  updateLiveSummary();
+
 })();

@@ -12,10 +12,18 @@
 html { background: var(--shell-bg); }
 body { position: relative; isolation: isolate; color: var(--shell-text); background: radial-gradient(circle at 75% -10%, rgba(110, 53, 220, .18), transparent 35%), radial-gradient(circle at 10% 55%, rgba(42, 192, 230, .06), transparent 28%), var(--shell-bg); font-family: Kanit, "Segoe UI", "Noto Sans SC", system-ui, sans-serif; }
 h1, h2, .policy-title, .panel-title { font-family: Orbitron, Kanit, "Segoe UI", sans-serif; }
-body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: .7; background-image: radial-gradient(circle, rgba(255,255,255,.62) 0 1px, transparent 1.3px), radial-gradient(circle, rgba(165,119,255,.54) 0 1px, transparent 1.5px), radial-gradient(circle, rgba(72,215,255,.44) 0 1px, transparent 1.4px), linear-gradient(rgba(255,255,255,.014) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.014) 1px, transparent 1px); background-position: 0 0, 44px 76px, 105px 18px, 0 0, 0 0; background-size: 173px 173px, 251px 251px, 337px 337px, 72px 72px, 72px 72px; mask-image: linear-gradient(to bottom, #000, transparent 92%); animation: shellStarDrift 85s linear infinite; }
-body::after { content: ""; position: fixed; inset: -20vh -12vw; z-index: -1; pointer-events: none; opacity: .46; background: radial-gradient(circle at 76% 15%, rgba(112,55,235,.2), transparent 24%), radial-gradient(circle at 18% 68%, rgba(39,171,224,.07), transparent 22%), linear-gradient(115deg, transparent 0 45%, rgba(201,181,255,.68) 45.2%, transparent 45.5%) 82% 9% / 150px 60px no-repeat, linear-gradient(115deg, transparent 0 47%, rgba(92,212,255,.5) 47.2%, transparent 47.5%) 18% 72% / 110px 45px no-repeat; animation: shellAtmosphere 18s ease-in-out infinite alternate; }
-body::before { opacity: 0; animation: none; }
-body::after { opacity: .5; background: radial-gradient(circle at 12% 18%, rgba(88,28,235,.12), transparent 30%), radial-gradient(circle at 72% 43%, rgba(109,40,217,.1), transparent 29%), radial-gradient(circle at 32% 76%, rgba(130,27,255,.075), transparent 28%), radial-gradient(circle at 86% 8%, rgba(124,58,237,.07), transparent 24%); filter: blur(58px); }
+/* One atmospheric glow; stars are rendered by void-effects.js. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: -20vh -12vw;
+  z-index: -1;
+  pointer-events: none;
+  opacity: .5;
+  background: radial-gradient(circle at 12% 18%, rgba(88,28,235,.12), transparent 30%), radial-gradient(circle at 72% 43%, rgba(109,40,217,.1), transparent 29%), radial-gradient(circle at 32% 76%, rgba(130,27,255,.075), transparent 28%), radial-gradient(circle at 86% 8%, rgba(124,58,237,.07), transparent 24%);
+  filter: blur(58px);
+  animation: shellAtmosphere 18s ease-in-out infinite alternate;
+}
 
 .header { position: fixed; top: 16px; left: 50%; z-index: 1000; width: min(1180px, calc(100% - 32px)); min-height: 66px; padding: 9px 12px 9px 15px; border: 1px solid rgba(151,112,255,.2); border-radius: 20px; background: linear-gradient(105deg, rgba(10,7,23,.54), rgba(7,10,22,.38)); box-shadow: 0 18px 54px rgba(0,0,0,.22), inset 0 1px rgba(255,255,255,.045); backdrop-filter: blur(22px) saturate(145%); transform: translateX(-50%); }
 .header::after { content: ""; position: absolute; left: 7%; right: 7%; bottom: -1px; height: 1px; opacity: .7; background: linear-gradient(90deg, transparent, #8a56ff, #41d9ff, transparent); }
@@ -64,8 +72,8 @@ body::after { opacity: .5; background: radial-gradient(circle at 12% 18%, rgba(8
 .footer-nav a { color: #928ba0; }
 
 body:not(.policy-page) .wrap { width: min(1120px, calc(100% - 32px)); padding-top: 128px; }
-body:not(.policy-page) #bg-canvas { display: none !important; }
-body:not(.policy-page) .bg-animation::before, body:not(.policy-page) .bg-animation::after, body:not(.policy-page) .bg-animation-3 { opacity: .06 !important; }
+
+
 body:not(.policy-page) .page { min-height: calc(100vh - 170px); display: grid; grid-template-columns: minmax(0, min(740px, 100%)); place-content: center; place-items: center; }
 body:not(.policy-page) .panel { position: relative; width: min(620px, 100%); padding: 38px; overflow: hidden; border: 1px solid var(--shell-line-strong); border-radius: 27px; background: radial-gradient(circle at 100% 0, rgba(123,68,240,.2), transparent 37%), linear-gradient(145deg, rgba(19,19,43,.92), rgba(8,9,23,.88)); box-shadow: 0 34px 95px rgba(0,0,0,.46), 0 0 70px rgba(103,52,209,.08), inset 0 1px rgba(255,255,255,.05); }
 body:not(.policy-page) .panel { width: min(740px, 100%); }
@@ -108,7 +116,7 @@ body:not(.policy-page) .foot { color: #686271; }
   body:not(.policy-page) .code { font-size: clamp(3rem, 18vw, 5rem); }
 }
 
-@keyframes shellStarDrift { to { background-position: 173px 173px, -207px 327px, 442px -319px, 72px 72px, 72px 72px; } }
+
 @keyframes shellAtmosphere { from { transform: translate3d(-1.5%,0,0) scale(1); } to { transform: translate3d(1.5%,1%,0) scale(1.035); } }
 
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; } }

@@ -1,71 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-      // --- Background Rain Animation ---
-      const canvas = document.getElementById('bg-canvas');
-      const ctx = canvas.getContext('2d');
-      let width, height;
-      const drops = [];
-      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-      let rainFrame = 0;
-      let resizeTimer = 0;
-
-      function initRain() {
-        width = canvas.width = window.innerWidth || document.documentElement.clientWidth || 1080;
-        height = canvas.height = window.innerHeight || document.documentElement.clientHeight || 1920;
-        drops.length = 0;
-        const numDrops = Math.floor(width / 15); // Adjust density
-        for (let i = 0; i < numDrops; i++) {
-          drops.push({
-            x: Math.random() * width,
-            y: Math.random() * height,
-            speed: Math.random() * 1.5 + 0.5,
-            length: Math.random() * 15 + 10,
-            opacity: Math.random() * 0.4 + 0.1,
-            // Randomly choose between cyan and purple
-            color: Math.random() > 0.5 ? '41, 182, 255' : '183, 124, 255'
-          });
-        }
-      }
-
-      const scheduleRainResize = () => {
-        window.clearTimeout(resizeTimer);
-        resizeTimer = window.setTimeout(initRain, 120);
-      };
-
-      function drawRain() {
-        ctx.clearRect(0, 0, width, height);
-        drops.forEach(drop => {
-          ctx.beginPath();
-          ctx.moveTo(drop.x, drop.y);
-          ctx.lineTo(drop.x, drop.y + drop.length);
-          ctx.strokeStyle = `rgba(${drop.color}, ${drop.opacity})`;
-          ctx.lineWidth = 1;
-          ctx.stroke();
-          
-          drop.y += drop.speed;
-          if (drop.y > height) {
-            drop.y = -drop.length;
-            drop.x = Math.random() * width;
-          }
-        });
-        rainFrame = requestAnimationFrame(drawRain);
-      }
-      if (!prefersReducedMotion.matches) {
-        window.addEventListener('resize', scheduleRainResize, { passive: true });
-        initRain();
-        drawRain();
-      } else {
-        canvas.hidden = true;
-      }
-      document.addEventListener('visibilitychange', () => {
-        if (document.hidden) {
-          cancelAnimationFrame(rainFrame);
-        } else if (!prefersReducedMotion.matches) {
-          cancelAnimationFrame(rainFrame);
-          drawRain();
-        }
-      });
-      // ---------------------------------
-
       const mobileMenuToggle = document.getElementById('mobileMenuToggle');
       const mobileNav = document.getElementById('mobileNav');
       const currentA11y = () => (i18n[document.documentElement.lang] || i18n.en).a11y;
@@ -621,7 +554,12 @@ document.addEventListener("DOMContentLoaded", () => {
               // before the broader Mythic aspect Gilded or the league acronym OWL.
               { pattern: skinNamesPattern(shopSkinNames), className: 'ac-special-skin-shop' },
               // Short collaboration titles must not recolor hero names or a Mythic title.
-              { pattern: /(?<!\b(?:Junker|Junk)\s+)\bQueen(?![A-Za-z0-9_])|(?<!\bDivine\s+)\bDruid(?![A-Za-z0-9_])|\bSkull(?=\s*(?:Genji\b|Bundle\b|$))/gi, className: 'ac-special-skin-shop' },
+              {
+                // Match context as text: Safari 14 cannot parse RegExp lookbehind.
+                pattern: /\b(?:(?:Junker|Junk)\s+Queen|Divine\s+Druid|Queen|Druid|Skull(?=\s*(?:Genji\b|Bundle\b|$)))(?![A-Za-z0-9_])/gi,
+                excludeMatch: /^(?:(?:Junker|Junk)\s+Queen|Divine\s+Druid)$/i,
+                className: 'ac-special-skin-shop'
+              },
               {
                 pattern: /\b(?:Heart\s+of\s+Hope|Tokyo\s+Rebel|Void\s+Dancer|Cyber\s+Demon|Zeus|Amaterasu|Galactic\s+Emperor|Adventurer|A-7000\s+Wargod|Onryō|Grand\s+Beast|Ancient\s+Caller|Vengeance|Calamity\s+Empress|Anubis|Spellbinder|Thor|Pixiu|Horang|Ultraviolet\s+Sentinel|Divine\s+Druid|Cyber\s+Fuel|Divine\s+Desperado|Magma\s+Titan|Celestial\s+Guardian|Hop\s+Online!|Volted\s+Overdrive|Ra|Ascendant\s+Phoenix|World\s+Forger|Bound\s+Demon|Midnight\s+Sun|Deliverance|Lead\s+Rose|Dame\s+Chance|Merciful\s+Magitech|Steel\s+Death|Gilded|Iridescent|Dawn|Blazing\s+Sunsetter|Spirit\s+Keeper|Star\s+Shooter|Sumi-ichimonji|Koi\s+of\s+Duality|Capsule\s+Cannon|Eternal\s+Crystal)(?![A-Za-z0-9_])/gi,
                 className: 'ac-special-skin-mythic'
@@ -639,8 +577,11 @@ document.addEventListener("DOMContentLoaded", () => {
               const tierOrder = ['ultra-rare', 'collector', 'rare', 'mythic', 'esports', 'shop'];
               for (const tier of tierOrder) {
                 const className = `ac-special-skin-${tier}`;
-                if (specialSkinRules.some(candidate => candidate.className === className &&
-                    new RegExp(candidate.pattern.source, candidate.pattern.flags.replace('g', '')).test(match))) {
+                if (specialSkinRules.some(candidate => {
+                  if (candidate.className !== className) return false;
+                  const result = new RegExp(candidate.pattern.source, candidate.pattern.flags.replace('g', '')).exec(match);
+                  return result && !(candidate.excludeMatch && candidate.excludeMatch.test(result[0]));
+                })) {
                   return className;
                 }
               }
@@ -661,7 +602,7 @@ document.addEventListener("DOMContentLoaded", () => {
               { pattern: /Japanese/g, className: 'ac-color-pink' },
               { pattern: /Grandmaster/g, className: 'ac-color-pink' },
               { pattern: /Master/g, className: 'ac-color-pink' },
-              { pattern: /Comic Book/g, className: 'ac-color-pink' },
+
               { pattern: /\bEndorsement Lv\. 2\b/g, className: 'ac-endorsement-2' },
               { pattern: /\bEndorsement Lv\. 3\b/g, className: 'ac-endorsement-3' },
               { pattern: /\bEndorsement Lv\. 4\b/g, className: 'ac-endorsement-4' },
@@ -683,6 +624,7 @@ document.addEventListener("DOMContentLoaded", () => {
               const protectedSpecialSkins = [];
               const protectSpecialSkin = rule => {
                 res = res.replace(rule.pattern, match => {
+                  if (rule.excludeMatch && rule.excludeMatch.test(match)) return match;
                   const token = `__COLOR_SPECIAL_SKIN_${protectedSpecialSkins.length}__`;
                   protectedSpecialSkins.push({ match, className: skinMatchClass(rule, match) });
                   return token;
@@ -911,6 +853,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
               specialSkinRules.forEach(rule => {
                 styled = styled.replace(rule.pattern, match => {
+                  if (rule.excludeMatch && rule.excludeMatch.test(match)) return match;
                   const token = `__SPECIAL_SKIN_${protectedMatches.length}__`;
                   protectedMatches.push({ match, className: skinMatchClass(rule, match) });
                   return token;
@@ -1134,6 +1077,7 @@ document.addEventListener("DOMContentLoaded", () => {
           if (!response.ok) throw new Error(`HTTP ${response.status}`);
           const data = await response.json();
           accountInventory.all = Array.isArray(data.accounts) ? data.accounts : [];
+          document.dispatchEvent(new CustomEvent('roshine:inventory-loaded', { detail: { accounts: accountInventory.all } }));
           renderAccounts();
         } catch (error) {
           console.error('Error fetching accounts:', error);
@@ -1927,7 +1871,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const options = [...menu.querySelectorAll('[data-select-value]')];
         if (!options.length) return;
         const target = focusTarget === 'last'
-          ? options.at(-1)
+          ? options[options.length - 1]
           : menu.querySelector('[aria-selected="true"]') || options[0];
         target?.focus({ preventScroll: true });
       });

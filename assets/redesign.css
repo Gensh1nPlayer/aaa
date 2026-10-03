@@ -19,46 +19,20 @@ body {
   font-family: Kanit, "Segoe UI", "Noto Sans SC", system-ui, -apple-system, sans-serif;
 }
 h1, h2, .hero-title, .section-title, .policy-title { font-family: Orbitron, Kanit, "Segoe UI", sans-serif; }
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  opacity: .76;
-  background-image:
-    radial-gradient(circle, rgba(255,255,255,.7) 0 1px, transparent 1.3px),
-    radial-gradient(circle, rgba(165,119,255,.62) 0 1px, transparent 1.5px),
-    radial-gradient(circle, rgba(72,215,255,.52) 0 1px, transparent 1.4px),
-    linear-gradient(rgba(151,123,255,.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(151,123,255,.025) 1px, transparent 1px);
-  background-position: 0 0, 44px 76px, 105px 18px, 0 0, 0 0;
-  background-size: 173px 173px, 251px 251px, 337px 337px, 72px 72px, 72px 72px;
-  mask-image: linear-gradient(to bottom, #000 2%, #000 84%, transparent);
-  animation: rdStarDrift 85s linear infinite;
-}
+/* One atmospheric glow; stars are rendered by void-effects.js. */
 body::after {
   content: "";
   position: fixed;
   inset: -20vh -12vw;
   z-index: -1;
   pointer-events: none;
-  opacity: .52;
-  background:
-    radial-gradient(circle at 76% 15%, rgba(112,55,235,.2), transparent 24%),
-    radial-gradient(circle at 18% 68%, rgba(39,171,224,.08), transparent 22%),
-    linear-gradient(115deg, transparent 0 45%, rgba(201,181,255,.75) 45.2%, transparent 45.5%) 82% 9% / 150px 60px no-repeat,
-    linear-gradient(115deg, transparent 0 47%, rgba(92,212,255,.55) 47.2%, transparent 47.5%) 18% 72% / 110px 45px no-repeat;
-  filter: blur(.15px);
+  opacity: .5;
+  background: radial-gradient(circle at 12% 18%, rgba(88,28,235,.12), transparent 30%), radial-gradient(circle at 72% 43%, rgba(109,40,217,.1), transparent 29%), radial-gradient(circle at 32% 76%, rgba(130,27,255,.075), transparent 28%), radial-gradient(circle at 86% 8%, rgba(124,58,237,.07), transparent 24%);
+  filter: blur(58px);
   animation: rdAtmosphere 18s ease-in-out infinite alternate;
 }
-#bg-canvas { display: none !important; }
-body::before { opacity: 0; animation: none; }
-body::after { opacity: .5; background: radial-gradient(circle at 12% 18%, rgba(88,28,235,.12), transparent 30%), radial-gradient(circle at 72% 43%, rgba(109,40,217,.1), transparent 29%), radial-gradient(circle at 32% 76%, rgba(130,27,255,.075), transparent 28%), radial-gradient(circle at 86% 8%, rgba(124,58,237,.07), transparent 24%); filter: blur(58px); }
 .scanlines { opacity: .18; background-size: 72px 72px; }
-.bg-animation::before { background: #5431c8; opacity: .13; }
-.bg-animation::after { background: #9f2bad; opacity: .11; }
-.bg-animation-3 { background: #18677f; opacity: .08; }
+
 .container { max-width: 1240px; }
 
 .header {
@@ -362,7 +336,7 @@ body.rd-motion .rd-reveal.rd-visible { opacity: 1; transform: none; }
 @keyframes rdCueBounce { 0%,100% { transform: translateY(-2px); } 50% { transform: translateY(3px); } }
 @keyframes rdSearchBreath { 0%,100% { transform: translateX(-50%) translateY(0); border-color: rgba(139,92,246,.38); box-shadow: 0 14px 45px rgba(0,0,0,.48),inset 0 1px rgba(255,255,255,.035),0 0 16px rgba(124,58,237,.11); } 50% { transform: translateX(-50%) translateY(-2px); border-color: rgba(167,139,250,.64); box-shadow: 0 16px 49px rgba(0,0,0,.52),inset 0 1px rgba(255,255,255,.045),0 0 34px rgba(124,58,237,.27); } }
 @keyframes rdSheen { 0%,58% { transform: translateX(-110%); } 78%,100% { transform: translateX(110%); } }
-@keyframes rdStarDrift { to { background-position: 173px 173px, -207px 327px, 442px -319px, 72px 72px, 72px 72px; } }
+
 @keyframes rdAtmosphere { from { transform: translate3d(-1.5%,0,0) scale(1); } to { transform: translate3d(1.5%,1%,0) scale(1.035); } }
 
 @media (max-width: 1040px) {
@@ -451,6 +425,6 @@ body.rd-motion .rd-reveal.rd-visible { opacity: 1; transform: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  body::before, body::after, .rd-brand-logo::before, .rd-brand-logo::after, .brand img, .rd-feature-card::before, .rd-float-chip, .rd-scroll-cue, .rd-scroll-cue svg, .rd-search-launcher { animation: none !important; }
+  body::after, .rd-brand-logo::before, .rd-brand-logo::after, .brand img, .rd-feature-card::before, .rd-float-chip, .rd-scroll-cue, .rd-scroll-cue svg, .rd-search-launcher { animation: none !important; }
   body.rd-motion .rd-reveal { opacity: 1; transform: none; transition: none; }
 }
