@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const accountInventory = {
         all: [],
+        detailIds: new Set(),
         collator: new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' })
       };
 
@@ -806,6 +807,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const levelDisplay = formatLevelDisplay(level);
             const screenshotUrl = safeExternalUrl(screenshot);
+            const detailsUrl = accountInventory.detailIds.has(String(id))
+              ? `./acc_details/?lang=${encodeURIComponent(document.documentElement.lang || 'en')}#${encodeURIComponent(id)}`
+              : screenshotUrl;
             // Highlight skin names while keeping hero names and common abbreviations neutral.
             // Keep longer/more specific aliases before shorter ones to avoid partial matches.
             const heroAliasPatterns = [
@@ -1043,7 +1047,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <button type="button" class="btn btn-outline" data-copy-account="${escapeAccountText(id)}"># ${ui.copyId}</button>
               </div>
               <div class="ac-actions">
-                <a href="${screenshotUrl || '#'}" target="_blank" rel="noopener noreferrer" class="btn btn-outline" ${!screenshotUrl ? 'data-missing-screenshot="true"' : ''}>📸 ${ui.viewSkins}</a>
+                <a href="${detailsUrl || '#'}" target="_blank" rel="noopener noreferrer" class="btn btn-outline" ${!detailsUrl ? 'data-missing-screenshot="true"' : ''}>📸 ${ui.viewDetails}</a>
                 <a href="https://discord.gg/WYqfYXW29U" target="_blank" rel="noopener noreferrer" class="btn btn-primary">${ui.buyNow}</a>
               </div>
             `;
@@ -1079,6 +1083,7 @@ document.addEventListener("DOMContentLoaded", () => {
           accountInventory.all = Array.isArray(data.accounts) ? data.accounts : [];
           document.dispatchEvent(new CustomEvent('roshine:inventory-loaded', { detail: { accounts: accountInventory.all } }));
           renderAccounts();
+          loadAccountDetailsIndex();
         } catch (error) {
           console.error('Error fetching accounts:', error);
           const grid = document.getElementById('accountsGrid');
@@ -1087,6 +1092,24 @@ document.addEventListener("DOMContentLoaded", () => {
           if (results) results.textContent = ui.results.replace('{shown}', '0').replace('{total}', '0');
           grid?.classList.remove('is-single-result');
           if (grid) grid.innerHTML = `<div class="accounts-empty">${ui.loadError}</div>`;
+        }
+      }
+
+      // Optional enhancement: a missing/failed details index must never hide stock.
+      async function loadAccountDetailsIndex() {
+        try {
+          const response = await fetch('account_details.json', { cache: 'no-store' });
+          if (!response.ok) return;
+          const index = await response.json();
+          if (!index || ![1, 2].includes(index.schemaVersion) || !index.accounts || typeof index.accounts !== 'object' || Array.isArray(index.accounts)) return;
+          accountInventory.detailIds = new Set(Object.keys(index.accounts).filter(id => {
+            const entry = index.accounts[id];
+            return /^[1-9]\d{0,9}$/.test(id) && entry && typeof entry === 'object' &&
+              (entry.file === `acc_details/data/${id}.json` || Array.isArray(entry.ownedSkinIds));
+          }));
+          renderAccounts();
+        } catch {
+          // Legacy screenshot links remain available during transient network errors.
         }
       }
 
@@ -1657,8 +1680,8 @@ document.addEventListener("DOMContentLoaded", () => {
         loadError:"Unable to load account inventory.",
         rank:"Rank", price:"Price", level:"Level", statusLabel:"Status", weapons:"Weapons",
         freeRename:"Free rename", top500Eligible:"TOP500 Eligible",
-        yes:"Yes", no:"No", viewSkins:"View Skins", buyNow:"Buy Now", copyId:"Copy ID", copied:"Copied",
-        missingScreenshot:"The screenshot link is missing from this account.",
+        yes:"Yes", no:"No", viewDetails:"View Details", buyNow:"Buy Now", copyId:"Copy ID", copied:"Copied",
+        missingScreenshot:"Details are not available for this account yet.",
         premiumAccount:"Premium Account", statusInStock:"In Stock", statusSold:"Sold", statusPending:"Pending"
       },
       fr: {
@@ -1684,8 +1707,8 @@ document.addEventListener("DOMContentLoaded", () => {
         loadError:"Impossible de charger l’inventaire des comptes.",
         rank:"Rang", price:"Prix", level:"Niveau", statusLabel:"Statut", weapons:"Armes",
         freeRename:"Renommage gratuit", top500Eligible:"Éligible TOP500",
-        yes:"Oui", no:"Non", viewSkins:"Voir les skins", buyNow:"Acheter", copyId:"Copier l’ID", copied:"Copié",
-        missingScreenshot:"Le lien de capture est absent pour ce compte.",
+        yes:"Oui", no:"Non", viewDetails:"Voir les détails", buyNow:"Acheter", copyId:"Copier l’ID", copied:"Copié",
+        missingScreenshot:"Les détails de ce compte ne sont pas encore disponibles.",
         premiumAccount:"Compte Premium", statusInStock:"En stock", statusSold:"Vendu", statusPending:"En attente"
       },
       de: {
@@ -1711,8 +1734,8 @@ document.addEventListener("DOMContentLoaded", () => {
         loadError:"Das Account-Inventar konnte nicht geladen werden.",
         rank:"Rang", price:"Preis", level:"Level", statusLabel:"Status", weapons:"Waffen",
         freeRename:"Kostenlose Umbenennung", top500Eligible:"TOP500-berechtigt",
-        yes:"Ja", no:"Nein", viewSkins:"Skins ansehen", buyNow:"Jetzt kaufen", copyId:"ID kopieren", copied:"Kopiert",
-        missingScreenshot:"Für diesen Account fehlt der Screenshot-Link.",
+        yes:"Ja", no:"Nein", viewDetails:"Details ansehen", buyNow:"Jetzt kaufen", copyId:"ID kopieren", copied:"Kopiert",
+        missingScreenshot:"Für diesen Account sind noch keine Details verfügbar.",
         premiumAccount:"Premium-Account", statusInStock:"Auf Lager", statusSold:"Verkauft", statusPending:"Ausstehend"
       },
       ar: {
@@ -1738,8 +1761,8 @@ document.addEventListener("DOMContentLoaded", () => {
         loadError:"تعذر تحميل مخزون الحسابات.",
         rank:"الرتبة", price:"السعر", level:"المستوى", statusLabel:"الحالة", weapons:"الأسلحة",
         freeRename:"تغيير اسم مجاني", top500Eligible:"مؤهل TOP500",
-        yes:"نعم", no:"لا", viewSkins:"عرض السكنات", buyNow:"اشترِ الآن", copyId:"نسخ ID", copied:"تم النسخ",
-        missingScreenshot:"رابط الصور غير متوفر لهذا الحساب.",
+        yes:"نعم", no:"لا", viewDetails:"عرض التفاصيل", buyNow:"اشترِ الآن", copyId:"نسخ ID", copied:"تم النسخ",
+        missingScreenshot:"تفاصيل هذا الحساب غير متوفرة بعد.",
         premiumAccount:"حساب مميز", statusInStock:"متوفر", statusSold:"مباع", statusPending:"قيد الانتظار"
       },
       ja: {
@@ -1758,8 +1781,8 @@ document.addEventListener("DOMContentLoaded", () => {
         sortOptions:["おすすめ", "価格：安い順", "価格：高い順", "レベル：高い順", "レベル：低い順", "プレイ時間：多い順", "プレイ時間：少ない順", "コイン：多い順", "コイン：少ない順", "クレジット：多い順", "クレジット：少ない順", "ミシック・プリズム：多い順"],
         results:"{shown} / {total}件", empty:"現在の検索・絞り込み条件に一致するアカウントはありません。", loadError:"アカウント在庫を読み込めませんでした。",
         rank:"ランク", price:"価格", level:"レベル", statusLabel:"状態", weapons:"武器", freeRename:"無料ネーム変更", top500Eligible:"TOP500対象",
-        yes:"はい", no:"いいえ", viewSkins:"スキンを見る", buyNow:"購入する", copyId:"IDをコピー", copied:"コピーしました",
-        missingScreenshot:"このアカウントにはスクリーンショットリンクがありません。", premiumAccount:"プレミアムアカウント", statusInStock:"販売中", statusSold:"販売済み", statusPending:"保留中"
+        yes:"はい", no:"いいえ", viewDetails:"詳細を見る", buyNow:"購入する", copyId:"IDをコピー", copied:"コピーしました",
+        missingScreenshot:"このアカウントの詳細はまだ公開されていません。", premiumAccount:"プレミアムアカウント", statusInStock:"販売中", statusSold:"販売済み", statusPending:"保留中"
       },
     };
 

@@ -1,0 +1,8 @@
+# Never publish collector evidence, environments or local test artifacts.
+**/runs/
+**/.venv/
+**/node_modules/
+**/__pycache__/
+tests/.tmp-*/
+*.tmp
+*.lock

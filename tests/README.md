@@ -18,3 +18,16 @@ The WebKit scenarios disable Array.at, String.at, Object.hasOwn and structuredCl
 to exercise older browser API limits. They are modern WebKit tests, not an iOS 14 device emulator.
 Tests cover five languages, inventory/filter behavior, a single shared inventory request,
 page exceptions, horizontal overflow, reduced motion and the auxiliary pages.
+
+Account details integration:
+
+- node tests/details-contract.cjs
+- node tests/hero-gallery-import.cjs
+- node tests/details-browser.cjs (same Playwright / Chrome variables; no TLS required)
+- node tests/collector-bridge.cjs (Windows; set COLLECTOR_PACKAGE to the local website-ready package)
+
+The details checks cover unchanged old screenshot links, per-account data lookup,
+schema-1 compatibility, complete/partial fidelity, privacy filtering, ID mismatch,
+malformed paths, index failure, unknown catalog entries, five languages, mobile widths,
+and a disabled-native-dialog fallback with keyboard focus restoration.
+Browser fixtures stay in the test HTTP server and are never written to public stock.
