@@ -22,6 +22,7 @@ page exceptions, horizontal overflow, reduced motion and the auxiliary pages.
 Account details integration:
 
 - node tests/details-contract.cjs
+- node tests/image-sources.cjs (GitHub-first artwork, Fandom fallback, unchanged IDs)
 - node tests/hero-gallery-import.cjs
 - node tests/details-browser.cjs (same Playwright / Chrome variables; no TLS required)
 - node tests/collector-bridge.cjs (Windows; set COLLECTOR_PACKAGE to the local website-ready package)

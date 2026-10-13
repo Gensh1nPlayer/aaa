@@ -33,7 +33,12 @@ const server = http.createServer((req,res) => {
     res.end(JSON.stringify(mode === 'inline' ? {schemaVersion:1,accounts:{[id]:snapshot}} : mode === 'badPath' ? {schemaVersion:2,accounts:{[id]:{file:'../private.json'}}} : manifest));return;
   }
   if (pathname === '/acc_details/data/'+id+'.json') {
-    res.end(JSON.stringify({...snapshot,...(mode === 'mismatch' ? {accountId:oldId} : {})}));return;
+    const data={...snapshot,...(mode === 'mismatch' ? {accountId:oldId} : {})};
+    if(mode==='missingWallet')data.balances={overwatchCoins:80,credits:1450};
+    if(mode==='nullWallet')data.balances={mythicPrisms:null,competitivePoints:null,overwatchCoins:80,credits:1450};
+    if(mode==='zeroWallet')data.balances={mythicPrisms:0,competitivePoints:0,overwatchCoins:80,credits:1450};
+    if(mode==='absentWallet')delete data.balances;
+    res.end(JSON.stringify(data));return;
   }
   if (pathname === '/acc_details') {res.writeHead(301,{Location:'/acc_details/'});res.end();return;}
   const file = path.resolve(root,'.'+(pathname.endsWith('/') ? pathname+'index.html' : pathname));
@@ -49,7 +54,17 @@ const server = http.createServer((req,res) => {
     const browser = await scenario.engine.launch({headless:true,...(scenario.engine === chromium && process.env.CHROME_EXECUTABLE ? {executablePath:process.env.CHROME_EXECUTABLE}: {})});
     try {
       const context = await browser.newContext({viewport:scenario.viewport,reducedMotion:'reduce'});
-      await context.route('**/*',route => new URL(route.request().url()).hostname === '127.0.0.1' ? route.continue() : route.abort());
+      let imageMode='primary',imageRequests=[];
+      const imageFixture=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jP90AAAAASUVORK5CYII=','base64');
+      await context.route('**/*',route => {
+        const url=new URL(route.request().url());
+        if(url.hostname==='127.0.0.1')return route.continue();
+        if(route.request().resourceType()==='image'&&(url.hostname==='raw.githubusercontent.com'&&url.pathname.includes('/ValentinZeller/overwatch_skins/')||url.hostname==='static.wikia.nocookie.net')) {
+          imageRequests.push(url.href);
+          return imageMode==='fallback'&&url.hostname==='raw.githubusercontent.com'?route.fulfill({status:404,body:''}):route.fulfill({status:200,contentType:'image/png',body:imageFixture});
+        }
+        return route.abort();
+      });
       if (scenario.legacy) await context.addInitScript(() => {
         Array.prototype.at=undefined;Object.hasOwn=undefined;window.structuredClone=undefined;
         if (window.HTMLDialogElement) {HTMLDialogElement.prototype.showModal=undefined;HTMLDialogElement.prototype.close=undefined;}
@@ -72,6 +87,30 @@ const server = http.createServer((req,res) => {
       assert.equal(await details.locator('#tabWeaponCount').textContent(),'2');
       assert.match(await details.locator('#pageEyebrow').textContent(),/Complete record/);
       assert.equal(await details.locator('[data-balance="legacyCompetitivePoints"]').textContent(),'—');
+      assert.equal(await details.locator('[data-balance="mythicPrisms"]').textContent(),'80');
+      assert.equal(await details.locator('[data-balance="competitivePoints"]').textContent(),'3,000');
+      await details.waitForFunction(()=>document.querySelector('.skin-card img')?.naturalWidth>0);
+      assert.match(await details.locator('.skin-card img').first().getAttribute('src'),/ValentinZeller\/overwatch_skins/,'GitHub artwork must be first');
+      imageMode='fallback';imageRequests=[];
+      await details.reload();await details.waitForFunction(()=>document.body.classList.contains('has-account'));
+      await details.waitForFunction(()=>document.querySelector('.skin-card img')?.naturalWidth>0);
+      assert.match(await details.locator('.skin-card img').first().getAttribute('src'),/static\.wikia\.nocookie\.net/,'Fandom is attempted only after GitHub fails');
+      assert(imageRequests.findIndex(url=>url.includes('static.wikia'))>imageRequests.findIndex(url=>url.includes('ValentinZeller')));
+      assert(!(await details.locator('.skin-card .card-art').first().evaluate(node=>node.classList.contains('image-error'))));
+      imageMode='primary';
+      for(const walletCase of ['missingWallet','nullWallet','zeroWallet','absentWallet']) {
+        mode=walletCase;
+        await details.goto(base+'/acc_details/?lang=en&case='+walletCase+'#'+id);
+        await details.waitForFunction(()=>document.body.classList.contains('has-account'));
+        assert.equal(await details.locator('[data-balance="mythicPrisms"]').textContent(),'0',walletCase);
+        assert.equal(await details.locator('[data-balance="competitivePoints"]').textContent(),'0',walletCase);
+        assert.equal(await details.locator('[data-balance="overwatchCoins"]').textContent(),walletCase==='absentWallet'?'—':'80');
+        assert.equal(await details.locator('[data-balance="credits"]').textContent(),walletCase==='absentWallet'?'—':'1,450');
+        assert.equal(await details.locator('[data-balance="legacyCompetitivePoints"]').textContent(),'—');
+      }
+      mode='ready';
+      await details.goto(base+'/acc_details/?lang=en&case=walletRestored#'+id);
+      await details.waitForFunction(()=>document.body.classList.contains('has-account'));
       await details.locator('button.skin-card').first().click();
       assert(await details.locator('#skinDialog').isVisible());
       if (scenario.legacy) assert(await details.locator('#skinDialog').evaluate(n=>n.classList.contains('legacy-dialog')));

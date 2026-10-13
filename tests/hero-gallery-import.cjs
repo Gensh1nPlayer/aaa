@@ -5,6 +5,24 @@ const { pathToFileURL } = require('node:url');
 
 async function main() {
   const testsDir = __dirname;
+  const { normalizeForSite } = await import(pathToFileURL(path.join(testsDir, '..', 'tools', 'hero-gallery-import.mjs')));
+  for (const balances of [undefined, null, {}, {mythicPrisms:null,competitivePoints:null},
+    {mythicPrisms:0,competitivePoints:0}, {mythicPrisms:80,competitivePoints:3000,overwatchCoins:0,legacyCompetitivePoints:50}]) {
+    const input={ownedSkinIds:[],balances};
+    const before=JSON.stringify(input);
+    const normalized=normalizeForSite(input,'123');
+    assert.equal(normalized.balances.mythicPrisms,balances?.mythicPrisms??0);
+    assert.equal(normalized.balances.competitivePoints,balances?.competitivePoints??0);
+    for(const key of ['overwatchCoins','credits','legacyCompetitivePoints','lootBoxes']) {
+      assert.equal(normalized.balances[key],balances?.[key]??null);
+    }
+    assert.equal(JSON.stringify(input),before,'raw input must not change');
+  }
+  for(const value of [-1,'80',1.5]) {
+    for(const key of ['mythicPrisms','competitivePoints']) {
+      assert.throws(()=>normalizeForSite({ownedSkinIds:[],balances:{[key]:value}},'123'),/有效数字/);
+    }
+  }
   const root = await fs.mkdtemp(path.join(testsDir, '.tmp-account-details-'));
   if (!root.startsWith(`${testsDir}${path.sep}`)) throw new Error('测试目录不在 tests 内');
   try {
@@ -32,6 +50,8 @@ async function main() {
     assert.equal(account.accountLabel, 'Account #123');
     assert.equal(account.inventoryStatus, 'partial');
     assert.equal(account.balances.mythicPrisms, 80);
+    assert.equal(account.balances.competitivePoints, 0);
+    assert.equal(account.balances.credits, null);
     assert.equal(account.profile.endorsementLevel, 3);
     assert.equal(account.profile.accountLevel, 669);
     assert.equal(account.profile.gamesWon, 6);

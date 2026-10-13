@@ -1,0 +1,106 @@
+{
+  "accountId": "183",
+  "accountLabel": "Account #183",
+  "region": "",
+  "capturedAt": "2026-10-13T21:44:31.605241+00:00",
+  "inventoryStatus": "complete",
+  "balances": {
+    "mythicPrisms": 0,
+    "overwatchCoins": 80,
+    "credits": 1450,
+    "competitivePoints": 0,
+    "legacyCompetitivePoints": 0,
+    "lootBoxes": null
+  },
+  "competitive": {
+    "season": "",
+    "ranks": {
+      "tank": "Placement 0/10",
+      "damage": "Placement 0/10",
+      "support": "Placement 0/10",
+      "openQueue": ""
+    }
+  },
+  "profile": {
+    "endorsementLevel": null,
+    "accountLevel": 68,
+    "timePlayedHours": 22,
+    "gamesPlayed": 175,
+    "gamesWon": 68,
+    "roleStats": {
+      "tank": {
+        "timePlayedHours": 3,
+        "gamesWon": 11
+      },
+      "damage": {
+        "timePlayedHours": 15,
+        "gamesWon": 43
+      },
+      "support": {
+        "timePlayedHours": 5,
+        "gamesWon": 14
+      }
+    },
+    "heroesPlayed": [
+      {
+        "hero": "Genji",
+        "level": 8,
+        "timePlayedHours": 4
+      },
+      {
+        "hero": "Sombra",
+        "level": 6,
+        "timePlayedHours": 2
+      },
+      {
+        "hero": "D.Va",
+        "level": 5,
+        "timePlayedHours": 2
+      },
+      {
+        "hero": "Tracer",
+        "level": null,
+        "timePlayedHours": 1
+      },
+      {
+        "hero": "Sojourn",
+        "level": null,
+        "timePlayedHours": 1
+      },
+      {
+        "hero": "Ashe",
+        "level": null,
+        "timePlayedHours": 1
+      },
+      {
+        "hero": "Soldier 76",
+        "level": null,
+        "timePlayedHours": 1
+      }
+    ],
+    "historicalRanks": []
+  },
+  "ownedSkinIds": [
+    "D.Va/JUNEBUG",
+    "Genji/CYBER_DEMON",
+    "Genji/NOMAD",
+    "Reaper/CURSED_CAPTAIN",
+    "Sombra/NEON_CAT",
+    "Torbjorn/DARK_IRON",
+    "Tracer/MACH_T"
+  ],
+  "ownedWeaponSkinIds": [],
+  "ownedWeaponVariants": [],
+  "uncataloguedOwnedItems": [
+    {
+      "hero": "Genji",
+      "category": "skins",
+      "name": "Classic Contenders Away"
+    },
+    {
+      "hero": "Genji",
+      "category": "skins",
+      "name": "Classic Contenders Home"
+    }
+  ]
+}

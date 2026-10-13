@@ -1,4 +1,5 @@
 const balanceKeys = ['mythicPrisms', 'overwatchCoins', 'credits', 'competitivePoints', 'legacyCompetitivePoints', 'lootBoxes'];
+const zeroDefaultBalanceKeys = new Set(['mythicPrisms', 'competitivePoints']);
 const rankKeys = ['tank', 'damage', 'support', 'openQueue'];
 const roleKeys = ['tank', 'damage', 'support'];
 
@@ -61,7 +62,8 @@ export function normalizeForSite(input, accountId) {
   })).values()];
 
   const balancesInput = record(source.balances, 'balances');
-  const balances = Object.fromEntries(balanceKeys.map((key) => [key, number(balancesInput[key], key)]));
+  const balances = Object.fromEntries(balanceKeys.map((key) => [key,
+    number(balancesInput[key], key) ?? (zeroDefaultBalanceKeys.has(key) ? 0 : null)]));
   const competitiveInput = record(source.competitive, 'competitive');
   const ranksInput = record(competitiveInput.ranks, 'competitive.ranks');
   const competitive = {

@@ -201,11 +201,11 @@
     $('dialogTitle').textContent = skin.name;
     $('dialogRarity').textContent = rarityLabel(skin.rarity);
     $('dialogRarity').dataset.rarity = skin.rarity;
-    setSkinImage($('dialogImage'), [skin.image, skin.fallbackImage]);
+    setSkinImage($('dialogImage'), window.DetailsImageSources.candidates(skin));
     $('dialogImage').alt = `${skin.hero} · ${skin.name}`;
-    $('dialogPreview').href = skin.preview || skin.image;
-    $('dialogSource').href = skin.image;
-    $('dialogCatalogSource').href = skin.sourcePage || skin.source;
+    $('dialogPreview').href = window.DetailsImageSources.candidates(skin,true)[0] || '';
+    $('dialogSource').href = window.DetailsImageSources.candidates(skin)[0] || '';
+    $('dialogCatalogSource').href = window.DetailsImageSources.sourcePage(skin) || '';
     $('dialogNote').textContent = t(state.snapshot ? 'This account snapshot records the item as owned. Check it against the game client.' : 'Catalog information does not confirm ownership for any account.');
     openDialog(trigger);
   }
@@ -245,7 +245,7 @@
       art.append(element('span', 'image-fallback', 'Image unavailable'));
     } else {
       const img = element('img');
-      setSkinImage(img, [skin.preview, skin.image, skin.fallbackImage], () => art.classList.add('image-error'));
+      setSkinImage(img, window.DetailsImageSources.candidates(skin,true), () => art.classList.add('image-error'));
       img.alt = '';
       img.loading = 'lazy';
       img.decoding = 'async';
@@ -507,7 +507,8 @@
     if (input.balances !== undefined && (!input.balances || typeof input.balances !== 'object' || Array.isArray(input.balances))) throw new TypeError('balances must be an object');
     const balances = {};
     for (const key of ['mythicPrisms', 'overwatchCoins', 'credits', 'competitivePoints', 'legacyCompetitivePoints', 'lootBoxes']) {
-      const value = input.balances?.[key] ?? null;
+      // Also support older snapshots exported before the unscanned-zero policy.
+      const value = input.balances?.[key] ?? (key === 'mythicPrisms' || key === 'competitivePoints' ? 0 : null);
       if (value !== null && (!Number.isSafeInteger(value) || value < 0)) throw new TypeError(`${key} must be a nonnegative integer or null`);
       balances[key] = value;
     }

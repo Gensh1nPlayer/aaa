@@ -31,7 +31,7 @@ node tools/import-hero-gallery-account.mjs C:\path\to\snapshot.json 18
 - acc_details/data/18.json：该账号的公开快照。
 
 只选择当前账号的数据文件，不下载全库存的皮肤详情。兼容原 schemaVersion 1 内嵌快照。
-导入保留其他账号、未确认余额 null 和已确认的 0；保留 complete / partial。
+导入保留其他账号、已确认的 0 和 complete / partial。神话棱镜、当前竞技点缺失或为 null 时默认 0；其他未知余额仍为 null。详情页兼容旧快照的相同规则，默认值不等于已扫描确认。
 完整采集不代表拥有完整目录；未采集物品不推断为未拥有。未知目录 ID 与联赛原名保留为暂无图片。
 目前展示 5 种货币、6 个栏目；lootBoxes 保留字段但不显示。
 
@@ -40,7 +40,9 @@ node tools/import-hero-gallery-account.mjs C:\path\to\snapshot.json 18
 在网站根目录运行 HTTP 服务，再访问 http://127.0.0.1:8767/acc_details/ 。不要用 file:// 打开。
 运行 node tests/details-contract.cjs、node tests/hero-gallery-import.cjs 和 node tests/details-browser.cjs。
 浏览器测试使用 Playwright；具体环境配置见 tests/README.md。
-图片从原有公开目录来源加载，有失败回退和占位；外部目录未必收录所有新皮肤。
+皮肤图片优先使用 https://github.com/ValentinZeller/overwatch_skins ，存在对应文件时使用该仓库的原图和 _web 缩略图；找不到或加载失败再使用 https://overwatch.fandom.com/wiki/Heroes_skins 的已收录图片。两个来源都缺失时保留占位，不用相似皮肤冒充。
+更新图片路径运行 node tools/prioritize-skin-images.cjs；通过 GitHub 文件树核对路径，只更新图片与来源，不改皮肤 ID、目录顺序或账号拥有数据。外部目录未必收录所有新皮肤。
+武器皮肤在该 GitHub 图库未收录时继续使用原 Fandom 武器图片。
 旧浏览器使用弹窗回退，不依赖 Safari 16.4 的正则后行断言或新版 Array.at。
 
 ## 隐私边界
