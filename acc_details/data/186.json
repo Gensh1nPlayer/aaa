@@ -1,0 +1,148 @@
+{
+  "accountId": "186",
+  "accountLabel": "Account #186",
+  "accountVersion": "OW2",
+  "region": "",
+  "capturedAt": "2026-10-14T02:19:15.871261+00:00",
+  "inventoryStatus": "complete",
+  "balances": {
+    "mythicPrisms": 0,
+    "overwatchCoins": 740,
+    "credits": 275,
+    "competitivePoints": 0,
+    "legacyCompetitivePoints": 885,
+    "lootBoxes": null
+  },
+  "competitive": {
+    "season": "",
+    "ranks": {
+      "tank": "Placement 0/10",
+      "damage": "Placement 0/10",
+      "support": "Placement 0/10",
+      "openQueue": ""
+    }
+  },
+  "profile": {
+    "endorsementLevel": 3,
+    "accountLevel": 102,
+    "timePlayedHours": 72,
+    "gamesPlayed": 521,
+    "gamesWon": 251,
+    "roleStats": {
+      "tank": {
+        "timePlayedHours": 17,
+        "gamesWon": 59
+      },
+      "damage": {
+        "timePlayedHours": 34,
+        "gamesWon": 116
+      },
+      "support": {
+        "timePlayedHours": 21,
+        "gamesWon": 76
+      }
+    },
+    "heroesPlayed": [
+      {
+        "hero": "Soldier 76",
+        "level": 11,
+        "timePlayedHours": 8
+      },
+      {
+        "hero": "Zenyatta",
+        "level": 7,
+        "timePlayedHours": 5
+      },
+      {
+        "hero": "Moira",
+        "level": 5,
+        "timePlayedHours": 5
+      },
+      {
+        "hero": "Reaper",
+        "level": null,
+        "timePlayedHours": 3
+      },
+      {
+        "hero": "Sigma",
+        "level": null,
+        "timePlayedHours": 3
+      },
+      {
+        "hero": "Cassidy",
+        "level": null,
+        "timePlayedHours": 3
+      },
+      {
+        "hero": "Bastion",
+        "level": null,
+        "timePlayedHours": 3
+      },
+      {
+        "hero": "Symmetra",
+        "level": null,
+        "timePlayedHours": 2
+      },
+      {
+        "hero": "Roadhog",
+        "level": null,
+        "timePlayedHours": 2
+      }
+    ],
+    "historicalRanks": []
+  },
+  "ownedSkinIds": [
+    "Baptiste/PIRATE",
+    "Bastion/OMNIC_CRISIS",
+    "Cassidy/SPACE_RAIDER",
+    "D.Va/SHIN-RYEONG",
+    "D.Va/TAEGEUKGI",
+    "Echo/SLIME_QUEEN",
+    "Genji/AZURITE",
+    "Hanzo/ONRYO",
+    "Illari/AMETHYST",
+    "Illari/SHADOWCHILD",
+    "Junker_Queen/PUNKER_QUEEN",
+    "Junkrat/FAWKSEY_JAMES",
+    "Junkrat/TOASTED",
+    "Kiriko/MATSURI",
+    "Lifeweaver/CASSIA",
+    "Lifeweaver/DAYGLOW",
+    "Lucio/VICTORIAN_GHOST",
+    "Mauga/RUGBY",
+    "Mercy/CAMOUFLAGE",
+    "Ramattra/CONSTRUCTION",
+    "Reaper/CURSED_CAPTAIN",
+    "Reaper/HELLFIRE",
+    "Reinhardt/BUNDESWEHR",
+    "Reinhardt/STONEHARDT",
+    "Sigma/ASYLUM",
+    "Sigma/BEEKEEPER",
+    "Sojourn/RUNNER",
+    "Soldier_76/ALPINE_76",
+    "Soldier_76/RESILIENT",
+    "Soldier_76/SPACE_RAIDER",
+    "Symmetra/ART_DECO",
+    "Symmetra/UTOPAEA",
+    "Torbjorn/DARK_IRON",
+    "Tracer/SPRINTER",
+    "Widowmaker/HUNTRESS",
+    "Winston/TACTICAL",
+    "Zenyatta/CARBON_FIBER",
+    "Zenyatta/SUNYATTA"
+  ],
+  "ownedWeaponSkinIds": [],
+  "ownedWeaponVariants": [],
+  "uncataloguedOwnedItems": [
+    {
+      "hero": "Genji",
+      "category": "skins",
+      "name": "Classic Contenders Away Q"
+    },
+    {
+      "hero": "Genji",
+      "category": "skins",
+      "name": "Classic Contenders Home"
+    }
+  ]
+}
