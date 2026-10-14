@@ -1,0 +1,101 @@
+{
+  "accountId": "185",
+  "accountLabel": "Account #185",
+  "accountVersion": "OW2",
+  "region": "",
+  "capturedAt": "2026-10-14T01:45:39.275871+00:00",
+  "inventoryStatus": "partial",
+  "balances": {
+    "mythicPrisms": 0,
+    "overwatchCoins": 50,
+    "credits": 800,
+    "competitivePoints": 0,
+    "legacyCompetitivePoints": 0,
+    "lootBoxes": null
+  },
+  "competitive": {
+    "season": "",
+    "ranks": {
+      "tank": "Placement 0/10",
+      "damage": "Placement 0/10",
+      "support": "Placement 0/10",
+      "openQueue": ""
+    }
+  },
+  "profile": {
+    "endorsementLevel": 0,
+    "accountLevel": 39,
+    "timePlayedHours": 24,
+    "gamesPlayed": 175,
+    "gamesWon": 56,
+    "roleStats": {
+      "tank": {
+        "timePlayedHours": 9,
+        "gamesWon": 22
+      },
+      "damage": {
+        "timePlayedHours": 6,
+        "gamesWon": 9
+      },
+      "support": {
+        "timePlayedHours": 9,
+        "gamesWon": 25
+      }
+    },
+    "heroesPlayed": [
+      {
+        "hero": "Moira",
+        "level": 9,
+        "timePlayedHours": 4
+      },
+      {
+        "hero": "Mercy",
+        "level": 8,
+        "timePlayedHours": 2
+      },
+      {
+        "hero": "Brigitte",
+        "level": 4,
+        "timePlayedHours": 2
+      },
+      {
+        "hero": "Orisa",
+        "level": null,
+        "timePlayedHours": 2
+      },
+      {
+        "hero": "Echo",
+        "level": null,
+        "timePlayedHours": 1
+      },
+      {
+        "hero": "Roadhog",
+        "level": null,
+        "timePlayedHours": 1
+      },
+      {
+        "hero": "Cassidy",
+        "level": null,
+        "timePlayedHours": 1
+      }
+    ],
+    "historicalRanks": []
+  },
+  "ownedSkinIds": [
+    "Ana/GARNET",
+    "Ashe/THORN",
+    "Baptiste/DELUXE",
+    "D.Va/ACADEMY",
+    "D.Va/JUNEBUG",
+    "Lucio/VICTORIAN_GHOST",
+    "Moira/ICE_EMPRESS",
+    "Moira/WHISKEY",
+    "Torbjorn/DARK_IRON",
+    "Widowmaker/SPELLBINDER",
+    "Reaper/LU_BU",
+    "Mercy/IMP"
+  ],
+  "ownedWeaponSkinIds": [],
+  "ownedWeaponVariants": [],
+  "uncataloguedOwnedItems": []
+}
