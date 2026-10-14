@@ -1,5 +1,4 @@
 :root {
-  --rd-bg: #060712;
   --rd-panel: rgba(14, 16, 34, .76);
   --rd-line: rgba(151, 123, 255, .2);
   --rd-line-strong: rgba(156, 108, 255, .42);
@@ -13,24 +12,9 @@
 
 html { overflow-x: hidden; }
 body {
-  position: relative;
-  isolation: isolate;
-  background: var(--rd-bg);
   font-family: Kanit, "Segoe UI", "Noto Sans SC", system-ui, -apple-system, sans-serif;
 }
 h1, h2, .hero-title, .section-title, .policy-title { font-family: Orbitron, Kanit, "Segoe UI", sans-serif; }
-/* One atmospheric glow; stars are rendered by void-effects.js. */
-body::after {
-  content: "";
-  position: fixed;
-  inset: -20vh -12vw;
-  z-index: -1;
-  pointer-events: none;
-  opacity: .5;
-  background: radial-gradient(circle at 12% 18%, rgba(88,28,235,.12), transparent 30%), radial-gradient(circle at 72% 43%, rgba(109,40,217,.1), transparent 29%), radial-gradient(circle at 32% 76%, rgba(130,27,255,.075), transparent 28%), radial-gradient(circle at 86% 8%, rgba(124,58,237,.07), transparent 24%);
-  filter: blur(58px);
-  animation: rdAtmosphere 18s ease-in-out infinite alternate;
-}
 .scanlines { opacity: .18; background-size: 72px 72px; }
 
 .container { max-width: 1240px; }
@@ -175,11 +159,6 @@ body::after {
 .rd-hero-stats div:first-child { padding-left: 0; border-left: 0; }
 .rd-hero-stats dt { color: #f8f6ff; font-size: 1.45rem; font-weight: 950; letter-spacing: -.04em; }
 .rd-hero-stats dd { margin: 3px 0 0; color: #767285; font-size: .61rem; font-weight: 850; letter-spacing: .1em; text-transform: uppercase; }
-.rd-hero-orbit { position: absolute; z-index: -1; width: 710px; height: 710px; right: -310px; top: 55px; border: 1px solid rgba(139,104,255,.11); border-radius: 50%; transform: rotate(-16deg); }
-.rd-hero-orbit::before, .rd-hero-orbit::after { content: ""; position: absolute; inset: 90px; border: inherit; border-radius: inherit; }
-.rd-hero-orbit::after { inset: 185px; }
-.rd-hero-orbit span { position: absolute; left: 92px; top: 120px; width: 80px; height: 80px; border-radius: 50%; background: radial-gradient(circle at 32% 28%, #c59fff, #5d2bd2 34%, #130d33 68%); box-shadow: -25px 30px 90px rgba(108,55,255,.68), inset -15px -14px 25px rgba(0,0,0,.65); }
-.rd-hero-orbit i { position: absolute; right: 45px; bottom: 150px; width: 8px; height: 8px; border-radius: 50%; background: #fff; box-shadow: 0 0 20px 6px #8355ff; }
 .rd-scroll-cue { position: absolute; left: 50%; bottom: 26px; width: 42px; height: 42px; display: grid; place-items: center; border: 2px solid rgba(139,92,246,.5); border-radius: 50%; color: #a78bfa; background: rgba(10,5,20,.38); box-shadow: inset 0 0 18px rgba(116,69,255,.1), 0 0 25px rgba(116,69,255,.1); backdrop-filter: blur(10px); transform: translateX(-50%); animation: rdCuePulse 2s cubic-bezier(.4,0,.6,1) infinite; transition: border-color .2s ease, background .2s ease, box-shadow .2s ease; }
 .rd-scroll-cue:hover { border-color: rgba(167,139,250,.82); background: rgba(139,92,246,.1); box-shadow: inset 0 0 18px rgba(116,69,255,.15), 0 0 28px rgba(116,69,255,.22); }
 .rd-scroll-cue svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.25; stroke-linecap: round; stroke-linejoin: round; animation: rdCueBounce 2.4s ease-in-out infinite; }
@@ -337,7 +316,6 @@ body.rd-motion .rd-reveal.rd-visible { opacity: 1; transform: none; }
 @keyframes rdSearchBreath { 0%,100% { transform: translateX(-50%) translateY(0); border-color: rgba(139,92,246,.38); box-shadow: 0 14px 45px rgba(0,0,0,.48),inset 0 1px rgba(255,255,255,.035),0 0 16px rgba(124,58,237,.11); } 50% { transform: translateX(-50%) translateY(-2px); border-color: rgba(167,139,250,.64); box-shadow: 0 16px 49px rgba(0,0,0,.52),inset 0 1px rgba(255,255,255,.045),0 0 34px rgba(124,58,237,.27); } }
 @keyframes rdSheen { 0%,58% { transform: translateX(-110%); } 78%,100% { transform: translateX(110%); } }
 
-@keyframes rdAtmosphere { from { transform: translate3d(-1.5%,0,0) scale(1); } to { transform: translate3d(1.5%,1%,0) scale(1.035); } }
 
 @media (max-width: 1040px) {
   .nav { gap: 0; }
@@ -347,7 +325,6 @@ body.rd-motion .rd-reveal.rd-visible { opacity: 1; transform: none; }
   .rd-status-row, .hero-cta, .rd-hero-stats { justify-content: center; }
   .hero-intro { margin-inline: auto; }
   .rd-hero-showcase { width: min(520px,100%); margin: 0 auto; }
-  .rd-hero-orbit { right: -420px; }
   .rd-offer-grid { grid-template-columns: 1fr 1fr; }
   .rd-offer-card:last-child { grid-column: 1/-1; }
   .rd-trust-strip { grid-template-columns: 1fr 1fr; }
@@ -384,8 +361,6 @@ body.rd-motion .rd-reveal.rd-visible { opacity: 1; transform: none; }
   .rd-feature-art span { width: 112px; height: 112px; font-size: 3.5rem; }
   .rd-float-chip-a { left: -3px; }
   .rd-float-chip-b { right: -3px; }
-  .rd-hero-orbit { width: 520px; height: 520px; right: -400px; top: 280px; }
-  .rd-hero-orbit span { left: 42px; top: 70px; width: 58px; height: 58px; }
   .rd-scroll-cue { display: none; }
   .section { padding: 88px 0; }
   .section-header { margin-bottom: 28px; }

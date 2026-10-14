@@ -19,7 +19,6 @@
 html[dir="rtl"] .skin-card, html[dir="rtl"] .competitive-summary,
 html[dir="rtl"] .account-table th, html[dir="rtl"] .account-table td { text-align: right; }
 html[dir="rtl"] .competitive-card[class*="tier-"] { border-left: 0; border-right: 4px solid var(--tier-color); }
-.account-summary { padding-bottom: 20px; }
 @media (max-width: 480px) {
   .header { gap: 8px; }
   .header .brand { gap: 5px; }

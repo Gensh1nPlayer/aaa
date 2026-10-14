@@ -6,7 +6,8 @@
   'use strict';
   const primary=url=>typeof url==='string'&&/^https:\/\/raw\.githubusercontent\.com\/ValentinZeller\/overwatch_skins\//.test(url);
   function candidates(item,preview=false){
-    const values=(preview?[item.preview,item.image,item.fallbackPreview,item.fallbackImage]:[item.image,item.preview,item.fallbackImage,item.fallbackPreview]).filter(Boolean);
+    // Prefer recorded originals within each source; preview links explicitly opt into thumbnails.
+    const values=(preview?[item.preview,item.fallbackPreview,item.image,item.fallbackImage]:[item.image,item.fallbackImage,item.preview,item.fallbackPreview]).filter(Boolean);
     return [...new Set([...values.filter(primary),...values.filter(url=>!primary(url))])];
   }
   function sourcePage(item){

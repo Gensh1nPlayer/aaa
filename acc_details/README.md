@@ -12,7 +12,7 @@ accounts.json 不因整合或导入而变动。所有卡片按钮改名 View Det
 - 两者都缺失：提示暂无详情，不跳转其他账号。
 - 详情索引请求失败：现有库存仍正常显示，保留原截图链接。
 
-当前索引为空，不把示例或其他账号资料冒充真实库存。未来新账号先按原流程添加商品，再导入它的快照。
+详情只绑定已导入的同 ID 快照，不把示例或其他账号资料冒充真实库存。新账号先添加商品，再导入它的快照。
 
 ## 导入真实快照
 
@@ -34,13 +34,18 @@ node tools/import-hero-gallery-account.mjs C:\path\to\snapshot.json 18
 导入保留其他账号、已确认的 0 和 complete / partial。神话棱镜、当前竞技点缺失或为 null 时默认 0；其他未知余额仍为 null。详情页兼容旧快照的相同规则，默认值不等于已扫描确认。
 完整采集不代表拥有完整目录；未采集物品不推断为未拥有。未知目录 ID 与联赛原名保留为暂无图片。
 目前展示 5 种货币、6 个栏目；lootBoxes 保留字段但不显示。
+Overview 排在第一项且默认展示；等级、手工标注的 OW1/OW2 与货币统一放在 Overview。
+页面背景与主站共用星空 / 氛围样式；介绍不使用大卡片，仅 ID 查询表单保留卡片。
+采集时间统一使用 `YYYY-MM-DD HH:mm:ss UTC`，不随访问者浏览器时区变化；原始时间字段不变。
+皮肤默认按稀有度从高到低排序，未知稀有度最后；切换账号和 Reset 恢复此默认顺序。
+可选 accountVersion 字段只接受 OW1 / OW2 / 空；缺失时不根据一个等级数字猜测账号版本。
 
 ## 本地预览与验证
 
 在网站根目录运行 HTTP 服务，再访问 http://127.0.0.1:8767/acc_details/ 。不要用 file:// 打开。
 运行 node tests/details-contract.cjs、node tests/hero-gallery-import.cjs 和 node tests/details-browser.cjs。
 浏览器测试使用 Playwright；具体环境配置见 tests/README.md。
-皮肤图片优先使用 https://github.com/ValentinZeller/overwatch_skins ，存在对应文件时使用该仓库的原图和 _web 缩略图；找不到或加载失败再使用 https://overwatch.fandom.com/wiki/Heroes_skins 的已收录图片。两个来源都缺失时保留占位，不用相似皮肤冒充。
+皮肤图片优先使用 https://github.com/ValentinZeller/overwatch_skins 的原图；原图失败后尝试同源缩略图，GitHub 源都失败再使用已收录的 Fandom 原图 / 缩略图。卡片使用 lazy loading，并完整展示图片，避免低分辨率缩略图放大和悬停放大。两个来源都缺失时保留占位，不用相似皮肤冒充。
 更新图片路径运行 node tools/prioritize-skin-images.cjs；通过 GitHub 文件树核对路径，只更新图片与来源，不改皮肤 ID、目录顺序或账号拥有数据。外部目录未必收录所有新皮肤。
 武器皮肤在该 GitHub 图库未收录时继续使用原 Fandom 武器图片。
 旧浏览器使用弹窗回退，不依赖 Safari 16.4 的正则后行断言或新版 Array.at。

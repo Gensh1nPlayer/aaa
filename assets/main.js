@@ -179,6 +179,8 @@ document.addEventListener("DOMContentLoaded", () => {
       function accountMatchesSearch(acct, query) {
         const normalizedQuery = String(query ?? '').trim().replace(/\s+/g, ' ').toLocaleLowerCase();
         if (!normalizedQuery) return true;
+        const exactStockId = /^#([1-9]\d*)$/.exec(normalizedQuery);
+        if (exactStockId) return String(acct?.id) === exactStockId[1];
 
         const searchableText = Object.values(acct ?? {})
           .filter(value => value !== null && value !== undefined)

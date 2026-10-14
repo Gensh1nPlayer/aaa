@@ -92,6 +92,7 @@
     'Complete record':['Collecte complète','Vollständige Erfassung','سجل كامل','収集完了'],
     'Partial record':['Collecte partielle','Teilerfassung','سجل جزئي','一部収集'],
     'Capture date unavailable':['Date inconnue','Erfassungsdatum unbekannt','تاريخ الجمع غير متاح','収集日時不明'],
+    'Captured at (UTC)':['Date de capture (UTC)','Erfasst (UTC)','وقت الالتقاط (UTC)','収集日時 (UTC)'],
     'Image unavailable':['Image indisponible','Bild nicht verfügbar','الصورة غير متاحة','画像なし'],
     'In-game name':['Nom en jeu','Name im Spiel','الاسم داخل اللعبة','ゲーム内の名前'],
     'No image':['Sans image','Ohne Bild','بلا صورة','画像なし'],
@@ -136,7 +137,6 @@
     'The snapshot records {count} unlocked weapon variants. Default variants are excluded; unscanned heroes remain unknown.':['{count} variantes débloquées enregistrées. Variantes par défaut exclues ; héros non analysés inconnus.','{count} freigeschaltete Waffenvarianten erfasst. Standardvarianten ausgeschlossen; nicht erfasste Helden bleiben unbekannt.','تم تسجيل {count} تنويع سلاح مفتوح. التنويعات الافتراضية مستثناة؛ الأبطال غير المفحوصين غير معروفين.','解放済み武器バリエーション {count} 件を記録。デフォルトは除外。未収集のヒーローは不明です。'],
     '{count} hrs':['{count} h','{count} Std.','{count} ساعة','{count} 時間'],
     '{count} wins':['{count} victoires','{count} Siege','{count} فوز','{count} 勝'],
-    'Unrecorded items remain unknown; a complete record describes collection coverage, not a full skin catalog.':['Les objets non enregistrés restent inconnus ; une collecte complète ne signifie pas posséder tous les skins.','Nicht erfasste Objekte bleiben unbekannt; vollständige Erfassung bedeutet nicht Besitz aller Skins.','العناصر غير المسجلة تظل مجهولة؛ السجل الكامل يعني اكتمال الجمع، وليس امتلاك كل المظاهر.','未記録のアイテムは不明です。「収集完了」は全スキンの所有を意味しません。']
   };
   const originalTexts = [];
   const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
@@ -166,8 +166,9 @@
     });
     attributes.forEach(([node,key,value]) => node.setAttribute(key,t(value)));
     document.title = t('Account Details · Roshine');
-    document.querySelector('#languageTrigger span').textContent = lang.toUpperCase();
-    document.querySelector('#languageTrigger').setAttribute('aria-label',t('Language')+': '+lang.toUpperCase());
+    const languageLabel = document.querySelector('.language-option[data-language-value="'+lang+'"]').textContent.trim();
+    document.querySelector('#languageTrigger span').textContent = languageLabel;
+    document.querySelector('#languageTrigger').setAttribute('aria-label',t('Language')+': '+languageLabel);
     document.querySelectorAll('.language-option').forEach(option => {
       option.setAttribute('aria-selected',String(option.dataset.languageValue === lang));
     });

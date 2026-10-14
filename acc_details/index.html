@@ -18,17 +18,19 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700;800&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=1">
-  <link rel="stylesheet" href="store-header.css?v=1">
-  <link rel="stylesheet" href="theme.css?v=1">
+  <link rel="stylesheet" href="store-header.css?v=2">
+  <link rel="stylesheet" href="theme.css?v=3">
+  <link rel="stylesheet" href="../assets/store-background.css?v=1">
   <link rel="stylesheet" href="../assets/floating-launcher.css?v=1">
   <link rel="stylesheet" href="compatibility.css?v=1">
   <script defer src="catalog.js?v=2"></script>
   <script defer src="weapon-catalog.js?v=1"></script>
-  <script defer src="i18n.js?v=1"></script>
-  <script defer src="image-sources.js?v=1"></script>
-  <script defer src="app.js?v=2"></script>
+  <script defer src="i18n.js?v=3"></script>
+  <script defer src="image-sources.js?v=2"></script>
+  <script defer src="app.js?v=4"></script>
   <script defer src="account-loader.js?v=1"></script>
   <script defer src="store-header.js?v=1"></script>
+  <script defer src="../assets/void-effects.js?v=1"></script>
 </head>
 <body>
   <div class="scanlines" aria-hidden="true"></div>
@@ -73,6 +75,7 @@
   </nav>
 
   <section class="lookup-hero" aria-labelledby="lookupTitle">
+    <div class="lookup-art" aria-hidden="true"><div class="rd-hero-orbit"><span></span><i></i></div></div>
     <div class="lookup-copy">
       <span class="lookup-kicker"><strong>ROSHINE STORE</strong><span aria-hidden="true"> / </span><span>OVERWATCH ACCOUNT GALLERY</span></span>
       <h1 id="lookupTitle">Explore every detail.</h1>
@@ -85,31 +88,18 @@
     </form>
   </section>
 
-  <section class="account-summary" aria-label="Account summary">
-    <div class="account-summary-top">
-      <div id="profileBadges" class="profile-badges" hidden>
-        <span id="headerAccountId" class="profile-badge profile-account-id" hidden><strong id="headerAccountIdValue"></strong></span>
-        <span id="headerAccountLevel" class="profile-badge profile-account-level" hidden>Lv. <strong id="headerAccountLevelValue"></strong></span>
-        <span id="headerEndorsement" class="profile-badge profile-endorsement" hidden>Endorsement Lv. <strong id="headerEndorsementValue"></strong></span>
-      </div>
-      <a class="stock-shortcut" href="/#accounts" aria-label="Back to account stock"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 5-7 7 7 7M7 12h13"/></svg>BACK</a>
-    </div>
-    <div class="balance-strip" aria-label="Account balances">
-      <div class="balance-item" data-currency="mythicPrisms"><img class="balance-icon" src="assets/wallet/mythic-prism.png" alt=""><span class="balance-copy"><span class="balance-label">Mythic Prisms</span><strong data-balance="mythicPrisms">—</strong></span></div>
-      <div class="balance-item" data-currency="overwatchCoins"><img class="balance-icon" src="assets/wallet/overwatch-coins.png" alt=""><span class="balance-copy"><span class="balance-label">Overwatch Coins</span><strong data-balance="overwatchCoins">—</strong></span></div>
-      <div class="balance-item" data-currency="credits"><img class="balance-icon" src="assets/wallet/credits.png" alt=""><span class="balance-copy"><span class="balance-label">Credits</span><strong data-balance="credits">—</strong></span></div>
-      <div class="balance-item" data-currency="competitivePoints"><img class="balance-icon" src="assets/wallet/competitive-points.png" alt=""><span class="balance-copy"><span class="balance-label">Competitive Points</span><strong data-balance="competitivePoints">—</strong></span></div>
-      <div class="balance-item" data-currency="legacyCompetitivePoints"><img class="balance-icon" src="assets/wallet/legacy-competitive-points.png" alt=""><span class="balance-copy"><span class="balance-label">Legacy Competitive Points</span><strong data-balance="legacyCompetitivePoints">—</strong></span></div>
-    </div>
-    <a class="rd-search-launcher rd-home-launcher" href="/" aria-label="Home"><span aria-hidden="true"><img src="../assets/logo.png" alt="" width="20" height="20"></span><b>HOME</b></a>
-  </section>
+  <a class="rd-search-launcher rd-home-launcher" href="/" aria-label="Home"><span aria-hidden="true"><img src="../assets/logo.png" alt="" width="20" height="20"></span><b>HOME</b></a>
 
   <div class="site-shell">
+    <div class="detail-toolbar">
+      <div class="eyebrow" id="pageEyebrow">Enter a stock ID to view account details</div>
+      <a class="stock-shortcut" href="/#accounts" aria-label="Back to account stock"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 5-7 7 7 7M7 12h13"/></svg>BACK</a>
+    </div>
     <nav class="tabs" aria-label="Account detail sections">
-      <button class="tab active" type="button" data-tab="skins" aria-current="page">Skins <span id="tabSkinCount"></span></button>
+      <button class="tab active" type="button" data-tab="overview" aria-current="page">Overview</button>
+      <button class="tab" type="button" data-tab="skins">Skins <span id="tabSkinCount"></span></button>
       <button class="tab" type="button" data-tab="weapons">Weapon skins <span id="tabWeaponCount"></span></button>
       <button class="tab" type="button" data-tab="variants">Weapon variants <span id="tabVariantCount"></span></button>
-      <button class="tab" type="button" data-tab="overview">Overview</button>
       <button class="tab" type="button" data-tab="statistics">Statistics</button>
       <button class="tab" type="button" data-tab="competitive">Competitive</button>
     </nav>
@@ -125,11 +115,9 @@
         <section id="skinsPanel" class="panel">
           <div class="title-row">
             <div>
-              <div class="eyebrow" id="pageEyebrow">Enter a stock ID to view account details</div>
               <h1 id="pageTitle">All heroes</h1>
             </div>
           </div>
-          <p id="snapshotNotice" class="snapshot-notice" role="status" hidden></p>
 
           <div class="filters" role="search">
             <label class="sr-only" for="skinSearch">Search skins, heroes or catalog IDs</label>
@@ -148,8 +136,8 @@
             </select>
             <label class="sr-only" for="sortFilter">Sort</label>
             <select id="sortFilter">
+              <option value="rarity" selected>Rarity first</option>
               <option value="featured">Featured first</option>
-              <option value="rarity">Rarity first</option>
               <option value="hero">Hero A–Z</option>
               <option value="name">Skin A–Z</option>
             </select>
@@ -190,8 +178,16 @@
                 <h1 id="accountHeading">Account snapshot</h1>
                 <div id="accountPanelBadges" class="account-panel-badges" hidden>
                   <span id="accountLevel" class="profile-badge profile-account-level" hidden>Lv. <strong id="accountLevelValue"></strong></span>
+                  <span id="accountVersion" class="profile-badge profile-account-version" hidden></span>
                   <span id="accountEndorsement" class="profile-badge profile-endorsement" hidden>Endorsement Lv. <strong id="accountEndorsementValue"></strong></span>
                 </div>
+              </div>
+              <div id="overviewBalances" class="balance-strip" aria-label="Account balances">
+                <div class="balance-item" data-currency="mythicPrisms"><img class="balance-icon" src="assets/wallet/mythic-prism.png" alt=""><span class="balance-copy"><span class="balance-label">Mythic Prisms</span><strong data-balance="mythicPrisms">—</strong></span></div>
+                <div class="balance-item" data-currency="overwatchCoins"><img class="balance-icon" src="assets/wallet/overwatch-coins.png" alt=""><span class="balance-copy"><span class="balance-label">Overwatch Coins</span><strong data-balance="overwatchCoins">—</strong></span></div>
+                <div class="balance-item" data-currency="credits"><img class="balance-icon" src="assets/wallet/credits.png" alt=""><span class="balance-copy"><span class="balance-label">Credits</span><strong data-balance="credits">—</strong></span></div>
+                <div class="balance-item" data-currency="competitivePoints"><img class="balance-icon" src="assets/wallet/competitive-points.png" alt=""><span class="balance-copy"><span class="balance-label">Competitive Points</span><strong data-balance="competitivePoints">—</strong></span></div>
+                <div class="balance-item" data-currency="legacyCompetitivePoints"><img class="balance-icon" src="assets/wallet/legacy-competitive-points.png" alt=""><span class="balance-copy"><span class="balance-label">Legacy Competitive Points</span><strong data-balance="legacyCompetitivePoints">—</strong></span></div>
               </div>
             </div>
           </div>

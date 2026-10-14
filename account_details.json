@@ -5,6 +5,11 @@
       "file": "acc_details/data/183.json",
       "capturedAt": "2026-10-13T21:44:31.605241+00:00",
       "inventoryStatus": "complete"
+    },
+    "184": {
+      "file": "acc_details/data/184.json",
+      "capturedAt": "2026-10-13T22:56:15.619680+00:00",
+      "inventoryStatus": "partial"
     }
   }
 }

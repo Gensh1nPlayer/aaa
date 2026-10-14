@@ -6,6 +6,9 @@ const { pathToFileURL } = require('node:url');
 async function main() {
   const testsDir = __dirname;
   const { normalizeForSite } = await import(pathToFileURL(path.join(testsDir, '..', 'tools', 'hero-gallery-import.mjs')));
+  assert.equal(normalizeForSite({ownedSkinIds:[],accountVersion:'OW1'},'123').accountVersion,'OW1');
+  assert.equal(normalizeForSite({ownedSkinIds:[]},'123').accountVersion,'');
+  assert.throws(()=>normalizeForSite({ownedSkinIds:[],accountVersion:'OW3'},'123'),/accountVersion/);
   for (const balances of [undefined, null, {}, {mythicPrisms:null,competitivePoints:null},
     {mythicPrisms:0,competitivePoints:0}, {mythicPrisms:80,competitivePoints:3000,overwatchCoins:0,legacyCompetitivePoints:50}]) {
     const input={ownedSkinIds:[],balances};

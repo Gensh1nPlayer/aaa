@@ -24,6 +24,7 @@ function record(value, name) {
 export function normalizeForSite(input, accountId) {
   if (!/^[A-Za-z0-9_-]{1,60}$/.test(accountId)) throw new Error('站内账号 ID 只能使用 1–60 位英文字母、数字、下划线或连字符');
   const source = record(input, '快照');
+  if (source.accountVersion !== undefined && !['', 'OW1', 'OW2'].includes(source.accountVersion)) throw new Error('accountVersion 必须是 OW1、OW2 或空');
   if (source.accountId !== undefined && String(source.accountId) !== accountId) throw new Error('快照 accountId 与商品 ID 不一致');
   if (source.inventoryStatus !== undefined && !['complete', 'partial'].includes(source.inventoryStatus)) throw new Error('inventoryStatus 必须是 complete 或 partial');
   if (!Array.isArray(source.ownedSkinIds) || source.ownedSkinIds.length > 5000) throw new Error('ownedSkinIds 必须是最多 5000 条的数组');
@@ -113,6 +114,7 @@ export function normalizeForSite(input, accountId) {
   return {
     accountId,
     accountLabel: `Account #${accountId}`,
+    accountVersion: source.accountVersion || '',
     region: text(source.region, 16),
     capturedAt,
     inventoryStatus: source.inventoryStatus === 'complete' ? 'complete' : 'partial',

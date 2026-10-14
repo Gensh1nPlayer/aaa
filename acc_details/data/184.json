@@ -1,0 +1,153 @@
+{
+  "accountId": "184",
+  "accountLabel": "Account #184",
+  "accountVersion": "OW2",
+  "region": "",
+  "capturedAt": "2026-10-13T22:56:15.619680+00:00",
+  "inventoryStatus": "partial",
+  "balances": {
+    "mythicPrisms": 0,
+    "overwatchCoins": 825,
+    "credits": 6644,
+    "competitivePoints": 0,
+    "legacyCompetitivePoints": 90,
+    "lootBoxes": null
+  },
+  "competitive": {
+    "season": "",
+    "ranks": {
+      "tank": "Placement 0/10",
+      "damage": "Placement 0/10",
+      "support": "Placement 0/10",
+      "openQueue": ""
+    }
+  },
+  "profile": {
+    "endorsementLevel": 2,
+    "accountLevel": 221,
+    "timePlayedHours": 136,
+    "gamesPlayed": 998,
+    "gamesWon": 522,
+    "roleStats": {
+      "tank": {
+        "timePlayedHours": 72,
+        "gamesWon": 276
+      },
+      "damage": {
+        "timePlayedHours": 56,
+        "gamesWon": 224
+      },
+      "support": {
+        "timePlayedHours": 9,
+        "gamesWon": 22
+      }
+    },
+    "heroesPlayed": [
+      {
+        "hero": "Soldier 76",
+        "level": 38,
+        "timePlayedHours": 44
+      },
+      {
+        "hero": "Reaper",
+        "level": 29,
+        "timePlayedHours": 5
+      },
+      {
+        "hero": "Zenyatta",
+        "level": 10,
+        "timePlayedHours": 4
+      },
+      {
+        "hero": "Widowmaker",
+        "level": null,
+        "timePlayedHours": 4
+      },
+      {
+        "hero": "Sombra",
+        "level": null,
+        "timePlayedHours": 2
+      },
+      {
+        "hero": "Orisa",
+        "level": null,
+        "timePlayedHours": 2
+      },
+      {
+        "hero": "Mauga",
+        "level": null,
+        "timePlayedHours": 2
+      },
+      {
+        "hero": "Moira",
+        "level": null,
+        "timePlayedHours": 1
+      },
+      {
+        "hero": "D.Va",
+        "level": null,
+        "timePlayedHours": 67
+      }
+    ],
+    "historicalRanks": []
+  },
+  "ownedSkinIds": [
+    "Ana/CAPTAIN_AMARI",
+    "Brigitte/CARBON_FIBER",
+    "Cassidy/COZY",
+    "Cassidy/LAKE",
+    "D.Va/SHIN-RYEONG",
+    "D.Va/TAEGEUKGI",
+    "Doomfist/CARBON_FIBER",
+    "Doomfist/PLAINS",
+    "Echo/CARBON_FIBER",
+    "Echo/MARINA",
+    "Echo/MERRY_MARIONETTE",
+    "Hanzo/CASUAL",
+    "Hanzo/GREAT_TENGU",
+    "Illari/SHADOWCHILD",
+    "Junker_Queen/JOTUNN",
+    "Junkrat/BLEACHED",
+    "Lucio/SATYR",
+    "Lucio/VERMELHO",
+    "Mei/KATARA",
+    "Orisa/CARBON_FIBER",
+    "Orisa/SANYE",
+    "Orisa/TWILIGHT",
+    "Pharah/AMETHYST",
+    "Pharah/CARBON_FIBER",
+    "Pharah/MECHATRON",
+    "Reaper/MIDNIGHT",
+    "Reaper/WIGHT",
+    "Reinhardt/COLDHARDT",
+    "Roadhog/HAUNTED_DOLL",
+    "Roadhog/LIFEGUARD",
+    "Roadhog/PIGPEN",
+    "Roadhog/STITCHED",
+    "Roadhog/THISTLE",
+    "Soldier_76/INFINITE_GUARD_76",
+    "Soldier_76/OLIVE",
+    "Soldier_76/RESILIENT",
+    "Soldier_76/VENOM",
+    "Sombra/NOCHE",
+    "Symmetra/BUTTERFLY",
+    "Symmetra/CONJURER",
+    "Widowmaker/CIEL",
+    "Widowmaker/ENDLESS_SIGHT",
+    "Widowmaker/SPELLBINDER",
+    "Widowmaker/SPIDER",
+    "Widowmaker/VERT",
+    "Widowmaker/WINTER_CHIC",
+    "Wuyang/ZI_TENG",
+    "Zarya/APEP",
+    "Zarya/MIDNIGHT",
+    "Zenyatta/ASCENDANT",
+    "Zenyatta/CARBON_FIBER",
+    "Wrecking_Ball/ULTRAWATCH",
+    "Wrecking_Ball/CRITTER_EGG",
+    "Wrecking_Ball/EIN"
+  ],
+  "ownedWeaponSkinIds": [],
+  "ownedWeaponVariants": [],
+  "uncataloguedOwnedItems": []
+}

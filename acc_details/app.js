@@ -14,7 +14,7 @@
   const featuredOrder = new Map(featured.map((id, index) => [id, index]));
   const rarityOrder = new Map(['mythic', 'ultra', 'evolution', 'legendary', 'epic', 'rare', 'common', 'unknown'].map((value, index) => [value, index]));
   const pageSize = 24;
-  const state = { tab: 'skins', hero: 'all', heroQuery: '', search: '', rarity: 'all', sort: 'featured', page: 1, snapshot: null };
+  const state = { tab: 'overview', hero: 'all', heroQuery: '', search: '', rarity: 'all', sort: 'rarity', page: 1, snapshot: null };
   let modalReturnFocus = null;
   const $ = (id) => document.getElementById(id);
   const t = (message, values) => window.DetailsI18n.t(message, values);
@@ -25,6 +25,25 @@
   const rankLabels = { tank: 'Tank', damage: 'Damage', support: 'Support', openQueue: 'Open Queue' };
   const rankTiers = ['Bronze', 'Silver', 'Gold', 'Platinum', 'Emerald', 'Diamond', 'Master', 'Grandmaster', 'Champion'];
   const roleIcons = { tank: 'assets/roles/tank.svg', damage: 'assets/roles/damage.svg', support: 'assets/roles/support.svg' };
+
+  function captureDate(value) {
+    // Python exports microseconds; trim to milliseconds for older Safari's ISO parser.
+    return new Date(typeof value === 'string' ? value.replace(/(\.\d{3})\d+(?=Z|[+-]\d{2}:?\d{2}$)/, '$1') : value);
+  }
+
+  function renderCaptureLabel(snapshot) {
+    const label = $('pageEyebrow');
+    label.replaceChildren();
+    if (!snapshot) { label.textContent = t('Enter a stock ID to view account details'); return; }
+    label.append(document.createTextNode(`${snapshot.accountLabel || t('Account snapshot')} · ${t(snapshot.inventoryStatus === 'complete' ? 'Complete record' : 'Partial record')} · `));
+    if (!snapshot.capturedAt) { label.append(document.createTextNode(t('Capture date unavailable'))); return; }
+    const iso = captureDate(snapshot.capturedAt).toISOString();
+    const time = document.createElement('time');
+    time.className = 'capture-time'; time.dateTime = iso; time.dir = 'ltr';
+    time.title = t('Captured at (UTC)');
+    time.textContent = iso.slice(0, 19).replace('T', ' ') + ' UTC';
+    label.append(time);
+  }
 
   function setSkinImage(image, candidates, onFailure) {
     const urls = [...new Set(candidates.filter(Boolean))];
@@ -129,9 +148,7 @@
       competitivePoints: [3000, 9000],
       legacyCompetitivePoints: [3000, 9000]
     };
-    $('pageEyebrow').textContent = snapshot ? `${snapshot.accountLabel || t('Account snapshot')} · ${t(snapshot.inventoryStatus === 'complete' ? 'Complete record' : 'Partial record')} · ${snapshot.capturedAt ? new Date(snapshot.capturedAt).toLocaleString(document.documentElement.lang) : t('Capture date unavailable')}` : t('Enter a stock ID to view account details');
-    $('snapshotNotice').hidden = !snapshot;
-    $('snapshotNotice').textContent = t('Unrecorded items remain unknown; a complete record describes collection coverage, not a full skin catalog.');
+    renderCaptureLabel(snapshot);
     $('tabSkinCount').textContent = formatNumber(currentItems().length);
     $('tabWeaponCount').textContent = formatNumber(currentWeapons().length);
     $('tabVariantCount').textContent = state.snapshot ? formatNumber(currentVariants().length) : '';
@@ -144,13 +161,6 @@
       node.classList.toggle('balance-value-critical', available && value >= pink);
       node.closest('.balance-item').classList.toggle('is-premium', node.dataset.balance === 'mythicPrisms' && available && value > 0);
     });
-    $('headerAccountId').hidden = !snapshot?.accountId;
-    $('headerAccountIdValue').textContent = snapshot?.accountId ? `#${snapshot.accountId}` : '';
-    if (snapshot?.accountId) $('headerAccountId').setAttribute('aria-label', `Account stock ID #${snapshot.accountId}`);
-    else $('headerAccountId').removeAttribute('aria-label');
-    setAccountLevelBadge('headerAccountLevel', 'headerAccountLevelValue', snapshot?.profile?.accountLevel);
-    setEndorsementBadge('headerEndorsement', 'headerEndorsementValue', snapshot?.profile?.endorsementLevel);
-    $('profileBadges').hidden = !snapshot;
   }
 
   function renderHeroList() {
@@ -245,10 +255,10 @@
       art.append(element('span', 'image-fallback', 'Image unavailable'));
     } else {
       const img = element('img');
-      setSkinImage(img, window.DetailsImageSources.candidates(skin,true), () => art.classList.add('image-error'));
       img.alt = '';
       img.loading = 'lazy';
       img.decoding = 'async';
+      setSkinImage(img, window.DetailsImageSources.candidates(skin), () => art.classList.add('image-error'));
       art.append(img, element('span', 'image-fallback', skin.hero.slice(0, 2).toUpperCase()));
     }
     const meta = element('div', 'card-meta');
@@ -351,14 +361,18 @@
     $('accountEyebrow').textContent = t(state.tab === 'statistics' ? 'ACCOUNT / STATISTICS' : 'ACCOUNT / OVERVIEW');
     setAccountLevelBadge('accountLevel', 'accountLevelValue', snapshot?.profile?.accountLevel);
     setEndorsementBadge('accountEndorsement', 'accountEndorsementValue', snapshot?.profile?.endorsementLevel);
-    $('accountPanelBadges').hidden = $('accountLevel').hidden && $('accountEndorsement').hidden;
+    const version = snapshot?.accountVersion || '';
+    $('accountVersion').textContent = version;
+    $('accountVersion').hidden = !version;
+    $('accountPanelBadges').hidden = $('accountLevel').hidden && $('accountEndorsement').hidden && !version;
+    $('overviewBalances').hidden = state.tab !== 'overview' || !snapshot;
     if (!snapshot) {
       content.append(element('p', 'account-empty', 'No account snapshot is available for this link. Please contact the store.'));
       return;
     }
     const profile = snapshot.profile;
     const metrics = element('div', 'account-metrics');
-    if (profile.accountLevel !== null) metrics.append(accountMetric('Account Level', formatNumber(profile.accountLevel)));
+    if (state.tab === 'statistics' && profile.accountLevel !== null) metrics.append(accountMetric('Account Level', formatNumber(profile.accountLevel)));
     if (profile.timePlayedHours !== null) metrics.append(accountMetric('Time Played', t('{count} hrs', {count:formatNumber(profile.timePlayedHours)})));
     if (profile.gamesPlayed !== null) metrics.append(accountMetric('Games Played', formatNumber(profile.gamesPlayed)));
     if (profile.gamesWon !== null) metrics.append(accountMetric('Games Won', formatNumber(profile.gamesWon)));
@@ -517,12 +531,13 @@
     const competitive = { season: typeof input.competitive?.season === 'string' ? input.competitive.season.slice(0, 40) : '', ranks: {} };
     for (const key of Object.keys(rankLabels)) competitive.ranks[key] = typeof input.competitive?.ranks?.[key] === 'string' ? input.competitive.ranks[key].slice(0, 40) : '';
     const profile = normalizeProfile(input.profile);
-    if (input.capturedAt && Number.isNaN(Date.parse(input.capturedAt))) throw new TypeError('capturedAt must be a valid date');
+    if (input.capturedAt && Number.isNaN(captureDate(input.capturedAt).getTime())) throw new TypeError('capturedAt must be a valid date');
     return {
       region: typeof input.region === 'string' ? input.region.slice(0, 16) : '',
       accountId: typeof input.accountId === 'string' ? input.accountId.slice(0, 60) : '',
       accountLabel: typeof input.accountLabel === 'string' ? input.accountLabel.slice(0, 60) : '',
       capturedAt: input.capturedAt || '',
+      accountVersion: ['OW1', 'OW2'].includes(input.accountVersion) ? input.accountVersion : '',
       balances,
       competitive,
       profile,
@@ -547,8 +562,8 @@
   });
 
   function resetSelection() {
-    state.hero = 'all'; state.heroQuery = ''; state.search = ''; state.rarity = 'all'; state.sort = 'featured'; state.page = 1; state.tab = 'skins';
-    $('heroSearch').value = ''; $('skinSearch').value = ''; $('rarityFilter').value = 'all'; $('sortFilter').value = 'featured';
+    state.hero = 'all'; state.heroQuery = ''; state.search = ''; state.rarity = 'all'; state.sort = 'rarity'; state.page = 1; state.tab = 'overview';
+    $('heroSearch').value = ''; $('skinSearch').value = ''; $('rarityFilter').value = 'all'; $('sortFilter').value = 'rarity';
   }
 
   document.querySelectorAll('[data-tab]').forEach((button) => button.addEventListener('click', () => { state.tab = button.dataset.tab; render(); }));
@@ -558,8 +573,8 @@
   $('rarityFilter').addEventListener('change', (event) => { state.rarity = event.target.value; state.page = 1; renderSkins(); });
   $('sortFilter').addEventListener('change', (event) => { state.sort = event.target.value; state.page = 1; renderSkins(); });
   $('resetButton').addEventListener('click', () => {
-    state.hero = 'all'; state.heroQuery = ''; state.search = ''; state.rarity = 'all'; state.sort = 'featured'; state.page = 1;
-    $('heroSearch').value = ''; $('skinSearch').value = ''; $('rarityFilter').value = 'all'; $('sortFilter').value = 'featured';
+    state.hero = 'all'; state.heroQuery = ''; state.search = ''; state.rarity = 'all'; state.sort = 'rarity'; state.page = 1;
+    $('heroSearch').value = ''; $('skinSearch').value = ''; $('rarityFilter').value = 'all'; $('sortFilter').value = 'rarity';
     render();
   });
   const backdrop = element('div', 'dialog-backdrop');

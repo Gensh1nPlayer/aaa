@@ -1,0 +1,27 @@
+/* Shared atmosphere and orbital artwork for the storefront and account gallery. */
+:root { --rd-bg: #060712; }
+html { overflow-x: hidden; }
+body { position: relative; isolation: isolate; background: var(--rd-bg); }
+body::after {
+  content: "";
+  position: fixed;
+  inset: -20vh -12vw;
+  z-index: -1;
+  pointer-events: none;
+  opacity: .5;
+  background: radial-gradient(circle at 12% 18%, rgba(88,28,235,.12), transparent 30%), radial-gradient(circle at 72% 43%, rgba(109,40,217,.1), transparent 29%), radial-gradient(circle at 32% 76%, rgba(130,27,255,.075), transparent 28%), radial-gradient(circle at 86% 8%, rgba(124,58,237,.07), transparent 24%);
+  filter: blur(58px);
+  animation: rdAtmosphere 18s ease-in-out infinite alternate;
+}
+.rd-hero-orbit { position: absolute; z-index: -1; width: 710px; height: 710px; right: -310px; top: 55px; border: 1px solid rgba(139,104,255,.11); border-radius: 50%; transform: rotate(-16deg); pointer-events: none; }
+.rd-hero-orbit::before, .rd-hero-orbit::after { content: ""; position: absolute; inset: 90px; border: inherit; border-radius: inherit; }
+.rd-hero-orbit::after { inset: 185px; }
+.rd-hero-orbit span { position: absolute; left: 92px; top: 120px; width: 80px; height: 80px; border-radius: 50%; background: radial-gradient(circle at 32% 28%, #c59fff, #5d2bd2 34%, #130d33 68%); box-shadow: -25px 30px 90px rgba(108,55,255,.68), inset -15px -14px 25px rgba(0,0,0,.65); }
+.rd-hero-orbit i { position: absolute; right: 45px; bottom: 150px; width: 8px; height: 8px; border-radius: 50%; background: #fff; box-shadow: 0 0 20px 6px #8355ff; }
+@keyframes rdAtmosphere { from { transform: translate3d(-1.5%,0,0) scale(1); } to { transform: translate3d(1.5%,1%,0) scale(1.035); } }
+@media (max-width: 1040px) { .rd-hero-orbit { right: -420px; } }
+@media (max-width: 700px) {
+  .rd-hero-orbit { width: 520px; height: 520px; right: -400px; top: 280px; }
+  .rd-hero-orbit span { left: 42px; top: 70px; width: 58px; height: 58px; }
+}
+@media (prefers-reduced-motion: reduce) { body::after { animation: none; } }

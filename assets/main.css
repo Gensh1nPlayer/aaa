@@ -89,6 +89,7 @@
       line-height: 1;
       letter-spacing: 0.04em;
       text-align: center;
+      white-space: nowrap;
       cursor: pointer;
       transition: transform 0.2s ease, color 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
     }
@@ -113,9 +114,11 @@
       position: absolute;
       z-index: 120;
       top: calc(100% + 8px);
-      inset-inline: 0;
+      right: 0;
+      left: auto;
+      inset-inline-end: 0;
       width: 100%;
-      min-width: 0;
+      min-width: 96px;
       padding: 4px;
       border: 1px solid rgba(103,232,249,0.3);
       border-radius: 14px;
@@ -127,6 +130,7 @@
       animation: language-menu-in 0.16s ease-out;
     }
     .language-menu[hidden] { display: none; }
+    html[dir="rtl"] .language-menu { right: auto; left: 0; }
     .language-option {
       position: relative;
       width: 100%;
@@ -134,7 +138,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 7px 16px;
+      padding: 7px 10px;
       border: 0;
       border-radius: 9px;
       background: transparent;
@@ -145,6 +149,7 @@
       line-height: 1;
       letter-spacing: 0.06em;
       text-align: center;
+      white-space: nowrap;
       cursor: pointer;
     }
     .language-option:hover,
@@ -156,13 +161,6 @@
       color: #fff;
       background: linear-gradient(90deg, rgba(41,182,255,0.18), rgba(183,124,255,0.18));
       box-shadow: 0 0 0 1px rgba(103,232,249,0.12) inset;
-    }
-    .language-option[aria-selected="true"]::after {
-      content: '✓';
-      position: absolute;
-      inset-inline-end: 5px;
-      color: #c4b5fd;
-      font-size: 0.68rem;
     }
     @keyframes language-menu-in {
       from { opacity: 0; transform: translateY(-5px) scale(0.985); }

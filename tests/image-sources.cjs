@@ -14,6 +14,12 @@ assert.equal(result.catalog[0].fallbackImage,fandom);assert.equal(result.catalog
 assert.equal(result.catalog[2].image,primary,'exact hero + game name may supply artwork without changing ID');
 assert.equal(images.candidates(original[0],true)[0],primary,'old Fandom-first entries also prioritize GitHub');
 assert.equal(images.candidates(result.catalog[0])[0],primary);
+assert.deepEqual(images.candidates(result.catalog[0]),[primary,result.catalog[0].preview,fandom,fandom+'?thumb'],'full artwork precedes thumbnails within each source');
+assert.deepEqual(images.candidates({image:fandom,preview:result.catalog[0].preview,fallbackImage:primary,fallbackPreview:fandom+'?thumb'}),[primary,result.catalog[0].preview,fandom,fandom+'?thumb'],'a primary original in a legacy fallback field still precedes its thumbnail');
+assert.deepEqual(images.candidates({image:fandom,preview:fandom+'?thumb',fallbackImage:fandom+'?other-original'}),[fandom,fandom+'?other-original',fandom+'?thumb'],'all recorded originals precede thumbnails for Fandom-only entries');
+assert.deepEqual(images.candidates({preview:result.catalog[0].preview}),[result.catalog[0].preview],'preview-only entries retain their recorded artwork');
+assert.deepEqual(images.candidates({image:primary,preview:primary,fallbackImage:fandom}),[primary,fandom],'duplicate artwork URLs are attempted once');
+assert.deepEqual(images.candidates({}),[]);
 assert(images.candidates(result.catalog[0]).includes(fandom));
 assert.equal(images.sourcePage(result.catalog[0]),'https://github.com/ValentinZeller/overwatch_skins');
 const context={window:{}};vm.runInNewContext(fs.readFileSync(path.join(__dirname,'../acc_details/catalog.js'),'utf8'),context);
