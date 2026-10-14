@@ -111,9 +111,13 @@ h1, h2 { color: #f2f0ff; font-family: Orbitron, Kanit, sans-serif; }
 .skin-card, .variant-card, .account-metric, .account-card, .account-table, .account-empty, .empty-state, .placeholder-panel { border-color: var(--detail-line); background: var(--detail-panel); color: #dfddee; box-shadow: 0 7px 30px rgba(0,0,0,.11); }
 .skin-card:hover { border-color: rgba(169, 122, 255, .55); box-shadow: 0 12px 35px rgba(99,54,190,.2); }
 .card-art { background: linear-gradient(135deg, #36315a, #142740); }
-.card-art img, .weapon-panel .card-art img { object-fit: scale-down; }
+.card-art img, .weapon-panel .card-art img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
 .skin-card:hover .card-art img { transform: none; }
 .card-name, .empty-state strong, .account-metric strong, .account-card strong, .competitive-card strong { color: #f7f3ff; }
+.skin-card, .skin-dialog { --ac-weight-label: 800; }
+.card-name { padding: 2px 0; margin-top: 3px; margin-bottom: 10px; line-height: 1.3; }
+.rarity-label .ac-special-skin { font-size: inherit; font-weight: 750; }
+.skin-card[data-rarity="ultra"] { border-bottom-color: #ff8295; }
 .card-bottom .catalog-label, .source-note, .empty-state, .account-card small, .account-metric span, .account-card span, .account-empty { color: var(--detail-muted); }
 .placeholder-panel p, .competitive-view > p { color: #b7b1ce; }
 .back-button { border-radius: 8px; background: linear-gradient(120deg, #8d5cff, #6641d7); }
@@ -140,13 +144,35 @@ h1, h2 { color: #f2f0ff; font-family: Orbitron, Kanit, sans-serif; }
 .capture-time { display: inline-block; direction: ltr; unicode-bidi: isolate; white-space: nowrap; font-variant-numeric: tabular-nums; }
 dialog { background: #15172b; color: #eeeafb; border: 1px solid var(--detail-line); }
 dialog::backdrop { background: rgba(3,3,14,.78); }
-.dialog-close { background: #2a2943; color: #f0ebff; }
-.dialog-close:hover { background: #40395f; }
-.dialog-content p { color: #bab5ce; }
-.dialog-content a { color: var(--detail-cyan); }
-.dialog-image-wrap { background: #222740; }
-.dialog-image-wrap img { object-fit: scale-down; }
+.skin-dialog { width: min(1040px, calc(100vw - 32px)); max-height: calc(100vh - 32px); border-radius: 16px; box-shadow: 0 28px 90px rgba(0,0,0,.6); }
+.dialog-close { top: 14px; right: 14px; width: 40px; height: 40px; border: 1px solid rgba(255,255,255,.22); background: rgba(8,11,22,.76); color: #f0ebff; backdrop-filter: blur(10px); }
+.dialog-close:hover { background: rgba(34,42,65,.95); }
+.dialog-content { padding: 19px 24px 22px; background: #10121f; }
+.dialog-heading { display: flex; justify-content: space-between; align-items: center; gap: 12px 24px; }
+.dialog-heading > div { min-width: 0; }
+.dialog-content .eyebrow { font-size: 10px; letter-spacing: .11em; }
+.dialog-content h2 { margin: 4px 0 0; font-size: clamp(23px,2.3vw,30px); line-height: 1.2; overflow-wrap: break-word; }
+.dialog-content p { margin: 12px 0 14px; color: #a8a7bb; font-size: 12px; line-height: 1.6; }
+.dialog-links { gap: 7px 10px; }
+.dialog-content a { display: inline-flex; align-items: center; min-height: 34px; padding: 6px 11px; border: 1px solid rgba(123,148,188,.23); border-radius: 8px; background: rgba(255,255,255,.025); color: var(--detail-cyan); font-size: 12px; text-decoration: none; }
+.dialog-content a:hover { border-color: rgba(73,215,246,.5); background: rgba(73,215,246,.08); text-decoration: none; }
+.dialog-image-wrap { position: relative; height: auto; background: #090b16; line-height: 0; }
+.dialog-image-wrap img { width: 100%; height: auto; aspect-ratio: auto 16/9; object-fit: cover; object-position: center; }
+.dialog-image-wrap.image-error { min-height: 240px; display: grid; place-items: center; }
+.dialog-image-wrap.image-error img { display: none; }
+.dialog-image-fallback { padding: 35px; color: #a8a7bb; font-size: 14px; line-height: 1.5; }
+.dialog-heading .rarity-badge { flex-shrink: 0; padding: 7px 11px; border-radius: 6px; font-size: 11px; }
 .rarity-badge { background: #402a15; color: #ffd490; }
+.rarity-badge[data-rarity="mythic"] { background: rgba(251,113,133,.09); border: 1px solid rgba(249,168,212,.32); box-shadow: 0 0 12px rgba(249,168,212,.09); }
+.rarity-badge[data-rarity="ultra"] { background: rgba(239,68,68,.1); border: 1px solid rgba(255,130,149,.36); color: #ff8295; }
+.rarity-badge .ac-special-skin { font-size: inherit; font-weight: 800; }
+@media (max-width: 620px) {
+  .dialog-content { padding: 16px; }
+  .dialog-heading { gap: 12px; }
+  .dialog-heading .rarity-badge { padding: 6px 8px; font-size: 10px; }
+  .dialog-close { top: 10px; right: 10px; width: 36px; height: 36px; }
+  .dialog-content a { font-size: 11px; min-height: 34px; padding: 6px 9px; }
+}
 @media (max-width: 1200px) { .balance-strip { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 900px) { .tabs { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 850px) { .site-shell { padding: 0 16px 35px; } .lookup-hero { width: calc(100% - 32px); margin: 111px auto 25px; gap: 21px; padding: 0; } .hero-option.active { border-color: var(--detail-purple); } }

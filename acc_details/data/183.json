@@ -1,6 +1,7 @@
 {
   "accountId": "183",
   "accountLabel": "Account #183",
+  "accountVersion": "OW2",
   "region": "",
   "capturedAt": "2026-10-13T21:44:31.605241+00:00",
   "inventoryStatus": "complete",
@@ -22,7 +23,7 @@
     }
   },
   "profile": {
-    "endorsementLevel": null,
+    "endorsementLevel": 0,
     "accountLevel": 68,
     "timePlayedHours": 22,
     "gamesPlayed": 175,

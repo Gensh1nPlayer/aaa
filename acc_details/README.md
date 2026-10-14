@@ -39,13 +39,14 @@ Overview 排在第一项且默认展示；等级、手工标注的 OW1/OW2 与�
 采集时间统一使用 `YYYY-MM-DD HH:mm:ss UTC`，不随访问者浏览器时区变化；原始时间字段不变。
 皮肤默认按稀有度从高到低排序，未知稀有度最后；切换账号和 Reset 恢复此默认顺序。
 可选 accountVersion 字段只接受 OW1 / OW2 / 空；缺失时不根据一个等级数字猜测账号版本。
+列表与大图的皮肤名字共用主站 assets/skin-visuals.js / skin-effects.css 的视觉规则；普通未匹配名字保留原样，新神话名字可按目录 rarity 回退为神话效果。Mythic 标签使用玫瑰红→粉色→金色渐变，Ultra 标签使用红色，标签文字随语言翻译，皮肤原名不变。
 
 ## 本地预览与验证
 
 在网站根目录运行 HTTP 服务，再访问 http://127.0.0.1:8767/acc_details/ 。不要用 file:// 打开。
 运行 node tests/details-contract.cjs、node tests/hero-gallery-import.cjs 和 node tests/details-browser.cjs。
 浏览器测试使用 Playwright；具体环境配置见 tests/README.md。
-皮肤图片优先使用 https://github.com/ValentinZeller/overwatch_skins 的原图；原图失败后尝试同源缩略图，GitHub 源都失败再使用已收录的 Fandom 原图 / 缩略图。卡片使用 lazy loading，并完整展示图片，避免低分辨率缩略图放大和悬停放大。两个来源都缺失时保留占位，不用相似皮肤冒充。
+皮肤图片优先使用 https://github.com/ValentinZeller/overwatch_skins 的原图；原图失败后尝试同源缩略图，GitHub 源都失败再使用已收录的 Fandom 原图 / 缩略图。卡片使用 lazy loading、居中等比 cover 铺满既有展示框，仅裁切边缘；大图窗口最高 1040px 宽，图片按原图比例展开，无上下空白条、无额外悬停放大。两个来源都缺失时保留占位，不用相似皮肤冒充。
 更新图片路径运行 node tools/prioritize-skin-images.cjs；通过 GitHub 文件树核对路径，只更新图片与来源，不改皮肤 ID、目录顺序或账号拥有数据。外部目录未必收录所有新皮肤。
 武器皮肤在该 GitHub 图库未收录时继续使用原 Fandom 武器图片。
 旧浏览器使用弹窗回退，不依赖 Safari 16.4 的正则后行断言或新版 Array.at。

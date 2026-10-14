@@ -26,6 +26,7 @@ Account details integration:
 - node tests/hero-gallery-import.cjs
 - node tests/details-browser.cjs (same Playwright / Chrome variables; no TLS required)
 - node tests/details-images-browser.cjs (original artwork and source failure fallback; no TLS required)
+- node tests/details-skin-effects.cjs (name colors/glow parity with stock, Mythic/Ultra labels, escaping and five languages)
 - node tests/language-browser.cjs (all five selectors, Japanese single-line labels, no checkmarks; TLS variables recommended for Auth)
 - node tests/collector-bridge.cjs (Windows; set COLLECTOR_PACKAGE to the local website-ready package)
 

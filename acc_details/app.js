@@ -46,6 +46,7 @@
   }
 
   function setSkinImage(image, candidates, onFailure) {
+    image.onload = null; image.onerror = null;
     const urls = [...new Set(candidates.filter(Boolean))];
     if (!urls.length) { image.removeAttribute('src'); onFailure?.(); return; }
     let index = 0;
@@ -67,6 +68,22 @@
     if (className) node.className = className;
     if (text !== undefined) node.textContent = typeof text === 'string' ? t(text) : text;
     return node;
+  }
+
+  function renderSkinName(node, skin) {
+    const visuals = window.RoshineSkinVisuals;
+    if (!visuals) { node.textContent = skin.name; return; }
+    const styled = visuals.formatName(skin.name);
+    // A newly catalogued Mythic remains colored even before its name is added to the dictionary.
+    node.innerHTML = skin.rarity === 'mythic' && !styled.includes('class="ac-special-skin ')
+      ? `<span class="ac-special-skin ac-special-skin-mythic">${styled}</span>` : styled;
+    node.title = skin.name;
+  }
+
+  function renderRarity(node, rarity, label) {
+    node.dataset.rarity = rarity;
+    const effect = rarity === 'mythic' ? 'ac-special-skin-mythic' : rarity === 'ultra' ? 'ac-special-skin-ultra-rare' : '';
+    node.replaceChildren(element('span', effect ? `ac-special-skin ${effect}` : '', label));
   }
 
   function roleLabel(key, label) {
@@ -208,10 +225,16 @@
 
   function openSkin(skin, trigger) {
     $('dialogHero').textContent = skin.hero.toUpperCase();
-    $('dialogTitle').textContent = skin.name;
-    $('dialogRarity').textContent = rarityLabel(skin.rarity);
-    $('dialogRarity').dataset.rarity = skin.rarity;
-    setSkinImage($('dialogImage'), window.DetailsImageSources.candidates(skin));
+    renderSkinName($('dialogTitle'), skin);
+    renderRarity($('dialogRarity'), skin.rarity, rarityLabel(skin.rarity));
+    const imageWrap = $('dialogImage').parentElement;
+    imageWrap.classList.remove('image-error');
+    $('dialogImageFallback').hidden = true;
+    setSkinImage($('dialogImage'), window.DetailsImageSources.candidates(skin), () => {
+      imageWrap.classList.add('image-error');
+      $('dialogImageFallback').textContent = t('Image unavailable');
+      $('dialogImageFallback').hidden = false;
+    });
     $('dialogImage').alt = `${skin.hero} · ${skin.name}`;
     $('dialogPreview').href = window.DetailsImageSources.candidates(skin,true)[0] || '';
     $('dialogSource').href = window.DetailsImageSources.candidates(skin)[0] || '';
@@ -263,9 +286,13 @@
     }
     const meta = element('div', 'card-meta');
     const bottom = element('div', 'card-bottom');
-    bottom.append(element('span', '', skin.uncatalogued ? 'In-game name' : rarityLabel(skin.rarity)),
+    const rarity = element('span', 'rarity-label');
+    renderRarity(rarity, skin.rarity, skin.uncatalogued ? t('In-game name') : rarityLabel(skin.rarity));
+    const name = element('strong', 'card-name');
+    renderSkinName(name, skin);
+    bottom.append(rarity,
       element('span', 'catalog-label', skin.uncatalogued ? 'No image' : state.snapshot ? 'OWNED' : 'CATALOG'));
-    meta.append(element('span', 'card-hero', skin.hero), element('strong', 'card-name', skin.name), bottom);
+    meta.append(element('span', 'card-hero', skin.hero), name, bottom);
     card.append(art, meta);
     if (!skin.uncatalogued) card.addEventListener('click', () => openSkin(skin, card));
     return card;

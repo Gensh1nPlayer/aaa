@@ -1,0 +1,67 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),http=require('node:http');
+const {chromium,webkit}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
+const root=path.resolve(__dirname,'..');
+const fixtures=[
+ ['Genji','Illidan','legendary','ultra-rare'],['Mercy','Pink Mercy','legendary','ultra-rare'],
+ ['Roadhog','Midas','legendary','rare'],['Mercy','Royal Knight','legendary','rare'],
+ ['Widowmaker','Noire','legendary','collector'],
+ ['Sombra','Gilded Hunter','legendary','shop'],['Reaper','OWCS 2024','epic','esports'],
+ ['Kiriko','Sample Future Bundle','legendary','bundle'],['Widowmaker','Spellbinder','mythic','mythic'],
+ ['Anran','Future Mythic Test','mythic','mythic'],['D.Va','Test Ultra','ultra',null],
+ ['D.Va','Academy','legendary',null],['Zenyatta','<img src=x onerror=alert(1)> Clockwork','legendary','rare']
+];
+const skins=fixtures.map(([hero,name,rarity],i)=>({id:hero+'/TEST_'+i,hero,name,rarity,image:'/fixture-art.svg'}));
+const snapshot={accountId:'123',inventoryStatus:'partial',ownedSkinIds:skins.map(s=>s.id)};
+const stock={accounts:[{id:123,level:'68 - OW2',price:'$50.00',status:'In Stock',highlights:'✨ Illidan Genji, Pink Mercy, Midas Roadhog, Royal Knight Mercy, Noire Widowmaker, Gilded Hunter Sombra, OWCS 2024 Reaper, Sample Future Bundle, Spellbinder Widowmaker'}]};
+const server=http.createServer((req,res)=>{
+ const pathname=new URL(req.url,'http://localhost').pathname;
+ if(pathname==='/accounts.json'){res.setHeader('Content-Type','application/json');return res.end(JSON.stringify(stock));}
+ if(pathname==='/account_details.json'){res.setHeader('Content-Type','application/json');return res.end(JSON.stringify({schemaVersion:1,accounts:{'123':snapshot}}));}
+ if(pathname==='/acc_details/catalog.js'){res.setHeader('Content-Type','text/javascript');return res.end('window.HERO_GALLERY_CATALOG='+JSON.stringify(skins)+';');}
+ if(pathname==='/fixture-art.svg'){res.setHeader('Content-Type','image/svg+xml');return res.end('<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080"><rect width="1920" height="1080" fill="#263a52"/></svg>');}
+ const file=path.resolve(root,'.'+(pathname.endsWith('/')?pathname+'index.html':pathname));
+ if(!file.startsWith(root+path.sep)||!fs.existsSync(file)||!fs.statSync(file).isFile()){res.writeHead(404);return res.end();}
+ res.setHeader('Content-Type',({'.js':'text/javascript','.css':'text/css','.html':'text/html','.json':'application/json','.svg':'image/svg+xml','.png':'image/png'})[path.extname(file)]||'application/octet-stream');res.end(fs.readFileSync(file));
+});
+const palette=locator=>locator.evaluate(node=>{const css=getComputedStyle(node);return {color:css.color,background:css.backgroundImage,fill:css.webkitTextFillColor,shadow:css.textShadow,weight:css.fontWeight};});
+(async()=>{
+ await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const base='http://127.0.0.1:'+server.address().port;
+ for(const scenario of [{engine:chromium,name:'Chromium desktop',viewport:{width:1440,height:960}},{engine:webkit,name:'WebKit mobile / legacy API',viewport:{width:390,height:844},legacy:true}]){
+  const browser=await scenario.engine.launch({headless:true,...(scenario.engine===chromium&&process.env.CHROME_EXECUTABLE?{executablePath:process.env.CHROME_EXECUTABLE}:{})});
+  try{
+   const context=await browser.newContext({viewport:scenario.viewport,reducedMotion:'reduce'}),errors=[];
+   await context.route('**/*',route=>new URL(route.request().url()).hostname==='127.0.0.1'?route.continue():route.abort());
+   if(scenario.legacy)await context.addInitScript(()=>{Array.prototype.at=undefined;Object.hasOwn=undefined;window.structuredClone=undefined;if(window.HTMLDialogElement){HTMLDialogElement.prototype.showModal=undefined;HTMLDialogElement.prototype.close=undefined;}});
+   const home=await context.newPage();home.on('pageerror',e=>errors.push(e.message));await home.goto(base+'/?lang=en#accounts');await home.locator('.account-card').waitFor();
+   const colors={};for(const tier of ['ultra-rare','rare','collector','shop','esports','bundle','mythic'])colors[tier]=await palette(home.locator('.account-card .ac-special-skin-'+tier).first());
+   const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));await page.goto(base+'/acc_details/?lang=en#123');await page.waitForFunction(()=>document.body.classList.contains('has-account'));await page.locator('[data-tab="skins"]').click();
+   for(let i=0;i<fixtures.length;i++){
+    const [hero,name,rarity,tier]=fixtures[i],card=page.locator('.skin-card').filter({hasText:name});
+    assert.equal(await card.locator('.card-name').textContent(),name,'do not rewrite actual skin names');
+    if(tier)assert.deepEqual(await palette(card.locator('.card-name .ac-special-skin-'+tier)),colors[tier],'stock palette/glow parity: '+name);
+    else assert.equal(await card.locator('.card-name .ac-special-skin').count(),0,'ordinary or unknown names remain ordinary');
+    if(rarity==='mythic'){const label=card.locator('.rarity-label .ac-special-skin-mythic');assert.equal(await label.count(),1);assert((await palette(label)).background.includes('linear-gradient'));}
+    if(rarity==='ultra'){const label=card.locator('.rarity-label .ac-special-skin-ultra-rare');assert.equal((await palette(label)).color,colors['ultra-rare'].color);}
+    await card.click();assert.equal(await page.locator('#dialogTitle').textContent(),name);
+    if(tier)assert.deepEqual(await palette(page.locator('#dialogTitle .ac-special-skin-'+tier)),colors[tier],'large viewer palette/glow parity: '+name);
+    if(rarity==='mythic')assert((await palette(page.locator('#dialogRarity .ac-special-skin-mythic'))).background.includes('linear-gradient'));
+    if(rarity==='ultra')assert.equal((await palette(page.locator('#dialogRarity .ac-special-skin-ultra-rare'))).color,colors['ultra-rare'].color);
+    await page.keyboard.press('Escape');
+   }
+   assert.equal(await page.locator('#skinGrid img[src="x"]').count(),0,'names cannot inject HTML');
+   for(const lang of ['fr','de','ar','ja']){
+    await page.goto(base+'/acc_details/?lang='+lang+'#123');await page.waitForFunction(()=>document.body.classList.contains('has-account'));await page.locator('[data-tab="skins"]').click();
+    assert.equal(await page.locator('.rarity-label .ac-special-skin-mythic').count(),2);assert.equal(await page.locator('.rarity-label .ac-special-skin-ultra-rare').count(),1);
+    assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),lang+' layout fits');
+   }
+   if(process.env.SCREENSHOT_DIR){fs.mkdirSync(process.env.SCREENSHOT_DIR,{recursive:true});await page.goto(base+'/acc_details/?lang=en#123');await page.waitForFunction(()=>document.body.classList.contains('has-account'));await page.locator('[data-tab="skins"]').click();await page.screenshot({path:path.join(process.env.SCREENSHOT_DIR,scenario.legacy?'effects-mobile.png':'effects-desktop.png'),fullPage:true});}
+   await home.route('**/assets/skin-visuals.js*',route=>route.fulfill({status:404,body:''}));
+   await home.reload();await home.locator('.account-card').waitFor();assert.equal(await home.locator('.account-card').count(),1,'missing visual module must not hide stock');
+   await page.route('**/assets/skin-visuals.js*',route=>route.fulfill({status:404,body:''}));
+   await page.reload();await page.waitForFunction(()=>document.body.classList.contains('has-account'));await page.locator('[data-tab="skins"]').click();
+   assert.equal(await page.locator('.skin-card').count(),fixtures.length,'missing visual module must not hide recorded skins');
+   assert.equal(await page.locator('#skinGrid img[src="x"]').count(),0,'plain fallback still escapes names');
+   assert.deepEqual(errors,[]);console.log(JSON.stringify({scenario:scenario.name,sharedStockPalette:true,skinNames:fixtures.length,mythicGradient:true,ultraRed:true,languages:5,htmlEscaped:true,pageErrors:errors}));
+  }finally{await browser.close();}
+ }
+})().catch(e=>{console.error(e);process.exitCode=1;}).finally(()=>server.close());

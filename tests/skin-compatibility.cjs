@@ -2,18 +2,20 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 const assert = require('node:assert/strict');
 const source = fs.readFileSync(require('node:path').join(__dirname, '../assets/main.js'), 'utf8');
+const shared = require('../assets/skin-visuals.js');
 function section(start, end) {
   const a = source.indexOf(start), b = source.indexOf(end, a);
   assert(a >= 0 && b > a, `Missing source seam: ${start}`);
   return source.slice(a, b);
 }
 const api = vm.runInNewContext(`(() => {
-  ${section('const skinNamesSource', 'const specialWeaponChoicePattern')}
+  const {rareSkinNames,shopSkinNames,owlTeamNames}=window.RoshineSkinVisuals;
+  ${section('const specialSkinRules', 'const specialWeaponChoicePattern')}
   ${section('const specialWeaponChoicePattern', 'function highlightRankText')}
   ${section('function escapeAccountText(value)', 'function safeExternalUrl')}
   ${section('const heroAliasPatterns', 'const highlightLines')}
-  return { styleSkinItem, styleSkinDescriptionLine, applyColorMap, rareSkinNames, shopSkinNames, owlTeamNames };
-})()`);
+  return { styleSkinItem, styleSkinName, styleSkinDescriptionLine, applyColorMap, rareSkinNames, shopSkinNames, owlTeamNames };
+})()`,{window:{RoshineSkinVisuals:shared}});
 const cases = [
   ['Blizzard Mythic Gift', 'shop'],
   ['Blizzard Mythic Gift — Choose 1 Mythic Skin', 'shop'],
@@ -68,6 +70,8 @@ for (const [name, tier] of cases) {
   const html = api.styleSkinItem(name);
   const expectedClass = tier.startsWith('weapon-') ? `ac-special-${tier}` : `ac-special-skin-${tier}`;
   assert(html.includes(expectedClass), `${name} -> ${html}; expected ${tier}`);
+  assert(shared.formatName(name).includes(expectedClass), `Shared details formatter: ${name}`);
+  assert.equal(api.styleSkinName(name), '<span class="ac-skin-name">'+shared.formatName(name)+'</span>', `Shared extraction preserves stock formatting: ${name}`);
   assert(api.applyColorMap(name).includes(expectedClass), `Non-sparkle rendering: ${name}`);
   assert(!/__SPECIAL_SKIN_\d+__/.test(html), `Leaked placeholder: ${name}`);
   if (/Bundle/i.test(name)) {
@@ -138,6 +142,11 @@ for (const name of ["Cyber Detective","Hashimoto","Music Festival","Archangel","
 // iOS 14 cannot parse lookbehind and has no Array.prototype.at.
 assert(!/\(\?<[=!]/.test(source), 'RegExp lookbehind breaks iOS 14 parsing');
 assert(!/\.at\s*\(/.test(source), 'Array.at breaks Safari 14 menu keyboard navigation');
+const sharedSource=fs.readFileSync(require('node:path').join(__dirname,'../assets/skin-visuals.js'),'utf8');
+assert(!/\(\?<[=!]/.test(sharedSource)&&!/\.at\s*\(/.test(sharedSource),'Shared skin effects retain Safari 14 syntax compatibility');
+const dangerous='<img src=x onerror=alert(1)> Illidan __ROSHINE_NAME_0__';
+assert(!shared.formatName(dangerous).includes('<img'),'Shared formatter never creates user-provided markup');
+assert(shared.formatName(dangerous).includes('__ROSHINE_NAME_0__'),'Literal placeholder-like input is preserved');
 for (const text of ['Junker Queen Bundle', 'Junk Queen Bundle']) {
   assert(!api.styleSkinItem(text).includes('ac-special-skin-shop'), text);
 }

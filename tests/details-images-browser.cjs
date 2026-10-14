@@ -37,6 +37,29 @@ async function waitImage(locator) {
   await locator.page().waitForFunction(image => image.complete && image.naturalWidth > 0,await locator.elementHandle());
 }
 
+async function assertFilledCard(image) {
+  const geometry=await image.evaluate(image=>{
+    const img=image.getBoundingClientRect(),box=image.closest('.card-art').getBoundingClientRect(),style=getComputedStyle(image);
+    return {fit:style.objectFit,position:style.objectPosition,image:{width:img.width,height:img.height,x:img.x,y:img.y},box:{width:box.width,height:box.height,x:box.x,y:box.y}};
+  });
+  assert.equal(geometry.fit,'cover','card artwork must fill the frame proportionally, without letterboxing');
+  assert.equal(geometry.position,'50% 50%','keep the character centered');
+  for(const key of ['width','height','x','y'])assert(Math.abs(geometry.image[key]-geometry.box[key])<1,'card artwork must occupy the full frame: '+key);
+}
+
+async function assertNaturalDialog(image) {
+  const geometry=await image.evaluate(image=>{
+    const img=image.getBoundingClientRect(),box=image.parentElement.getBoundingClientRect(),close=document.getElementById('closeDialog').getBoundingClientRect();
+    return {ratio:img.width/img.height,natural:image.naturalWidth/image.naturalHeight,image:{width:img.width,height:img.height,x:img.x,y:img.y},box:{width:box.width,height:box.height,x:box.x,y:box.y},closeTop:close.top,closeBottom:close.bottom};
+  });
+  assert(Math.abs(geometry.ratio-geometry.natural)<.01,'large artwork must retain its original proportions without cropping or stretching');
+  for(const key of ['width','height','x','y'])assert(Math.abs(geometry.image[key]-geometry.box[key])<1,'no empty bars in the large image area: '+key);
+  assert(geometry.closeTop>=geometry.box.y&&geometry.closeBottom<=geometry.box.y+geometry.box.height,'close button overlays the image, not an empty header');
+  const viewport=await image.page().evaluate(()=>({width:innerWidth,height:innerHeight}));
+  const dialog=await image.page().locator('#skinDialog').boundingBox();
+  assert(dialog.x>=0&&dialog.y>=0&&dialog.x+dialog.width<=viewport.width+1&&dialog.y+dialog.height<=viewport.height+1,'large viewer stays within the current viewport');
+}
+
 (async () => {
   await new Promise(resolve => server.listen(0,'127.0.0.1',resolve));
   const base = 'http://127.0.0.1:'+server.address().port;
@@ -85,35 +108,46 @@ async function waitImage(locator) {
       assert.equal(await cardImage.getAttribute('src'),items[0].image,'cards must load recorded full artwork rather than 288x162 thumbnails');
       assert.equal(await cardImage.evaluate(image => image.naturalWidth),1920);
       assert(!requests.some(url => thumbnail(new URL(url))),'successful originals need no thumbnail request');
-      assert.equal(await cardImage.evaluate(image => getComputedStyle(image).objectFit),'scale-down','show the whole artwork and do not enlarge small fallbacks');
+      await assertFilledCard(cardImage);
       await card.hover();
       assert.equal(await cardImage.evaluate(image => getComputedStyle(image).transform),'none','hover must not enlarge or crop artwork');
       await card.click();await waitImage(dialogImage);
       assert.equal(await dialogImage.getAttribute('src'),items[0].image);
-      assert.equal(await dialogImage.evaluate(image => getComputedStyle(image).objectFit),'scale-down');
+      await assertNaturalDialog(dialogImage);
+      if(!scenario.legacy)assert((await page.locator('#skinDialog').boundingBox()).width>900,'desktop large image should use a wider viewer');
       assert.equal(await page.locator('#dialogSource').getAttribute('href'),items[0].image);
       assert.equal(await page.locator('#dialogPreview').getAttribute('href'),items[0].preview,'explicit preview links retain their recorded thumbnail');
       await page.keyboard.press('Escape');
       await load('thumbnail');await waitImage(cardImage);
       assert.equal(await cardImage.getAttribute('src'),items[0].preview,'a recorded primary thumbnail remains available if originals fail');
       assert.equal(await cardImage.evaluate(image => image.naturalWidth),288);
+      await assertFilledCard(cardImage);
       assert(requests.indexOf(items[0].image) < requests.indexOf(items[0].preview));
       await card.click();await waitImage(dialogImage);
       assert.equal(await dialogImage.getAttribute('src'),items[0].preview);
-      assert.equal(await dialogImage.evaluate(image => getComputedStyle(image).objectFit),'scale-down');
+      await assertNaturalDialog(dialogImage);
       await page.keyboard.press('Escape');
       await load('fandom');await waitImage(cardImage);
       assert.equal(await cardImage.getAttribute('src'),items[0].fallbackImage,'Fandom original follows exhaustion of primary sources');
       assert(requests.indexOf(items[0].image) < requests.indexOf(items[0].preview));
       assert(requests.indexOf(items[0].preview) < requests.indexOf(items[0].fallbackImage));
       assert(!requests.includes(items[0].fallbackPreview),'successful Fandom original needs no Fandom thumbnail');
+      await assertFilledCard(cardImage);
       await card.click();await waitImage(dialogImage);
       assert.equal(await dialogImage.getAttribute('src'),items[0].fallbackImage);
+      await assertNaturalDialog(dialogImage);
       await page.keyboard.press('Escape');
       await load('unavailable');await card.scrollIntoViewIfNeeded();
       await page.waitForFunction(() => Array.from(document.querySelectorAll('.skin-card')).find(card => card.textContent.includes('Academy'))?.querySelector('.card-art').classList.contains('image-error'));
       assert(!(await cardImage.isVisible()));
       assert.equal(await page.locator('.skin-card').count(),items.length,'image failures retain ownership records');
+      await card.click();
+      await page.waitForFunction(()=>document.querySelector('.dialog-image-wrap')?.classList.contains('image-error'));
+      assert(await page.locator('#dialogImageFallback').isVisible());
+      await page.keyboard.press('Escape');
+      mode='primary';await card.click();await waitImage(dialogImage);
+      assert(!(await page.locator('#dialogImageFallback').isVisible()),'opening again clears the old missing-image state');
+      await assertNaturalDialog(dialogImage);await page.keyboard.press('Escape');
       if (process.env.LIVE_IMAGE_CHECK === '1') {
         await load('live');
         const measured=[];
@@ -123,16 +157,18 @@ async function waitImage(locator) {
           measured.push(await image.evaluate(image => ({src:image.currentSrc,width:image.naturalWidth,height:image.naturalHeight,fit:getComputedStyle(image).objectFit})));
           assert.equal(await image.getAttribute('src'),item.image);
           assert((await image.evaluate(image => image.naturalWidth)) >= 1920);
+          await assertFilledCard(image);
         }
         if (process.env.SCREENSHOT_DIR) await page.screenshot({path:path.join(process.env.SCREENSHOT_DIR,scenario.legacy?'skins-live-mobile.png':'skins-live-desktop.png'),fullPage:true});
         await card.click();await waitImage(dialogImage);
         assert.equal(await dialogImage.getAttribute('src'),items[0].image);
-        if (process.env.SCREENSHOT_DIR) await page.screenshot({path:path.join(process.env.SCREENSHOT_DIR,scenario.legacy?'dialog-live-mobile.png':'dialog-live-desktop.png'),fullPage:true});
+        await assertNaturalDialog(dialogImage);
+        if (process.env.SCREENSHOT_DIR) await page.screenshot({path:path.join(process.env.SCREENSHOT_DIR,scenario.legacy?'dialog-live-mobile.png':'dialog-live-desktop.png')});
         console.log(JSON.stringify({scenario:scenario.name,liveImages:measured}));
       }
       assert.deepEqual(errors,[]);
       assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
-      console.log(JSON.stringify({scenario:scenario.name,fullArtwork:true,primaryThumbnailFallback:true,fandomOriginalFallback:true,noImageFallback:true,defaultRarity:true,pageErrors:errors}));
+      console.log(JSON.stringify({scenario:scenario.name,fullArtwork:true,cardFillsFrame:true,dialogKeepsNaturalRatio:true,dialogWithinViewport:true,primaryThumbnailFallback:true,fandomOriginalFallback:true,noImageFallback:true,defaultRarity:true,pageErrors:errors}));
     } finally {await browser.close();}
   }
 })().catch(error => {console.error(error);process.exitCode=1;}).finally(() => server.close());

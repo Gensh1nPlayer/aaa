@@ -14,7 +14,7 @@
 .skin-dialog.legacy-dialog[open] {
   display: block; position: fixed; z-index: 200;
   top: 50%; left: 50%; margin: 0; transform: translate(-50%,-50%);
-  width: min(690px,calc(100% - 28px)); max-height: calc(100vh - 40px);
+  width: min(1040px,calc(100% - 32px)); max-height: calc(100vh - 32px);
 }
 html[dir="rtl"] .skin-card, html[dir="rtl"] .competitive-summary,
 html[dir="rtl"] .account-table th, html[dir="rtl"] .account-table td { text-align: right; }
