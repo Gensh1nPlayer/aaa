@@ -707,7 +707,8 @@
       const urlLang = new URLSearchParams(window.location.search).get("lang");
       if (SUPPORTED_LANGUAGES.includes(urlLang)) return urlLang;
 
-      const saved = localStorage.getItem(LANG_KEY) || localStorage.getItem("locale-choice");
+      let saved;
+      try { saved = localStorage.getItem(LANG_KEY) || localStorage.getItem("locale-choice"); } catch {}
       if (SUPPORTED_LANGUAGES.includes(saved)) return saved;
 
       const edgeLanguage = String(window.__ROSHINE_EDGE_LANG__ || "").toLowerCase();
@@ -878,7 +879,10 @@
     document.getElementById("langSelect").addEventListener("change", e=>{
       const lang = e.target.value;
       applyLang(lang);
-      localStorage.setItem(LANG_KEY, lang);
+      const url = new URL(window.location.href);
+      url.searchParams.set("lang", currentLang);
+      history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
+      try { localStorage.setItem(LANG_KEY, currentLang); } catch {}
       gen();
     });
 
@@ -898,9 +902,9 @@
     const $ = id => document.getElementById(id);
 
     function hexToBytes(s){
-      s = s.trim().replace(/^0x/i,"").replace(/[^0-9a-f]/ig,"");
+      s = s.trim().replace(/^0x/i,"").replace(/[ \t\r\n]/g,"");
       if (!s) throw new Error("ERR_EMPTY_KEY");
-      if (s.length % 2) throw new Error("ERR_INVALID_KEY");
+      if (!/^[0-9a-f]+$/i.test(s) || s.length % 2) throw new Error("ERR_INVALID_KEY");
       return Uint8Array.from(s.match(/../g).map(x => parseInt(x,16)));
     }
     function counterBytes(c){
@@ -927,9 +931,30 @@
       return raw;
     }
 
+    let generation = 0;
+    let pendingGeneration = null;
     async function gen(){
+      const secret = $("secret").value;
+      const ctr = Math.floor(Date.now()/1000 / PERIOD);
+      if (pendingGeneration && !pendingGeneration.done &&
+          pendingGeneration.secret === secret && pendingGeneration.ctr === ctr) return;
+      const request = { version: ++generation, secret, ctr, done: false };
+      const changed = !pendingGeneration || pendingGeneration.secret !== secret || pendingGeneration.ctr !== ctr;
+      pendingGeneration = request;
+      // A result/error may only update the input and time window that requested it.
+      const isCurrent = () => request.version === generation && $("secret").value === secret;
+      const canWrite = () => {
+        if (!isCurrent()) return false;
+        if (Math.floor(Date.now()/1000 / PERIOD) !== ctr) {
+          gen();
+          return false;
+        }
+        return true;
+      };
       const statusEl = $("status");
-      if (!$("secret").value.trim()) {
+      if (changed) $("code").textContent = "--------";
+      if (!secret.trim()) {
+        request.done = true;
         $("code").textContent = "--------";
         if (statusEl) {
           statusEl.textContent = "";
@@ -938,15 +963,16 @@
         return;
       }
       try{
-        const key = hexToBytes($("secret").value);
-        const ctr = Math.floor(Date.now()/1000 / PERIOD);
+        const key = hexToBytes(secret);
         const mac = await hmacSha1(key, counterBytes(ctr));
+        if (!canWrite()) return;
         $("code").textContent = fmt(truncate(mac));
         if (statusEl){
           statusEl.textContent = "";
           statusEl.classList.remove("err","ok");
         }
       }catch(e){
+        if (!canWrite()) return;
         $("code").textContent = "--------";
         if (!statusEl) return;
         let msg;
@@ -956,6 +982,8 @@
         statusEl.textContent = msg;
         statusEl.classList.add("err");
         statusEl.classList.remove("ok");
+      }finally{
+        request.done = true;
       }
     }
 
@@ -1000,12 +1028,7 @@
 
     $("clear").addEventListener("click", () => {
       $("secret").value = "";
-      $("code").textContent = "--------";
-      const statusEl = $("status");
-      if (statusEl){
-        statusEl.textContent = "";
-        statusEl.classList.remove("err","ok");
-      }
+      gen();
     });
 
     const urlKey = getKeyFromURL();

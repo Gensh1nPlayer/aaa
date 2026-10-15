@@ -25,6 +25,7 @@ node tools/import-hero-gallery-account.mjs C:\path\to\snapshot.json 18
 18 必须存在于 accounts.json，且与快照 accountId 一致。更新已存在详情需明确加 --replace。
 脚本固定名称为 Account #ID，只保留展示白名单；校验数字、完整/部分状态、重复商品和身份绑定。
 使用文件锁防止并行导入互相覆盖。异常中断遗留 account_details.json.lock 时，先确认导入进程已结束再处理锁。
+索引提交失败时恢复已有快照原字节；新建导入失败时仅移除该次新建的快照。若回滚也失败，错误会列出保留的 `.rollback` 备份或待处理文件，先人工恢复再继续导入。备份已排除在 Git 上传之外。此恢复机制不能保证断电或强制终止时的跨文件原子提交。
 
 导入生成两个文件，确认后一起提交：
 - account_details.json：轻量索引（schemaVersion 2）。
@@ -35,6 +36,7 @@ node tools/import-hero-gallery-account.mjs C:\path\to\snapshot.json 18
 完整采集不代表拥有完整目录；未采集物品不推断为未拥有。未知目录 ID 与联赛原名保留为暂无图片。
 目前展示 5 种货币、6 个栏目；lootBoxes 保留字段但不显示。
 Overview 排在第一项且默认展示；等级、手工标注的 OW1/OW2 与货币统一放在 Overview。
+Most played heroes 按已知时长降序取前三，未知时长排后；Statistics 保留采集记录顺序，不改原快照。
 页面背景与主站共用星空 / 氛围样式；介绍不使用大卡片，仅 ID 查询表单保留卡片。
 采集时间统一使用 `YYYY-MM-DD HH:mm:ss UTC`，不随访问者浏览器时区变化；原始时间字段不变。
 皮肤默认按稀有度从高到低排序，未知稀有度最后；切换账号和 Reset 恢复此默认顺序。

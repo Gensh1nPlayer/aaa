@@ -28,6 +28,9 @@ Account details integration:
 - node tests/details-images-browser.cjs (original artwork and source failure fallback; no TLS required)
 - node tests/details-skin-effects.cjs (name colors/glow parity with stock, Mythic/Ultra labels, escaping and five languages)
 - node tests/language-browser.cjs (all five selectors, Japanese single-line labels, no checkmarks; TLS variables recommended for Auth)
+- node tests/auth-regressions.cjs (TLS variables required; RFC vectors, strict Hex input, stale async results, storage failures and language URL persistence)
+- node tests/policy-regressions.cjs (storage failures, keyboard language selection, English-based warranty conditions and scrollable small-screen 404)
+- node tests/site-regressions.cjs (invalid inventory rows, card reuse, stable IDs, language reload, storage failures and secondary text contrast)
 - node tests/collector-bridge.cjs (Windows; set COLLECTOR_PACKAGE to the local website-ready package)
 
 The legacy collector bridge requires a package containing import-to-site.ps1; the current local
@@ -40,3 +43,13 @@ schema-1 compatibility, complete/partial fidelity, privacy filtering, ID mismatc
 malformed paths, index failure, unknown catalog entries, five languages, mobile widths,
 and a disabled-native-dialog fallback with keyboard focus restoration.
 Browser fixtures stay in the test HTTP server and are never written to public stock.
+The details-browser suite uses fixed account fixtures, including #185 with the new
+details method; no real account needs a screenshot for that test to pass.
+Overview's most-played heroes are checked using unsorted recorded playtimes,
+while the full Statistics table must retain its recorded order.
+
+Import recovery checks inject filesystem errors in disposable fixture directories.
+An index commit failure restores an existing snapshot byte-for-byte, or removes
+only the new snapshot created by that import. If rollback also fails, the error
+identifies the retained .rollback backup or new file that needs manual recovery.
+These checks do not prove cross-file atomicity during power loss or process termination.

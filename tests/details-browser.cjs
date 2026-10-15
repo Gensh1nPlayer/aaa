@@ -5,7 +5,13 @@ const path = require('node:path');
 const vm = require('node:vm');
 const { chromium, webkit } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const root = path.resolve(__dirname, '..');
-const inventory = JSON.parse(fs.readFileSync(path.join(root,'accounts.json'),'utf8')).accounts;
+// Fixed public-boundary fixtures, not assumptions about current stock order.
+// #185 intentionally uses the new details method, with no screenshot required.
+const inventory = [
+  {id:183,level:'68 - OW2',status:'In Stock',price:'$20',screenshot:''},
+  {id:185,level:'39 - OW2',status:'In Stock',price:'$30',screenshot:''},
+  {id:456,level:'52 - OW2',status:'In Stock',price:'$40',screenshot:'https://example.invalid/legacy-screenshot'}
+];
 const available = inventory.filter(a => /in\s*stock/i.test(a.status));
 assert(available.length > 1);
 const id = String(available[0].id), oldId = String(available[1].id);
@@ -21,13 +27,20 @@ const snapshot = {
   uncataloguedOwnedItems:[{hero:'Mauga',category:'skins',name:'<img src=x onerror=alert(1)>'}],
   competitive:{ranks:{tank:'Gold 3',damage:'Placement 2/10'}},
   profile:{accountLevel:669,endorsementLevel:5,timePlayedHours:1325,gamesPlayed:10,gamesWon:6,
-    roleStats:{tank:{timePlayedHours:2,gamesWon:1}},heroesPlayed:[{hero:'Ana',level:44,timePlayedHours:120}]}
+    roleStats:{tank:{timePlayedHours:2,gamesWon:1}},heroesPlayed:[
+      {hero:'Reaper',level:29,timePlayedHours:5},
+      {hero:'Zenyatta',level:10,timePlayedHours:4},
+      {hero:'Soldier 76',level:38,timePlayedHours:44},
+      {hero:'D.Va',level:null,timePlayedHours:67},
+      {hero:'Ana',level:44,timePlayedHours:null}
+    ]}
 };
 let mode = 'ready';
-const manifest = {schemaVersion:2,accounts:{[id]:{file:'acc_details/data/'+id+'.json'}}};
+const manifest = {schemaVersion:2,accounts:{[id]:{file:'acc_details/data/'+id+'.json'},185:{file:'acc_details/data/185.json'}}};
 const server = http.createServer((req,res) => {
   const pathname = new URL(req.url,'http://localhost').pathname;
   res.setHeader('Content-Type','application/json');
+  if (pathname === '/accounts.json') {res.end(JSON.stringify({accounts:inventory}));return;}
   if (pathname === '/account_details.json') {
     if (mode === 'unavailable') {res.writeHead(503);res.end('{}');return;}
     res.end(JSON.stringify(mode === 'inline' ? {schemaVersion:1,accounts:{[id]:snapshot}} : mode === 'badPath' ? {schemaVersion:2,accounts:{[id]:{file:'../private.json'}}} : manifest));return;
@@ -78,7 +91,8 @@ const server = http.createServer((req,res) => {
       const mainBackground=await page.evaluate(()=>({color:getComputedStyle(document.body).backgroundColor,image:getComputedStyle(document.body).backgroundImage,glow:getComputedStyle(document.body,'::after').backgroundImage}));
       assert.equal(await page.locator('.account-card').count(),available.length);
       assert.match(await newLink.textContent(),/View Details/);
-      assert.equal(await page.locator('.account-card a[href="'+available[1].screenshot+'"]').count(),1,'Old screenshot must remain unchanged');
+      assert.equal(await page.locator('.account-card a[href$="#185"]').count(),1,'#185 uses details without requiring a screenshot');
+      assert.equal(await page.locator('.account-card a[href="'+inventory[2].screenshot+'"]').count(),1,'Legacy links remain supported without depending on real stock order');
       const [details]=await Promise.all([page.waitForEvent('popup'),newLink.click()]);
       details.on('pageerror',e=>errors.push(e.message));
       await details.waitForFunction(()=>document.body.classList.contains('has-account'));
@@ -86,6 +100,12 @@ const server = http.createServer((req,res) => {
       assert.equal(await details.locator('.tabs [data-tab]').first().getAttribute('data-tab'),'overview');
       assert.equal(await details.locator('.tab.active').getAttribute('data-tab'),'overview');
       assert(await details.locator('#accountPanel').isVisible());
+      const mostPlayed=details.locator('.account-section').filter({has:details.locator('h2',{hasText:'Most played heroes'})});
+      assert.deepEqual(await mostPlayed.locator('tbody tr td:first-child').allTextContents(),['D.Va','Soldier 76','Reaper'],'Overview uses descending known playtime, not input order');
+      await details.locator('[data-tab="statistics"]').click();
+      const heroStatistics=details.locator('.account-section').filter({has:details.locator('h2',{hasText:'Hero levels and playtime'})});
+      assert.deepEqual(await heroStatistics.locator('tbody tr td:first-child').allTextContents(),snapshot.profile.heroesPlayed.map(hero=>hero.hero),'Overview must not mutate the recorded statistics order');
+      await details.locator('[data-tab="overview"]').click();
       assert.equal(await details.locator('.account-summary').count(),0);
       assert.equal(await details.locator('#headerAccountId').count(),0);
       assert(await details.locator('#accountPanel #overviewBalances').isVisible());

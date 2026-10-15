@@ -430,7 +430,9 @@
     }
     const heroes = profile.heroesPlayed;
     if (heroes.length) {
-      const shown = state.tab === 'statistics' ? heroes : heroes.slice(0, 3);
+      const shown = state.tab === 'statistics' ? heroes : heroes.slice().sort((a, b) =>
+        (b.timePlayedHours ?? -1) - (a.timePlayedHours ?? -1)
+      ).slice(0, 3);
       content.append(accountSection(state.tab === 'overview' ? 'Most played heroes' : 'Hero levels and playtime', accountTable(['Hero', 'Hero Level', 'Time Played'], shown.map((item) => [
         item.hero, item.level === null ? '—' : formatNumber(item.level), item.timePlayedHours === null ? '—' : t('{count} hrs', {count:formatNumber(item.timePlayedHours)})
       ]))));

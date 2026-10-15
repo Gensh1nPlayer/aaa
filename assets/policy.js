@@ -86,7 +86,7 @@
           <p>Digital goods are normally final once correctly delivered. A correction, replacement or refund may apply if the credentials supplied by us prevent the first login, the account had an undisclosed abnormal status at delivery, or a material listing fact cannot be verified. Contact us before changing security information so the issue can be documented.</p>
 
           <h2>6. Warranty and after-sales support</h2>
-          <p>If an account is reclaimed, hacked or permanently lost because of a previous-owner issue, the lifetime security warranty provides an equal-value replacement or full compensation after verification. Eligible OW2 accounts also receive unlimited assistance for unlock-related issues. Region changes and unban appeal assistance are optional paid services; official approval is never guaranteed.</p>
+          <p>Under the lifetime security warranty, if an account is reclaimed or lost because of a previous-owner issue, we review the available proof and try recovery first. If recovery fails, we arrange an equal-value replacement, refund, or fair compensation based on the case and available stock. Eligible OW2 accounts include continued help with SMS unlock-related issues. Region-change assistance is an optional paid service for eligible accounts and regions; availability, cooldowns, and pricing are confirmed before the request starts. Unban appeal support is an optional paid service to help prepare an appeal for eligible store accounts; results are never guaranteed and remain subject to official review.</p>
 
           <h2>7. Buyer responsibilities</h2>
           <ul>
@@ -163,7 +163,7 @@
           <h2>5. Remboursements et corrections</h2>
           <p>Les biens numériques sont normalement définitifs après une livraison correcte. Une correction, un remplacement ou un remboursement peut s'appliquer si les identifiants empêchent la première connexion, si le compte avait un état anormal non signalé à la livraison ou si un élément essentiel de l'annonce ne peut être vérifié.</p>
           <h2>6. Garantie et support après-vente</h2>
-          <p>Si un compte est récupéré, piraté ou définitivement perdu à cause de l'ancien propriétaire, la garantie de sécurité à vie prévoit un remplacement équivalent ou une compensation complète après vérification. Les comptes OW2 éligibles bénéficient aussi d'une assistance illimitée pour les problèmes de déverrouillage. Les changements de région et l'aide aux appels de bannissement sont payants et optionnels, sans garantie d'approbation officielle.</p>
+          <p>Dans le cadre de la garantie de sécurité à vie, si un compte est repris ou perdu à cause de l'ancien propriétaire, nous examinons les preuves disponibles et essayons d’abord de récupérer le compte. Si la récupération échoue, nous organisons un remplacement de valeur équivalente, un remboursement ou une compensation équitable selon le cas et le stock disponible. Les comptes OW2 éligibles incluent une assistance continue pour les problèmes de déverrouillage par SMS. L’aide au changement de région est un service optionnel payant pour les comptes et régions éligibles ; la disponibilité, les délais entre changements et le prix sont confirmés avant la demande. L’aide à la préparation d’un appel de bannissement est un service optionnel payant pour les comptes éligibles du magasin ; les résultats ne sont jamais garantis et restent soumis à un examen officiel.</p>
           <h2>7. Responsabilités de l'acheteur</h2>
           <ul><li>Protéger les identifiants, informations de récupération et clés privées.</li><li>Suivre les consignes de transfert et conserver un appareil et une IP stables pendant la période initiale.</li><li>Ne pas utiliser le compte pour la triche, les abus, la fraude ou toute violation des règles.</li><li>Fournir des preuves exactes pour une demande de garantie ou un litige.</li></ul>
           <h2>8. Risques liés à la plateforme</h2>
@@ -231,7 +231,7 @@
           <h2>5. Erstattung und Korrektur</h2>
           <p>Digitale Güter sind nach korrekter Lieferung grundsätzlich final. Korrektur, Ersatz oder Erstattung können gelten, wenn bereitgestellte Daten den ersten Login verhindern, ein nicht offengelegter abnormaler Zustand bei Lieferung vorlag oder eine wesentliche Listing-Angabe nicht verifizierbar ist.</p>
           <h2>6. Garantie und Support</h2>
-          <p>Wird ein Account wegen eines Vorbesitzer-Problems zurückgeholt, gehackt oder dauerhaft verloren, bietet die lebenslange Sicherheitsgarantie nach Prüfung gleichwertigen Ersatz oder volle Entschädigung. Berechtigte OW2-Accounts erhalten unbegrenzte Unlock-Hilfe. Regionsänderung und Unban-Einspruch sind optionale Paid-Services; eine offizielle Genehmigung ist nie garantiert.</p>
+          <p>Wird ein Account wegen eines Vorbesitzer-Problems zurückgeholt oder geht verloren, prüfen wir im Rahmen der lebenslangen Sicherheitsgarantie die verfügbaren Nachweise und versuchen zuerst, den Account wiederherzustellen. Scheitert die Wiederherstellung, organisieren wir gleichwertigen Ersatz, eine Rückerstattung oder eine angemessene Entschädigung je nach Einzelfall und verfügbarem Bestand. Berechtigte OW2-Accounts erhalten fortlaufende Hilfe bei SMS-Freischaltungsproblemen. Hilfe beim Regionswechsel ist optional und kostenpflichtig für berechtigte Accounts und Regionen; Verfügbarkeit, Wartezeiten zwischen Änderungen und Preis werden vor Beginn bestätigt. Hilfe bei der Vorbereitung eines Unban-Einspruchs ist optional und kostenpflichtig für berechtigte Shop-Accounts; Ergebnisse sind nie garantiert und unterliegen der offiziellen Prüfung.</p>
           <h2>7. Pflichten des Käufers</h2>
           <ul><li>Zugangsdaten, Recovery-Informationen und private Schlüssel schützen.</li><li>Übergabeanweisungen befolgen und anfangs Gerät und IP stabil halten.</li><li>Den Account nicht für Cheating, Missbrauch, Betrug oder Regelverstöße nutzen.</li><li>Bei Garantie oder Streitfall richtige Nachweise vorlegen.</li></ul>
           <h2>8. Plattformrisiko</h2>
@@ -299,7 +299,7 @@
           <h2>5. الاسترداد وتصحيح الوصف</h2>
           <p>تكون الأصول الرقمية نهائية بعد التسليم الصحيح. قد ينطبق التصحيح أو الاستبدال أو الاسترداد إذا منعت البيانات المقدمة أول تسجيل دخول، أو وُجدت حالة غير معلنة عند التسليم، أو تعذر التحقق من معلومة جوهرية في الإعلان.</p>
           <h2>6. الضمان ودعم ما بعد البيع</h2>
-          <p>إذا استُعيد الحساب أو اختُرق أو فُقد نهائياً بسبب المالك السابق، يوفر ضمان الأمان مدى الحياة بديلاً بنفس القيمة أو تعويضاً كاملاً بعد التحقق. تحصل حسابات OW2 المؤهلة أيضاً على دعم غير محدود لمشكلات الفتح. تغيير المنطقة ومساعدة استئناف الحظر خدمات مدفوعة اختيارية ولا يُضمن قرار رسمي.</p>
+          <p>بموجب ضمان الأمان مدى الحياة، إذا استُرجع الحساب أو فُقد بسبب مشكلة تتعلق بالمالك السابق، نراجع الأدلة المتاحة ونحاول الاسترداد أولاً. إذا فشل الاسترداد، نرتب بديلاً بنفس القيمة أو استرداد المبلغ أو تعويضاً عادلاً بحسب الحالة والمخزون المتاح. تشمل حسابات OW2 المؤهلة مساعدة مستمرة لمشكلات إلغاء القفل عبر SMS. مساعدة تغيير المنطقة خدمة اختيارية مدفوعة للحسابات والمناطق المؤهلة؛ نؤكد التوفر وفترات الانتظار بين التغييرات والسعر قبل بدء الطلب. مساعدة إعداد استئناف الحظر خدمة اختيارية مدفوعة لحسابات المتجر المؤهلة؛ النتائج غير مضمونة وتظل خاضعة للمراجعة الرسمية.</p>
           <h2>7. مسؤوليات المشتري</h2>
           <ul><li>حماية بيانات الدخول والاسترداد والمفاتيح الخاصة.</li><li>اتباع تعليمات التسليم والحفاظ على جهاز وIP ثابتين في الفترة الأولى.</li><li>عدم استخدام الحساب للغش أو الإساءة أو الاحتيال أو مخالفة القواعد.</li><li>تقديم أدلة صحيحة عند طلب الضمان أو النزاع.</li></ul>
           <h2>8. مخاطر المنصة</h2>
@@ -366,7 +366,7 @@
           <h2>5. 返金と掲載内容の訂正</h2>
           <p>正しく引き渡されたデジタル商品は原則最終取引です。初回ログインできない、未開示の異常状態がある、重要な掲載情報を確認できない場合は、訂正、交換、返金の対象となることがあります。セキュリティ情報を変更する前にご連絡ください。</p>
           <h2>6. 保証と購入後サポート</h2>
-          <p>元所有者に起因する取り戻し、侵害、恒久的消失が確認された場合、証拠確認と復旧を先に行い、復旧できなければ状況と在庫に応じて同等品交換、返金または適正な補償を案内します。地域変更とBAN異議申し立ては有料オプションで、公式結果は保証されません。</p>
+          <p>生涯セキュリティ保証では、元所有者の問題でアカウントが取り戻されたり失われたりした場合、利用可能な証拠を確認し、まず復旧を試みます。復旧できない場合は、状況と在庫に応じて同等価値の交換、返金、または適正な補償を手配します。対象のOW2アカウントには継続的なSMSロック解除関連の支援が含まれます。地域変更の支援は有料オプションで、対象アカウントと地域に限ります。対応可否、変更間の待機期間、料金は依頼開始前に確認します。BAN異議申し立ての準備支援は対象のストアアカウント向けの有料オプションです。結果は保証されず、公式審査に従います。</p>
           <h2>7. 購入者の責任</h2>
           <ul><li>ログイン情報、復旧情報、Private Keyを安全に保管し共有しないこと。</li><li>引き渡し手順に従い、初期期間は安定した端末とIPを使用すること。</li><li>チート、悪用、詐欺、規約違反に使用しないこと。</li><li>保証・紛争対応時に正確な証拠を提示すること。</li></ul>
           <h2>8. プラットフォーム上のリスク</h2>
@@ -391,7 +391,9 @@
   };
 
   const languageFromUrl = new URLSearchParams(window.location.search).get("lang");
-  const savedLanguage = localStorage.getItem("roshine_lang");
+  let savedLanguage = null;
+  try { savedLanguage = localStorage.getItem("roshine_lang"); }
+  catch { /* Language persistence is optional when browser storage is blocked. */ }
   const edgeLanguage = String(window.__ROSHINE_EDGE_LANG__ || "").toLowerCase();
   const browserLanguage = (() => {
     const locale = String(navigator.language || "en").toLowerCase();
@@ -455,7 +457,8 @@
     document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
     document.title = `${page.title} — Roshine Account Store`;
     document.querySelector('meta[name="description"]')?.setAttribute("content", page.intro);
-    localStorage.setItem("roshine_lang", language);
+    try { localStorage.setItem("roshine_lang", language); }
+    catch { /* Keep applying the selected language without persistence. */ }
 
     Object.entries(ids).forEach(([id, key]) => setText(id, t.nav[key]));
     setText("authBtnText", t.auth);
@@ -568,6 +571,30 @@
     languageMenu.hidden = !opening;
     languageTrigger.setAttribute("aria-expanded", String(opening));
     if (opening) languageMenu.querySelector('[aria-selected="true"]')?.focus();
+  });
+  languageTrigger?.addEventListener("keydown", event => {
+    if (event.key !== "ArrowDown" && event.key !== "ArrowUp") return;
+    if (!languagePicker || !languageMenu) return;
+    event.preventDefault();
+    languagePicker.dataset.open = "true";
+    languageMenu.hidden = false;
+    languageTrigger.setAttribute("aria-expanded", "true");
+    languageMenu.querySelector('[aria-selected="true"]')?.focus();
+  });
+  languageMenu?.addEventListener("keydown", event => {
+    const options = Array.from(languageMenu.querySelectorAll("[data-language-value]"));
+    const currentIndex = options.indexOf(document.activeElement);
+    let nextIndex = currentIndex;
+    if (event.key === "ArrowDown") nextIndex = Math.min(options.length - 1, currentIndex + 1);
+    else if (event.key === "ArrowUp") nextIndex = Math.max(0, currentIndex - 1);
+    else if (event.key === "Home") nextIndex = 0;
+    else if (event.key === "End") nextIndex = options.length - 1;
+    else if (event.key === "Tab") {
+      closeLanguageMenu();
+      return;
+    } else return;
+    event.preventDefault();
+    options[nextIndex]?.focus();
   });
   languageMenu?.addEventListener("click", event => {
     const option = event.target.closest("[data-language-value]");

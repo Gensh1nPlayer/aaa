@@ -24,8 +24,36 @@ document.addEventListener("DOMContentLoaded", () => {
       const accountInventory = {
         all: [],
         detailIds: new Set(),
+        cardCache: new WeakMap(),
         collator: new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' })
       };
+
+      function validAccountRows(rows) {
+        if (!Array.isArray(rows)) throw new TypeError('accounts must be an array');
+        const ids = new Set();
+        const invalidRows = [];
+        const fields = ['level', 'status', 'price', 'highlights', 'weapons', 'rank', 'screenshot', 'balance', 'summary', 'playtime', 'coins', 'credits', 'mythicPrisms', 'prisms', 'competitivePoints', 'legacyCompetitivePoints'];
+        const flags = ['nameChange', 'freeNameChange', 'freeRename', 'top500Eligible', 'top500Eligiable', 'top500_eligible', 'top500Eligibility', 'top500', 'isTop500Eligible'];
+        const valid = rows.filter((account, index) => {
+          if (!account || typeof account !== 'object' || Array.isArray(account) ||
+              !['string', 'number'].includes(typeof account.id)) {
+            invalidRows.push(index + 1);
+            return false;
+          }
+          const id = String(account.id);
+          if (
+              !/^[1-9]\d{0,9}$/.test(id) || ids.has(id) ||
+              fields.some(field => account[field] !== null && account[field] !== undefined && !['string', 'number'].includes(typeof account[field])) ||
+              flags.some(field => account[field] !== null && account[field] !== undefined && !['string', 'number', 'boolean'].includes(typeof account[field]))) {
+            invalidRows.push(index + 1);
+            return false;
+          }
+          ids.add(id);
+          return true;
+        });
+        if (invalidRows.length) console.warn('Skipped invalid account rows (1-based):', invalidRows);
+        return valid;
+      }
 
       function parseNumber(value) {
         if (value === null || value === undefined || value === '') return 0;
@@ -168,7 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const searchableText = Object.values(acct ?? {})
-          .filter(value => value !== null && value !== undefined)
+          .filter(value => ['string', 'number', 'boolean'].includes(typeof value))
           .join(' ');
 
         // Accepted keywords (case-insensitive): TOP 500, Top 500,
@@ -183,7 +211,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (exactStockId) return String(acct?.id) === exactStockId[1];
 
         const searchableText = Object.values(acct ?? {})
-          .filter(value => value !== null && value !== undefined)
+          .filter(value => ['string', 'number', 'boolean'].includes(typeof value))
           .join(' ')
           .replace(/<[^>]*>/g, ' ')
           .replace(/\s+/g, ' ')
@@ -401,7 +429,6 @@ document.addEventListener("DOMContentLoaded", () => {
           .sort((a, b) => compareAccounts(a, b, sortSelect.value));
 
         grid.classList.toggle('is-single-result', visibleAccounts.length === 1);
-        grid.innerHTML = '';
         results.textContent = ui.results
           .replace('{shown}', visibleAccounts.length)
           .replace('{total}', accountInventory.all.length);
@@ -412,7 +439,14 @@ document.addEventListener("DOMContentLoaded", () => {
           return;
         }
 
+          const cards = document.createDocumentFragment();
           visibleAccounts.forEach(acct => {
+            const cacheKey = `${document.documentElement.lang}:${accountInventory.detailIds.has(String(acct.id))}`;
+            const cached = accountInventory.cardCache.get(acct);
+            if (cached?.key === cacheKey) {
+              cards.appendChild(cached.node);
+              return;
+            }
             const { id, highlights = '', weapons = '', rank = '', screenshot = '' } = acct;
             const hasWeapons = String(weapons ?? '').trim().length > 0;
             const level = String(acct.level ?? '');
@@ -912,8 +946,10 @@ document.addEventListener("DOMContentLoaded", () => {
             card.querySelector('[data-copy-account]')?.addEventListener('click', event => {
               copyAccountId(id, event.currentTarget);
             });
-            grid.appendChild(card);
+            accountInventory.cardCache.set(acct, { key: cacheKey, node: card });
+            cards.appendChild(card);
           });
+          grid.replaceChildren(cards);
       }
 
       window.renderAccounts = renderAccounts;
@@ -923,7 +959,7 @@ document.addEventListener("DOMContentLoaded", () => {
           const response = await fetch('accounts.json?t=' + new Date().getTime(), { cache: 'no-store' });
           if (!response.ok) throw new Error(`HTTP ${response.status}`);
           const data = await response.json();
-          accountInventory.all = Array.isArray(data.accounts) ? data.accounts : [];
+          accountInventory.all = validAccountRows(data?.accounts);
           document.dispatchEvent(new CustomEvent('roshine:inventory-loaded', { detail: { accounts: accountInventory.all } }));
           renderAccounts();
           loadAccountDetailsIndex();
@@ -1143,24 +1179,24 @@ document.addEventListener("DOMContentLoaded", () => {
         warrantyDesc:"Périmètre clair, processus transparent, protection durable.",
         warrantyCards:[
           { icon:"🛡️", badge:"PRIORITÉ", badgeType:"primary", title:"Garantie sécurité à vie",
-            desc:"En cas de récupération par l’ancien propriétaire, piratage ou perte permanente liée au précédent propriétaire : remplacement équivalent ou remboursement complet." },
-          { icon:"📂", badge:"PREUVE", badgeType:"primary", title:"Transfert vérifié",
-            desc:"Pack de sécurité (si applicable) : accès e-mail d’origine, Battle.net/Steam, assistance Authenticator, ID du compte et infos de récupération disponibles." },
+            desc:"Si le compte est récupéré ou perdu à cause d’un problème lié à un ancien propriétaire, nous examinons les preuves disponibles et tentons d’abord de le récupérer. En cas d’échec, nous proposons un remplacement de valeur équivalente, un remboursement ou une compensation équitable selon le dossier et le stock disponible." },
+          { icon:"📂", badge:"PREUVE", badgeType:"primary", title:"Informations du compte incluses",
+            desc:"La livraison comprend les informations de connexion, d’e-mail, de récupération, de commande et d’Authenticator disponibles pour ce compte. Leur contenu est confirmé avant le paiement." },
           { icon:"⚡", badge:"RAPIDE", badgeType:"primary", title:"Livraison rapide",
-            desc:"La plupart des comptes sont livrés sous 5 minutes après confirmation du paiement (comptes premium : préparation possible)." },
-          { icon:"♾️", badge:"GRATUIT", badgeType:"primary", title:"Support unlock illimité (OW2)",
-            desc:"Pour les comptes Overwatch 2 éligibles : assistance illimitée en cas de problème de déverrouillage." },
+            desc:"La plupart des commandes sont livrées peu après le paiement. Les comptes de valeur élevée peuvent demander un peu plus de temps pour vérifier les informations." },
+          { icon:"♾️", badge:"GRATUIT", badgeType:"primary", title:"Assistance SMS pour OW2",
+            desc:"Les comptes OW2 éligibles bénéficient d’une assistance continue pour les problèmes de verrouillage SMS. Ouvrez un ticket d’assistance si le verrouillage apparaît." },
           { icon:"🔄", badge:"PAYANT", badgeType:"paid", title:"Changement de région",
-            desc:"Service payant optionnel. Uniquement si la politique de la plateforme le permet." },
+            desc:"Service payant pour les comptes et régions éligibles. La disponibilité, les délais entre changements et le tarif sont confirmés avant le début de la demande." },
           { icon:"🚫", badge:"PAYANT", badgeType:"paid", title:"Assistance appel de bannissement",
-            desc:"Service payant optionnel. Aide à la soumission d’appel, sans garantie d’acceptation (décision officielle)." }
+            desc:"Pour les comptes éligibles achetés en boutique, nous pouvons aider à préparer un recours. Le résultat n’est jamais garanti et reste soumis à l’examen officiel." }
         ],
 
         faqKicker:"❓ FAQ",
         faqTitle:"Questions fréquentes",
         faqDesc:"Réponses rapides avant de passer commande.",
         faq1:"Les comptes sont-ils sûrs ? — Chaque compte provient d’un vrai joueur et possède un historique de jeu normal ; il ne s’agit pas d’un compte scripté, automatisé, produit en ferme ou en masse. Nous excluons les comptes ayant un historique connu de triche, d’abus ou d’autres infractions. Les informations essentielles de l’annonce peuvent être recoupées avec les données officielles en jeu et Battle.net lors de la vérification.",
-        faq2:"Quel est le délai de livraison ? — La plupart des commandes sont livrées sous 5 minutes après paiement. Les comptes haut de gamme peuvent nécessiter un délai supplémentaire.",
+        faq2:"Quel est le délai de livraison ? — La plupart des commandes sont prêtes peu après le paiement. Les comptes de valeur élevée peuvent prendre un peu plus de temps pour vérifier les informations avant la remise.",
         faq3:"Quels moyens de paiement sont acceptés ? — Carte bancaire, PayPal, crypto et certaines cartes cadeaux. La disponibilité et les frais sont à confirmer sur Discord.",
         faq4:"À quelle fréquence le stock est-il mis à jour ? — Le statut des ventes est actualisé en temps réel et de nouveaux comptes sont généralement ajoutés tous les 7 jours. Le compte à rebours ci-dessus indique la prochaine mise à jour prévue.",
         faq5:{
@@ -1234,24 +1270,24 @@ document.addEventListener("DOMContentLoaded", () => {
         warrantyDesc:"Klare Regeln, transparenter Ablauf, langfristiger Schutz.",
         warrantyCards:[
           { icon:"🛡️", badge:"TOP", badgeType:"primary", title:"Lebenslange Sicherheitsgarantie",
-            desc:"Bei Rückforderung, Hack oder dauerhaftem Verlust durch Vorbesitzer-Themen: gleichwertiger Ersatz oder volle Rückerstattung." },
-          { icon:"📂", badge:"NACHWEIS", badgeType:"primary", title:"Verifizierte Übergabe",
-            desc:"Sicherheits-Paket (falls zutreffend): Original-E-Mail, Battle.net/Steam, Authenticator-Unterstützung, Account-ID und verfügbare Recovery-Daten." },
+            desc:"Wird ein Account wegen eines Problems mit einem Vorbesitzer zurückgefordert oder verloren, prüfen wir die verfügbaren Nachweise und versuchen zuerst die Wiederherstellung. Scheitert sie, bieten wir je nach Fall und verfügbarem Bestand gleichwertigen Ersatz, eine Rückerstattung oder faire Entschädigung an." },
+          { icon:"📂", badge:"NACHWEIS", badgeType:"primary", title:"Accountinformationen inklusive",
+            desc:"Die Übergabe umfasst die für den Account verfügbaren Login-, E-Mail-, Wiederherstellungs-, Bestell- und Authenticator-Informationen. Der genaue Umfang wird vor der Zahlung bestätigt." },
           { icon:"⚡", badge:"SCHNELL", badgeType:"primary", title:"Schnelle Lieferung",
-            desc:"Meist innerhalb von 5 Minuten nach Zahlungsbestätigung (seltene High-Tier-Accounts können mehr Zeit brauchen)." },
-          { icon:"♾️", badge:"KOSTENLOS", badgeType:"primary", title:"Unbegrenzter Unlock-Support (OW2)",
-            desc:"Für berechtigte Overwatch-2-Accounts: unbegrenzte Hilfe bei Unlock-Problemen." },
+            desc:"Die meisten Bestellungen werden kurz nach der Zahlung übergeben. Bei höherwertigen Accounts kann die erneute Prüfung der Informationen etwas länger dauern." },
+          { icon:"♾️", badge:"KOSTENLOS", badgeType:"primary", title:"OW2-SMS-Support",
+            desc:"Berechtigte OW2-Accounts erhalten fortlaufende Hilfe bei SMS-Sperren. Öffne ein Support-Ticket, wenn eine solche Sperre auftritt." },
           { icon:"🔄", badge:"PAID", badgeType:"paid", title:"Regionsänderung",
-            desc:"Optionaler Paid-Service. Nur wenn es die Plattform-Richtlinien zulassen." },
+            desc:"Ein kostenpflichtiger Service für berechtigte Accounts und Regionen. Verfügbarkeit, Wartefristen und Preis werden vor Beginn der Anfrage bestätigt." },
           { icon:"🚫", badge:"PAID", badgeType:"paid", title:"Unban-Einspruch Hilfe",
-            desc:"Optionaler Paid-Service. Wir helfen beim Einreichen – keine Erfolgsgarantie (offizielle Entscheidung)." }
+            desc:"Für berechtigte, im Store gekaufte Accounts helfen wir bei der Vorbereitung eines Einspruchs. Das Ergebnis wird nie garantiert und hängt von der offiziellen Prüfung ab." }
         ],
 
         faqKicker:"❓ FAQ",
         faqTitle:"Häufige Fragen",
         faqDesc:"Kurzantworten für den schnellen Kaufentscheid.",
         faq1:"Sind die Accounts sicher? — Jeder Account stammt von einem echten Spieler und hat eine normale Spielhistorie; es handelt sich nicht um Script-, Bot-, Farm- oder Massenware. Accounts mit bekannter Cheat-, Missbrauchs- oder sonstiger Regelverstoß-Historie werden ausgeschlossen. Wichtige Angaben können bei der Prüfung mit offiziellen In-Game- und Battle.net-Daten abgeglichen werden.",
-        faq2:"Wie schnell erfolgt die Lieferung? — Die meisten Bestellungen werden innerhalb von 5 Minuten nach Zahlung geliefert. Seltene High-Tier-Accounts können etwas mehr Zeit benötigen.",
+        faq2:"Wie schnell erfolgt die Lieferung? — Die meisten Bestellungen sind kurz nach der Zahlung bereit. Bei höherwertigen Accounts kann die erneute Prüfung vor der Übergabe etwas länger dauern.",
         faq3:"Welche Zahlungsmethoden werden unterstützt? — Karte, PayPal, Krypto und ausgewählte Geschenkkarten. Verfügbarkeit und Gebühren bitte auf Discord bestätigen.",
         faq4:"Wie oft wird der Bestand aktualisiert? — Der Verkaufsstatus wird in Echtzeit aktualisiert; neue Accounts werden in der Regel alle 7 Tage ergänzt. Der Countdown oben zeigt die nächste geplante Bestandsaktualisierung.",
         faq5:{
@@ -1325,24 +1361,24 @@ document.addEventListener("DOMContentLoaded", () => {
         warrantyDesc:"نطاق واضح، عملية شفافة، حماية طويلة المدى.",
         warrantyCards:[
           { icon:"🛡️", badge:"أساسي", badgeType:"primary", title:"ضمان أمني مدى الحياة",
-            desc:"في حال الاسترجاع من المالك السابق أو الاختراق أو الفقدان الدائم بسبب مشاكل المالك السابق: استبدال بقيمة مماثلة أو تعويض كامل." },
-          { icon:"📂", badge:"إثبات", badgeType:"primary", title:"تسليم موثّق",
-            desc:"حزمة أمان (حسب توفرها): وصول البريد الأصلي، Battle.net / Steam، دعم نقل Authenticator، رقم الحساب ومعلومات الاسترداد المتاحة." },
+            desc:"إذا استُرجع الحساب أو فُقد بسبب مشكلة مرتبطة بمالك سابق، نراجع الأدلة المتاحة ونحاول استعادته أولاً. إذا تعذرت الاستعادة، نرتب بديلاً بالقيمة نفسها أو استرداداً مالياً أو تعويضاً عادلاً حسب الحالة والمخزون المتاح." },
+          { icon:"📂", badge:"إثبات", badgeType:"primary", title:"معلومات الحساب مشمولة",
+            desc:"يشمل التسليم معلومات الدخول والبريد والاسترداد والطلبات وAuthenticator المتاحة لهذا الحساب. نؤكد المعلومات المشمولة قبل الدفع." },
           { icon:"⚡", badge:"سريع", badgeType:"primary", title:"تسليم سريع",
-            desc:"يتم تسليم معظم الطلبات خلال 5 دقائق بعد تأكيد الدفع (قد تتطلب الحسابات المميزة وقتاً إضافياً)." },
-          { icon:"♾️", badge:"مجاني", badgeType:"primary", title:"دعم Unlock مجاني غير محدود (OW2)",
-            desc:"للحسابات المؤهلة في Overwatch 2: مساعدة غير محدودة في مشاكل الفتح." },
+            desc:"تُسلَّم معظم الطلبات بعد الدفع بوقت قصير. قد تستغرق الحسابات الأعلى قيمة وقتاً أطول قليلاً لإعادة التحقق من المعلومات." },
+          { icon:"♾️", badge:"مجاني", badgeType:"primary", title:"دعم قفل SMS لحسابات OW2",
+            desc:"تشمل حسابات OW2 المؤهلة دعماً مستمراً لمشكلات قفل SMS. افتح تذكرة دعم إذا ظهر القفل." },
           { icon:"🔄", badge:"مدفوع", badgeType:"paid", title:"خدمة تغيير المنطقة",
-            desc:"خدمة مدفوعة اختيارياً. يتم التنفيذ فقط وفق سياسة المنصة." },
+            desc:"خدمة مدفوعة للحسابات والمناطق المؤهلة. نؤكد التوفر وفترات الانتظار والسعر قبل بدء الطلب." },
           { icon:"🚫", badge:"مدفوع", badgeType:"paid", title:"مساعدة استئناف الحظر",
-            desc:"خدمة مدفوعة اختيارياً. نساعد في إعداد وتقديم الاستئناف دون ضمان القبول (قرار رسمي)." }
+            desc:"يمكننا المساعدة في إعداد استئناف للحسابات المؤهلة المشتراة من المتجر. لا نضمن النتيجة، فهي تخضع دائماً للمراجعة الرسمية." }
         ],
 
         faqKicker:"❓ الأسئلة",
         faqTitle:"الأسئلة الشائعة",
         faqDesc:"إجابات سريعة قبل الطلب.",
         faq1:"هل الحسابات آمنة؟ — كل حساب مصدره لاعب حقيقي وله سجل لعب طبيعي، وليس حساب سكربت أو بوت أو مزرعة أو إنتاج جماعي. نستبعد الحسابات التي لها سجل معروف في الغش أو الإساءة أو مخالفة القواعد. ويمكن مطابقة المعلومات الأساسية في كل عرض مع بيانات اللعبة وBattle.net الرسمية أثناء التحقق.",
-        faq2:"ما سرعة التسليم؟ — يتم تسليم معظم الطلبات خلال 5 دقائق بعد الدفع. قد تتطلب الحسابات المميزة وقتًا إضافيًا للتحضير.",
+        faq2:"ما سرعة التسليم؟ — تكون معظم الطلبات جاهزة بعد الدفع بوقت قصير. قد تستغرق الحسابات الأعلى قيمة وقتاً أطول قليلاً لإعادة التحقق من المعلومات قبل التسليم.",
         faq3:"ما طرق الدفع المدعومة؟ — البطاقات وPayPal والعملات الرقمية وبعض بطاقات الهدايا. يرجى تأكيد التوفر والرسوم عبر Discord.",
         faq4:"كم مرة يتم تحديث المخزون؟ — يتم تحديث حالة المبيعات فورًا، وتُضاف حسابات جديدة عادةً كل 7 أيام. يعرض العدّ التنازلي أعلاه موعد التحديث المخطط التالي.",
         faq5:{
@@ -1893,7 +1929,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const urlLang = new URLSearchParams(window.location.search).get("lang");
       if (SUPPORTED_LANGUAGES.includes(urlLang)) return urlLang;
 
-      const saved = localStorage.getItem(LANG_KEY);
+      let saved = '';
+      try { saved = localStorage.getItem(LANG_KEY); } catch { /* Preferences are optional. */ }
       if (SUPPORTED_LANGUAGES.includes(saved)) return saved;
 
       // Hosting/CDN geo logic may set this before main.js without exposing visitor IPs to a third party.
@@ -2194,5 +2231,8 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("langSelect").addEventListener("change", (e)=>{
       const lang = e.target.value;
       applyLang(lang);
-      localStorage.setItem(LANG_KEY, lang);
+      try { localStorage.setItem(LANG_KEY, lang); } catch { /* Continue without persistence. */ }
+      const url = new URL(window.location.href);
+      url.searchParams.set('lang', lang);
+      try { history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`); } catch { /* Restricted previews can reject history writes. */ }
     });

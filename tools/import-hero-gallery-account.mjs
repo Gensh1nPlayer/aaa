@@ -1,4 +1,6 @@
-import { readFile, writeFile, rename, unlink, mkdir, open } from 'node:fs/promises';
+import { readFile, writeFile, rename, unlink, mkdir, open, copyFile } from 'node:fs/promises';
+import { constants } from 'node:fs';
+import { randomUUID } from 'node:crypto';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { normalizeForSite } from './hero-gallery-import.mjs';
@@ -29,11 +31,45 @@ export async function importAccountSnapshot(jsonPath, accountId, { replace = fal
       throw new Error('此账号已有展示资料；确认更新后加 --replace');
     }
     const relative = `acc_details/data/${accountId}.json`;
+    const snapshotPath = join(root, relative);
     await mkdir(join(root, 'acc_details/data'), { recursive: true });
-    await atomicJson(join(root, relative), snapshot);
-    documentData.schemaVersion = 2;
-    documentData.accounts[accountId] = { file: relative, capturedAt: snapshot.capturedAt, inventoryStatus: snapshot.inventoryStatus };
-    await atomicJson(detailsPath, documentData);
+    let backupPath = `${snapshotPath}.${randomUUID()}.rollback`;
+    try {
+      await copyFile(snapshotPath, backupPath, constants.COPYFILE_EXCL);
+    } catch (error) {
+      if (error.code !== 'ENOENT') throw error;
+      backupPath = null;
+    }
+    // Recover caught commit failures while holding the lock. These two renames
+    // are not a cross-file transaction: process termination/power loss can interrupt them.
+    let snapshotCommitted = false;
+    try {
+      await atomicJson(snapshotPath, snapshot);
+      snapshotCommitted = true;
+      documentData.schemaVersion = 2;
+      documentData.accounts[accountId] = { file: relative, capturedAt: snapshot.capturedAt, inventoryStatus: snapshot.inventoryStatus };
+      await atomicJson(detailsPath, documentData);
+    } catch (error) {
+      try {
+        if (snapshotCommitted) {
+          if (backupPath) await rename(backupPath, snapshotPath);
+          else await unlink(snapshotPath);
+        } else if (backupPath) {
+          await unlink(backupPath);
+        }
+      } catch (rollbackError) {
+        const recovery = backupPath
+          ? `旧快照原字节备份保留于 ${backupPath}，请手动恢复到 ${snapshotPath}`
+          : `本次新建快照仍在 ${snapshotPath}，请手动删除`;
+        throw new AggregateError([error, rollbackError], `导入失败：${error.message}；回滚失败：${rollbackError.message}；${recovery}`);
+      }
+      throw error;
+    }
+    if (backupPath) {
+      await unlink(backupPath).catch((error) => {
+        throw new Error(`快照和索引均已更新，但旧快照备份清理失败：${backupPath}；${error.message}`, { cause: error });
+      });
+    }
   } finally {
     await lock.close();
     await unlink(lockPath);
