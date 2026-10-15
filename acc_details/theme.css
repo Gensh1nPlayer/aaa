@@ -4,7 +4,7 @@
   background: #060712;
   --detail-panel: #141527;
   --detail-line: rgba(153, 131, 219, .22);
-  --detail-muted: #a5a1be;
+  --detail-muted: #bbb7d0;
   --detail-cyan: #49d7f6;
   --detail-purple: #a579ff;
 }
@@ -92,13 +92,19 @@ button, input, select { font-family: inherit; }
 @media (forced-colors: active) { .balance-item.is-premium .balance-label, .balance-item.is-premium strong { background: none; color: CanvasText; -webkit-text-fill-color: CanvasText; text-shadow: none; } }
 .site-shell { max-width: 1610px; padding: 0 24px 110px; }
 .tabs { height: auto; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 7px; margin-bottom: 21px; padding: 0; overflow: visible; border: 0; border-radius: 0; background: none; }
-.tab { min-height: 44px; padding: 8px; border: 1px solid transparent; border-radius: 10px; color: #aaa4c5; font-size: 12px; font-weight: 700; }
+.tab { min-height: 52px; padding: 12px; border: 1px solid var(--detail-line); border-radius: 12px; color: #d4cdea; background: #151629; font-size: 14px; font-weight: 700; }
 .tab.active { color: #fff; border-color: rgba(174,125,255,.34); background: linear-gradient(110deg, rgba(132,80,238,.28), rgba(72,56,167,.18)); box-shadow: inset 0 1px rgba(255,255,255,.08); }
 .tab:hover { color: var(--detail-cyan); background: rgba(145,98,255,.09); }
 .tabs { scroll-margin-top: 94px; }
 .sidebar-label, .eyebrow, .card-hero { color: #9690b7; }
 .role-icon { filter: brightness(0) invert(1); opacity: .82; }
 .hero-search, .filters input, .filters select, .reset-button { background: #121428; border-color: var(--detail-line); color: #efecfb; }
+.hero-search, .filters input, .filters select, .reset-button { min-height: 40px; font-size: 14px; }
+.filters input, .filters select { width: 100%; min-width: 0; }
+.filters select { appearance: none; -webkit-appearance: none; background-color: #111224; color: #e7e1f7; border: 1px solid var(--detail-line); min-height: 42px; padding-inline-end: 25px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='m1 1 5 5 5-5' fill='none' stroke='%23c7bde8' stroke-width='2'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 9px center; }
+[dir="rtl"] .filters select { background-position: left 9px center; }
+.reset-button { min-width: 0; height: auto; overflow-wrap: anywhere; }
+.reset-button:hover { background: #252341; color: #efecfb; }
 .hero-search:focus, .filters input:focus, .filters select:focus { border-color: var(--detail-cyan); box-shadow: 0 0 0 3px rgba(69,216,255,.12); }
 .hero-option { color: #c6c2d8; }
 .hero-option:hover { background: rgba(126, 95, 206, .13); }
@@ -115,7 +121,7 @@ h1, h2 { color: #f2f0ff; font-family: Orbitron, Kanit, sans-serif; }
 .skin-card:hover .card-art img { transform: none; }
 .card-name, .empty-state strong, .account-metric strong, .account-card strong, .competitive-card strong { color: #f7f3ff; }
 .skin-card, .skin-dialog { --ac-weight-label: 800; }
-.card-name { padding: 2px 0; margin-top: 3px; margin-bottom: 10px; line-height: 1.3; }
+.card-name { padding: 2px 0; margin-top: 3px; margin-bottom: 10px; font-size: 18px; line-height: 1.4; overflow-wrap: anywhere; }
 .rarity-label .ac-special-skin { font-size: inherit; font-weight: 750; }
 .skin-card[data-rarity="ultra"] { border-bottom-color: #ff8295; }
 .card-bottom .catalog-label, .source-note, .empty-state, .account-card small, .account-metric span, .account-card span, .account-empty { color: var(--detail-muted); }
@@ -134,6 +140,25 @@ h1, h2 { color: #f2f0ff; font-family: Orbitron, Kanit, sans-serif; }
 .balance-label { overflow-wrap: break-word; }
 .account-metric, .account-card, .account-table, .account-empty { border-radius: 12px; }
 .account-panel-badges { display: flex; flex-wrap: wrap; gap: 8px; }
+.account-stock-tags { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 14px; }
+.account-stock-tags[hidden] { display: none; }
+.details-stock-tag, .details-version { display: inline-flex; align-items: center; min-height: 28px; padding: 5px 9px; border: 1px solid rgba(255,255,255,.15); border-radius: 999px; font: 800 12px/1.25 Kanit, sans-serif; }
+.details-stock-tag.border-tier { color: #c084fc; border-color: rgba(192,132,252,.28); background: rgba(192,132,252,.07); }
+.details-stock-tag.stacked { color: #ff5d66; border-color: rgba(255,93,102,.3); background: rgba(255,93,102,.07); }
+.details-stock-tag.premium { color: #000; border: 0; border-radius: 6px; background: linear-gradient(90deg, #facc15, #fbbf24); text-transform: uppercase; box-shadow: 0 0 8px rgba(250,204,21,.45); }
+#accountVersion { padding: 0; border: 0; background: none; gap: 6px; flex-wrap: wrap; }
+.details-version.game-version-ow1 { color: #fff0a6; border-color: rgba(250,204,21,.72); background: linear-gradient(135deg, rgba(250,204,21,.22), rgba(245,158,11,.1)); box-shadow: 0 0 12px rgba(250,204,21,.22), inset 0 0 8px rgba(255,255,255,.04); text-shadow: 0 0 7px rgba(250,204,21,.55); }
+.details-version.game-version-ow1::before { content: '◆'; margin-inline-end: .32em; color: #facc15; font-size: .58em; text-shadow: 0 0 6px rgba(250,204,21,.75); }
+.details-version.game-version-ow2 { color: #7dd3fc; border-color: rgba(41,182,255,.36); background: rgba(41,182,255,.08); box-shadow: none; text-shadow: none; }
+#accountLevel { white-space: normal; overflow-wrap: anywhere; }
+.skin-card { display: flex; flex-direction: column; min-width: 0; text-align: start; }
+.skin-card .card-art { width: 100%; flex-shrink: 0; }
+.card-name { white-space: normal; }
+.card-meta { display: flex; flex-direction: column; flex: 1; width: 100%; box-sizing: border-box; padding: 16px; }
+.card-bottom { margin-top: auto; gap: 8px; flex-wrap: wrap; }
+.card-hero { color: #bcb4d4; font-size: 12px; }
+.account-metric, .account-card { padding: 20px; }
+.account-metric strong, .account-card strong { font-size: 23px; }
 .account-section h2 { color: #ebe8f9; }
 .account-table th { color: #d7caff; background: #232039; border-bottom-color: var(--detail-line); }
 .account-table td { color: #e1def0; border-bottom-color: var(--detail-line); }
@@ -178,6 +203,7 @@ dialog::backdrop { background: rgba(3,3,14,.78); }
 @media (max-width: 850px) { .site-shell { padding: 0 16px 35px; } .lookup-hero { width: calc(100% - 32px); margin: 111px auto 25px; gap: 21px; padding: 0; } .hero-option.active { border-color: var(--detail-purple); } }
 @media (max-width: 620px) {
   .lookup-controls { flex-wrap: wrap; }
+  .account-metrics > .account-metric:last-child:nth-child(odd) { grid-column: 1 / -1; }
   .lookup-controls input { flex: 1; }
   .lookup-controls button { width: 100%; height: 43px; }
   .lookup-copy h1 { font-size: clamp(34px, 8.5vw, 46px); }
@@ -185,7 +211,7 @@ dialog::backdrop { background: rgba(3,3,14,.78); }
   .balance-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .balance-item:last-child { grid-column: 1 / -1; }
   .tabs { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px; scroll-margin-top: 82px; }
-  .tab { min-height: 44px; padding: 6px 4px; font-size: 11px; white-space: normal; }
+  .tab { min-height: 50px; padding: 8px 5px; font-size: 12px; white-space: normal; }
   .lookup-kicker { font-size: 9px; letter-spacing: .08em; gap: 5px; }
   .stock-shortcut { display: flex; margin-top: 10px; margin-left: auto; padding: 6px 11px; font-size: 11px; }
   .has-account .profile-badge { min-height: 27px; padding: 3px 8px; font-size: 10px; }

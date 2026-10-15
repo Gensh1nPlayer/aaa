@@ -125,7 +125,9 @@
     return Number.isFinite(number) ? number : null;
   }
 
+  let summaryAccounts = [];
   function updateLiveSummary(accounts) {
+    summaryAccounts = accounts;
     const available = accounts.filter(account => /in\s*stock/i.test(String(account.status || '')));
     const ow1 = available.filter(account => /\bOW1\b/i.test(String(account.level || ''))).length;
     const ow2 = available.filter(account => /\bOW2\b/i.test(String(account.level || ''))).length;
@@ -134,10 +136,12 @@
     const maximum = prices.length ? Math.max(...prices) : null;
     document.getElementById('rdAvailableCount').textContent = String(available.length);
     document.getElementById('rdVersionSplit').textContent = `${ow1} / ${ow2}`;
-    document.getElementById('rdPriceRange').textContent = minimum === null ? '—' : `${minimum.toFixed(0)}–${maximum.toFixed(0)}`;
+    const format = window.RoshineCurrency?.format || (amount => `$${amount.toFixed(1)}`);
+    document.getElementById('rdPriceRange').textContent = minimum === null ? '—' : `${format(minimum)}–${format(maximum)}`;
   }
 
   document.addEventListener('roshine:inventory-loaded', event => updateLiveSummary(event.detail.accounts));
+  document.addEventListener('roshine:currency-changed', () => updateLiveSummary(summaryAccounts));
 
   function openStockSearch() {
     const search = document.getElementById('accountSearch');

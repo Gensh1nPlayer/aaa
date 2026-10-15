@@ -9,6 +9,8 @@ async function main() {
   assert.equal(normalizeForSite({ownedSkinIds:[],accountVersion:'OW1'},'123').accountVersion,'OW1');
   assert.equal(normalizeForSite({ownedSkinIds:[]},'123').accountVersion,'');
   assert.throws(()=>normalizeForSite({ownedSkinIds:[],accountVersion:'OW3'},'123'),/accountVersion/);
+  for(const raw of ['111 - OW2','111 - OW1','1 + 222 - OW1'])assert.equal(normalizeForSite({ownedSkinIds:[],profile:{accountLevel:raw}},'123').profile.accountLevel,raw);
+  for(const raw of ['arbitrary text','111 - OW3','<script>111</script>','-1','1 +','1'.repeat(501)])assert.throws(()=>normalizeForSite({ownedSkinIds:[],profile:{accountLevel:raw}},'123'),/等级/);
   for (const balances of [undefined, null, {}, {mythicPrisms:null,competitivePoints:null},
     {mythicPrisms:0,competitivePoints:0}, {mythicPrisms:80,competitivePoints:3000,overwatchCoins:0,legacyCompetitivePoints:50}]) {
     const input={ownedSkinIds:[],balances};
@@ -68,6 +70,16 @@ async function main() {
     assert.equal(await fs.readFile(path.join(root, 'accounts.json'), 'utf8'), stockText);
     await assert.rejects(() => importAccountSnapshot(snapshotPath, '123', { root }), /已有展示资料/);
     await importAccountSnapshot(snapshotPath, '123', { root, replace: true });
+    for(const raw of ['111 - OW2','111 - OW1','1 + 222 - OW1']){
+      const input={accountId:'123',ownedSkinIds:[],profile:{accountLevel:raw}};
+      const clean=normalizeForSite(input,'123');
+      await fs.writeFile(snapshotPath,JSON.stringify(clean));
+      await importAccountSnapshot(snapshotPath,'123',{root,replace:true});
+      const index=JSON.parse(await fs.readFile(path.join(root,'account_details.json'),'utf8'));
+      const saved=JSON.parse(await fs.readFile(path.join(root,index.accounts['123'].file),'utf8'));
+      assert.equal(saved.profile.accountLevel,raw,'normalize -> import -> repository snapshot retains level text');
+      assert.equal(await fs.readFile(path.join(root,'accounts.json'),'utf8'),stockText,'import does not implicitly sync Stock');
+    }
     console.log('Account details import: passed');
   } finally {
     await fs.rm(root, { recursive: true, force: true });

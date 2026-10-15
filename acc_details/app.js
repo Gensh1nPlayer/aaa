@@ -15,6 +15,8 @@
   const rarityOrder = new Map(['mythic', 'ultra', 'evolution', 'legendary', 'epic', 'rare', 'common', 'unknown'].map((value, index) => [value, index]));
   const pageSize = 24;
   const state = { tab: 'overview', hero: 'all', heroQuery: '', search: '', rarity: 'all', sort: 'rarity', page: 1, snapshot: null };
+  let stockAccount = null;
+  const stockColorTiers = new Map();
   let modalReturnFocus = null;
   const $ = (id) => document.getElementById(id);
   const t = (message, values) => window.DetailsI18n.t(message, values);
@@ -152,9 +154,24 @@
 
   function setAccountLevelBadge(id, valueId, level) {
     const badge = $(id);
-    badge.hidden = level === null || level === undefined;
-    $(valueId).textContent = badge.hidden ? '' : formatNumber(level);
-    badge.classList.toggle('is-high-level', !badge.hidden && level > 600);
+    const parsed = window.RoshineAccountDisplay?.parseLevel(level);
+    badge.hidden = level === null || level === undefined || String(level).trim() === '';
+    $(valueId).textContent = badge.hidden ? '' : parsed ? parsed.main || '—' : String(level);
+    badge.title = String(level ?? '');
+    // A compound level is a display string, never a sum.
+    badge.classList.toggle('is-high-level', !badge.hidden && /^\d+$/.test(parsed?.main || String(level)) && Number(parsed?.main || level) > 600);
+  }
+
+  function stockColorTier(skin) {
+    const key = JSON.stringify([skin.name, skin.rarity]);
+    if (stockColorTiers.has(key)) return stockColorTiers.get(key);
+    const html = window.RoshineSkinVisuals?.formatName(skin.name) || '';
+    // Mythic, Shop and Bundle share exactly the same Stock gradient.
+    const groups = [['ultra-rare'], ['collector'], ['rare'], ['mythic', 'shop', 'bundle'], ['esports']];
+    const matched = groups.findIndex(tiers => tiers.some(tier => html.includes(`ac-special-skin-${tier}"`)));
+    const rank = matched >= 0 ? matched : skin.rarity === 'mythic' ? 3 : groups.length;
+    stockColorTiers.set(key, rank);
+    return rank;
   }
 
   function renderHeader() {
@@ -208,6 +225,8 @@
       (!search || `${skin.hero} ${skin.name} ${skin.id}`.toLocaleLowerCase().includes(search))
     );
     items.sort((a, b) => {
+      const tier = stockColorTier(a) - stockColorTier(b);
+      if (tier) return tier;
       if (state.sort === 'featured') {
         const aFeatured = featuredOrder.get(a.id) ?? Number.MAX_SAFE_INTEGER;
         const bFeatured = featuredOrder.get(b.id) ?? Number.MAX_SAFE_INTEGER;
@@ -386,11 +405,28 @@
     content.replaceChildren();
     $('accountHeading').textContent = snapshot?.accountId ? `ID #${snapshot.accountId}` : 'Account snapshot';
     $('accountEyebrow').textContent = t(state.tab === 'statistics' ? 'ACCOUNT / STATISTICS' : 'ACCOUNT / OVERVIEW');
-    setAccountLevelBadge('accountLevel', 'accountLevelValue', snapshot?.profile?.accountLevel);
+    const stock = stockAccount && String(stockAccount.id) === snapshot?.accountId ? stockAccount : null;
+    const profileLevel = snapshot?.profile?.accountLevel;
+    const level = typeof profileLevel === 'string' ? profileLevel
+      : String(stock?.level ?? '').includes('+') ? stock.level : profileLevel ?? stock?.level;
+    setAccountLevelBadge('accountLevel', 'accountLevelValue', level);
     setEndorsementBadge('accountEndorsement', 'accountEndorsementValue', snapshot?.profile?.endorsementLevel);
-    const version = snapshot?.accountVersion || '';
-    $('accountVersion').textContent = version;
+    const display = window.RoshineAccountDisplay;
+    const versions = typeof profileLevel === 'string' ? display?.parseLevel(profileLevel).versions || [] : [];
+    if (!versions.length && snapshot?.accountVersion) versions.push(snapshot.accountVersion);
+    if (!versions.length) versions.push(...(display?.parseLevel(stock?.level).versions || []));
+    const version = versions.join(' / ');
+    $('accountVersion').replaceChildren(...versions.map(value => element('span', `details-version game-version-${value.toLowerCase()}`, value)));
     $('accountVersion').hidden = !version;
+    let labels = $('accountStockTags');
+    if (!labels) {
+      labels = element('div', 'account-stock-tags'); labels.id = 'accountStockTags';
+      $('accountPanelBadges').after(labels);
+    }
+    const tags = [...(display?.stockTags(stock) || []), ...(display?.parseLevel(level).tags || [])];
+    labels.replaceChildren(...tags.filter((tag, index) => tags.findIndex(other => other.text === tag.text) === index)
+      .map(tag => element('span', `details-stock-tag ${tag.className}`, tag.text)));
+    labels.hidden = !labels.children.length;
     $('accountPanelBadges').hidden = $('accountLevel').hidden && $('accountEndorsement').hidden && !version;
     $('overviewBalances').hidden = state.tab !== 'overview' || !snapshot;
     if (!snapshot) {
@@ -399,7 +435,7 @@
     }
     const profile = snapshot.profile;
     const metrics = element('div', 'account-metrics');
-    if (state.tab === 'statistics' && profile.accountLevel !== null) metrics.append(accountMetric('Account Level', formatNumber(profile.accountLevel)));
+    if (state.tab === 'statistics' && level !== null && level !== undefined) metrics.append(accountMetric('Account Level', String(level)));
     if (profile.timePlayedHours !== null) metrics.append(accountMetric('Time Played', t('{count} hrs', {count:formatNumber(profile.timePlayedHours)})));
     if (profile.gamesPlayed !== null) metrics.append(accountMetric('Games Played', formatNumber(profile.gamesPlayed)));
     if (profile.gamesWon !== null) metrics.append(accountMetric('Games Won', formatNumber(profile.gamesWon)));
@@ -516,6 +552,8 @@
   function normalizeProfile(input) {
     if (input !== undefined && (!input || typeof input !== 'object' || Array.isArray(input))) throw new TypeError('profile must be an object');
     const profile = input || {};
+    const levelPattern = /^\s*(?:(?:level|lv\.?)\s*)?\d+(?:,\d{3})*(?:\s*\+\s*\d+(?:,\d{3})*)*(?:\s*(?:[-–—•·]\s*)?(?:OW[12]|(?:bronze|silver|golden|gold|platinum|diamond)\s*border|stacked(?:\s*account)?|premium(?:\s*account)?))*\s*$/i;
+    if (typeof profile.accountLevel === 'string' && (profile.accountLevel.length > 500 || !levelPattern.test(profile.accountLevel))) throw new TypeError('account level must be a supported level string of at most 500 characters');
     const roleStats = {};
     for (const key of ['tank', 'damage', 'support']) {
       const role = profile.roleStats?.[key] || {};
@@ -536,7 +574,7 @@
     }).filter((item) => item.season && Object.values(item.ranks).some(Boolean)) : [];
     return {
       endorsementLevel: nullableNumber(profile.endorsementLevel, 'endorsement level', true, 0, 5),
-      accountLevel: nullableNumber(profile.accountLevel, 'account level'),
+      accountLevel: typeof profile.accountLevel === 'string' ? profile.accountLevel : nullableNumber(profile.accountLevel, 'account level'),
       timePlayedHours: nullableNumber(profile.timePlayedHours, 'total playtime', false),
       gamesPlayed: nullableNumber(profile.gamesPlayed, 'Games Played'),
       gamesWon: nullableNumber(profile.gamesWon, 'Games Won'),
@@ -585,8 +623,9 @@
   }
 
   window.HeroGallery = Object.freeze({
+    setStockAccount(row) { stockAccount = row && typeof row === 'object' ? row : null; render(); },
     loadSnapshot(input) { state.snapshot = normalizeSnapshot(input); resetSelection(); render(); },
-    clearSnapshot() { state.snapshot = null; resetSelection(); closeDialog(); render(); },
+    clearSnapshot() { state.snapshot = null; stockAccount = null; resetSelection(); closeDialog(); render(); },
     getCatalogSize() { return catalog.length; }
   });
 

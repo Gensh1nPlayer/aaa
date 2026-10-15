@@ -301,7 +301,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (controls.nameChange?.value && controls.nameChange.value !== 'all') {
           active.push({ key: 'nameChange', label: controls.nameChange.selectedOptions[0]?.textContent || controls.nameChange.value });
         }
-        if (controls.sort?.value && controls.sort.value !== 'recommended') {
+        if (controls.sort?.value && controls.sort.value !== 'price-asc') {
           active.push({ key: 'sort', label: controls.sort.selectedOptions[0]?.textContent || controls.sort.value });
         }
         return active;
@@ -348,7 +348,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (key === 'status' && controls.status) controls.status.value = 'instock';
         if (key === 'price' && controls.price) controls.price.value = 'all';
         if (key === 'nameChange' && controls.nameChange) controls.nameChange.value = 'all';
-        if (key === 'sort' && controls.sort) controls.sort.value = 'recommended';
+        if (key === 'sort' && controls.sort) controls.sort.value = 'price-asc';
         renderAccounts();
       }
 
@@ -359,7 +359,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (controls.status) controls.status.value = 'instock';
         if (controls.price) controls.price.value = 'all';
         if (controls.nameChange) controls.nameChange.value = 'all';
-        if (controls.sort) controls.sort.value = 'recommended';
+        if (controls.sort) controls.sort.value = 'price-asc';
         renderAccounts();
       }
 
@@ -441,7 +441,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
           const cards = document.createDocumentFragment();
           visibleAccounts.forEach(acct => {
-            const cacheKey = `${document.documentElement.lang}:${accountInventory.detailIds.has(String(acct.id))}`;
+            const cacheKey = `${document.documentElement.lang}:${accountInventory.detailIds.has(String(acct.id))}:${window.RoshineCurrency?.code || 'USD'}`;
             const cached = accountInventory.cardCache.get(acct);
             if (cached?.key === cacheKey) {
               cards.appendChild(cached.node);
@@ -452,6 +452,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const level = String(acct.level ?? '');
             const status = String(acct.status ?? 'In Stock');
             const price = String(acct.price ?? '0');
+            const usdPrice = price.replace(/,/g, '').match(/\d+(?:\.\d+)?/);
+            const displayPrice = usdPrice && Number.isFinite(Number(usdPrice[0])) && window.RoshineCurrency
+              ? window.RoshineCurrency.format(Number(usdPrice[0])) : price;
             const freeNameChange = hasFreeNameChange(acct);
             const top500Eligible = hasTop500Eligibility(acct);
             const creditsAmount = getCredits(acct);
@@ -477,6 +480,7 @@ document.addEventListener("DOMContentLoaded", () => {
             let numPrice = parseFloat(price.replace(/[^0-9.]/g, ''));
             if (!isNaN(numPrice) && numPrice >= 100) isValuable = true;
             if (top500Eligible) isValuable = true;
+            if (window.RoshineAccountDisplay) isValuable = window.RoshineAccountDisplay.isPremium(acct);
 
             // Special Mythic/Skin rules are the source of truth for configured items.
             // Shared rules below only cover general labels that are not special items.
@@ -653,6 +657,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             function formatLevelDisplay(rawLevel) {
+              if (window.RoshineAccountDisplay) return window.RoshineAccountDisplay.levelHTML(rawLevel);
               let normalized = String(rawLevel ?? '')
                 .replace(/<br\s*\/?\s*>/gi, ' ')
                 .replace(/\s+/g, ' ')
@@ -889,7 +894,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 ${isValuable ? '<div class="ac-premium-badge">🔥 ' + ui.premiumAccount + '</div>' : ''}
               </div>
               <div class="ac-price-row">
-                <div class="ac-price">${escapeAccountText(price)}</div>
+                <div class="ac-price">${escapeAccountText(displayPrice)}</div>
                 <div class="ac-account-id">ID #${escapeAccountText(id)}</div>
               </div>
               <div class="ac-keyfacts">
@@ -953,12 +958,29 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       window.renderAccounts = renderAccounts;
+      document.addEventListener('roshine:currency-changed', () => {
+        accountInventory.cardCache = new WeakMap();
+        renderAccounts();
+        updatePriceFilterLabels();
+      });
+
+      function updatePriceFilterLabels() {
+        const picker = document.getElementById('accountPriceFilter');
+        if (!picker || !window.RoshineCurrency) return;
+        const format = window.RoshineCurrency.format;
+        const labels = {under30: `< ${format(30)}`, '30to100': `${format(30)}–${format(100)}`, over100: `> ${format(100)}`};
+        [...picker.options].forEach(option => { if (labels[option.value]) option.textContent = labels[option.value]; });
+        picker.dispatchEvent(new Event('change'));
+      }
+      window.refreshCurrencyPriceFilters = updatePriceFilterLabels;
 
       async function loadAccounts() {
         try {
           const response = await fetch('accounts.json?t=' + new Date().getTime(), { cache: 'no-store' });
           if (!response.ok) throw new Error(`HTTP ${response.status}`);
-          const data = await response.json();
+          const sourceText = await response.text();
+          const data = JSON.parse(sourceText);
+          window.RoshineInventoryUpdated?.update({sourceText, lastModified: response.headers.get('Last-Modified')});
           accountInventory.all = validAccountRows(data?.accounts);
           document.dispatchEvent(new CustomEvent('roshine:inventory-loaded', { detail: { accounts: accountInventory.all } }));
           renderAccounts();
@@ -2169,6 +2191,7 @@ document.addEventListener("DOMContentLoaded", () => {
       setSelectOptionText('accountNameChangeFilter', accountUi.nameChangeOptions);
       setSelectOptionText('accountSort', accountUi.sortOptions);
       setSelectGroupText('accountSort', accountUi.sortGroups);
+      window.refreshCurrencyPriceFilters?.();
       syncAllCustomSelectPickers();
       window.refreshAccountFilterUi?.();
       window.renderAccounts?.();

@@ -4,6 +4,24 @@ Run node tests/skin-compatibility.cjs using Node.js.
 It checks skin-name precedence, markup escaping, currency highlighting,
 endorsement aliases and Safari 14's known syntax/API restrictions.
 
+Stock/detail display updates:
+
+- `node tests/details-account-display.cjs`: shared lossless level parsing and Stock labels.
+- `node tests/details-stock-browser.cjs`: color groups with all four existing sort modes, Stock labels, version precedence, long levels, numeric compatibility and mobile cards.
+- `node tests/details-manual-snapshot.cjs`: manual editor save/reload and actual offline collector re-export; set `MANAGER_PACKAGE` and `COLLECTOR_PACKAGE` to the local packages. Uses temporary fixtures only.
+- `node tests/currency-contract.cjs`: all nine currencies, preference priority, rate validation, races, timeout, expiry and honest USD fallback.
+- `node tests/currency-browser.cjs`: currency keyboard interaction, mobile layout, RTL and rate failure/expiry in Chromium and WebKit.
+- `node tests/stock-display-browser.cjs`: integrated price sorting, stable IDs, compound levels, UTC file timestamp, saved currency, conversion, translated price filters and responsive header.
+- `node tests/inventory-updated.cjs`: exact-content GitHub timestamp verification, local Last-Modified, invalid/future timestamps, failure and stale-response protection.
+- `node tests/currency-live.cjs --live`: optional external read-only FX/IP smoke check; not deterministic and may be rate-limited.
+
+The active stock file is `accounts.json`; account IDs and original USD values are not rewritten by display conversion.
+The FX service supplies latest published daily observations, not tick-by-tick trading quotes. Quotes are fetched on demand,
+shown with their publication date, expire from the browser cache after one hour, and fall back to explicitly labeled USD on failure.
+Currency selection priority is saved manual choice, supported browser region, IP currency suggestion, then EUR.
+Public inventory update times require the GitHub commit's immutable file content to match the loaded inventory exactly;
+GitHub Pages deployment headers and page visit time are not treated as inventory edit times. Unknown remains unknown.
+
 Browser checks use Playwright with Chromium and WebKit:
 
 1. Install Playwright and its browsers, or set PLAYWRIGHT_MODULE to an existing installation.

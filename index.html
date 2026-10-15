@@ -36,7 +36,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700;800&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./assets/main.css?v=37" />
   <link rel="stylesheet" href="./assets/skin-effects.css?v=1" />
-  <link rel="stylesheet" href="./assets/redesign.css?v=13" />
+  <link rel="stylesheet" href="./assets/redesign.css?v=14" />
+  <link rel="stylesheet" href="./assets/currency.css?v=1" />
   <link rel="stylesheet" href="./assets/store-background.css?v=1" />
   <script type="application/ld+json">
     {"@context":"https://schema.org","@type":"OnlineStore","name":"Roshine Account Store","url":"https://roshine.love/","logo":"https://roshine.love/assets/logo.png","description":"Curated OW1 and OW2 account stock with clear details, guided handover and after-sales support.","availableLanguage":["English","French","German","Arabic","Japanese"]}
@@ -64,6 +65,9 @@
     </nav>
     <button class="mobile-menu-toggle" id="mobileMenuToggle" type="button" aria-controls="mobileNav" aria-expanded="false" aria-label="Open navigation">☰</button>
     <div class="header-actions">
+      <a href="./auth/" class="btn btn-outline" id="authBtn" style="padding: 8px 16px; font-size: 0.85rem;">
+        <span id="authBtnText">Authenticator</span>
+      </a>
       <div class="language-picker" id="languagePicker" data-open="false">
         <select class="lang-select" id="langSelect" aria-hidden="true" tabindex="-1">
           <option value="en">EN</option>
@@ -84,9 +88,10 @@
           <button class="language-option" type="button" role="option" data-language-value="ja" aria-selected="false" tabindex="-1">日本語</button>
         </div>
       </div>
-      <a href="./auth/" class="btn btn-outline" id="authBtn" style="padding: 8px 16px; font-size: 0.85rem;">
-        <span id="authBtnText">Authenticator</span>
-      </a>
+      <div class="currency-picker" id="currencyPicker" data-open="false">
+        <button class="language-trigger currency-trigger" id="currencyTrigger" type="button" aria-label="Currency: USD" aria-haspopup="listbox" aria-controls="currencyMenu" aria-expanded="false"><span id="currencyTriggerValue">USD</span><span class="language-chevron" aria-hidden="true"></span></button>
+        <div class="currency-menu" id="currencyMenu" role="listbox" aria-label="Currency" hidden></div>
+      </div>
     </div>
   </header>
 
@@ -171,6 +176,10 @@
         <div class="section-kicker" id="accountsKicker">🎮 INVENTORY</div>
         <h2 class="section-title" id="accountsTitle">Accounts</h2>
         <p class="section-desc" id="accountsDesc">Browse our currently available stock. Select an account and order via Discord.</p>
+        <p class="accounts-update-note accounts-last-updated">
+          <span id="accountsLastUpdatedLabel">Last inventory update:</span>
+          <time id="accountsLastUpdatedValue">Unavailable</time>
+        </p>
         <p class="accounts-update-note" id="accountsUpdateNote">
           <span class="accounts-update-icon" aria-hidden="true">◷</span>
           <span id="accountsUpdateLabel">Next planned inventory update:</span>
@@ -270,7 +279,7 @@
             <select class="accounts-control accounts-select-native accounts-sort-native" id="accountSort" aria-label="Sort accounts">
               <option value="recommended">Recommended</option>
               <optgroup label="Price">
-                <option value="price-asc">Price: Low to High</option>
+                <option value="price-asc" selected>Price: Low to High</option>
                 <option value="price-desc">Price: High to Low</option>
               </optgroup>
               <optgroup label="Account progress">
@@ -296,7 +305,7 @@
               aria-controls="accountSortMenu"
               aria-expanded="false"
             >
-              <span id="accountSortValue" data-select-value>Recommended</span>
+              <span id="accountSortValue" data-select-value>Price: Low to High</span>
               <span class="accounts-select-chevron" aria-hidden="true"></span>
             </button>
             <div class="accounts-select-menu accounts-sort-menu" id="accountSortMenu" data-select-menu role="listbox" hidden></div>
@@ -322,7 +331,6 @@
         <button class="account-keyword-chip" type="button" data-account-keyword="Porsche" aria-pressed="false">Porsche</button>
         <button class="account-keyword-chip" type="button" data-account-keyword="LE SSERAFIM" aria-pressed="false">LE SSERAFIM</button>
         <button class="account-keyword-chip" type="button" data-account-keyword="Illidan" aria-pressed="false">Illidan</button>
-        <button class="account-keyword-chip" type="button" data-account-keyword="Fresh Rank Ready" aria-pressed="false">Fresh Rank Ready</button>
         <button class="account-keyword-chip" type="button" data-account-keyword="Stadium" aria-pressed="false">Stadium</button>
         <button class="account-keyword-chip" type="button" data-account-keyword="Mythic Prisms" aria-pressed="false">Mythic Prisms</button>
       </div>
@@ -497,9 +505,12 @@
     </div>
   </footer>
   <script src="./assets/skin-visuals.js?v=1" defer></script>
-  <script src="./assets/main.js?v=49" defer></script>
+  <script src="./assets/account-display.js?v=1" defer></script>
+  <script src="./assets/currency.js?v=1" defer></script>
+  <script src="./assets/inventory-updated.js?v=1" defer></script>
+  <script src="./assets/main.js?v=50" defer></script>
   <button class="rd-search-launcher" id="rdSearchLauncher" type="button"><span aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></span><b data-rd-key="searchStock">Search stock</b><i aria-hidden="true"></i><kbd>Ctrl</kbd><kbd>K</kbd></button>
-  <script src="./assets/redesign.js?v=11" defer></script>
+  <script src="./assets/redesign.js?v=12" defer></script>
   <script src="./assets/void-effects.js?v=1" defer></script>
 </body>
 </html>

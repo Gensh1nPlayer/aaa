@@ -73,6 +73,8 @@ export function normalizeForSite(input, accountId) {
   };
 
   const profileInput = record(source.profile, 'profile');
+  const levelPattern = /^\s*(?:(?:level|lv\.?)\s*)?\d+(?:,\d{3})*(?:\s*\+\s*\d+(?:,\d{3})*)*(?:\s*(?:[-–—•·]\s*)?(?:OW[12]|(?:bronze|silver|golden|gold|platinum|diamond)\s*border|stacked(?:\s*account)?|premium(?:\s*account)?))*\s*$/i;
+  if (typeof profileInput.accountLevel === 'string' && (profileInput.accountLevel.length > 500 || !levelPattern.test(profileInput.accountLevel))) throw new Error('账号等级文字格式无效或超过 500 字符');
   const roleStatsInput = record(profileInput.roleStats, 'profile.roleStats');
   const roleStats = Object.fromEntries(roleKeys.map((key) => {
     const role = record(roleStatsInput[key], `profile.roleStats.${key}`);
@@ -99,7 +101,7 @@ export function normalizeForSite(input, accountId) {
   }).filter((item) => item.season && Object.values(item.ranks).some(Boolean)) : [];
   const profile = {
     endorsementLevel: number(profileInput.endorsementLevel, '赞赏等级', { min: 0, max: 5 }),
-    accountLevel: number(profileInput.accountLevel, '账号等级'),
+    accountLevel: typeof profileInput.accountLevel === 'string' ? profileInput.accountLevel : number(profileInput.accountLevel, '账号等级'),
     timePlayedHours: number(profileInput.timePlayedHours, '总时长', { integer: false }),
     gamesPlayed: number(profileInput.gamesPlayed, 'Games Played'),
     gamesWon: number(profileInput.gamesWon, 'Games Won'),

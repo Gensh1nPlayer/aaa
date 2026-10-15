@@ -59,6 +59,16 @@
       window.HeroGallery.loadSnapshot({ ...entry, accountId: id });
       document.body.classList.add('has-account');
       showStatus('Account #{id} loaded. Only recorded details are shown.', false, { id });
+      // Stock metadata is optional: a stock outage must not hide collected details.
+      try {
+        const stockResponse = await fetch(new URL('accounts.json', detailsUrl), { credentials: 'same-origin', cache: 'no-store' });
+        if (!stockResponse.ok) return;
+        const stockData = await stockResponse.json();
+        if (currentRevision !== revision) return;
+        const rows = Array.isArray(stockData) ? stockData : stockData?.accounts;
+        const matches = Array.isArray(rows) ? rows.filter(row => row && String(row.id) === id) : [];
+        window.HeroGallery.setStockAccount?.(matches.length === 1 ? matches[0] : null);
+      } catch { /* The snapshot remains usable without optional stock labels. */ }
     } catch (error) {
       if (currentRevision !== revision) return;
       console.error('Account details load failed:', error);

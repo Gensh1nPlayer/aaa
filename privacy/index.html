@@ -56,14 +56,14 @@
     </nav>
     <button class="mobile-menu-toggle" id="mobileMenuToggle" type="button" aria-controls="mobileNav" aria-expanded="false" aria-label="Open navigation">☰</button>
     <div class="header-actions">
+      <a href="../auth/" class="btn btn-outline" style="padding:8px 16px;font-size:.85rem">
+        <span id="authBtnText">Authenticator</span>
+      </a>
       <div class="language-picker" id="languagePicker" data-open="false">
         <select class="lang-select" id="langSelect" aria-hidden="true" tabindex="-1"><option value="en">EN</option><option value="fr">FR</option><option value="de">DE</option><option value="ar">AR</option><option value="ja">日本語</option></select>
         <button class="language-trigger" id="languageTrigger" type="button" aria-label="Language: EN" aria-haspopup="listbox" aria-controls="languageMenu" aria-expanded="false"><span id="languageTriggerValue">EN</span><span class="language-chevron" aria-hidden="true"></span></button>
         <div class="language-menu" id="languageMenu" role="listbox" aria-label="Language" hidden><button class="language-option" type="button" role="option" data-language-value="en" aria-selected="true">EN</button><button class="language-option" type="button" role="option" data-language-value="fr" aria-selected="false" tabindex="-1">FR</button><button class="language-option" type="button" role="option" data-language-value="de" aria-selected="false" tabindex="-1">DE</button><button class="language-option" type="button" role="option" data-language-value="ar" aria-selected="false" tabindex="-1">AR</button><button class="language-option" type="button" role="option" data-language-value="ja" aria-selected="false" tabindex="-1">日本語</button></div>
       </div>
-      <a href="../auth/" class="btn btn-outline" style="padding:8px 16px;font-size:.85rem">
-        <span id="authBtnText">Authenticator</span>
-      </a>
     </div>
   </header>
 
@@ -109,7 +109,8 @@
           <h2>1. Scope and current site model</h2>
           <p>This policy applies when you browse <a href="../">roshine.love</a>, view the account inventory, use the private Authenticator utility, or contact Roshine through Discord or email. The public storefront is a <strong>static website</strong>: it does not require a customer account and does not use a public ordering bot.</p>
           <h2>2. Information stored by the website</h2>
-          <p>The storefront uses browser local storage only to remember your selected language. Inventory filters and sorting run locally in your browser and are not submitted to us. The Authenticator utility is designed to process the private key locally in your browser; do not send that key to anyone.</p>
+          <p>The storefront uses browser local storage to remember your selected language and currency. Inventory filters and sorting run locally in your browser and are not submitted to us. The Authenticator utility processes the private key locally; do not send it to anyone.</p>
+          <p>The homepage requests published exchange rates from Frankfurter. If your browser region cannot identify a supported currency and you have not selected one, ipapi.co suggests a currency using your connection IP. These services receive ordinary request data. Converted prices are estimates; original prices remain in USD. GitHub is queried to verify the inventory file’s last update.</p>
           <p>Our hosting or CDN provider may process ordinary technical request data, such as IP address, browser type, requested page and time, for delivery, security and reliability.</p>
           <h2>3. Information received when you contact us</h2>
           <p>If you contact us on Discord or by email, we receive the information you choose to send, which may include your handle, email address, account ID, screenshots, messages and support history. Do not send unrelated sensitive personal information.</p>
@@ -145,7 +146,7 @@
     </nav>
   </footer>
 
-  <script src="../assets/policy.js?v=7" defer></script>
+  <script src="../assets/policy.js?v=8" defer></script>
   <script src="../assets/void-effects.js?v=1" defer></script>
 </body>
 </html>

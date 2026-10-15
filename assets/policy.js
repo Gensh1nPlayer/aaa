@@ -32,7 +32,8 @@
           <p>This policy applies when you browse <a href="../">roshine.love</a>, view the account inventory, use the private Authenticator utility, or contact Roshine through Discord or email. The public storefront is a <strong>static website</strong>: it does not require a customer account and does not use a public ordering bot.</p>
 
           <h2>2. Information stored by the website</h2>
-          <p>The storefront uses browser local storage only to remember your selected language. Inventory filters and sorting run locally in your browser and are not submitted to us. The Authenticator utility is designed to process the private key locally in your browser; do not send that key to anyone.</p>
+          <p>The storefront uses browser local storage to remember your selected language and currency. Inventory filters and sorting run locally in your browser and are not submitted to us. The Authenticator utility is designed to process the private key locally in your browser; do not send that key to anyone.</p>
+          <p>The homepage requests published exchange rates from Frankfurter. If your browser region does not identify a supported currency and you have not selected one, it requests a currency suggestion from ipapi.co using your connection IP. These providers receive ordinary request data. Currency conversion is an estimate; the original inventory price remains in USD. GitHub is queried to verify the inventory file’s last update.</p>
           <p>Our hosting or CDN provider may process ordinary technical request data, such as IP address, browser type, requested page and time, for delivery, security and reliability.</p>
 
           <h2>3. Information received when you contact us</h2>
@@ -128,7 +129,8 @@
         body: `<h2>1. Portée et fonctionnement du site</h2>
           <p>Cette politique s'applique lorsque vous consultez <a href="../">roshine.love</a>, l'inventaire, l'outil Authenticator privé ou lorsque vous contactez Roshine via Discord ou e-mail. La vitrine publique est un <strong>site statique</strong> : aucun compte client n'est requis et aucun bot public ne prend les commandes.</p>
           <h2>2. Informations conservées par le site</h2>
-          <p>Le stockage local du navigateur sert uniquement à mémoriser la langue. Les filtres et le tri fonctionnent localement et ne nous sont pas envoyés. L'outil Authenticator traite la clé privée localement dans le navigateur ; ne communiquez cette clé à personne.</p>
+          <p>Le stockage local mémorise la langue et la devise choisies. Les filtres et le tri fonctionnent localement et ne nous sont pas envoyés. L'outil Authenticator traite la clé privée localement ; ne la communiquez à personne.</p>
+          <p>La page d’accueil demande les taux publiés à Frankfurter. Sans devise choisie ni région compatible du navigateur, ipapi.co suggère une devise à partir de l’adresse IP de connexion. Ces services reçoivent les données techniques de la requête. La conversion est indicative ; le prix d’origine reste en USD. GitHub sert à vérifier la dernière modification du stock.</p>
           <p>Notre hébergeur ou CDN peut traiter des données techniques ordinaires — adresse IP, navigateur, page demandée et heure — pour la livraison, la sécurité et la fiabilité.</p>
           <h2>3. Informations reçues lors d'un contact</h2>
           <p>Sur Discord ou par e-mail, nous recevons les éléments que vous choisissez d'envoyer : identifiant, adresse e-mail, ID du compte, captures, messages et historique d'assistance. N'envoyez pas de données personnelles sensibles sans rapport avec la commande.</p>
@@ -196,7 +198,8 @@
         body: `<h2>1. Geltungsbereich und Website-Modell</h2>
           <p>Diese Erklärung gilt beim Besuch von <a href="../">roshine.love</a>, des Inventars, des privaten Authenticator-Tools sowie bei Kontakt über Discord oder E-Mail. Der öffentliche Shop ist eine <strong>statische Website</strong>: Ein Kundenkonto ist nicht erforderlich und Bestellungen laufen nicht über einen öffentlichen Bot.</p>
           <h2>2. Von der Website gespeicherte Daten</h2>
-          <p>Der Browser speichert lokal nur die gewählte Sprache. Filter und Sortierung laufen lokal und werden nicht an uns gesendet. Das Authenticator-Tool verarbeitet den privaten Schlüssel lokal im Browser; geben Sie diesen Schlüssel niemals weiter.</p>
+          <p>Der Browser speichert die gewählte Sprache und Währung lokal. Filter und Sortierung laufen lokal und werden nicht an uns gesendet. Das Authenticator-Tool verarbeitet den privaten Schlüssel lokal; geben Sie ihn niemals weiter.</p>
+          <p>Die Startseite ruft veröffentlichte Wechselkurse von Frankfurter ab. Ohne gewählte Währung oder passende Browserregion schlägt ipapi.co anhand der Verbindungs-IP eine Währung vor. Diese Dienste erhalten übliche Anfragedaten. Umrechnungen sind Richtwerte; Originalpreise bleiben in USD. GitHub wird zur Prüfung der letzten Bestandsänderung abgefragt.</p>
           <p>Hosting- oder CDN-Anbieter können übliche technische Anfragedaten wie IP-Adresse, Browser, aufgerufene Seite und Zeitpunkt für Auslieferung, Sicherheit und Zuverlässigkeit verarbeiten.</p>
           <h2>3. Angaben bei Kontaktaufnahme</h2>
           <p>Bei Kontakt über Discord oder E-Mail erhalten wir die freiwillig übermittelten Angaben, etwa Handle, E-Mail-Adresse, Account-ID, Screenshots, Nachrichten und Supportverlauf. Senden Sie keine unnötigen sensiblen Daten.</p>
@@ -264,7 +267,8 @@
         body: `<h2>1. النطاق وطبيعة الموقع</h2>
           <p>تنطبق هذه السياسة عند تصفح <a href="../">roshine.love</a> أو المخزون أو أداة Authenticator الخاصة، وعند التواصل مع Roshine عبر Discord أو البريد. الواجهة العامة <strong>موقع ثابت</strong> لا يتطلب حساب عميل ولا يستخدم روبوتاً عاماً للطلبات.</p>
           <h2>2. المعلومات التي يخزنها الموقع</h2>
-          <p>يُستخدم التخزين المحلي للمتصفح فقط لتذكر اللغة. تعمل الفلاتر والترتيب داخل متصفحك ولا تُرسل إلينا. تعالج أداة Authenticator المفتاح الخاص محلياً في المتصفح؛ لا تشارك هذا المفتاح مع أي شخص.</p>
+          <p>يحفظ المتصفح اللغة والعملة المختارتين محلياً. تعمل الفلاتر والترتيب داخل متصفحك ولا تُرسل إلينا. تعالج أداة Authenticator المفتاح الخاص محلياً؛ لا تشاركه مع أي شخص.</p>
+          <p>تطلب الصفحة الرئيسية أسعار الصرف المنشورة من Frankfurter. عند عدم اختيار عملة وعدم وجود منطقة متصفح مدعومة، يقترح ipapi.co عملة باستخدام عنوان IP للاتصال. تتلقى هذه الخدمات بيانات الطلب المعتادة. التحويل تقديري والسعر الأصلي بالدولار الأمريكي. يُستخدم GitHub للتحقق من آخر تعديل للمخزون.</p>
           <p>قد يعالج مزود الاستضافة أو CDN بيانات تقنية معتادة مثل IP ونوع المتصفح والصفحة والوقت لأغراض التسليم والأمان والموثوقية.</p>
           <h2>3. المعلومات عند التواصل</h2>
           <p>عبر Discord أو البريد نستلم ما تختار إرساله، مثل المعرّف والبريد وID الحساب واللقطات والرسائل وسجل الدعم. لا ترسل معلومات شخصية حساسة لا علاقة لها بالطلب.</p>
@@ -332,7 +336,8 @@
         body: `<h2>1. 適用範囲と現在のサイト構成</h2>
           <p>このポリシーは、<a href="../">roshine.love</a>の閲覧、在庫確認、プライベートAuthenticatorツールの利用、Discordまたはメールでのお問い合わせに適用されます。公開ストアは顧客アカウントを必要としない<strong>静的ウェブサイト</strong>です。</p>
           <h2>2. ウェブサイトが保存する情報</h2>
-          <p>サイトは選択言語を記憶するためにブラウザのローカルストレージを使用します。在庫の検索・並び替えはブラウザ内で処理され、送信されません。AuthenticatorのPrivate Keyもブラウザ内で処理される設計です。第三者へ送らないでください。</p>
+          <p>選択言語と通貨をブラウザのローカルストレージに保存します。在庫の検索・並び替えはブラウザ内で処理され、送信されません。AuthenticatorのPrivate Keyもブラウザ内で処理されます。第三者へ送らないでください。</p>
+          <p>ホームページはFrankfurterの公開為替レートを取得します。通貨の選択がなく、ブラウザの地域でも判別できない場合、ipapi.coが接続IPから通貨を提案します。これらのサービスには通常のリクエスト情報が送信されます。換算は目安で、在庫の元価格はUSDです。在庫の最終変更確認にはGitHubを利用します。</p>
           <p>ホスティングまたはCDN事業者は、配信、安全性、信頼性のためにIPアドレス、ブラウザ、閲覧ページ、時刻など通常の技術情報を処理する場合があります。</p>
           <h2>3. お問い合わせ時に受け取る情報</h2>
           <p>Discordまたはメールで送信されたハンドル名、メールアドレス、アカウントID、スクリーンショット、メッセージ、サポート履歴を受け取る場合があります。注文と無関係な機密情報は送らないでください。</p>

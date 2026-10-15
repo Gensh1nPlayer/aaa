@@ -74,6 +74,9 @@ h1, h2, .hero-title, .section-title, .policy-title { font-family: Orbitron, Kani
 }
 .language-picker > .lang-select { position: absolute !important; width: 1px !important; height: 1px !important; min-width: 0 !important; min-height: 0 !important; padding: 0 !important; overflow: hidden !important; opacity: 0 !important; pointer-events: none !important; }
 .header #authBtn { min-height: 42px; border-radius: 13px !important; }
+.accounts-last-updated { margin-bottom: 5px; }
+.accounts-last-updated time { color: var(--rd-secondary); font-variant-numeric: tabular-nums; }
+#rdPriceRange { font-size: clamp(.92rem, 1.6vw, 1.4rem); overflow-wrap: anywhere; }
 
 .btn {
   position: relative;
