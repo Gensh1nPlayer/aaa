@@ -1,0 +1,154 @@
+{
+  "accountId": "189",
+  "accountLabel": "Account #189",
+  "accountVersion": "OW2",
+  "region": "",
+  "capturedAt": "2026-10-15T19:50:46.099208+00:00",
+  "inventoryStatus": "complete",
+  "balances": {
+    "mythicPrisms": 0,
+    "overwatchCoins": 465,
+    "credits": 10325,
+    "competitivePoints": 0,
+    "legacyCompetitivePoints": 3165,
+    "lootBoxes": null
+  },
+  "competitive": {
+    "season": "",
+    "ranks": {
+      "tank": "Placement 0/10",
+      "damage": "Placement 0/10",
+      "support": "Placement 0/10",
+      "openQueue": ""
+    }
+  },
+  "profile": {
+    "endorsementLevel": 3,
+    "accountLevel": 395,
+    "timePlayedHours": 227,
+    "gamesPlayed": 1400,
+    "gamesWon": 681,
+    "roleStats": {
+      "tank": {
+        "timePlayedHours": 96,
+        "gamesWon": 302
+      },
+      "damage": {
+        "timePlayedHours": 44,
+        "gamesWon": 118
+      },
+      "support": {
+        "timePlayedHours": 82,
+        "gamesWon": 262
+      }
+    },
+    "heroesPlayed": [
+      {
+        "hero": "Mercy",
+        "level": null,
+        "timePlayedHours": 31
+      },
+      {
+        "hero": "Moira",
+        "level": null,
+        "timePlayedHours": 28
+      },
+      {
+        "hero": "Mauga",
+        "level": null,
+        "timePlayedHours": 9
+      },
+      {
+        "hero": "Soldier 76",
+        "level": null,
+        "timePlayedHours": 8
+      },
+      {
+        "hero": "Lifeweaver",
+        "level": null,
+        "timePlayedHours": 6
+      },
+      {
+        "hero": "Widowmaker",
+        "level": null,
+        "timePlayedHours": 6
+      },
+      {
+        "hero": "Reaper",
+        "level": null,
+        "timePlayedHours": 5
+      },
+      {
+        "hero": "Bastion",
+        "level": null,
+        "timePlayedHours": 4
+      }
+    ],
+    "historicalRanks": []
+  },
+  "ownedSkinIds": [
+    "Ana/ARCH-COMMANDANT_AMARI",
+    "Ashe/SUNFLOWER",
+    "Bastion/SKY",
+    "Brigitte/TALON",
+    "Cassidy/COZY",
+    "D.Va/PALANQUIN",
+    "D.Va/PORSCHE",
+    "Doomfist/FORMAL",
+    "Echo/MERRY_MARIONETTE",
+    "Genji/CINNABAR",
+    "Genji/JUNKER",
+    "Hanzo/CASUAL",
+    "Hanzo/HUANG_ZHONG",
+    "Illari/SHADOWCHILD",
+    "Junkrat/AVIATOR",
+    "Kiriko/ONI",
+    "Mercy/DEVIL",
+    "Mercy/MIST",
+    "Orisa/DAWN",
+    "Reaper/ANUBIS",
+    "Reinhardt/BRASS",
+    "Reinhardt/VIRIDIAN",
+    "Roadhog/KIWI",
+    "Soldier_76/DAREDEVIL_76",
+    "Soldier_76/GOLDEN",
+    "Soldier_76/RESILIENT",
+    "Soldier_76/ROBBER",
+    "Sombra/AZTEC",
+    "Sombra/INCENDIO",
+    "Sombra/NEON_CAT",
+    "Sombra/PEPPERMINT",
+    "Symmetra/BUTTERFLY",
+    "Torbjorn/STEAMPUNK",
+    "Tracer/HERO_OF_HEART",
+    "Widowmaker/ENDLESS_SIGHT",
+    "Widowmaker/ROSE",
+    "Widowmaker/WINTER_CHIC",
+    "Wrecking_Ball/8_BALL",
+    "Wrecking_Ball/CRITTER_EGG",
+    "Wrecking_Ball/EIN",
+    "Wrecking_Ball/ULTRAWATCH",
+    "Zarya/APEP",
+    "Zenyatta/BEAST_WHISPERER",
+    "Kiriko/AJISAI"
+  ],
+  "ownedWeaponSkinIds": [],
+  "ownedWeaponVariants": [
+    {
+      "hero": "D.Va",
+      "name": "Golden"
+    }
+  ],
+  "uncataloguedOwnedItems": [
+    {
+      "hero": "Genji",
+      "category": "skins",
+      "name": "Classic Contenders Away"
+    },
+    {
+      "hero": "Genji",
+      "category": "skins",
+      "name": "Classic Contenders Home"
+    }
+  ]
+}

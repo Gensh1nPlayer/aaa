@@ -20,6 +20,11 @@
       "file": "acc_details/data/186.json",
       "capturedAt": "2026-10-14T02:19:15.871261+00:00",
       "inventoryStatus": "complete"
+    },
+    "189": {
+      "file": "acc_details/data/189.json",
+      "capturedAt": "2026-10-15T19:50:46.099208+00:00",
+      "inventoryStatus": "complete"
     }
   }
 }
