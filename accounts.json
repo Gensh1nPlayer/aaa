@@ -2458,6 +2458,25 @@
       "nameChange": "✘",
       "screenshot": "https://imgur.com/a/pBGc587",
       "price": "$1,128.90"
+    },
+    {
+      "id": 191,
+      "level": "347 + 361 - OW1",
+      "access": "BNET + Email<br>OG Info • Invoice",
+      "status": "🟢 In Stock",
+      "highlights": "🏆 OG OW1 Origins Edition (2018)<br>⭐ Endorsement Lv. 3<br>🏅 Hide My Name Eligible • Top 500 Challenger Tier Eligible<br>🎮 Premium Battle Pass: Season 12, 13, 16 - Deliverance, Grand Beast, Anubis <br>✨ BlizzCon® 2026 Bundle<br>✨ Bastet Ana, Comic Book Tracer, Lich Queen Mei, Inferno Junkrat • 325 recorded in View Details",
+      "weapons": "Golden: Ashe, Hanzo, Junkrat, Reaper, Soldier 76<br>Choice of 2 Gold/Jade/Galactic Weapon Skins",
+      "balance": "⏱ 535H<br>💎 20 Mythic Prisms<br>🪙 390 Coins • 24,380 Credits<br>🏅 8,507 Legacy Competitive Points",
+      "rank": "Placement 0/10 Tank, Placement 0/10 DPS, Placement 0/10 Support",
+      "nameChange": "✘",
+      "screenshot": "",
+      "price": "$118.70",
+      "playtime": 535,
+      "mythicPrisms": 20,
+      "coins": 390,
+      "credits": 24380,
+      "legacyCompetitivePoints": 8507,
+      "competitivePoints": 0
     }
   ]
 }
