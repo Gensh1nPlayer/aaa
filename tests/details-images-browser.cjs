@@ -115,8 +115,7 @@ async function assertNaturalDialog(image) {
       assert.equal(await dialogImage.getAttribute('src'),items[0].image);
       await assertNaturalDialog(dialogImage);
       if(!scenario.legacy)assert((await page.locator('#skinDialog').boundingBox()).width>900,'desktop large image should use a wider viewer');
-      assert.equal(await page.locator('#dialogSource').getAttribute('href'),items[0].image);
-      assert.equal(await page.locator('#dialogPreview').getAttribute('href'),items[0].preview,'explicit preview links retain their recorded thumbnail');
+      assert.equal(await page.locator('#dialogSource,#dialogPreview,#dialogCatalogSource,.dialog-links,.source-note').count(),0,'public source links and attribution modules were removed');
       await page.keyboard.press('Escape');
       await load('thumbnail');await waitImage(cardImage);
       assert.equal(await cardImage.getAttribute('src'),items[0].preview,'a recorded primary thumbnail remains available if originals fail');

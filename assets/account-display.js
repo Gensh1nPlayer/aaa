@@ -17,8 +17,9 @@
     main = main.replace(/\bpremium(?:\s*account)?\b/gi, () => {
       if (!tags.some(tag => tag.className === 'premium')) tags.push({text:'Premium Account', className:'premium'});
       return ' ';
-    }).replace(/\b(bronze|silver|golden|gold|platinum|diamond)\s*border\b/gi, (_, tier) => {
-      const text = `${tier[0].toUpperCase()}${tier.slice(1).toLowerCase()} Border`;
+    }).replace(/\b(bronze|silver|golden|gold|platinum|plat|diamond)\s*border\b/gi, (_, tier) => {
+      const canonical = {golden:'gold', plat:'platinum'}[tier.toLowerCase()] || tier.toLowerCase();
+      const text = `${canonical[0].toUpperCase()}${canonical.slice(1)} Border`;
       if (!tags.some(tag => tag.text === text)) tags.push({text, className:'border-tier'});
       return ' ';
     }).replace(/\bstacked(?:\s*account)?\b/gi, () => {
@@ -59,7 +60,18 @@
   function stockTags(row) {
     if (!row || typeof row !== 'object') return [];
     const tags = parseLevel(row.level).tags;
+    // Highlights contain prose and skin names: accept only complete label fields.
+    const fields = String(row.highlights ?? '').replace(/<br\s*\/?\s*>/gi, '\n')
+      .replace(/<[^>]*>/g, ' ').split(/[\n\r•·|;,]+/);
+    fields.forEach(field => {
+      const label = field.replace(/^[^a-z0-9]+|[^a-z0-9]+$/gi, '').trim();
+      if (!/^(?:(?:bronze|silver|golden|gold|platinum|plat|diamond)\s*border|stacked\s+account|premium\s+account)$/i.test(label)) return;
+      parseLevel(label).tags.forEach(tag => {
+        if (!tags.some(other => other.text === tag.text)) tags.push(tag);
+      });
+    });
     if (isPremium(row) && !tags.some(tag => tag.className === 'premium')) tags.unshift({text:'Premium Account', className:'premium'});
+    tags.sort((a, b) => Number(b.className === 'premium') - Number(a.className === 'premium'));
     return tags;
   }
   return Object.freeze({parseLevel, levelHTML, stockTags, isPremium});

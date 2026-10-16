@@ -523,8 +523,9 @@ document.addEventListener("DOMContentLoaded", () => {
               let res = escapeAccountTextWithBreaks(text);
               const protectedSpecialSkins = [];
               const protectSpecialSkin = rule => {
-                res = res.replace(rule.pattern, match => {
+                res = res.replace(rule.pattern, (match, offset, source) => {
                   if (rule.excludeMatch && rule.excludeMatch.test(match)) return match;
+                  if (window.RoshineSkinVisuals?.acceptMatch && !window.RoshineSkinVisuals.acceptMatch(rule, match, offset, source)) return match;
                   const token = `__COLOR_SPECIAL_SKIN_${protectedSpecialSkins.length}__`;
                   protectedSpecialSkins.push({ match, className: skinMatchClass(rule, match) });
                   return token;
@@ -751,8 +752,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const trailingHeroRegex = new RegExp(`^(.+?)(\\s+)(${heroSequencePattern})$`, 'i');
             const attachedSoldier76Regex = /^(.+?)(\s*:\s*76)$/i;
 
-            function styleSkinName(rawName) {
-              const styled = window.RoshineSkinVisuals ? window.RoshineSkinVisuals.formatName(rawName) : escapeAccountText(rawName);
+            function styleSkinName(rawName, hero) {
+              const styled = window.RoshineSkinVisuals ? window.RoshineSkinVisuals.formatName(rawName, hero ? {hero} : undefined) : escapeAccountText(rawName);
               return `<span class="ac-skin-name">${styled}</span>`;
             }
 
@@ -776,14 +777,14 @@ document.addEventListener("DOMContentLoaded", () => {
               // Hero-first format, e.g. "D.Va LE SSERAFIM Bundle".
               const leadingHero = item.match(leadingHeroRegex);
               if (leadingHero && !heroSequenceRegex.test(leadingHero[3])) {
-                return `${escapeAccountText(leadingHero[1])}${escapeAccountText(leadingHero[2])}${styleSkinName(leadingHero[3])}`;
+                return `${escapeAccountText(leadingHero[1])}${escapeAccountText(leadingHero[2])}${styleSkinName(leadingHero[3], leadingHero[1])}`;
               }
 
               // Skin-first format, including abbreviated hero suffixes such as
               // "Queen/Rugby JQ", "Bounty Hunter Bap" and "Cardboard Rein/Brig".
               const trailingHero = item.match(trailingHeroRegex);
               if (trailingHero) {
-                return `${styleSkinName(trailingHero[1])}${escapeAccountText(trailingHero[2])}${escapeAccountText(trailingHero[3])}`;
+                return `${styleSkinName(trailingHero[1], trailingHero[3])}${escapeAccountText(trailingHero[2])}${escapeAccountText(trailingHero[3])}`;
               }
 
               // Soldier: 76 is often shortened in the source data to ":76",

@@ -132,15 +132,20 @@ h1, h2 { color: #f2f0ff; font-family: Orbitron, Kanit, sans-serif; }
 .competitive-summary h2 { color: #d7d1ef; }
 .account-hero { position: relative; padding: 24px; border: 1px solid var(--detail-line); border-radius: 18px; background: linear-gradient(145deg, rgba(16,18,38,.78), rgba(9,10,24,.7)); box-shadow: 0 20px 50px rgba(0,0,0,.18); }
 .account-hero-content { min-width: 0; width: 100%; }
-.account-identity-row { display: flex; align-items: baseline; flex-wrap: wrap; gap: 12px 24px; margin-top: 12px; }
-.account-hero .account-identity-row h1 { margin: 0; min-width: 0; color: #f2f0ff; font-size: clamp(26px, 2.2vw, 32px); line-height: 1.2; letter-spacing: -.035em; overflow-wrap: break-word; text-shadow: none; }
-#accountLevel { min-height: 0; padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none; font-family: Orbitron, Kanit, sans-serif; font-size: clamp(22px, 2vw, 28px); font-weight: 800; line-height: 1.2; }
+.account-identity-row { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px 24px; margin-top: 12px; }
+.account-hero .account-identity-row h1, #accountLevel { font-family: Orbitron, Kanit, sans-serif; font-size: clamp(22px, 2.2vw, 30px); font-style: normal; font-weight: 800; line-height: 1.3; letter-spacing: -.035em; }
+.account-hero .account-identity-row h1 { margin: 0; min-width: 0; color: #f2f0ff; overflow-wrap: break-word; text-shadow: none; }
+#accountLevel { min-width: 0; min-height: 0; padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none; gap: .25em; }
 #accountLevel strong { font-size: inherit; font-weight: inherit; line-height: inherit; color: inherit; }
+#accountLevel:not([hidden]) { display: block; }
 .profile-account-version { font-size: .78rem; font-style: normal; line-height: 1; padding: .38rem .65rem; border-color: rgba(117,199,249,.4); color: #93d9ff; background: rgba(50,147,202,.09); }
 .balance-label { overflow-wrap: break-word; }
 .account-metric, .account-card, .account-table, .account-empty { border-radius: 12px; }
-.account-panel-badges { display: flex; flex-wrap: wrap; gap: 8px; }
-.account-stock-tags { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 14px; }
+.account-panel-badges { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: 14px; }
+.account-profile-tags, .account-stock-tags { min-width: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.account-stock-tags:not([hidden]) { border-inline-start: 1px solid var(--detail-line); padding-inline-start: 16px; }
+.account-panel-badges .profile-badge, .account-panel-badges .details-stock-tag, .account-panel-badges .details-version { box-sizing: border-box; min-height: 30px; padding: 5px 10px; font-size: 12px; line-height: 1.25; }
+.account-panel-badges .profile-badge strong { font-size: inherit; }
 .account-stock-tags[hidden] { display: none; }
 .details-stock-tag, .details-version { display: inline-flex; align-items: center; min-height: 28px; padding: 5px 9px; border: 1px solid rgba(255,255,255,.15); border-radius: 999px; font: 800 12px/1.25 Kanit, sans-serif; }
 .details-stock-tag.border-tier { color: #c084fc; border-color: rgba(192,132,252,.28); background: rgba(192,132,252,.07); }
@@ -215,11 +220,12 @@ dialog::backdrop { background: rgba(3,3,14,.78); }
   .lookup-kicker { font-size: 9px; letter-spacing: .08em; gap: 5px; }
   .stock-shortcut { display: flex; margin-top: 10px; margin-left: auto; padding: 6px 11px; font-size: 11px; }
   .has-account .profile-badge { min-height: 27px; padding: 3px 8px; font-size: 10px; }
-  .has-account .profile-account-level { min-height: 34px; padding: 5px 9px; font-size: 11px; }
-  .has-account .profile-account-level strong { font-size: 15px; }
   .account-hero { padding: 16px; }
   .account-identity-row { gap: 9px 14px; }
-  .account-panel-badges { gap: 6px; }
+  .account-panel-badges { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .account-stock-tags:not([hidden]) { border-inline-start: 0; padding-inline-start: 0; }
+  .account-panel-badges .profile-badge, .account-panel-badges .details-stock-tag, .account-panel-badges .details-version { min-height: 30px; padding: 5px 9px; font-size: 11px; }
+  .account-panel-badges #accountVersion { padding: 0; }
   .has-account .lookup-form { padding: 12px; }
   .has-account .lookup-form label { margin-bottom: 6px; }
   .has-account .lookup-controls { min-height: 43px; flex-wrap: nowrap; }
@@ -232,3 +238,11 @@ dialog::backdrop { background: rgba(3,3,14,.78); }
   .has-account .balance-item .balance-label { font-size: 9px; }
   .has-account .balance-item strong { font-size: 14px; }
 }
+
+/* Weapon artwork has its own framing; never crop off a barrel, blade or staff. */
+#weaponGrid .card-art, #variantGrid .card-art { aspect-ratio: 16 / 9; background: #141526; }
+#weaponGrid .card-art img, #variantGrid .card-art img { object-fit: contain; }
+#weaponGrid .skin-card, #variantGrid .skin-card { cursor: pointer; }
+#variantGrid .variant-owned { color: #8ce0bc; font-size: 11px; font-weight: 700; }
+.dialog-image-wrap img[data-weapon-image="true"] { object-fit: contain; max-height: 70vh; }
+#weaponGrid .image-fallback, #variantGrid .image-fallback { font-size: 13px; font-style: normal; line-height: 1.4; max-width: 100%; padding: 12px; text-align: center; overflow-wrap: anywhere; }

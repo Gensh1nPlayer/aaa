@@ -73,7 +73,7 @@ export function normalizeForSite(input, accountId) {
   };
 
   const profileInput = record(source.profile, 'profile');
-  const levelPattern = /^\s*(?:(?:level|lv\.?)\s*)?\d+(?:,\d{3})*(?:\s*\+\s*\d+(?:,\d{3})*)*(?:\s*(?:[-–—•·]\s*)?(?:OW[12]|(?:bronze|silver|golden|gold|platinum|diamond)\s*border|stacked(?:\s*account)?|premium(?:\s*account)?))*\s*$/i;
+  const levelPattern = /^\s*(?:(?:level|lv\.?)\s*)?\d+(?:,\d{3})*(?:\s*\+\s*\d+(?:,\d{3})*)*(?:\s*(?:[-–—•·]\s*)?(?:OW[12]|(?:bronze|silver|golden|gold|platinum|plat|diamond)\s*border|stacked(?:\s*account)?|premium(?:\s*account)?))*\s*$/i;
   if (typeof profileInput.accountLevel === 'string' && (profileInput.accountLevel.length > 500 || !levelPattern.test(profileInput.accountLevel))) throw new Error('账号等级文字格式无效或超过 500 字符');
   const roleStatsInput = record(profileInput.roleStats, 'profile.roleStats');
   const roleStats = Object.fromEntries(roleKeys.map((key) => {

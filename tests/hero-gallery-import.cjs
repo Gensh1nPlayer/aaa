@@ -10,6 +10,7 @@ async function main() {
   assert.equal(normalizeForSite({ownedSkinIds:[]},'123').accountVersion,'');
   assert.throws(()=>normalizeForSite({ownedSkinIds:[],accountVersion:'OW3'},'123'),/accountVersion/);
   for(const raw of ['111 - OW2','111 - OW1','1 + 222 - OW1'])assert.equal(normalizeForSite({ownedSkinIds:[],profile:{accountLevel:raw}},'123').profile.accountLevel,raw);
+  for(const raw of ['347 + 361 - OW1 Plat Border Stacked Account','111 - OW1 Golden Border','111 - OW1 Platinum Border'])assert.equal(normalizeForSite({ownedSkinIds:[],profile:{accountLevel:raw}},'123').profile.accountLevel,raw);
   for(const raw of ['arbitrary text','111 - OW3','<script>111</script>','-1','1 +','1'.repeat(501)])assert.throws(()=>normalizeForSite({ownedSkinIds:[],profile:{accountLevel:raw}},'123'),/等级/);
   for (const balances of [undefined, null, {}, {mythicPrisms:null,competitivePoints:null},
     {mythicPrisms:0,competitivePoints:0}, {mythicPrisms:80,competitivePoints:3000,overwatchCoins:0,legacyCompetitivePoints:50}]) {

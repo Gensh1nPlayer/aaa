@@ -36,7 +36,7 @@ const cases = [
   ['Lifeguard Kiriko', 'shop'], ['Infernal Witch Symmetra', 'shop'],
   ['Garou Wuyang', 'shop'], ['Mephisto Ramattra', 'shop'],
   ['Wing Zero Mercy', 'shop'], ['Snake Eyes Genji', 'shop'],
-  ['Queen D.Va Bundle', 'shop'], ['Divine Druid Mercy', 'mythic'],
+  ['Queen D.Va Bundle', 'shop'], ['Divine Druid Lifeweaver', 'mythic'],
   ['Pink', 'ultra-rare'], ['Pink Mercy', 'ultra-rare'], ['Rose Gold Mercy', 'ultra-rare'],
   ['Brick', 'ultra-rare'], ['LEGO Brick', 'ultra-rare'], ['LEGO Brick Bastion', 'ultra-rare'],
   ['Illidan Genji', 'ultra-rare'], ['Tyrande Symmetra', 'ultra-rare'],
@@ -153,7 +153,10 @@ for (const text of ['Junker Queen Bundle', 'Junk Queen Bundle']) {
 for (const text of ['Queen D.Va', 'Druid Mauga', 'Skull Genji']) {
   assert(api.styleSkinItem(text).includes('ac-special-skin-shop'), text);
 }
-for (const text of ['Divine Druid Mercy', 'Divine Druid Mercy Bundle']) {
+for (const text of ['Divine Druid Lifeweaver', 'Divine Druid Lifeweaver Bundle']) {
   assert(api.styleSkinItem(text).includes('ac-special-skin-mythic'), text);
 }
 console.log('Safari 14 syntax and contextual skin rules passed.');
+for (const name of ['Hot Pink Tracer','Brick Zarya','Zarya Brick','Royal Moira','Night Owl Ana','Snow Fox Lucio','Ice Queen Brigitte','Anubis Pharah','Dawn Bastion','Ra Zenyatta']) {
+  for (const render of [api.applyColorMap,api.styleSkinItem]) assert(!render(name).includes('ac-special-skin-'),`False promotion: ${name} -> ${render(name)}`);
+}

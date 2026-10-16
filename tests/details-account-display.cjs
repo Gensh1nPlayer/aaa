@@ -22,4 +22,28 @@ for (const value of [true,2,'<b>eligible</b>','available','✓','free','Top500']
 for (const value of [false,0,-1,'unavailable','not eligible','none']) assert.equal(isPremium({top500Eligible:value}),false,String(value));
 assert.equal(isPremium({price:'$100'}),true);
 assert.equal(isPremium({price:'$99.99'}),false);
+for (const [alias, label] of [
+  ['SilverBorder','Silver Border'], ['Silver Border','Silver Border'],
+  ['Golden Border','Gold Border'], ['Gold Border','Gold Border'],
+  ['Plat Border','Platinum Border'], ['Platinum Border','Platinum Border'],
+  ['Diamond Border','Diamond Border']
+]) {
+  const raw = `347 + 361 - OW1 OW2 ${alias} Stacked Account`;
+  assert.equal(parseLevel(raw).raw, raw);
+  assert.equal(parseLevel(raw).main, '347 + 361');
+  assert.deepEqual(parseLevel(raw).versions, ['OW1','OW2']);
+  assert.deepEqual(parseLevel(raw).tags.map(tag=>tag.text), [label,'Stacked Account']);
+  assert.deepEqual(stockTags({level:'12 - OW2',highlights:`🏅 ${alias}<br>🔥 Stacked Account`}).map(tag=>tag.text), [label,'Stacked Account']);
+}
+assert.deepEqual(stockTags({level:'SilverBorder Gold Border',highlights:'Silver Border • Golden Border | Platinum Border; Plat Border, Stacked Account; Premium Account'}).map(tag=>tag.text),
+  ['Premium Account','Silver Border','Gold Border','Platinum Border','Stacked Account']);
+for (const highlights of ['Premium Battle Pass: Season 12','Stacked skins','A silver medal','Gold weapon skins','Not Silver Border','No Stacked Account','Premium Account unavailable','Silver Borderline','Diamond Border skin','Stacked','Premium','<b>Premium</b> Battle Pass']) {
+  assert.deepEqual(stockTags({level:'10',price:'$20',highlights}), [], highlights);
+}
+assert.deepEqual(stockTags({level:'10',highlights:'<b>Silver Border</b><br>Stacked Account'}).map(tag=>tag.text),['Silver Border','Stacked Account']);
+assert.equal(parseLevel('347 + 361 - OW1 Future Label').main,'347 + 361 - Future Label');
+const inventory = require('../accounts.json');
+const row191 = (inventory.accounts || inventory).find(row=>String(row.id)==='191');
+assert.equal(parseLevel(row191.level).main,'347 + 361');
+assert.deepEqual(stockTags(row191).map(tag=>tag.text),['Premium Account'],'#191 must not infer Border/Stacked from numbers or Premium Battle Pass');
 console.log('Details account display: compound levels, raw preservation, labels and escaping passed.');

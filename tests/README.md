@@ -4,6 +4,9 @@ Run node tests/skin-compatibility.cjs using Node.js.
 It checks skin-name precedence, markup escaping, currency highlighting,
 endorsement aliases and Safari 14's known syntax/API restrictions.
 
+- `node tests/skin-context.cjs`: hero ownership, full-title matching, same-name mythic collisions, Bundle inheritance and the complete current skin catalog.
+- `node tests/identity-layout-browser.cjs`: real #191 and controlled dense-tag fixtures at four widths in Chromium/WebKit; balanced ID/level, nonoverlapping secondary tags, stored tag aliases, long levels and RTL.
+
 Stock/detail display updates:
 
 - `node tests/details-account-display.cjs`: shared lossless level parsing and Stock labels.

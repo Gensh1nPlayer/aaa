@@ -1,5 +1,18 @@
 # 皮肤视觉分级与名称规则
 
+## 2026-10-16：完整名称和英雄归属修正（优先于下方历史规则）
+
+- 详情页的缩略图标题、大图标题和颜色分组排序均传入完整皮肤名称、英雄和稀有度，不再仅按名字中的单个词上色。
+- `Pink` / `Pink Mercy` / `Rose Gold` 只对 Mercy 生效；`Brick` / `LEGO Brick` 只对 Bastion 生效。Tracer 的 `Hot Pink`、Zarya 的 `Brick` 不套用收藏效果。
+- 删除裸词 `Royal` 的稀有匹配。保留完整 `Royal Knight`、`Royal Gladiator`（Mercy），以及明确带 `LA Gladiators` 注释的库存别名。普通 `Royal`、`Royal Guard`、`Royal Blue` 等不推断为联赛皮肤。
+- 普通 `Dawn`、Pharah 的 `Anubis`、Zenyatta 的 `Ra` 不因同名而套用神话效果。目录确认的 Mythic（包括新名字）继续使用神话效果。
+- `Night Owl` / `Snow Owl` 不属于 OWL 名称；`Ice Queen`、`Punker Queen`、`Cobra Queen`、`Slime Queen` 等不因含 `Queen` 上色；`Snow Fox`、`Autumn Fox` 不因含 `Fox` 上色。
+- 新增的 `MM-Mei`、Sanrio `Skin` 后缀、明确的 `Reborn` 标题等采用完整别名，而不是恢复宽泛子串匹配。
+- Bundle 仍保留渐变；继承更高分级时也检查完整名称边界和明确的英雄归属。`Hot Pink Bundle`、`Brick Zarya Bundle` 不继承顶级收藏效果。
+- 本次扫描当前目录 1,997 条记录；不更改实际库存、皮肤归属、稀有度或持有数据。
+
+依据：[Blizzard Brick Bastion 公告](https://overwatch.blizzard.com/en-us/news/23149890/build-yourself-up-with-bastion-s-brick-challenge/)、[Royal Knight Mercy 官方补丁说明](https://overwatch.blizzard.com/en-gb/news/patch-notes/live/2022/7/)，以及当前项目的逐英雄目录。下方旧缩写说明保留作历史记录，不再允许跨英雄或标题局部误匹配。
+
 ## 2026-09-14 补充
 
 商店／联动视觉组新增：Cyber Detective、Hashimoto、Music Festival、Archangel、

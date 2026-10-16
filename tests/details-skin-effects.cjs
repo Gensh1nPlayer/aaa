@@ -8,7 +8,11 @@ const fixtures=[
  ['Sombra','Gilded Hunter','legendary','shop'],['Reaper','OWCS 2024','epic','esports'],
  ['Kiriko','Sample Future Bundle','legendary','bundle'],['Widowmaker','Spellbinder','mythic','mythic'],
  ['Anran','Future Mythic Test','mythic','mythic'],['D.Va','Test Ultra','ultra',null],
- ['D.Va','Academy','legendary',null],['Zenyatta','<img src=x onerror=alert(1)> Clockwork','legendary','rare']
+ ['D.Va','Academy','legendary',null],['Zenyatta','<img src=x onerror=alert(1)> Clockwork','legendary',null],
+ ['Tracer','Hot Pink','rare',null],['Zarya','Brick','rare',null],['Cassidy','Royal','epic',null],
+ ['Bastion','Dawn','rare',null],['Pharah','Anubis','epic',null],['Ana','Night Owl','legendary',null],
+ ['Brigitte','Ice Queen','epic',null],['Zenyatta','Ra','legendary',null],
+ ['Bastion','Brick','legendary','ultra-rare'],['Mercy','Pink','legendary','ultra-rare']
 ];
 const skins=fixtures.map(([hero,name,rarity],i)=>({id:hero+'/TEST_'+i,hero,name,rarity,image:'/fixture-art.svg'}));
 const snapshot={accountId:'123',inventoryStatus:'partial',ownedSkinIds:skins.map(s=>s.id)};
@@ -36,7 +40,9 @@ const palette=locator=>locator.evaluate(node=>{const css=getComputedStyle(node);
    const colors={};for(const tier of ['ultra-rare','rare','collector','shop','esports','bundle','mythic'])colors[tier]=await palette(home.locator('.account-card .ac-special-skin-'+tier).first());
    const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));await page.goto(base+'/acc_details/?lang=en#123');await page.waitForFunction(()=>document.body.classList.contains('has-account'));await page.locator('[data-tab="skins"]').click();
    for(let i=0;i<fixtures.length;i++){
-    const [hero,name,rarity,tier]=fixtures[i],card=page.locator('.skin-card').filter({hasText:name});
+    const [hero,name,rarity,tier]=fixtures[i],card=page.locator('.skin-card')
+      .filter({has:page.locator('.card-hero').filter({hasText:new RegExp('^'+hero.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'$')})})
+      .filter({has:page.getByText(name,{exact:true})});
     assert.equal(await card.locator('.card-name').textContent(),name,'do not rewrite actual skin names');
     if(tier)assert.deepEqual(await palette(card.locator('.card-name .ac-special-skin-'+tier)),colors[tier],'stock palette/glow parity: '+name);
     else assert.equal(await card.locator('.card-name .ac-special-skin').count(),0,'ordinary or unknown names remain ordinary');

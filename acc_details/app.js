@@ -18,6 +18,7 @@
   let stockAccount = null;
   const stockColorTiers = new Map();
   let modalReturnFocus = null;
+  let cancelDialogImage = null;
   const $ = (id) => document.getElementById(id);
   const t = (message, values) => window.DetailsI18n.t(message, values);
   const formatNumber = (value) => value.toLocaleString(document.documentElement.lang || 'en');
@@ -48,11 +49,14 @@
   }
 
   function setSkinImage(image, candidates, onFailure) {
+    let active = true;
+    const cancel = () => { active = false; image.onload = null; image.onerror = null; };
     image.onload = null; image.onerror = null;
     const urls = [...new Set(candidates.filter(Boolean))];
-    if (!urls.length) { image.removeAttribute('src'); onFailure?.(); return; }
+    if (!urls.length) { image.removeAttribute('src'); onFailure?.(); return cancel; }
     let index = 0;
     const tryFallback = () => {
+      if (!active) return;
       index++;
       if (index < urls.length) image.src = urls[index];
       else onFailure?.();
@@ -60,9 +64,11 @@
     image.referrerPolicy = 'no-referrer';
     image.onerror = tryFallback;
     image.onload = () => {
+      if (!active) return;
       if (image.src.includes('static.wikia.nocookie.net') && image.naturalWidth === 300 && image.naturalHeight === 171) tryFallback();
     };
     image.src = urls[0];
+    return cancel;
   }
 
   function element(tag, className, text) {
@@ -75,7 +81,7 @@
   function renderSkinName(node, skin) {
     const visuals = window.RoshineSkinVisuals;
     if (!visuals) { node.textContent = skin.name; return; }
-    const styled = visuals.formatName(skin.name);
+    const styled = visuals.formatName(skin.name, skin);
     // A newly catalogued Mythic remains colored even before its name is added to the dictionary.
     node.innerHTML = skin.rarity === 'mythic' && !styled.includes('class="ac-special-skin ')
       ? `<span class="ac-special-skin ac-special-skin-mythic">${styled}</span>` : styled;
@@ -129,7 +135,8 @@
 
   function currentVariants() {
     return state.snapshot ? [...state.snapshot.ownedWeaponVariants,
-      ...state.snapshot.uncataloguedOwnedItems.filter((item) => item.category === 'variants')] : [];
+      ...state.snapshot.uncataloguedOwnedItems.filter((item) => item.category === 'variants')]
+      .map((item) => window.DetailsImageSources.variant(item)) : [];
   }
 
   function missingCount() {
@@ -163,9 +170,9 @@
   }
 
   function stockColorTier(skin) {
-    const key = JSON.stringify([skin.name, skin.rarity]);
+    const key = JSON.stringify([skin.hero, skin.name, skin.rarity]);
     if (stockColorTiers.has(key)) return stockColorTiers.get(key);
-    const html = window.RoshineSkinVisuals?.formatName(skin.name) || '';
+    const html = window.RoshineSkinVisuals?.formatName(skin.name, skin) || '';
     // Mythic, Shop and Bundle share exactly the same Stock gradient.
     const groups = [['ultra-rare'], ['collector'], ['rare'], ['mythic', 'shop', 'bundle'], ['esports']];
     const matched = groups.findIndex(tiers => tiers.some(tier => html.includes(`ac-special-skin-${tier}"`)));
@@ -243,21 +250,20 @@
   }
 
   function openSkin(skin, trigger) {
+    cancelDialogImage?.(); cancelDialogImage = null;
+    delete $('dialogImage').dataset.weaponImage;
     $('dialogHero').textContent = skin.hero.toUpperCase();
     renderSkinName($('dialogTitle'), skin);
     renderRarity($('dialogRarity'), skin.rarity, rarityLabel(skin.rarity));
     const imageWrap = $('dialogImage').parentElement;
     imageWrap.classList.remove('image-error');
     $('dialogImageFallback').hidden = true;
-    setSkinImage($('dialogImage'), window.DetailsImageSources.candidates(skin), () => {
+    cancelDialogImage = setSkinImage($('dialogImage'), window.DetailsImageSources.candidates(skin), () => {
       imageWrap.classList.add('image-error');
       $('dialogImageFallback').textContent = t('Image unavailable');
       $('dialogImageFallback').hidden = false;
     });
     $('dialogImage').alt = `${skin.hero} · ${skin.name}`;
-    $('dialogPreview').href = window.DetailsImageSources.candidates(skin,true)[0] || '';
-    $('dialogSource').href = window.DetailsImageSources.candidates(skin)[0] || '';
-    $('dialogCatalogSource').href = window.DetailsImageSources.sourcePage(skin) || '';
     $('dialogNote').textContent = t(state.snapshot ? 'This account snapshot records the item as owned. Check it against the game client.' : 'Catalog information does not confirm ownership for any account.');
     openDialog(trigger);
   }
@@ -278,6 +284,8 @@
   }
 
   function closeDialog() {
+    cancelDialogImage?.(); cancelDialogImage = null;
+    $('dialogImage').onload = null; $('dialogImage').onerror = null;
     const dialog = $('skinDialog');
     if (typeof dialog.close === 'function') dialog.close();
     else dialog.removeAttribute('open');
@@ -348,20 +356,72 @@
   }
 
   function renderWeapons() {
-    const items = currentWeapons().filter((item) => state.hero === 'all' || item.hero === state.hero);
+    const items = currentWeapons().filter((item) => state.hero === 'all' || item.hero === state.hero)
+      .map((item) => window.DetailsImageSources.weapon(item));
     $('weaponNotice').textContent = t('The snapshot records {count} weapon skins. Unrecorded items are not assumed unowned; default weapons are excluded.', {count:items.length});
-    $('weaponGrid').replaceChildren(...items.map(makeCard));
+    $('weaponGrid').replaceChildren(...items.map((item) => {
+      const card = element('button', 'skin-card');
+      card.type = 'button'; card.dataset.rarity = item.rarity;
+      card.setAttribute('aria-label', `${item.hero} · ${item.name}`);
+      const art = element('div', 'card-art');
+      const image = element('img'); image.alt = ''; image.loading = 'lazy'; image.decoding = 'async';
+      const fallback = element('span', 'image-fallback', 'Image unavailable');
+      art.append(image, fallback);
+      window.DetailsImageSources.load(image, item, true, () => art.classList.add('image-error'));
+      const meta = element('div', 'card-meta');
+      const bottom = element('div', 'card-bottom');
+      const rarity = element('span', 'rarity-label');
+      renderRarity(rarity, item.rarity, rarityLabel(item.rarity));
+      bottom.append(rarity, element('span', 'catalog-label', state.snapshot ? 'OWNED' : 'CATALOG'));
+      const name = element('strong', 'card-name');
+      renderSkinName(name, item);
+      meta.append(element('span', 'card-hero', item.hero), name, bottom);
+      card.append(art, meta);
+      card.addEventListener('click', () => openWeapon(item, card));
+      return card;
+    }));
+  }
+
+  function openWeapon(item, trigger) {
+    cancelDialogImage?.(); cancelDialogImage = null;
+    $('dialogHero').textContent = item.hero.toUpperCase();
+    if (item.kind === 'variant') $('dialogTitle').textContent = item.name;
+    else renderSkinName($('dialogTitle'), item);
+    renderRarity($('dialogRarity'), item.rarity, item.kind === 'variant' ? item.name : rarityLabel(item.rarity));
+    const imageWrap = $('dialogImage').parentElement;
+    imageWrap.classList.remove('image-error');
+    $('dialogImageFallback').hidden = true;
+    $('dialogImage').alt = `${item.hero} · ${item.name}`;
+    $('dialogImage').dataset.weaponImage = 'true';
+    cancelDialogImage = window.DetailsImageSources.load($('dialogImage'), item, false, () => {
+      imageWrap.classList.add('image-error');
+      $('dialogImageFallback').textContent = t('Image unavailable');
+      $('dialogImageFallback').hidden = false;
+    });
+    $('dialogNote').textContent = t(state.snapshot ? 'This account snapshot records the item as owned. Check it against the game client.' : 'Catalog information does not confirm ownership for any account.');
+    openDialog(trigger);
   }
 
   function renderVariants() {
     const items = currentVariants().filter((item) => state.hero === 'all' || item.hero === state.hero);
     $('variantNotice').textContent = t('The snapshot records {count} unlocked weapon variants. Default variants are excluded; unscanned heroes remain unknown.', {count:items.length});
     const grid = $('variantGrid');
+    grid.className = 'skin-grid';
     grid.replaceChildren();
     for (const item of items) {
-      const card = element('div', 'variant-card');
-      const swatch = element('span', `variant-swatch variant-${item.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`);
-      card.append(swatch, element('span', 'card-hero', item.hero), element('strong', 'card-name', item.name), element('span', 'variant-owned', '✓ OWNED'));
+      const card = element('button', 'skin-card');
+      card.type = 'button'; card.dataset.rarity = item.rarity;
+      card.setAttribute('aria-label', `${item.hero} · ${item.name}`);
+      const art = element('div', 'card-art');
+      const image = element('img'); image.alt = ''; image.loading = 'lazy'; image.decoding = 'async';
+      art.append(image, element('span', 'image-fallback', 'Image unavailable'));
+      window.DetailsImageSources.load(image, item, true, () => art.classList.add('image-error'));
+      const meta = element('div', 'card-meta');
+      const bottom = element('div', 'card-bottom');
+      bottom.append(element('span', `variant-owned variant-${item.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`, '✓ OWNED'));
+      meta.append(element('span', 'card-hero', item.hero), element('strong', 'card-name', item.name), bottom);
+      card.append(art, meta);
+      card.addEventListener('click', () => openWeapon(item, card));
       grid.append(card);
     }
     if (!items.length) grid.append(element('p', 'account-empty', state.snapshot ? 'No weapon variants are recorded in this selection.' : 'No account snapshot has been loaded.'));
@@ -421,13 +481,13 @@
     let labels = $('accountStockTags');
     if (!labels) {
       labels = element('div', 'account-stock-tags'); labels.id = 'accountStockTags';
-      $('accountPanelBadges').after(labels);
+      $('accountPanelBadges').append(labels);
     }
     const tags = [...(display?.stockTags(stock) || []), ...(display?.parseLevel(level).tags || [])];
     labels.replaceChildren(...tags.filter((tag, index) => tags.findIndex(other => other.text === tag.text) === index)
       .map(tag => element('span', `details-stock-tag ${tag.className}`, tag.text)));
     labels.hidden = !labels.children.length;
-    $('accountPanelBadges').hidden = $('accountLevel').hidden && $('accountEndorsement').hidden && !version;
+    $('accountPanelBadges').hidden = $('accountEndorsement').hidden && !version && labels.hidden;
     $('overviewBalances').hidden = state.tab !== 'overview' || !snapshot;
     if (!snapshot) {
       content.append(element('p', 'account-empty', 'No account snapshot is available for this link. Please contact the store.'));
@@ -552,7 +612,7 @@
   function normalizeProfile(input) {
     if (input !== undefined && (!input || typeof input !== 'object' || Array.isArray(input))) throw new TypeError('profile must be an object');
     const profile = input || {};
-    const levelPattern = /^\s*(?:(?:level|lv\.?)\s*)?\d+(?:,\d{3})*(?:\s*\+\s*\d+(?:,\d{3})*)*(?:\s*(?:[-–—•·]\s*)?(?:OW[12]|(?:bronze|silver|golden|gold|platinum|diamond)\s*border|stacked(?:\s*account)?|premium(?:\s*account)?))*\s*$/i;
+    const levelPattern = /^\s*(?:(?:level|lv\.?)\s*)?\d+(?:,\d{3})*(?:\s*\+\s*\d+(?:,\d{3})*)*(?:\s*(?:[-–—•·]\s*)?(?:OW[12]|(?:bronze|silver|golden|gold|platinum|plat|diamond)\s*border|stacked(?:\s*account)?|premium(?:\s*account)?))*\s*$/i;
     if (typeof profile.accountLevel === 'string' && (profile.accountLevel.length > 500 || !levelPattern.test(profile.accountLevel))) throw new TypeError('account level must be a supported level string of at most 500 characters');
     const roleStats = {};
     for (const key of ['tank', 'damage', 'support']) {
@@ -652,6 +712,10 @@
   backdrop.addEventListener('click', closeDialog);
   $('skinDialog').addEventListener('click', (event) => { if (event.target === $('skinDialog')) closeDialog(); });
   $('skinDialog').addEventListener('close', () => {
+    if (!$('skinDialog').hasAttribute('open')) {
+      cancelDialogImage?.(); cancelDialogImage = null;
+      $('dialogImage').onload = null; $('dialogImage').onerror = null;
+    }
     document.body.classList.remove('details-modal-open');
     if (modalReturnFocus?.isConnected) modalReturnFocus.focus();
   });

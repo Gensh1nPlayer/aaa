@@ -2,7 +2,7 @@ const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('n
 const {chromium,webkit}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
 const root=path.resolve(__dirname,'..');
 const skins=[
- ['Zarya','Pink Mercy','legendary'],['Ana','Illidan','epic'],['Mercy','Noire','legendary'],
+ ['Mercy','Pink Mercy','legendary'],['Genji','Illidan','legendary'],['Widowmaker','Noire','legendary'],
  ['Roadhog','Midas','legendary'],['Genji','Future Mythic','mythic'],['Reaper','OWCS 2024','epic'],
  ['Sombra','Gilded Hunter','legendary'],['Kiriko','Sample Future Bundle','legendary'],
  ['D.Va','Academy','legendary'],['Bastion','Antique','epic']
@@ -72,14 +72,14 @@ const server=http.createServer((req,res)=>{
     await page.selectOption('#sortFilter',sort);
     assert.equal(await page.evaluate(()=>window.nameFormatCalls)-before,skins.length,'cached classification adds no name-regex calls during comparisons; only card rendering formats names');
     const names=await page.locator('#skinGrid .card-name').allTextContents();
-    assert.deepEqual(names.slice(0,2),sort==='rarity'?['Pink Mercy','Illidan']:['Illidan','Pink Mercy']);
+    assert.deepEqual(names.slice(0,2),sort==='name'?['Illidan','Pink Mercy']:['Illidan','Pink Mercy']);
     assert.deepEqual(names.slice(2,4),['Noire','Midas']);
     assert.deepEqual(names.slice(4,7),sort==='name'?['Future Mythic','Gilded Hunter','Sample Future Bundle']:['Future Mythic','Sample Future Bundle','Gilded Hunter'],'same-gradient items use the selected comparator, not a mythic/shop/bundle tier');
     assert.equal(names[7],'OWCS 2024','esports follows the shared gradient group');
     assert.deepEqual(names.slice(8),['name','rarity'].includes(sort)?['Academy','Antique']:['Antique','Academy']);
    }
    await page.selectOption('#rarityFilter','epic');
-   assert.deepEqual(await page.locator('#skinGrid .card-name').allTextContents(),['Illidan','OWCS 2024','Antique']);
+   assert.deepEqual(await page.locator('#skinGrid .card-name').allTextContents(),['OWCS 2024','Antique']);
    await page.fill('#skinSearch','antique');assert.equal(await page.locator('.skin-card').count(),1);
    await page.locator('#resetButton').click();assert.equal(await page.locator('.skin-card').count(),skins.length);
    for(const selector of ['#skinSearch','#rarityFilter','#sortFilter','#resetButton'])assert(await page.locator(selector).evaluate(n=>parseFloat(getComputedStyle(n).fontSize)>=14),'readable control font: '+selector);
