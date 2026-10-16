@@ -5,7 +5,8 @@ The four user-approved competitive variant pairs remain unchanged.
 
 ## Primary images
 
-- Ana / Frostmourne: user-supplied screenshot, edited with the built-in image tool to remove overlay text and logos and extend the blurred backdrop to a wide frame. This is **not an official unedited original**. WebP full image is 1672 × 941; thumbnail is 800 pixels wide. The original upload and edited PNG are retained outside the public repository.
+- Ana / Frostmourne: replaced by the user's native game capture `FROST ANA.jpg` on 2026-10-16. Full-size `ana-frostmourne-native.jpg` retains the source JPEG byte-for-byte (1918 × 1078); WebP thumbnail is 960 × 540. Only page framing (1.03× centered) trims background; the rifle, sling and muzzle remain inside the frame. No AI repainting. The previous AI-assisted reference is no longer displayed.
+- Soldier: 76 / Deliverance: replaced by the user's native `DEILVERANCE.jpg` capture. Full-size `soldier76-deliverance-native.jpg` retains the original JPEG bytes (1918 × 1078); WebP thumbnail is 960 × 540. Centered 1.18× page framing trims excess background without cutting the weapon. The Wiki weapon image remains a fallback; the official promotional reference remains recorded separately. Source filename spelling does not change the catalog name Deliverance.
 - Hanzo / Tokyo Rebel: [official Season 3 article](https://overwatch.blizzard.com/en-us/news/24271881/).
 - Sojourn / Eternal Crystal: [official Season 4 article](https://overwatch.blizzard.com/en-gb/news/24295381/4/).
 - Lucio / Treblemaker: [official Season 5 article](https://overwatch.blizzard.com/es-es/news/24303008/sacia-tu-hambre-en-el-reinado-de-talon-temporada-5-doctrine-sombrio/).
@@ -33,7 +34,7 @@ The weapon viewer has a bounded, consistent image stage; portraits and panoramas
 Hero skin viewers retain their existing natural-ratio layout.
 Differing weapon image ratios use a dimmed, softly blurred copy of the successfully loaded image as background; the sharp foreground stays fully contained. Missing images and normal hero skin viewers do not inherit this backdrop.
 
-## Frostmourne edit prompt
+## Historical Frostmourne edit prompt (superseded)
 
 Built-in image editing; edit target is the user's Ana Frostmourne screenshot.
 Remove the top-left avatar, top-right NEWS and bottom attribution lettering; inpaint only the blurred background in those areas.

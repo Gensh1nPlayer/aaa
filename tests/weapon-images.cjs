@@ -56,13 +56,28 @@ for (const [hero, name] of [['Mercy','Rose Gold'],['Ana','Frostmourne'],['Sojour
   assert.equal(item.imageAvailable, true);
 }
 assert.equal(api.weapon({hero:'Lúcio',name:'Treblemaker'}).imageAvailable,true);
+function checkPackagedImage(url) {
+ const local=path.resolve(root,'acc_details',url);
+ assert(local.startsWith(path.join(root,'acc_details','assets','weapons')+path.sep));
+ const bytes=fs.readFileSync(local);assert(bytes.length>1000,'packaged image exists: '+url);
+ if(/\.jpe?g$/i.test(url)) assert(bytes[0]===255&&bytes[1]===216&&bytes[2]===255,'JPEG signature: '+url);
+ else {assert.equal(bytes.toString('ascii',0,4),'RIFF');assert.equal(bytes.toString('ascii',8,12),'WEBP');}
+}
 for(const item of catalog.filter(x=>x.image?.startsWith('assets/weapons/'))){
- for(const url of [item.image,item.preview])assert(fs.statSync(path.join(root,'acc_details',url)).size>1000,'packaged WebP exists: '+url);
+ for(const url of [item.image,item.preview])checkPackagedImage(url);
 }
 for(const [hero,name] of [['Mercy','Merciful Magitech'],['Soldier 76','Deliverance'],['Reinhardt','Bound Demon']]){
  const entry=catalog.find(x=>x.hero===hero&&x.name===name);
  assert(entry.officialImage.startsWith('https://bnetcmsus-a.akamaihd.net/'));
- assert(entry.image.includes('static.wikia.nocookie.net'),'official promotional scenes do not replace isolated weapon artwork');
+ assert(!entry.image.includes('bnetcmsus-a.akamaihd.net'),'official promotional scenes do not replace isolated weapon artwork');
+}
+for(const [hero,name,stem,rarity,scale] of [['Ana','Frostmourne','ana-frostmourne-native','legendary',1.03],['Soldier 76','Deliverance','soldier76-deliverance-native','mythic',1.18]]) {
+ const item=api.weapon({hero,name});
+ assert.equal(item.image,`assets/weapons/${stem}.jpg`);
+ assert.equal(item.preview,`assets/weapons/${stem}-thumb.webp`);
+ assert.equal(item.rarity,rarity);
+ assert.equal(item.imageScale,scale);
+ assert(!item.imageContext.includes('AI-assisted'),'native screenshot replaces AI-assisted reference');
 }
 for(const input of [{hero:'Hanzo',name:'Tokyo Redel'},{hero:'Hanzo',name:'Tokyo Rebel'},{hero:'Hanzo',id:'weapon/Hanzo/Tokyo_Rebel'},{id:'weapon/Hanzo/Tokyo_Redel'}]) {
   assert.equal(api.weapon(input).name,'Tokyo Rebel');
@@ -111,10 +126,7 @@ async function live() {
       const {item,key} = jobs[next++];
       const url = item[key];
       if (!/^https:\/\//.test(url)) {
-        const local=path.resolve(root,'acc_details',url);
-        assert(local.startsWith(path.join(root,'acc_details','assets','weapons')+path.sep));
-        const bytes=fs.readFileSync(local);assert(bytes.length>1000);
-        assert.equal(bytes.toString('ascii',0,4),'RIFF');assert.equal(bytes.toString('ascii',8,12),'WEBP');
+        checkPackagedImage(url);
         checked++;continue;
       }
       if(url.includes('static.wikia.nocookie.net')) {

@@ -8,7 +8,7 @@ const api = window.DetailsImageSources;
 const variant = (hero,name) => api.variant({hero,name});
 const jade = variant('Tracer','Jade'), crimson = variant('Tracer','Crimson Wolf');
 const snapshot = {accountId:'123',inventoryStatus:'partial',ownedSkinIds:['Mercy/TEST'],
-  ownedWeaponSkinIds:['weapon/Mercy/Rose_Gold','weapon/Reaper/Hard_Light','weapon/Ana/Frostmourne','weapon/Lucio/Treblemaker','weapon/Hanzo/Tokyo_Redel'],
+  ownedWeaponSkinIds:['weapon/Mercy/Rose_Gold','weapon/Reaper/Hard_Light','weapon/Ana/Frostmourne','weapon/Soldier_76/Deliverance','weapon/Lucio/Treblemaker','weapon/Hanzo/Tokyo_Redel'],
   ownedWeaponVariants:[...['Golden','Jade','Galactic','Crimson Wolf'].map(name=>({hero:'Tracer',name})),{hero:'Vendetta',name:'Crimson Wolf'},{hero:'Ana',name:'Jade'},{hero:'Ashe',name:'Crimson Wolf'},...['D.Va','Ashe','Hanzo','Junkrat','Reaper','Soldier 76'].map(hero=>({hero,name:'Golden'}))],
   uncataloguedOwnedItems:[{category:'weapons',hero:'Sojourn',name:'Eternal Crystal'}]};
 const server = http.createServer((req,res) => {
@@ -20,7 +20,7 @@ const server = http.createServer((req,res) => {
   if(pathname==='/skin.svg'){res.setHeader('Content-Type','image/svg+xml');return res.end('<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600"/>');}
   const file = path.resolve(root,'.'+(pathname.endsWith('/')?pathname+'index.html':pathname));
   if(!file.startsWith(root+path.sep)||!fs.existsSync(file)||!fs.statSync(file).isFile()){res.writeHead(404);return res.end();}
-  res.setHeader('Content-Type',({'.js':'text/javascript','.css':'text/css','.html':'text/html','.json':'application/json','.svg':'image/svg+xml','.webp':'image/webp'})[path.extname(file)]||'application/octet-stream');
+  res.setHeader('Content-Type',({'.js':'text/javascript','.css':'text/css','.html':'text/html','.json':'application/json','.svg':'image/svg+xml','.webp':'image/webp','.jpg':'image/jpeg'})[path.extname(file)]||'application/octet-stream');
   res.end(fs.readFileSync(file));
 });
 async function run(){
@@ -80,10 +80,10 @@ async function run(){
         assert(requests.includes(jade.preview)&&requests.includes(jade.image),'404 falls through to same-hero original');
         assert(requests.includes(crimson.preview)&&requests.includes(crimson.image),'300x171 placeholder falls through to same-hero original');
         await page.locator('[data-tab="weapons"]').click();
-        assert.equal(await page.locator('#weaponGrid button').count(),6);
+        assert.equal(await page.locator('#weaponGrid button').count(),7);
         assert.equal(await page.locator('#weaponGrid').evaluate(n=>getComputedStyle(n).gridTemplateColumns.split(' ').length),width===390?1:3,'wide weapon cards instead of tiny mobile tiles');
         let stageHeight=null;
-        for(const [name,available] of [['Rose Gold',true],['Frostmourne',true],['Eternal Crystal',true],['Treblemaker',true],['Tokyo Rebel',true]]) {
+        for(const [name,available] of [['Rose Gold',true],['Frostmourne',true],['Deliverance',true],['Eternal Crystal',true],['Treblemaker',true],['Tokyo Rebel',true]]) {
           const card=page.locator('#weaponGrid button').filter({hasText:name});
           const art=await card.locator('.card-art').boundingBox();assert(Math.abs(art.width/art.height-16/9)<.02,'consistent 16:9 thumbnail');
           await card.click();assert.equal(await page.locator('#dialogTitle').textContent(),name);
@@ -94,7 +94,12 @@ async function run(){
           assert(await page.locator('#dialogImage').evaluate(img=>img.parentElement.style.getPropertyValue('--weapon-art-image').includes(img.currentSrc)), 'viewer backdrop uses its accepted original');
           if(name==='Frostmourne')assert.equal(await page.locator('#dialogTitle .ac-special-skin-ultra-rare').count(),1,'Frostmourne uses BlizzCon emphasis without changing rarity');
           if(stageHeight===null)stageHeight=geometry.height;else assert(Math.abs(stageHeight-geometry.height)<1,'all weapons share one viewer size');
-          if(name==='Frostmourne'&&process.env.WEAPON_SCREENSHOT_DIR){fs.mkdirSync(process.env.WEAPON_SCREENSHOT_DIR,{recursive:true});await page.screenshot({path:path.join(process.env.WEAPON_SCREENSHOT_DIR,`frostmourne-${width}.png`)});}
+          if(['Frostmourne','Deliverance'].includes(name)) {
+            assert(await card.locator('img').getAttribute('src').then(src=>src.includes('-native-thumb.webp')),'native thumbnail is selected');
+            assert.deepEqual(await page.locator('#dialogImage').evaluate(img=>[img.naturalWidth,img.naturalHeight]),[1918,1078],'original screenshot dimensions retained');
+            assert.equal(await page.locator('#dialogImage').evaluate(img=>Number(img.style.getPropertyValue('--weapon-art-scale'))),name==='Frostmourne'?1.03:1.18,'per-weapon safe framing');
+            if(process.env.WEAPON_SCREENSHOT_DIR){fs.mkdirSync(process.env.WEAPON_SCREENSHOT_DIR,{recursive:true});await page.screenshot({path:path.join(process.env.WEAPON_SCREENSHOT_DIR,`${name.toLowerCase()}-${width}.png`)});}
+          }
           await page.locator('#closeDialog').click();
         }
         await page.locator('[data-tab="skins"]').click();
@@ -102,6 +107,7 @@ async function run(){
         assert.equal(await page.locator('#dialogImage').getAttribute('data-weapon-image'),null,'weapon framing does not leak into skins');
         assert.equal(await page.locator('#skinDialog').getAttribute('data-image-kind'),null,'weapon image stage does not leak into skins');
         assert.equal(await page.locator('#dialogImage').evaluate(img=>img.parentElement.style.getPropertyValue('--weapon-art-image')),'','weapon backdrop does not leak into skins');
+        assert.equal(await page.locator('#dialogImage').evaluate(img=>img.style.getPropertyValue('--weapon-art-scale')),'','weapon crop does not leak into skins');
         assert.equal(await page.locator('#dialogTitle').textContent(),'Pink Mercy');
         await page.locator('#closeDialog').click();
         // All candidates fail: leave an honest missing state and stop retrying.
@@ -113,6 +119,16 @@ async function run(){
           const result={failures,src:image.getAttribute('src')};image.remove();return result;
         });
         assert.deepEqual(exhausted,{failures:1,src:null});
+        const fallbackScale=await page.evaluate(async()=>{
+          const image=new Image();document.body.append(image);
+          await new Promise((resolve,reject)=>{
+            const observer=new MutationObserver(()=>{if(image.style.getPropertyValue('--weapon-art-scale')){observer.disconnect();resolve();}});
+            observer.observe(image,{attributes:true,attributeFilter:['style']});
+            DetailsImageSources.load(image,{image:'/missing-native',fallbackImage:'/skin.svg',imageScale:1.18},false,()=>{observer.disconnect();reject(new Error('Fallback should load'));});
+          });
+          const scale=image.style.getPropertyValue('--weapon-art-scale');image.remove();return scale;
+        });
+        assert.equal(fallbackScale,'1','native framing does not crop different fallback artwork');
         const cancelled=await page.evaluate(()=>{
           const image=new Image(),callbacks=[];
           const oldCancel=DetailsImageSources.load(image,{image:'/old-original',preview:'/old-thumb'},false,()=>callbacks.push('old'));
@@ -148,7 +164,7 @@ async function run(){
         await page.locator('#closeDialog').click();
         assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'responsive layout fits');
         assert.deepEqual(errors,[]);
-        console.log(JSON.stringify({engine:engine===chromium?'Chromium':'WebKit legacy dialog',width,variants:13,approvedImages:4,missingImages:9,actualOwnedPairs:6,specialWeapons:6,thumbnailAndDialog:true,fallbacks:['404','Wiki placeholder','exhausted'],heroIsolation:true,staleCallbacksCancelled:true,pageErrors:errors}));
+        console.log(JSON.stringify({engine:engine===chromium?'Chromium':'WebKit legacy dialog',width,variants:13,approvedImages:4,missingImages:9,actualOwnedPairs:6,specialWeapons:7,nativeScreenshots:2,thumbnailAndDialog:true,fallbacks:['404','Wiki placeholder','exhausted'],heroIsolation:true,staleCallbacksCancelled:true,pageErrors:errors}));
       }finally{await browser.close();}
     }
   }finally{await new Promise(resolve=>server.close(resolve));}

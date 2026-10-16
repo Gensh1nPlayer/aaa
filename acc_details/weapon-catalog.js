@@ -45,9 +45,12 @@ window.HERO_GALLERY_WEAPONS = [
 // Official 2026 artwork: verified weapon-specific images, not guessed Wiki paths.
 // Retain the historic Hanzo ID so existing snapshots and collector exports still resolve.
 for (const entry of window.HERO_GALLERY_WEAPONS) {
-  if (entry.hero === 'Ana' && entry.name === 'Frostmourne') {
-    Object.assign(entry, {image:'assets/weapons/ana-frostmourne-cleaned.webp',preview:'assets/weapons/ana-frostmourne-thumb.webp',
-      imageAvailable:true,imageStatus:'available',imageContext:'User-supplied reference, AI-assisted removal of overlay graphics; not an official original',
+  if ((entry.hero === 'Ana' && entry.name === 'Frostmourne') || (entry.hero === 'Soldier 76' && entry.name === 'Deliverance')) {
+    const frost = entry.hero === 'Ana';
+    const stem = frost ? 'ana-frostmourne-native' : 'soldier76-deliverance-native';
+    Object.assign(entry, {fallbackImage:entry.image,fallbackPreview:entry.preview,
+      image:`assets/weapons/${stem}.jpg`,preview:`assets/weapons/${stem}-thumb.webp`,imageScale:frost?1.03:1.18,
+      imageAvailable:true,imageStatus:'available',imageContext:'User-captured native game screenshot; original JPEG bytes preserved, framing applied only in the viewer',
       checkedAt:'2026-10-16'});
   }
   if (entry.hero === 'Hanzo' && entry.name === 'Tokyo Rebel') {

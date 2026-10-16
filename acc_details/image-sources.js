@@ -61,9 +61,13 @@
       else {
         stop();
         image.parentElement?.style.setProperty('--weapon-art-image', `url(${JSON.stringify(image.currentSrc||image.src)})`);
+        const primary = [item.image,item.preview].includes(image.getAttribute('src'));
+        const scale = primary && Number.isFinite(item.imageScale) ? Math.max(1,Math.min(1.25,item.imageScale)) : 1;
+        image.style.setProperty('--weapon-art-scale',String(scale));
       }
     };
     image.parentElement?.style.removeProperty('--weapon-art-image');
+    image.style.removeProperty('--weapon-art-scale');
     image.onload=loaded;
     advance();
     return stop;
