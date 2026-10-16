@@ -20,26 +20,42 @@ for (const name of ['Golden', 'Jade', 'Crimson Wolf']) {
   assert.notEqual(tracer.preview, tracer.image);
   assert.equal(api.candidates(tracer, true)[0], tracer.preview);
   assert.equal(api.candidates(tracer)[0], tracer.image);
-  for (const hero of ['Ana', 'Genji', 'Mercy', 'Unknown']) {
+  assert.match(tracer.fallbackImage, /static\.wikia\.nocookie\.net/, 'the earlier Wiki reference remains a fallback');
+  for (const hero of ['Ana', 'Genji', 'Mercy']) {
     const item = resolve(hero, name);
     assert.equal(item.hero, hero);
-    assert.equal(item.imageAvailable, false, 'never borrow another hero weapon');
-    assert.deepEqual(Array.from(api.candidates(item)), []);
+    assert.equal(item.imageAvailable, true, 'every hero has its own native capture');
+    assert.notEqual(item.image, tracer.image, 'never borrow another hero weapon');
   }
+  const unknown = resolve('Unknown', name);
+  assert.equal(unknown.imageAvailable, false);
+  assert.deepEqual(Array.from(api.candidates(unknown)), []);
 }
 const tracer = resolve('Tracer', 'Crimson Wolf');
 const ashe = resolve('Ashe', 'Crimson Wolf');
 assert.equal(ashe.imageAvailable, true);
 assert.notEqual(tracer.image, ashe.image, 'different heroes have different real assets');
-assert.equal(window.HERO_GALLERY_VARIANT_IMAGES.length,4,'only approved image pairs remain');
+assert.match(ashe.fallbackImage, /bnetcmsus-a\.akamaihd\.net/, 'the official Ashe reference remains a fallback');
+// User-captured native screenshots: one own image per hero and variant, all packaged locally.
+const slug = text => text.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+assert.equal(window.HERO_GALLERY_VARIANT_IMAGES.length, 54 * 4, 'every hero x Golden / Jade / Galactic / Crimson Wolf');
+assert.equal(new Set(window.HERO_GALLERY_VARIANT_IMAGES.map(entry => entry.hero + '/' + entry.name)).size, 54 * 4);
+assert.equal(new Set(window.HERO_GALLERY_VARIANT_IMAGES.map(entry => entry.image)).size, 54 * 4, 'no shared image files');
+for (const entry of window.HERO_GALLERY_VARIANT_IMAGES) {
+  assert.equal(entry.image, `assets/weapons/variants/${slug(entry.hero)}-${slug(entry.name)}.webp`, 'image named after its own hero');
+  assert.equal(entry.preview, entry.image.replace(/\.webp$/, '-thumb.webp'));
+  for (const url of [entry.image, entry.preview]) checkPackagedImage(url);
+}
 for(const [hero,name] of [['Tracer','Galactic'],['Vendetta','Crimson Wolf'],...['D.Va','Ashe','Hanzo','Junkrat','Reaper','Soldier 76'].map(hero=>[hero,'Golden'])]) {
   const item=api.variant({hero,name,owned:true,image:tracer.image,preview:tracer.preview});
-  assert.equal(item.owned,true,'keep ownership even without a picture');
-  assert.equal(item.imageAvailable,false);
-  assert.equal(item.image,null);
-  assert.equal(item.preview,null,'removed images cannot leak from snapshot metadata');
+  assert.equal(item.owned,true,'keep ownership');
+  assert.equal(item.imageAvailable,true);
+  assert.equal(item.image,`assets/weapons/variants/${slug(hero)}-${slug(name)}.webp`,'snapshot image metadata never overrides the catalog');
 }
-assert.deepEqual(Array.from(api.candidates(api.variant({hero:'Ana',name:'Jade',image:tracer.image,preview:tracer.preview}))), [], 'reject stale generic images');
+const strayed=api.variant({hero:'Unknown',name:'Jade',owned:true,image:tracer.image,preview:tracer.preview});
+assert.equal(strayed.image,null);
+assert.equal(strayed.preview,null,'images cannot leak from snapshot metadata');
+assert.equal(api.variant({hero:'Ana',name:'Jade',image:tracer.image,preview:tracer.preview}).image, 'assets/weapons/variants/ana-jade.webp', 'reject stale generic images');
 assert.equal(resolve(' tracer ', 'JADE').image, resolve('Tracer', 'Jade').image);
 assert.equal(resolve('Tracer', 'future variant').imageAvailable, false);
 const original = {hero:'Tracer', name:'Jade', owned:true};
@@ -97,7 +113,8 @@ for(const file of fs.readdirSync(path.join(root,'acc_details/data')).filter(file
   const snapshot=JSON.parse(fs.readFileSync(path.join(root,'acc_details/data',file),'utf8'));
   for(const item of snapshot.ownedWeaponVariants||[]) {
     const resolved=api.variant(item);
-    assert.equal(resolved.imageAvailable,false,'unapproved current Golden artwork is removed: '+item.hero+' / '+item.name);
+    assert.equal(resolved.imageAvailable,true,'owned pair shows its own native capture: '+item.hero+' / '+item.name);
+    assert.equal(resolved.image,`assets/weapons/variants/${slug(item.hero)}-${slug(item.name)}.webp`);
     actualPairs.push(item.hero+' / '+item.name);
   }
 }

@@ -105,3 +105,24 @@ window.HERO_GALLERY_VARIANT_IMAGES.push({hero:'Ashe',name:'Crimson Wolf',
   source:'https://overwatch.blizzard.com/en-gb/news/24246206/',
   imageContext:'Official 2026 competitive weapon reference',checkedAt:'2026-10-16'
 });
+// User-captured native game screenshots: every hero's own Golden, Jade, Galactic and Crimson Wolf
+// weapon, cropped to 16:9 around the weapon (1920x1080 WebP + 960x540 thumbnail, assets/weapons/variants).
+// The references above stay as fallbacks for their pairs; no hero ever borrows another hero's weapon.
+{
+  const heroes = ['Ana', 'Anran', 'Ashe', 'Baptiste', 'Bastion', 'Brigitte', 'Cassidy', 'D.Mon', 'D.Va', 'Doctrine',
+    'Domina', 'Doomfist', 'Echo', 'Emre', 'Freja', 'Genji', 'Hanzo', 'Hazard', 'Illari', 'Jetpack Cat', 'Junker Queen',
+    'Junkrat', 'Juno', 'Kiriko', 'Lifeweaver', 'Lúcio', 'Mauga', 'Mei', 'Mercy', 'Mizuki', 'Moira', 'Orisa', 'Pharah',
+    'Ramattra', 'Reaper', 'Reinhardt', 'Roadhog', 'Shion', 'Sierra', 'Sigma', 'Sojourn', 'Soldier 76', 'Sombra',
+    'Symmetra', 'Torbjörn', 'Tracer', 'Vendetta', 'Venture', 'Widowmaker', 'Winston', 'Wrecking Ball', 'Wuyang',
+    'Zarya', 'Zenyatta'];
+  const slug = text => text.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  const references = window.HERO_GALLERY_VARIANT_IMAGES;
+  window.HERO_GALLERY_VARIANT_IMAGES = heroes.flatMap(hero => window.HERO_GALLERY_VARIANTS.map(name => {
+    const stem = `assets/weapons/variants/${slug(hero)}-${slug(name)}`;
+    const reference = references.find(entry => entry.hero === hero && entry.name === name);
+    return {hero, name, image: `${stem}.webp`, preview: `${stem}-thumb.webp`,
+      ...(reference ? {fallbackImage: reference.image, fallbackPreview: reference.preview} : {}),
+      imageContext: 'User-captured native game screenshot, cropped to 16:9 around the weapon', checkedAt: '2026-10-16'};
+  }));
+}

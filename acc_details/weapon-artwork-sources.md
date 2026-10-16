@@ -1,7 +1,18 @@
 # Weapon artwork provenance and framing
 
 Checked 2026-10-16. This catalog records public reference artwork, not account ownership.
-The four user-approved competitive variant pairs remain unchanged.
+
+## Weapon variants (Golden, Jade, Galactic, Crimson Wolf)
+
+All 216 hero × variant pairs (54 heroes × 4) use the user's own native game captures from 2026-10-16
+(216 JPEGs, 1918 × 1078, one per hero and variant, taken in the in-game weapon viewer). Files live in
+`assets/weapons/variants/<hero>-<variant>.webp` (1920 × 1080, the same size as the skin originals) and
+`<hero>-<variant>-thumb.webp` (960 × 540, the same size as the other native weapon thumbnails; variant cards display thumbnails).
+
+- Filenames were mapped to catalog heroes with an explicit alias list (e.g. BAP → Baptiste, DOCTORINE → Doctrine, GLODEN → Golden); all 216 pairs resolved with no gaps or duplicates.
+- Framing: each hero's four captures share camera and pose, so the pixels that change between variants locate the recoloured weapon; the whole in-focus object that carries the recolour (the full weapon, or the full hero model for D.Va, D.Mon, Bastion, Doomfist, Echo, Lifeweaver, Jetpack Cat, Moira) is kept. A 16:9 crop adds a safe margin (7 % of the height), trims the capture's 6 px rounded-corner border, never enlarges by more than 1.25×, and is identical for all four variants of a hero. Every crop was checked on contact sheets; no weapon is cut.
+- No AI repainting, recolouring or retouching; only cropping and resizing (Lanczos), WebP quality 88 / 84.
+- The four earlier references (Tracer Golden / Jade / Crimson Wolf from the Wiki, Ashe Crimson Wolf official) remain as same-hero fallbacks. A hero never falls back to another hero's weapon.
 
 ## Primary images
 

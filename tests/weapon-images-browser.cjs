@@ -30,16 +30,20 @@ async function run(){
       const browser = await engine.launch({headless:true,...(engine===chromium&&process.env.CHROME_EXECUTABLE?{executablePath:process.env.CHROME_EXECUTABLE}:{})});
       try {
         const page = await browser.newPage({viewport:{width,height:960},reducedMotion:'reduce'});
-        const errors=[], requests=[];
+        const errors=[], requests=[], localFaults=[];
         page.on('pageerror',error=>errors.push(error.message));
         await page.route('**/*',async route=>{
           const url = route.request().url();
-          if(new URL(url).hostname==='127.0.0.1')return route.continue();
+          if(new URL(url).hostname==='127.0.0.1') {
+            // Two packaged native thumbnails fail, so the same-hero fallback chain is still exercised.
+            const local=new URL(url).pathname.replace(/^\/acc_details\//,'');
+            if([jade.preview,crimson.preview].includes(local)){localFaults.push(local);return route.fulfill({status:404,body:''});}
+            return route.continue();
+          }
           if(!['static.wikia.nocookie.net','image.jeuxvideo.com','i.imgur.com','bnetcmsus-a.akamaihd.net'].includes(new URL(url).hostname))return route.abort();
           requests.push(url);
-          // Two independent failure modes: HTTP failure and Wiki's successful placeholder.
-          if(url===jade.preview)return route.fulfill({status:404,body:''});
-          const placeholder=url===crimson.preview;
+          // Two independent failure modes: HTTP failure (above) and Wiki's successful placeholder.
+          const placeholder=url===crimson.fallbackPreview;
           const w=placeholder?300:url.includes('scale-to-width-down')?600:1200;
           const h=placeholder?171:750;
           return route.fulfill({contentType:'image/svg+xml',body:`<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}"><rect width="100%" height="100%" fill="#345"/></svg>`});
@@ -55,7 +59,8 @@ async function run(){
           await card.scrollIntoViewIfNeeded();
           await card.locator('img').evaluate(img=>img.complete&&img.naturalWidth?Promise.resolve():new Promise(resolve=>img.addEventListener('load',resolve,{once:true})));
           const expected=variant(hero,name);
-          assert.equal(await card.locator('img').getAttribute('src'),hero==='Tracer'&&['Jade','Crimson Wolf'].includes(name)?expected.image:expected.preview);
+          // Jade: native thumbnail 404 -> same-hero Wiki thumbnail. Crimson Wolf: 404 -> Wiki placeholder -> native original.
+          assert.equal(await card.locator('img').getAttribute('src'),hero==='Tracer'&&name==='Jade'?expected.fallbackPreview:hero==='Tracer'&&name==='Crimson Wolf'?expected.image:expected.preview);
           assert.equal(await card.locator('img').evaluate(img=>getComputedStyle(img).objectFit),'contain');
           assert(await card.locator('img').evaluate(img=>img.parentElement.style.getPropertyValue('--weapon-art-image').includes(img.currentSrc)), 'thumbnail backdrop uses accepted same-hero fallback');
           await card.click();
@@ -67,18 +72,23 @@ async function run(){
           assert(await card.evaluate(node=>node===document.activeElement),'focus returns to originating weapon card');
         }
         for(const [hero,name] of [['Ana','Jade'],['Tracer','Galactic'],['Vendetta','Crimson Wolf'],...['D.Va','Ashe','Hanzo','Junkrat','Reaper','Soldier 76'].map(hero=>[hero,'Golden'])]) {
+          // Formerly imageless pairs now show their own native capture, never another hero's.
           const card=page.locator('#variantGrid button').filter({hasText:hero}).filter({hasText:name});
-          assert.equal(await card.locator('img').getAttribute('src'),null);
-          assert.equal(await card.locator('.card-art').evaluate(node=>node.style.getPropertyValue('--weapon-art-image')),'','missing art has no borrowed backdrop');
-          assert(await card.locator('.card-art').evaluate(node=>node.classList.contains('image-error')));
-          assert(await card.getByText('Image unavailable',{exact:true}).count());
-          await card.click(); assert(await page.locator('#dialogImageFallback').isVisible());
-          assert.equal(await page.locator('#dialogImage').getAttribute('src'),null);
+          const expected=variant(hero,name);
+          await card.scrollIntoViewIfNeeded();
+          await card.locator('img').evaluate(img=>img.complete&&img.naturalWidth?Promise.resolve():new Promise(resolve=>img.addEventListener('load',resolve,{once:true})));
+          assert.equal(await card.locator('img').getAttribute('src'),expected.preview);
+          assert(expected.image.startsWith('assets/weapons/variants/'),'packaged native capture');
+          if(hero!=='Tracer')assert.notEqual(expected.image,variant('Tracer',name).image,'never another hero weapon');
+          assert(!(await card.locator('.card-art').evaluate(node=>node.classList.contains('image-error'))));
+          await card.click();
+          assert.equal(await page.locator('#dialogImage').getAttribute('src'),expected.image);
+          assert.deepEqual(await page.locator('#dialogImage').evaluate(img=>img.complete&&img.naturalWidth?[img.naturalWidth,img.naturalHeight]:new Promise(resolve=>img.addEventListener('load',()=>resolve([img.naturalWidth,img.naturalHeight]),{once:true}))),[1920,1080],'skin-sized original');
           await page.locator('#closeDialog').click();
         }
         assert(!requests.some(url=>/jeuxvideo|imgur|Galactic_Weapon|Vendetta/.test(url)),'unapproved images are never requested');
-        assert(requests.includes(jade.preview)&&requests.includes(jade.image),'404 falls through to same-hero original');
-        assert(requests.includes(crimson.preview)&&requests.includes(crimson.image),'300x171 placeholder falls through to same-hero original');
+        assert(localFaults.includes(jade.preview)&&requests.includes(jade.fallbackPreview),'404 falls through to the same-hero reference');
+        assert(localFaults.includes(crimson.preview)&&requests.includes(crimson.fallbackPreview),'300x171 placeholder falls through to the same-hero original');
         await page.locator('[data-tab="weapons"]').click();
         assert.equal(await page.locator('#weaponGrid button').count(),7);
         assert.equal(await page.locator('#weaponGrid').evaluate(n=>getComputedStyle(n).gridTemplateColumns.split(' ').length),width===390?1:3,'wide weapon cards instead of tiny mobile tiles');
@@ -164,7 +174,7 @@ async function run(){
         await page.locator('#closeDialog').click();
         assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'responsive layout fits');
         assert.deepEqual(errors,[]);
-        console.log(JSON.stringify({engine:engine===chromium?'Chromium':'WebKit legacy dialog',width,variants:13,approvedImages:4,missingImages:9,actualOwnedPairs:6,specialWeapons:7,nativeScreenshots:2,thumbnailAndDialog:true,fallbacks:['404','Wiki placeholder','exhausted'],heroIsolation:true,staleCallbacksCancelled:true,pageErrors:errors}));
+        console.log(JSON.stringify({engine:engine===chromium?'Chromium':'WebKit legacy dialog',width,variants:13,nativeVariantImages:13,missingImages:0,actualOwnedPairs:6,specialWeapons:7,nativeScreenshots:2,thumbnailAndDialog:true,fallbacks:['404','Wiki placeholder','exhausted'],heroIsolation:true,staleCallbacksCancelled:true,pageErrors:errors}));
       }finally{await browser.close();}
     }
   }finally{await new Promise(resolve=>server.close(resolve));}
