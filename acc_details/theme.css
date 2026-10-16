@@ -123,7 +123,23 @@ h1, h2 { color: #f2f0ff; font-family: Orbitron, Kanit, sans-serif; }
 .skin-card, .skin-dialog { --ac-weight-label: 800; }
 .card-name { padding: 2px 0; margin-top: 3px; margin-bottom: 10px; font-size: 18px; line-height: 1.4; overflow-wrap: anywhere; }
 .rarity-label .ac-special-skin { font-size: inherit; font-weight: 750; }
-.skin-card[data-rarity="ultra"] { border-bottom-color: #ff8295; }
+/* Wiki-style rarity labels are distinct from the shared Stock name effects. */
+[data-rarity="common"] { --rarity-ink: #ffffff; }
+[data-rarity="rare"] { --rarity-ink: #0b9ccf; }
+[data-rarity="epic"] { --rarity-ink: #ed3cef; }
+[data-rarity="legendary"] { --rarity-ink: #ff9c00; }
+[data-rarity="ultra"] { --rarity-ink: #ff1c00; }
+[data-rarity="mythic"] { --rarity-ink: #c1269a; }
+[data-rarity="evolution"] { --rarity-ink: #4fb5b1; }
+.rarity-label[data-rarity] .rarity-text,
+.rarity-badge[data-rarity] .rarity-text { color: var(--rarity-ink, #b8bed0); font-weight: 750; }
+.rarity-label[data-rarity="mythic"] .rarity-text,
+.rarity-badge[data-rarity="mythic"] .rarity-text {
+  background: linear-gradient(90deg, #01c19d, #dddddd, #c1269a);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.skin-card[data-rarity] { border-bottom-color: var(--rarity-ink, #43415a); }
+.skin-card[data-rarity="ultra"] { border-bottom-color: #ff1c00; }
 .card-bottom .catalog-label, .source-note, .empty-state, .account-card small, .account-metric span, .account-card span, .account-empty { color: var(--detail-muted); }
 .placeholder-panel p, .competitive-view > p { color: #b7b1ce; }
 .back-button { border-radius: 8px; background: linear-gradient(120deg, #8d5cff, #6641d7); }
@@ -192,7 +208,7 @@ dialog::backdrop { background: rgba(3,3,14,.78); }
 .dialog-image-wrap.image-error img { display: none; }
 .dialog-image-fallback { padding: 35px; color: #a8a7bb; font-size: 14px; line-height: 1.5; }
 .dialog-heading .rarity-badge { flex-shrink: 0; padding: 7px 11px; border-radius: 6px; font-size: 11px; }
-.rarity-badge { background: #402a15; color: #ffd490; }
+.rarity-badge, .rarity-badge[data-rarity] { background: #19192a; color: #ffd490; }
 .rarity-badge[data-rarity="mythic"] { background: rgba(251,113,133,.09); border: 1px solid rgba(249,168,212,.32); box-shadow: 0 0 12px rgba(249,168,212,.09); }
 .rarity-badge[data-rarity="ultra"] { background: rgba(239,68,68,.1); border: 1px solid rgba(255,130,149,.36); color: #ff8295; }
 .rarity-badge .ac-special-skin { font-size: inherit; font-weight: 800; }

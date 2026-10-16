@@ -1,0 +1,17 @@
+'use strict';
+const assert=require('node:assert/strict'),rarities=require('../assets/skin-rarities.js'),visuals=require('../assets/skin-visuals.js');
+const rarity=(name,hero)=>rarities.classFor(name,hero?visuals.heroKeys(hero):undefined);
+assert.equal(rarity('Hot Pink','Tracer'),'ac-rarity-name-rare');
+assert.equal(rarity('Brick','Zarya'),'ac-rarity-name-rare');
+assert.equal(rarity('Royal','Cassidy'),'ac-rarity-name-epic');
+assert.equal(rarity('Royal','Moira'),'ac-rarity-name-rare');
+assert.equal(rarity('Royal'),'','ambiguous rarity must not be guessed');
+assert.equal(rarity('Academy','D.Va'),'ac-rarity-name-legendary');
+assert.equal(rarity('Academy','Ana'),'','wrong hero must not borrow a title');
+assert.equal(rarity('Academy','D.Va/Ashe'),'','multi-hero match requires every hero to have the skin');
+assert.equal(rarities.classFor('Academy',[]),'','unrecognized explicit hero stays plain');
+assert.equal(rarity('Not Academy','D.Va'),'','no substring lookup');
+assert.equal(rarity('<img src=x onerror=alert(1)>'),'','no HTML lookup');
+assert(visuals.formatName('Pink Mercy').includes('ac-special-skin-ultra-rare'));
+assert(visuals.formatName('Illidan',{hero:'Genji'}).includes('ac-special-skin-ultra-rare'));
+console.log('Rarity fallback: exact titles, hero aliases, multi-hero ambiguity and special-rule precedence passed.');

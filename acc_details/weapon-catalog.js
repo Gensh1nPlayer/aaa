@@ -23,7 +23,7 @@ window.HERO_GALLERY_WEAPONS = [
   ['Ashe', 'Lead Rose', 'mythic', '0/09/Ashe_Weapon_Skin_Lead_Rose.png', '20250608225921'],
   ['Cassidy', 'Blazing Sunsetter', 'mythic', '9/98/Cassidy_Weapon_Skin_Blazing_Sunsetter.png', '20250827042624'],
   ['Genji', 'Sumi-ichimonji', 'mythic', '7/74/Genji_Weapon_Skin_Sumi-Ichimonji.png', '20260415042638'],
-  ['Hanzo', 'Tokyo Redel', 'mythic', 'b/b8/Hanzo_Weapon_Skin_Tokyo_Redel.png', '20260621003000'],
+  ['Hanzo', 'Tokyo Rebel', 'mythic', 'b/b8/Hanzo_Weapon_Skin_Tokyo_Redel.png', '20260621003000'],
   ['Juno', 'Star Shooter', 'mythic', '6/6a/Juno_Weapon_Skin_Star_Shooter.png', '20260218194310'],
   ['Kiriko', 'Spirit Keeper', 'mythic', '5/52/Kiriko_Weapon_Skin_Spirit_Keeper.png', '20260126220935'],
   ['Mercy', 'Merciful Magitech', 'mythic', '9/97/Mercy_Weapon_Skin_Merciful_Magitech.png', '20250608230058'],
@@ -31,7 +31,8 @@ window.HERO_GALLERY_WEAPONS = [
   ['Reaper', 'Steel Death', 'mythic', '7/74/Reaper_Weapon_Skin_Steel_Death.png', '20250624221914'],
   ['Reinhardt', 'Bound Demon', 'mythic', 'c/c8/Reinhardt_Weapon_Skin_Bound_Demon.png', '20240924205836'],
   ['Soldier 76', 'Deliverance', 'mythic', '6/6d/S76_Weapon_Skin_Deliverance.png', '20241114125248'],
-  ['Widowmaker', 'Dame Chance', 'mythic', 'e/e3/Widowmaker_Weapon_Skin_Dame_Chance.png', '20250319130439']
+  ['Widowmaker', 'Dame Chance', 'mythic', 'e/e3/Widowmaker_Weapon_Skin_Dame_Chance.png', '20250319130439'],
+  ['Lucio', 'Treblemaker', 'mythic', null, null]
 ].map(([hero, name, rarity, path, revision]) => {
   const base = path && `https://static.wikia.nocookie.net/overwatch_gamepedia/images/${path}/revision/latest`;
   return { id: `weapon/${hero.replace(/[^a-z0-9]+/gi, '_')}/${name.replace(/[^a-z0-9]+/gi, '_')}`,
@@ -41,33 +42,43 @@ window.HERO_GALLERY_WEAPONS = [
     imageStatus: base ? 'available' : 'not-uploaded',
     source: 'https://overwatch.fandom.com/wiki/Weapon_Skins' };
 });
+// Official 2026 artwork: verified weapon-specific images, not guessed Wiki paths.
+// Retain the historic Hanzo ID so existing snapshots and collector exports still resolve.
+for (const entry of window.HERO_GALLERY_WEAPONS) {
+  if (entry.hero === 'Hanzo' && entry.name === 'Tokyo Rebel') {
+    entry.id = 'weapon/Hanzo/Tokyo_Redel';
+    entry.aliasIds = ['weapon/Hanzo/Tokyo_Rebel'];
+  }
+  const official = entry.hero === 'Sojourn' && entry.name === 'Eternal Crystal' ? {
+    image: 'https://bnetcmsus-a.akamaihd.net/cms/page_media/sz/SZVMAE66MTBC1785973461341.png',
+    source: 'https://overwatch.blizzard.com/en-gb/news/24295381/4/'
+  } : entry.hero === 'Hanzo' && entry.name === 'Tokyo Rebel' ? {
+    image: 'https://bnetcmsus-a.akamaihd.net/cms/page_media/1m/1MZJSMPN22KF1781145323192.png',
+    source: 'https://overwatch.blizzard.com/en-us/news/24271881/'
+  } : entry.hero === 'Lucio' && entry.name === 'Treblemaker' ? {
+    image: 'https://bnetcmsus-a.akamaihd.net/cms/gallery/57KC14S2WFJ11790794793169.png',
+    source: 'https://overwatch.blizzard.com/es-es/news/24303008/sacia-tu-hambre-en-el-reinado-de-talon-temporada-5-doctrine-sombrio/'
+  } : null;
+  if (official) Object.assign(entry, official, {
+    preview: official.image, imageAvailable: true, imageStatus: 'available',
+    imageContext: 'Official 2026 weapon artwork', checkedAt: '2026-10-16'
+  });
+}
 window.HERO_GALLERY_VARIANTS = ['Golden', 'Jade', 'Galactic', 'Crimson Wolf'];
-// Only uploaded, hero-identifiable variant images. Missing pairs stay missing.
-// Sources: Weapon_Variants and the Vendetta file page; never match hero-skin names.
+// Only the four user-approved hero/variant image pairs. Missing pairs stay missing.
 window.HERO_GALLERY_VARIANT_IMAGES = [
   ['Tracer', 'Golden', '4/4e/GoldenWeaponExample.png', '20230928070729'],
   ['Tracer', 'Jade', '3/34/Tracers_Jade_Weapon.png', '20240317021415'],
-  ['Tracer', 'Galactic', '6/60/Tracers_Galactic_Weapon.png', '20250415222614'],
-  ['Tracer', 'Crimson Wolf', 'b/b0/Tracertalon.png', '20260211033126'],
-  ['Vendetta', 'Crimson Wolf', 'e/e7/Crimson_Wolf_Comp_Weapon_Vendetta.png', '20260208223718']
+  ['Tracer', 'Crimson Wolf', 'b/b0/Tracertalon.png', '20260211033126']
 ].map(([hero, name, path, revision]) => {
   const base = `https://static.wikia.nocookie.net/overwatch_gamepedia/images/${path}/revision/latest`;
   return { hero, name, preview: `${base}/scale-to-width-down/600?cb=${revision}`,
     image: `${base}?cb=${revision}`, source: 'https://overwatch.fandom.com/wiki/Weapon_Variants' };
-}).concat([
-  // Legacy Golden screenshots, visually checked against the publisher's hero pages.
-  ['D.Va', '146652/1466522737-605-capture-d-ecran.jpg', 'sm', '505587/arme-doree-de-d-va.htm'],
-  ['Hanzo', '146653/1466527819-3187-capture-d-ecran.jpg', 'md', '505632/arme-doree-de-hanzo.htm'],
-  ['Junkrat', '146652/1466521846-3567-capture-d-ecran.jpg', 'md', '505574/arme-doree-de-chacal-junkrat.htm'],
-  ['Reaper', '146653/1466525961-382-capture-d-ecran.jpg', 'md', '505613/arme-doree-de-faucheur-reaper.htm'],
-  ['Soldier 76', '146653/1466528826-5213-capture-d-ecran.jpg', 'md', '505656/arme-doree-de-soldat-76.htm']
-].map(([hero, path, size, page]) => ({hero, name: 'Golden',
-  preview: `https://image.jeuxvideo.com/medias-${size}/${path}`,
-  image: `https://image.jeuxvideo.com/medias/${path}`,
-  source: `https://www.jeuxvideo.com/wikis-soluce-astuces/${page}`,
-  imageContext: 'Overwatch 1 Golden weapon preview'
-})), [{hero: 'Ashe', name: 'Golden',
-  preview: 'https://i.imgur.com/aoVok9jl.png', image: 'https://i.imgur.com/aoVok9j.png',
-  source: 'https://us.forums.blizzard.com/en/overwatch/t/elizabeths-gold-weapons-materials-are-bugged/388772',
-  imageContext: 'Golden rifle with Jungle hero skin'
-}]);
+});
+// Exact hero-specific 2026 official reference; never reuse this rifle for other heroes.
+window.HERO_GALLERY_VARIANT_IMAGES.push({hero:'Ashe',name:'Crimson Wolf',
+  image:'https://bnetcmsus-a.akamaihd.net/cms/gallery/RBQ9I0GPDYQG1770142587282.png',
+  preview:'https://bnetcmsus-a.akamaihd.net/cms/gallery/RBQ9I0GPDYQG1770142587282.png',
+  source:'https://overwatch.blizzard.com/en-gb/news/24246206/',
+  imageContext:'Official 2026 competitive weapon reference',checkedAt:'2026-10-16'
+});

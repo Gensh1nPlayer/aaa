@@ -13,14 +13,14 @@
   function sourcePage(item){
     return candidates(item).some(primary)?'https://github.com/ValentinZeller/overwatch_skins':item.sourcePage||item.source;
   }
-  const key=value=>String(value||'').trim().toLowerCase().replace(/[^a-z0-9]/g,'');
+  const key=value=>String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim().toLowerCase().replace(/[^a-z0-9]/g,'');
   const pair=item=>`${key(item.hero)}/${key(item.name)}`;
-  const weaponAliases={genji:{nerfsungerang:'nerfslingerang',sungerang:'nerfslingerang',slingerang:'nerfslingerang'},tracer:{nerfgelfire:'nerfgelfirepro',gelfire:'nerfgelfirepro',gelfirepro:'nerfgelfirepro'}};
+  const weaponAliases={hanzo:{tokyoredel:'tokyorebel'},genji:{nerfsungerang:'nerfslingerang',sungerang:'nerfslingerang',slingerang:'nerfslingerang'},tracer:{nerfgelfire:'nerfgelfirepro',gelfire:'nerfgelfirepro',gelfirepro:'nerfgelfirepro'}};
   const weaponName=item=>weaponAliases[key(item.hero)]?.[key(item.name)]||key(item.name);
   function weapon(item){
     const match=(root.HERO_GALLERY_WEAPONS||[]).find(entry=>
       (!key(item.hero)||key(entry.hero)===key(item.hero))&&
-      (entry.id===item.id||weaponName(entry)===weaponName(item)));
+      (entry.id===item.id||(entry.aliasIds||[]).includes(item.id)||weaponName(entry)===weaponName(item)));
     // Unknown imported names remain visible, without borrowing another item's art.
     return {...item,...(match||{}),kind:'weapon',
       imageAvailable:Boolean(match?.image),imageStatus:match?.imageStatus||'not-found',

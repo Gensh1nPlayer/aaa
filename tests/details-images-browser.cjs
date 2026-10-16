@@ -10,9 +10,10 @@ const catalogContext = {window:{}};
 vm.runInNewContext(fs.readFileSync(path.join(root,'acc_details/catalog.js'),'utf8'), catalogContext);
 const catalog = catalogContext.window.HERO_GALLERY_CATALOG;
 const items = ['D.Va/ACADEMY','Ana/BASTET','Genji/BAIHU'].map(id => catalog.find(item => item.id === id));
+for(const [hero,name] of [['Ana','Overwatch 1 Seoul Dynasty'],['Ana','Overwatch 2 Seoul Dynasty'],['Ana','OWCS'],['Ana','OWCS Away'],['Ashe','Overwatch 2 Seoul Dynasty']])items.push(catalog.find(item=>item.hero===hero&&item.name===name));
 assert(items.every(Boolean));
 const accountId = '123';
-const snapshot = {accountId,inventoryStatus:'complete',ownedSkinIds:items.map(item => item.id)};
+const snapshot = {accountId,inventoryStatus:'complete',ownedSkinIds:items.slice(0,-1).map(item => item.id),uncataloguedOwnedItems:[{category:'skins',hero:'Ashe',name:'OW2 Seoul Dynasty'}]};
 const primary = url => url.hostname === 'raw.githubusercontent.com' && url.pathname.includes('/ValentinZeller/overwatch_skins/');
 const thumbnail = url => /_web\.webp$/.test(url.pathname) || url.pathname.includes('/scale-to-width-down/');
 const fixture = (width,height) => `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}"><rect width="100%" height="100%" fill="#244468"/><path d="M0 0L${width} ${height}M${width} 0L0 ${height}" stroke="#49d7f6" stroke-width="6"/></svg>`;
@@ -100,6 +101,15 @@ async function assertNaturalDialog(image) {
       const cardImage = card.locator('img');
       const dialogImage = page.locator('#dialogImage');
       await load('primary');
+      for(const item of items.slice(3)) {
+        const leagueCard=page.locator('.skin-card').filter({has:page.getByText(item.name,{exact:true})}).filter({has:page.getByText(item.hero,{exact:true})});
+        await waitImage(leagueCard.locator('img'));
+        assert.equal(await leagueCard.locator('img').getAttribute('src'),item.image,'exact hero and OW1/OW2/Home/Away image');
+        await leagueCard.click();await waitImage(dialogImage);
+        assert.equal(await dialogImage.getAttribute('src'),item.image);
+        assert.equal(await page.locator('#dialogTitle').textContent(),item.name);
+        await page.keyboard.press('Escape');
+      }
       await waitImage(cardImage);
       if (process.env.SCREENSHOT_DIR) {
         fs.mkdirSync(process.env.SCREENSHOT_DIR,{recursive:true});

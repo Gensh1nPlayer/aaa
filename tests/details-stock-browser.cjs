@@ -5,8 +5,10 @@ const skins=[
  ['Mercy','Pink Mercy','legendary'],['Genji','Illidan','legendary'],['Widowmaker','Noire','legendary'],
  ['Roadhog','Midas','legendary'],['Genji','Future Mythic','mythic'],['Reaper','OWCS 2024','epic'],
  ['Sombra','Gilded Hunter','legendary'],['Kiriko','Sample Future Bundle','legendary'],
- ['D.Va','Academy','legendary'],['Bastion','Antique','epic']
-].map(([hero,name,rarity],i)=>({id:hero+'/TEST_'+i,hero,name,rarity,image:'/art.svg'}));
+ ['D.Va','Academy','legendary'],['Bastion','Antique','epic'],
+ ['Bastion','Sample Shop','epic','shop',10],['Bastion','Sample Stadium','epic','stadium',20],
+ ['Bastion','Default Cyan','rare'],['Bastion','Default White','common']
+].map(([hero,name,rarity,acquisition,referenceOrder],i)=>({id:hero+'/TEST_'+i,hero,name,rarity,acquisition,referenceOrder,image:'/art.svg'}));
 let failStock=false;
 const server=http.createServer((req,res)=>{
  const pathname=new URL(req.url,'http://localhost').pathname;
@@ -76,12 +78,16 @@ const server=http.createServer((req,res)=>{
     assert.deepEqual(names.slice(2,4),['Noire','Midas']);
     assert.deepEqual(names.slice(4,7),sort==='name'?['Future Mythic','Gilded Hunter','Sample Future Bundle']:['Future Mythic','Sample Future Bundle','Gilded Hunter'],'same-gradient items use the selected comparator, not a mythic/shop/bundle tier');
     assert.equal(names[7],'OWCS 2024','esports follows the shared gradient group');
-    assert.deepEqual(names.slice(8),['name','rarity'].includes(sort)?['Academy','Antique']:['Antique','Academy']);
+    assert.deepEqual(names.slice(8,10),['Sample Shop','Sample Stadium'],'verified Shop/Stadium precede ordinary skins inside the Stock color tier');
+    assert.deepEqual(names.slice(10),['name','rarity'].includes(sort)?['Academy','Antique','Default Cyan','Default White']:['Antique','Default Cyan','Default White','Academy']);
    }
    await page.selectOption('#rarityFilter','epic');
-   assert.deepEqual(await page.locator('#skinGrid .card-name').allTextContents(),['OWCS 2024','Antique']);
+   assert.deepEqual(await page.locator('#skinGrid .card-name').allTextContents(),['OWCS 2024','Sample Shop','Sample Stadium','Antique']);
    await page.fill('#skinSearch','antique');assert.equal(await page.locator('.skin-card').count(),1);
    await page.locator('#resetButton').click();assert.equal(await page.locator('.skin-card').count(),skins.length);
+   for(const [rarity,color] of [['common','rgb(255, 255, 255)'],['rare','rgb(11, 156, 207)'],['epic','rgb(237, 60, 239)'],['legendary','rgb(255, 156, 0)']]) {
+    assert.equal(await page.locator(`.rarity-label[data-rarity="${rarity}"] .rarity-text`).first().evaluate(n=>getComputedStyle(n).color),color);
+   }
    for(const selector of ['#skinSearch','#rarityFilter','#sortFilter','#resetButton'])assert(await page.locator(selector).evaluate(n=>parseFloat(getComputedStyle(n).fontSize)>=14),'readable control font: '+selector);
    for(const selector of ['#rarityFilter','#sortFilter'])assert.deepEqual(await page.locator(selector).evaluate(n=>({background:getComputedStyle(n).backgroundColor,color:getComputedStyle(n).color,minHeight:getComputedStyle(n).minHeight})),{background:'rgb(17, 18, 36)',color:'rgb(231, 225, 247)',minHeight:'42px'},'native select matches dark controls');
    await page.locator('#resetButton').hover();

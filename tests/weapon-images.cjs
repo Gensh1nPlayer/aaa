@@ -13,7 +13,7 @@ assert.equal(typeof api.variant, 'function', 'per-hero variant resolver is requi
 assert.equal(typeof api.weapon, 'function');
 assert.equal(typeof api.load, 'function');
 const resolve = (hero, name) => api.variant({hero, name});
-for (const name of ['Golden', 'Jade', 'Galactic', 'Crimson Wolf']) {
+for (const name of ['Golden', 'Jade', 'Crimson Wolf']) {
   const tracer = resolve('Tracer', name);
   assert.equal(tracer.hero, 'Tracer');
   assert.equal(tracer.imageAvailable, true);
@@ -28,9 +28,17 @@ for (const name of ['Golden', 'Jade', 'Galactic', 'Crimson Wolf']) {
   }
 }
 const tracer = resolve('Tracer', 'Crimson Wolf');
-const vendetta = resolve('Vendetta', 'Crimson Wolf');
-assert.equal(vendetta.imageAvailable, true);
-assert.notEqual(tracer.image, vendetta.image, 'different heroes have different real assets');
+const ashe = resolve('Ashe', 'Crimson Wolf');
+assert.equal(ashe.imageAvailable, true);
+assert.notEqual(tracer.image, ashe.image, 'different heroes have different real assets');
+assert.equal(window.HERO_GALLERY_VARIANT_IMAGES.length,4,'only approved image pairs remain');
+for(const [hero,name] of [['Tracer','Galactic'],['Vendetta','Crimson Wolf'],...['D.Va','Ashe','Hanzo','Junkrat','Reaper','Soldier 76'].map(hero=>[hero,'Golden'])]) {
+  const item=api.variant({hero,name,owned:true,image:tracer.image,preview:tracer.preview});
+  assert.equal(item.owned,true,'keep ownership even without a picture');
+  assert.equal(item.imageAvailable,false);
+  assert.equal(item.image,null);
+  assert.equal(item.preview,null,'removed images cannot leak from snapshot metadata');
+}
 assert.deepEqual(Array.from(api.candidates(api.variant({hero:'Ana',name:'Jade',image:tracer.image,preview:tracer.preview}))), [], 'reject stale generic images');
 assert.equal(resolve(' tracer ', 'JADE').image, resolve('Tracer', 'Jade').image);
 assert.equal(resolve('Tracer', 'future variant').imageAvailable, false);
@@ -45,7 +53,12 @@ for (const [hero, name] of [['Mercy','Rose Gold'],['Ana','Frostmourne'],['Sojour
   const item = api.weapon({hero, name, owned:true});
   assert.equal(item.owned, true);
   assert.equal(item.id, entry.id);
-  assert.equal(item.imageAvailable, name === 'Rose Gold');
+  assert.equal(item.imageAvailable, name !== 'Frostmourne');
+}
+assert.equal(api.weapon({hero:'Lúcio',name:'Treblemaker'}).imageAvailable,true);
+for(const input of [{hero:'Hanzo',name:'Tokyo Redel'},{hero:'Hanzo',name:'Tokyo Rebel'},{hero:'Hanzo',id:'weapon/Hanzo/Tokyo_Rebel'},{id:'weapon/Hanzo/Tokyo_Redel'}]) {
+  assert.equal(api.weapon(input).name,'Tokyo Rebel');
+  assert.equal(api.weapon(input).id,'weapon/Hanzo/Tokyo_Redel','legacy snapshot IDs stay stable');
 }
 assert.equal(api.weapon({id:'weapon/Mercy/Rose_Gold',hero:'Mercy',name:'unmatched',uncatalogued:true}).name, 'Rose Gold');
 assert.equal(api.weapon({hero:'Ana',name:'Hard Light'}).imageAvailable, false);
@@ -61,12 +74,11 @@ for(const file of fs.readdirSync(path.join(root,'acc_details/data')).filter(file
   const snapshot=JSON.parse(fs.readFileSync(path.join(root,'acc_details/data',file),'utf8'));
   for(const item of snapshot.ownedWeaponVariants||[]) {
     const resolved=api.variant(item);
-    assert.equal(resolved.imageAvailable,true,'current owned pair: '+item.hero+' / '+item.name);
+    assert.equal(resolved.imageAvailable,false,'unapproved current Golden artwork is removed: '+item.hero+' / '+item.name);
     actualPairs.push(item.hero+' / '+item.name);
   }
 }
-assert.equal(new Set(actualPairs).size,6,'known snapshot owned pairs are all covered');
-assert.equal(new Set(['D.Va','Ashe','Hanzo','Junkrat','Reaper','Soldier 76'].map(hero=>resolve(hero,'Golden').image)).size,6);
+assert.equal(new Set(actualPairs).size,6,'all six known owned pairs still exist in snapshots');
 console.log(JSON.stringify({specialWeapons:catalog.length,variantAssets:window.HERO_GALLERY_VARIANT_IMAGES.length,heroIsolation:true,snapshotUnchanged:true}));
 
 // Opt-in network verification. GET bytes stay in memory; no image files are exported.

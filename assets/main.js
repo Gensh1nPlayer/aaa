@@ -753,17 +753,39 @@ document.addEventListener("DOMContentLoaded", () => {
             const attachedSoldier76Regex = /^(.+?)(\s*:\s*76)$/i;
 
             function styleSkinName(rawName, hero) {
-              const styled = window.RoshineSkinVisuals ? window.RoshineSkinVisuals.formatName(rawName, hero ? {hero} : undefined) : escapeAccountText(rawName);
+              let styled = window.RoshineSkinVisuals ? window.RoshineSkinVisuals.formatName(rawName, hero ? {hero} : undefined) : escapeAccountText(rawName);
+              // Explicit Stock effects always win; rarity is a full-title, hero-aware fallback only.
+              if (!styled.includes('ac-special-skin') && !styled.includes('ac-special-weapon')) {
+                const heroes = hero ? (window.RoshineSkinVisuals?.heroKeys?.(hero) || []) : undefined;
+                const rarityClass = window.RoshineSkinRarities?.classFor(rawName, heroes);
+                if (rarityClass) styled = `<span class="ac-rarity-name ${rarityClass}">${styled}</span>`;
+              }
               return `<span class="ac-skin-name">${styled}</span>`;
+            }
+
+            function styleSkinGroup(rawNames, hero) {
+              // The final hero applies to each slash-separated title, not the entire string.
+              // Explicit hero markers within a member take precedence over an inherited hero.
+              return String(rawNames).split(/(\s*\/\s*)/).map((part,index) => {
+                if (index % 2) return escapeAccountText(part);
+                if (!part.trim()) return escapeAccountText(part);
+                if (heroSequenceRegex.test(part.trim())) return escapeAccountText(part);
+                if (leadingHeroRegex.test(part.trim()) || trailingHeroRegex.test(part.trim())) return styleSkinItem(part);
+                return styleSkinName(part, hero);
+              }).join('');
             }
 
             function styleSkinItem(rawItem) {
               const item = String(rawItem ?? '').trim();
               if (!item) return '';
+              const members = item.split('/');
+              if (members.length > 1 && members.every(member => leadingHeroRegex.test(member.trim()) || trailingHeroRegex.test(member.trim()))) {
+                return styleSkinGroup(item);
+              }
 
               // Pink Mercy is a complete skin name, not the adjective "Pink"
               // followed by the hero name "Mercy". Handle it before hero parsing.
-              if (/\b(?:Pink|Rose\s+Gold)\s+Mercy\b/i.test(item) || /\bBundle\b/i.test(item)) return styleSkinName(item);
+              if ((!item.includes('/') && /\b(?:Pink|Rose\s+Gold)\s+Mercy\b/i.test(item)) || /\bBundle\b/i.test(item)) return styleSkinName(item);
 
               // "Soldier" belongs to this skin title, not a Soldier: 76 hero suffix.
               const seaSoldier = item.match(/^(Sea\s+Soldier)(?:\s+(.+))?$/i);
@@ -777,25 +799,25 @@ document.addEventListener("DOMContentLoaded", () => {
               // Hero-first format, e.g. "D.Va LE SSERAFIM Bundle".
               const leadingHero = item.match(leadingHeroRegex);
               if (leadingHero && !heroSequenceRegex.test(leadingHero[3])) {
-                return `${escapeAccountText(leadingHero[1])}${escapeAccountText(leadingHero[2])}${styleSkinName(leadingHero[3], leadingHero[1])}`;
+                return `${escapeAccountText(leadingHero[1])}${escapeAccountText(leadingHero[2])}${styleSkinGroup(leadingHero[3], leadingHero[1])}`;
               }
 
               // Skin-first format, including abbreviated hero suffixes such as
               // "Queen/Rugby JQ", "Bounty Hunter Bap" and "Cardboard Rein/Brig".
               const trailingHero = item.match(trailingHeroRegex);
               if (trailingHero) {
-                return `${styleSkinName(trailingHero[1], trailingHero[3])}${escapeAccountText(trailingHero[2])}${escapeAccountText(trailingHero[3])}`;
+                return `${styleSkinGroup(trailingHero[1], trailingHero[3])}${escapeAccountText(trailingHero[2])}${escapeAccountText(trailingHero[3])}`;
               }
 
               // Soldier: 76 is often shortened in the source data to ":76",
               // e.g. "Biker:76" or "Infinite Guard: 76".
               const attachedSoldier76 = item.match(attachedSoldier76Regex);
               if (attachedSoldier76 && attachedSoldier76[1].trim()) {
-                return `${styleSkinName(attachedSoldier76[1].trimEnd())}${escapeAccountText(attachedSoldier76[2])}`;
+                return `${styleSkinGroup(attachedSoldier76[1].trimEnd(), 'Soldier: 76')}${escapeAccountText(attachedSoldier76[2])}`;
               }
 
               // No explicit hero marker is present, so treat the item as a skin name.
-              return `${styleSkinName(item)}`;
+              return styleSkinGroup(item);
             }
 
             function styleSkinDescriptionLine(rawLine) {

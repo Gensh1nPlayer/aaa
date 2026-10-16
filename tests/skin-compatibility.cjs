@@ -15,7 +15,7 @@ const api = vm.runInNewContext(`(() => {
   ${section('function escapeAccountText(value)', 'function safeExternalUrl')}
   ${section('const heroAliasPatterns', 'const highlightLines')}
   return { styleSkinItem, styleSkinName, styleSkinDescriptionLine, applyColorMap, rareSkinNames, shopSkinNames, owlTeamNames };
-})()`,{window:{RoshineSkinVisuals:shared}});
+})()`,{window:{RoshineSkinVisuals:shared,RoshineSkinRarities:require('../assets/skin-rarities.js')}});
 const cases = [
   ['Blizzard Mythic Gift', 'shop'],
   ['Blizzard Mythic Gift — Choose 1 Mythic Skin', 'shop'],
@@ -160,3 +160,17 @@ console.log('Safari 14 syntax and contextual skin rules passed.');
 for (const name of ['Hot Pink Tracer','Brick Zarya','Zarya Brick','Royal Moira','Night Owl Ana','Snow Fox Lucio','Ice Queen Brigitte','Anubis Pharah','Dawn Bastion','Ra Zenyatta']) {
   for (const render of [api.applyColorMap,api.styleSkinItem]) assert(!render(name).includes('ac-special-skin-'),`False promotion: ${name} -> ${render(name)}`);
 }
+for(const [text,expected] of [
+ ['Mob Boss/Executioner/Gladiator Queen JQ',['Mob Boss','Executioner','Gladiator Queen']],
+ ['Pink/Rose Gold/Beach Rescue Mercy',['Pink','Rose Gold','Beach Rescue']],
+ ['Ana Night Owl/Snow Owl',['Night Owl','Snow Owl']],
+ ['Illidan Genji/Pink Mercy',['Illidan','Pink Mercy']],
+ ['Hot Pink/Unknown Skin Tracer',['Hot Pink','Unknown Skin']]
+]) {
+ const html=api.styleSkinItem(text);
+ for(const name of expected)assert(html.includes('>'+name+'</span>'),'separate complete member: '+text+' / '+name);
+ assert.equal(html.replace(/<[^>]+>/g,''),text,'slashes and hero labels remain unchanged');
+}
+assert(!api.styleSkinItem('Brick/Hot Pink Tracer').includes('ac-special-skin-ultra-rare'),'no shared wrong-hero promotion');
+assert(!api.styleSkinItem('Ana/Mercy').includes('ac-skin-name'),'hero-only lists stay neutral');
+assert(!api.styleSkinItem('<img src=x>/Night Owl Ana').includes('<img'),'group markup stays escaped');

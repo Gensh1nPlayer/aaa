@@ -294,5 +294,5 @@ function formatName(rawName, context) {
   });
   return styled;
 }
-return Object.freeze({rules:specialSkinRules,matchClass:skinMatchClass,acceptMatch,formatName,rareSkinNames,shopSkinNames,owlTeamNames});
+return Object.freeze({rules:specialSkinRules,matchClass:skinMatchClass,acceptMatch,formatName,heroKeys,rareSkinNames,shopSkinNames,owlTeamNames});
 });

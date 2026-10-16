@@ -6,10 +6,10 @@ const window = {};
 for (const file of ['weapon-catalog.js','image-sources.js']) vm.runInNewContext(fs.readFileSync(path.join(root,'acc_details',file),'utf8'), {window});
 const api = window.DetailsImageSources;
 const variant = (hero,name) => api.variant({hero,name});
-const jade = variant('Tracer','Jade'), galactic = variant('Tracer','Galactic');
+const jade = variant('Tracer','Jade'), crimson = variant('Tracer','Crimson Wolf');
 const snapshot = {accountId:'123',inventoryStatus:'partial',ownedSkinIds:['Mercy/TEST'],
-  ownedWeaponSkinIds:['weapon/Mercy/Rose_Gold','weapon/Reaper/Hard_Light','weapon/Ana/Frostmourne'],
-  ownedWeaponVariants:[...['Golden','Jade','Galactic','Crimson Wolf'].map(name=>({hero:'Tracer',name})),{hero:'Vendetta',name:'Crimson Wolf'},{hero:'Ana',name:'Jade'},...['D.Va','Ashe','Hanzo','Junkrat','Reaper','Soldier 76'].map(hero=>({hero,name:'Golden'}))],
+  ownedWeaponSkinIds:['weapon/Mercy/Rose_Gold','weapon/Reaper/Hard_Light','weapon/Ana/Frostmourne','weapon/Lucio/Treblemaker','weapon/Hanzo/Tokyo_Redel'],
+  ownedWeaponVariants:[...['Golden','Jade','Galactic','Crimson Wolf'].map(name=>({hero:'Tracer',name})),{hero:'Vendetta',name:'Crimson Wolf'},{hero:'Ana',name:'Jade'},{hero:'Ashe',name:'Crimson Wolf'},...['D.Va','Ashe','Hanzo','Junkrat','Reaper','Soldier 76'].map(hero=>({hero,name:'Golden'}))],
   uncataloguedOwnedItems:[{category:'weapons',hero:'Sojourn',name:'Eternal Crystal'}]};
 const server = http.createServer((req,res) => {
   const pathname = new URL(req.url,'http://localhost').pathname;
@@ -35,11 +35,11 @@ async function run(){
         await page.route('**/*',async route=>{
           const url = route.request().url();
           if(new URL(url).hostname==='127.0.0.1')return route.continue();
-          if(!['static.wikia.nocookie.net','image.jeuxvideo.com','i.imgur.com'].includes(new URL(url).hostname))return route.abort();
+          if(!['static.wikia.nocookie.net','image.jeuxvideo.com','i.imgur.com','bnetcmsus-a.akamaihd.net'].includes(new URL(url).hostname))return route.abort();
           requests.push(url);
           // Two independent failure modes: HTTP failure and Wiki's successful placeholder.
           if(url===jade.preview)return route.fulfill({status:404,body:''});
-          const placeholder=url===galactic.preview;
+          const placeholder=url===crimson.preview;
           const w=placeholder?300:url.includes('scale-to-width-down')?600:1200;
           const h=placeholder?171:750;
           return route.fulfill({contentType:'image/svg+xml',body:`<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}"><rect width="100%" height="100%" fill="#345"/></svg>`});
@@ -49,13 +49,13 @@ async function run(){
         await page.waitForFunction(()=>document.body.classList.contains('has-account'));
         await page.locator('[data-tab="variants"]').click();
         const cards=page.locator('#variantGrid .skin-card');
-        assert.equal(await cards.count(),12);
-        for(const [hero,name] of [['Tracer','Golden'],['Tracer','Jade'],['Tracer','Galactic'],['Tracer','Crimson Wolf'],['Vendetta','Crimson Wolf'],...['D.Va','Ashe','Hanzo','Junkrat','Reaper','Soldier 76'].map(hero=>[hero,'Golden'])]) {
+        assert.equal(await cards.count(),13,'ownership cards remain even when images are removed');
+        for(const [hero,name] of [['Tracer','Golden'],['Tracer','Jade'],['Tracer','Crimson Wolf'],['Ashe','Crimson Wolf']]) {
           const card=page.locator('#variantGrid button').filter({hasText:hero}).filter({hasText:name});
           await card.scrollIntoViewIfNeeded();
           await card.locator('img').evaluate(img=>img.complete&&img.naturalWidth?Promise.resolve():new Promise(resolve=>img.addEventListener('load',resolve,{once:true})));
           const expected=variant(hero,name);
-          assert.equal(await card.locator('img').getAttribute('src'),hero==='Tracer'&&['Jade','Galactic'].includes(name)?expected.image:expected.preview);
+          assert.equal(await card.locator('img').getAttribute('src'),hero==='Tracer'&&['Jade','Crimson Wolf'].includes(name)?expected.image:expected.preview);
           assert.equal(await card.locator('img').evaluate(img=>getComputedStyle(img).objectFit),'contain');
           await card.click();
           assert.equal(await page.locator('#dialogTitle').textContent(),name);
@@ -65,17 +65,21 @@ async function run(){
           await page.locator('#closeDialog').click();
           assert(await card.evaluate(node=>node===document.activeElement),'focus returns to originating weapon card');
         }
-        const ana=page.locator('#variantGrid button').filter({hasText:'Ana'});
-        assert.equal(await ana.locator('img').getAttribute('src'),null);
-        assert(await ana.locator('.card-art').evaluate(node=>node.classList.contains('image-error')));
-        await ana.click(); assert(await page.locator('#dialogImageFallback').isVisible());
-        assert.equal(await page.locator('#dialogImage').getAttribute('src'),null);
-        await page.locator('#closeDialog').click();
+        for(const [hero,name] of [['Ana','Jade'],['Tracer','Galactic'],['Vendetta','Crimson Wolf'],...['D.Va','Ashe','Hanzo','Junkrat','Reaper','Soldier 76'].map(hero=>[hero,'Golden'])]) {
+          const card=page.locator('#variantGrid button').filter({hasText:hero}).filter({hasText:name});
+          assert.equal(await card.locator('img').getAttribute('src'),null);
+          assert(await card.locator('.card-art').evaluate(node=>node.classList.contains('image-error')));
+          assert(await card.getByText('Image unavailable',{exact:true}).count());
+          await card.click(); assert(await page.locator('#dialogImageFallback').isVisible());
+          assert.equal(await page.locator('#dialogImage').getAttribute('src'),null);
+          await page.locator('#closeDialog').click();
+        }
+        assert(!requests.some(url=>/jeuxvideo|imgur|Galactic_Weapon|Vendetta/.test(url)),'unapproved images are never requested');
         assert(requests.includes(jade.preview)&&requests.includes(jade.image),'404 falls through to same-hero original');
-        assert(requests.includes(galactic.preview)&&requests.includes(galactic.image),'300x171 placeholder falls through to same-hero original');
+        assert(requests.includes(crimson.preview)&&requests.includes(crimson.image),'300x171 placeholder falls through to same-hero original');
         await page.locator('[data-tab="weapons"]').click();
-        assert.equal(await page.locator('#weaponGrid button').count(),4);
-        for(const [name,available] of [['Rose Gold',true],['Frostmourne',false],['Eternal Crystal',false]]) {
+        assert.equal(await page.locator('#weaponGrid button').count(),6);
+        for(const [name,available] of [['Rose Gold',true],['Frostmourne',false],['Eternal Crystal',true],['Treblemaker',true],['Tokyo Rebel',true]]) {
           const card=page.locator('#weaponGrid button').filter({hasText:name});
           await card.click();assert.equal(await page.locator('#dialogTitle').textContent(),name);
           assert.equal(await page.locator('#dialogImageFallback').isVisible(),!available);
@@ -130,7 +134,7 @@ async function run(){
         await page.locator('#closeDialog').click();
         assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'responsive layout fits');
         assert.deepEqual(errors,[]);
-        console.log(JSON.stringify({engine:engine===chromium?'Chromium':'WebKit legacy dialog',width,variants:12,actualOwnedPairs:6,specialWeapons:4,thumbnailAndDialog:true,fallbacks:['404','Wiki placeholder','exhausted'],heroIsolation:true,staleCallbacksCancelled:true,pageErrors:errors}));
+        console.log(JSON.stringify({engine:engine===chromium?'Chromium':'WebKit legacy dialog',width,variants:13,approvedImages:4,missingImages:9,actualOwnedPairs:6,specialWeapons:6,thumbnailAndDialog:true,fallbacks:['404','Wiki placeholder','exhausted'],heroIsolation:true,staleCallbacksCancelled:true,pageErrors:errors}));
       }finally{await browser.close();}
     }
   }finally{await new Promise(resolve=>server.close(resolve));}

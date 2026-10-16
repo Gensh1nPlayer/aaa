@@ -3,6 +3,12 @@
 
   const catalog = Array.isArray(window.HERO_GALLERY_CATALOG) ? window.HERO_GALLERY_CATALOG : [];
   const byId = new Map(catalog.map((skin) => [skin.id, skin]));
+  const skinIdentity = (hero, name) => JSON.stringify([String(hero).normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,''), String(name).replace(/\bOW([12])\b/gi,'Overwatch $1').toLowerCase().replace(/[^a-z0-9]/g,'')]);
+  const byIdentity = new Map();
+  for (const skin of catalog) {
+    const identity = skinIdentity(skin.hero, skin.name);
+    byIdentity.set(identity, byIdentity.has(identity) ? null : skin);
+  }
   const weaponCatalog = Array.isArray(window.HERO_GALLERY_WEAPONS) ? window.HERO_GALLERY_WEAPONS : [];
   const weaponById = new Map(weaponCatalog.map((weapon) => [weapon.id, weapon]));
   const variantNames = Array.isArray(window.HERO_GALLERY_VARIANTS) ? window.HERO_GALLERY_VARIANTS : [];
@@ -90,8 +96,7 @@
 
   function renderRarity(node, rarity, label) {
     node.dataset.rarity = rarity;
-    const effect = rarity === 'mythic' ? 'ac-special-skin-mythic' : rarity === 'ultra' ? 'ac-special-skin-ultra-rare' : '';
-    node.replaceChildren(element('span', effect ? `ac-special-skin ${effect}` : '', label));
+    node.replaceChildren(element('span', 'rarity-text', label));
   }
 
   function roleLabel(key, label) {
@@ -123,7 +128,10 @@
     return [...state.snapshot.ownedSkinIds.map((id) => byId.get(id) || unmatchedItem(id)),
       ...state.snapshot.uncataloguedOwnedItems.filter((item) => item.category === 'skins').map((item) => ({
         ...item, id: `uncatalogued/${item.hero}/${item.name}`, rarity: 'unknown', uncatalogued: true
-      }))];
+      }))].map(item => {
+        const known = item.uncatalogued && byIdentity.get(skinIdentity(item.hero,item.name));
+        return known ? {...item, ...known, uncatalogued: false} : item;
+      });
   }
 
   function currentWeapons() {
@@ -234,6 +242,10 @@
     items.sort((a, b) => {
       const tier = stockColorTier(a) - stockColorTier(b);
       if (tier) return tier;
+      // Source priority is subordinate to Stock colors, never a guessed name match.
+      const sources = {esports: 0, shop: 1, stadium: 1};
+      const source = (sources[a.acquisition] ?? 2) - (sources[b.acquisition] ?? 2);
+      if (source) return source;
       if (state.sort === 'featured') {
         const aFeatured = featuredOrder.get(a.id) ?? Number.MAX_SAFE_INTEGER;
         const bFeatured = featuredOrder.get(b.id) ?? Number.MAX_SAFE_INTEGER;
@@ -244,6 +256,12 @@
         if (rarity) return rarity;
       }
       if (state.sort === 'name') return compareText(a.name, b.name) || compareText(a.hero, b.hero);
+      if (a.hero === b.hero) {
+        const aReference = Number.isFinite(a.referenceOrder) ? a.referenceOrder : Number.MAX_SAFE_INTEGER;
+        const bReference = Number.isFinite(b.referenceOrder) ? b.referenceOrder : Number.MAX_SAFE_INTEGER;
+        const order = aReference - bReference;
+        if (order) return order;
+      }
       return compareText(a.hero, b.hero) || compareText(a.name, b.name);
     });
     return items;

@@ -5,6 +5,7 @@ It checks skin-name precedence, markup escaping, currency highlighting,
 endorsement aliases and Safari 14's known syntax/API restrictions.
 
 - `node tests/skin-context.cjs`: hero ownership, full-title matching, same-name mythic collisions, Bundle inheritance and the complete current skin catalog.
+- `node tests/skin-rarities.cjs`: homepage rarity fallback, exact full titles, explicit hero aliases and ambiguous-title rejection; existing special rules retain priority.
 - `node tests/identity-layout-browser.cjs`: real #191 and controlled dense-tag fixtures at four widths in Chromium/WebKit; balanced ID/level, nonoverlapping secondary tags, stored tag aliases, long levels and RTL.
 
 Stock/detail display updates:
@@ -44,10 +45,23 @@ Account details integration:
 
 - node tests/details-contract.cjs
 - node tests/image-sources.cjs (GitHub-first artwork, Fandom fallback, unchanged IDs)
+- node tests/esports-catalog.cjs (OWL OW1/OW2 and OWCS Home/Away identity, existing IDs, verified Shop/Stadium metadata)
 - node tests/hero-gallery-import.cjs
 - node tests/details-browser.cjs (same Playwright / Chrome variables; no TLS required)
 - node tests/details-images-browser.cjs (original artwork and source failure fallback; no TLS required)
 - node tests/details-skin-effects.cjs (name colors/glow parity with stock, Mythic/Ultra labels, escaping and five languages)
+
+`node tools/refresh-esports-catalog.cjs` refreshes reference artwork and source/order metadata
+from the Wiki league pages and all 54 Foxy hero pages, preserving existing IDs and primary images.
+`--esports-only` refreshes league additions without re-fetching hero order metadata.
+This command never edits inventory or snapshots. It requires network access and may be rate-limited.
+Stock name-color groups remain the first sorting key; verified esports, Shop/Stadium sources
+precede ordinary skins within each group, followed by the selected comparator and reference order.
+Rarity labels use Wiki colors independently of the unchanged shared Stock name effects.
+The homepage loads a compact generated rarity dictionary rather than the full artwork catalog.
+`node tools/build-skin-rarities.cjs` rebuilds that dictionary after local catalog edits;
+the catalog refresh command runs it automatically. Only skin-description names use the fallback,
+not arbitrary inventory prose. Common names stay white with no glow; unknown/ambiguous names stay plain.
 - node tests/language-browser.cjs (all five selectors, Japanese single-line labels, no checkmarks; TLS variables recommended for Auth)
 - node tests/auth-regressions.cjs (TLS variables required; RFC vectors, strict Hex input, stale async results, storage failures and language URL persistence)
 - node tests/policy-regressions.cjs (storage failures, keyboard language selection, English-based warranty conditions and scrollable small-screen 404)
