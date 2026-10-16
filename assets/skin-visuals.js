@@ -126,7 +126,7 @@ const specialSkinRules = [
     className: 'ac-special-skin-shop'
   },
   {
-    pattern: /\b(?:Heart\s+of\s+Hope|Tokyo\s+Rebel|Void\s+Dancer|Cyber\s+Demon|Zeus|Amaterasu|Galactic\s+Emperor|Adventurer|A-7000\s+Wargod|Onryō|Grand\s+Beast|Ancient\s+Caller|Vengeance|Calamity\s+Empress|Anubis|Spellbinder|Thor|Pixiu|Horang|Ultraviolet\s+Sentinel|Divine\s+Druid|Cyber\s+Fuel|Divine\s+Desperado|Magma\s+Titan|Celestial\s+Guardian|Hop\s+Online!|Volted\s+Overdrive|Ra|Ascendant\s+Phoenix|World\s+Forger|Bound\s+Demon|Midnight\s+Sun|Deliverance|Lead\s+Rose|Dame\s+Chance|Merciful\s+Magitech|Steel\s+Death|Gilded|Iridescent|Dawn|Blazing\s+Sunsetter|Spirit\s+Keeper|Star\s+Shooter|Sumi-ichimonji|Koi\s+of\s+Duality|Capsule\s+Cannon|Eternal\s+Crystal)(?![A-Za-z0-9_])/gi,
+    pattern: /\b(?:Heart\s+of\s+Hope|Tokyo\s+Rebel|Void\s+Dancer|Cyber\s+Demon|Zeus|Amaterasu|Galactic\s+Emperor|Adventurer|A-7000\s+Wargod|Onryō|Grand\s+Beast|Ancient\s+Caller|Vengeance|Calamity\s+Empress|Anubis|Spellbinder|Thor|Pixiu|Horang|Ultraviolet\s+Sentinel|Divine\s+Druid|Cyber\s+Fuel|Divine\s+Desperado|Magma\s+Titan|Celestial\s+Guardian|Hop\s+Online!|Volted\s+Overdrive|Ra|Ascendant\s+Phoenix|World\s+Forger|Bound\s+Demon|Midnight\s+Sun|Deliverance|Lead\s+Rose|Dame\s+Chance|Merciful\s+Magitech|Steel\s+Death|Gilded|Iridescent|Dawn|Blazing\s+Sunsetter|Spirit\s+Keeper|Star\s+Shooter|Sumi-ichimonji|Koi\s+of\s+Duality|Capsule\s+Cannon|Eternal\s+Crystal|Treblemaker)(?![A-Za-z0-9_])(?:\s*\((?:Iridescent|Gilded|Dawn)\))?/gi,
     className: 'ac-special-skin-mythic'
   },
   { pattern: esportsSkinPattern, className: 'ac-special-skin-esports' },
@@ -192,13 +192,14 @@ own('Heart of Hope', ['Juno']); own('Horang', ['D.Va']); own('Ultraviolet Sentin
 own('Divine Druid', ['Lifeweaver']); own('Cyber Fuel', ['Junkrat']); own('Divine Desperado', ['Cassidy']);
 own('Magma Titan', ['Doomfist']); own('Hop Online!', ['Mei']); own('Volted Overdrive', ['Soldier 76']);
 own('Ascendant Phoenix', ['Illari']); own('World Forger', ['Mauga']);
+own('Sumi-ichimonji', ['Genji']); own('Merciful Magitech', ['Mercy']); own('Treblemaker', ['Lucio']);
 
 function titleContext(source, offset, length) {
   // Preserve offsets, while semicolons in escaped entities are not list separators.
   const safe = source.replace(/&(?:#[0-9]+|#x[0-9a-f]+|amp|lt|gt|quot|apos);/gi,
     match => /^&amp;$/i.test(match) ? '&'+' '.repeat(match.length-1) : ' '.repeat(match.length));
-  let before = safe.slice(0,offset).split(/[,;，；\n•]|<br\s*\/?>/i).pop().trim();
-  let after = safe.slice(offset+length).split(/[,;，；\n•]|<br\s*\/?>/i)[0].trim();
+  let before = safe.slice(0,offset).split(/[,;，；\n•+]|<br\s*\/?>/i).pop().trim();
+  let after = safe.slice(offset+length).split(/[,;，；\n•+]|<br\s*\/?>/i)[0].trim();
   before = before.replace(/^[✨⭐✦✧🎁\s]+/, '').trim();
   if (before.includes(':')) before = before.slice(before.lastIndexOf(':')+1).trim();
   return {before, after};
@@ -209,20 +210,27 @@ function acceptMatch(rule, match, offset, source, context) {
   const parts = context?.hero
     ? {before:source.slice(0,offset).trim(), after:source.slice(offset+match.length).trim()}
     : titleContext(source,offset,match.length);
-  const before = parts.before, after = parts.after.replace(/^:\s*/, '');
-  const precedingHeroes = heroKeys(before), followingHeroes = heroKeys(after);
+  const mythic = rule.className === 'ac-special-skin-mythic';
+  const before = parts.before, after = parts.after.replace(mythic ? /^(?::|[-–—])\s*/ : /^:\s*/, '');
+  const precedingHeroes = heroKeys(mythic ? before.replace(/\s*[-–—]\s*$/,'') : before), followingHeroes = heroKeys(after);
   const league = rule.className === 'ac-special-skin-esports';
-  const beforeAllowed = !before || precedingHeroes.length || (league && /^(?:OW[12]\s*)?(?:Away|Home)?\s*$/i.test(before));
+  // A list's first item may follow season metadata, but arbitrary prose still fails.
+  const seasonPrefix = mythic && !context?.hero &&
+    /\b(?:Premium|Ultimate)\s+Battle\s+Pass\b/i.test(source.slice(0,offset)) &&
+    /[-–—]\s*$/.test(before) &&
+    !before.replace(/\b(?:and|seasons?)\b/gi,'').replace(/[\d\s,()\-–—]/g,'');
+  const beforeAllowed = !before || precedingHeroes.length || seasonPrefix || (league && /^(?:OW[12]\s*)?(?:Away|Home)?\s*$/i.test(before));
   const afterAllowed = !after || followingHeroes.length ||
     /^\((?:Dallas\s*&\s*Shanghai)\)$/i.test(after) ||
     (league && /^(?:(?:20\d{2}|Home|Away|White|Gr[ae]y|Asia|Amer|Emea|Skins?)\s*)+$/i.test(after));
   if (!beforeAllowed || !afterAllowed) return false;
-  const owners = ownedNames.get(identityKey(match.replace(/&#0?39;|&apos;/g,"'")));
+  const baseMatch = match.replace(/\s*\((?:Iridescent|Gilded|Dawn)\)$/i,'');
+  const owners = ownedNames.get(identityKey(baseMatch.replace(/&#0?39;|&apos;/g,"'")));
   const explicitHeroes = context?.hero ? [identityKey(context.hero)] : [];
   // Canonicalize abbreviated stock hero names as well as structured hero names.
   const canonical = explicitHeroes.map(key => Object.keys(heroAliases).find(hero => hero===key || heroAliases[hero].some(alias => identityKey(alias)===key)) || key);
   if (owners && [...canonical,...precedingHeroes,...followingHeroes].some(hero => !owners.includes(hero))) return false;
-  if (rule.className === 'ac-special-skin-mythic' && /^(?:Dawn|Gilded|Iridescent)$/i.test(match) &&
+  if (rule.className === 'ac-special-skin-mythic' && /^(?:Dawn|Gilded|Iridescent)$/i.test(baseMatch) &&
       [...canonical,...precedingHeroes,...followingHeroes].length && context?.rarity !== 'mythic') return false;
   if (context && context.rarity && context.rarity !== 'unknown' && context.rarity !== 'mythic' && rule.className === 'ac-special-skin-mythic') return false;
   return true;

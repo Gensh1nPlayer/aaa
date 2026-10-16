@@ -282,6 +282,7 @@
       $('dialogImageFallback').hidden = false;
     });
     $('dialogImage').alt = `${skin.hero} · ${skin.name}`;
+    delete $('skinDialog').dataset.imageKind;
     $('dialogNote').textContent = t(state.snapshot ? 'This account snapshot records the item as owned. Check it against the game client.' : 'Catalog information does not confirm ownership for any account.');
     openDialog(trigger);
   }
@@ -411,6 +412,7 @@
     $('dialogImageFallback').hidden = true;
     $('dialogImage').alt = `${item.hero} · ${item.name}`;
     $('dialogImage').dataset.weaponImage = 'true';
+    $('skinDialog').dataset.imageKind = 'weapon';
     cancelDialogImage = window.DetailsImageSources.load($('dialogImage'), item, false, () => {
       imageWrap.classList.add('image-error');
       $('dialogImageFallback').textContent = t('Image unavailable');

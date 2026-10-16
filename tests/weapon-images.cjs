@@ -53,9 +53,17 @@ for (const [hero, name] of [['Mercy','Rose Gold'],['Ana','Frostmourne'],['Sojour
   const item = api.weapon({hero, name, owned:true});
   assert.equal(item.owned, true);
   assert.equal(item.id, entry.id);
-  assert.equal(item.imageAvailable, name !== 'Frostmourne');
+  assert.equal(item.imageAvailable, true);
 }
 assert.equal(api.weapon({hero:'Lúcio',name:'Treblemaker'}).imageAvailable,true);
+for(const item of catalog.filter(x=>x.image?.startsWith('assets/weapons/'))){
+ for(const url of [item.image,item.preview])assert(fs.statSync(path.join(root,'acc_details',url)).size>1000,'packaged WebP exists: '+url);
+}
+for(const [hero,name] of [['Mercy','Merciful Magitech'],['Soldier 76','Deliverance'],['Reinhardt','Bound Demon']]){
+ const entry=catalog.find(x=>x.hero===hero&&x.name===name);
+ assert(entry.officialImage.startsWith('https://bnetcmsus-a.akamaihd.net/'));
+ assert(entry.image.includes('static.wikia.nocookie.net'),'official promotional scenes do not replace isolated weapon artwork');
+}
 for(const input of [{hero:'Hanzo',name:'Tokyo Redel'},{hero:'Hanzo',name:'Tokyo Rebel'},{hero:'Hanzo',id:'weapon/Hanzo/Tokyo_Rebel'},{id:'weapon/Hanzo/Tokyo_Redel'}]) {
   assert.equal(api.weapon(input).name,'Tokyo Rebel');
   assert.equal(api.weapon(input).id,'weapon/Hanzo/Tokyo_Redel','legacy snapshot IDs stay stable');
@@ -102,6 +110,13 @@ async function live() {
     while (next<jobs.length) {
       const {item,key} = jobs[next++];
       const url = item[key];
+      if (!/^https:\/\//.test(url)) {
+        const local=path.resolve(root,'acc_details',url);
+        assert(local.startsWith(path.join(root,'acc_details','assets','weapons')+path.sep));
+        const bytes=fs.readFileSync(local);assert(bytes.length>1000);
+        assert.equal(bytes.toString('ascii',0,4),'RIFF');assert.equal(bytes.toString('ascii',8,12),'WEBP');
+        checked++;continue;
+      }
       if(url.includes('static.wikia.nocookie.net')) {
         const info = metadata.get(new URL(url).pathname.split('/revision/')[0]);
         assert(info, 'uploaded Wiki file metadata: ' + item.hero + ' / ' + item.name);

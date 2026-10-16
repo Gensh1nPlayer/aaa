@@ -45,6 +45,11 @@ window.HERO_GALLERY_WEAPONS = [
 // Official 2026 artwork: verified weapon-specific images, not guessed Wiki paths.
 // Retain the historic Hanzo ID so existing snapshots and collector exports still resolve.
 for (const entry of window.HERO_GALLERY_WEAPONS) {
+  if (entry.hero === 'Ana' && entry.name === 'Frostmourne') {
+    Object.assign(entry, {image:'assets/weapons/ana-frostmourne-cleaned.webp',preview:'assets/weapons/ana-frostmourne-thumb.webp',
+      imageAvailable:true,imageStatus:'available',imageContext:'User-supplied reference, AI-assisted removal of overlay graphics; not an official original',
+      checkedAt:'2026-10-16'});
+  }
   if (entry.hero === 'Hanzo' && entry.name === 'Tokyo Rebel') {
     entry.id = 'weapon/Hanzo/Tokyo_Redel';
     entry.aliasIds = ['weapon/Hanzo/Tokyo_Rebel'];
@@ -55,12 +60,27 @@ for (const entry of window.HERO_GALLERY_WEAPONS) {
   } : entry.hero === 'Hanzo' && entry.name === 'Tokyo Rebel' ? {
     image: 'https://bnetcmsus-a.akamaihd.net/cms/page_media/1m/1MZJSMPN22KF1781145323192.png',
     source: 'https://overwatch.blizzard.com/en-us/news/24271881/'
+  } : entry.hero === 'Mercy' && entry.name === 'Merciful Magitech' ? {
+    image:'https://bnetcmsus-a.akamaihd.net/cms/page_media/uz/UZFE0OP5WV8R1747187679052.png',referenceOnly:true,
+    source:'https://overwatch.blizzard.com/en-gb/news/24186407/',
+    sourceImage:'https://bnetcmsus-a.akamaihd.net/cms/page_media/uz/UZFE0OP5WV8R1747187679052.png'
+  } : entry.hero === 'Soldier 76' && entry.name === 'Deliverance' ? {
+    image:'https://bnetcmsus-a.akamaihd.net/cms/page_media/w1/W1YSPEX46PCU1731024518004.png',referenceOnly:true,
+    source:'https://overwatch.blizzard.com/en-gb/news/24143784/',
+    sourceImage:'https://bnetcmsus-a.akamaihd.net/cms/page_media/w1/W1YSPEX46PCU1731024518004.png'
+  } : entry.hero === 'Reinhardt' && entry.name === 'Bound Demon' ? {
+    image:'https://bnetcmsus-a.akamaihd.net/cms/page_media/5q/5QBOS77W565P1718640974864.png',referenceOnly:true,
+    source:'https://overwatch.blizzard.com/en-gb/news/24104748/',
+    sourceImage:'https://bnetcmsus-a.akamaihd.net/cms/page_media/5q/5QBOS77W565P1718640974864.png'
   } : entry.hero === 'Lucio' && entry.name === 'Treblemaker' ? {
     image: 'https://bnetcmsus-a.akamaihd.net/cms/gallery/57KC14S2WFJ11790794793169.png',
     source: 'https://overwatch.blizzard.com/es-es/news/24303008/sacia-tu-hambre-en-el-reinado-de-talon-temporada-5-doctrine-sombrio/'
   } : null;
-  if (official) Object.assign(entry, official, {
-    preview: official.image, imageAvailable: true, imageStatus: 'available',
+  if (official?.referenceOnly) Object.assign(entry, {
+    officialImage:official.image,officialSource:official.source,officialImageContext:'Official promotional scene with hero; reference only, not an isolated weapon view',checkedAt:'2026-10-16'
+  });
+  else if (official) Object.assign(entry, {fallbackImage:entry.image,fallbackPreview:entry.preview}, official, {
+    preview: official.preview || official.image, imageAvailable: true, imageStatus: 'available',
     imageContext: 'Official 2026 weapon artwork', checkedAt: '2026-10-16'
   });
 }

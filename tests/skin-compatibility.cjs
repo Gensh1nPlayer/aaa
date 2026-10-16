@@ -174,3 +174,27 @@ for(const [text,expected] of [
 assert(!api.styleSkinItem('Brick/Hot Pink Tracer').includes('ac-special-skin-ultra-rare'),'no shared wrong-hero promotion');
 assert(!api.styleSkinItem('Ana/Mercy').includes('ac-skin-name'),'hero-only lists stay neutral');
 assert(!api.styleSkinItem('<img src=x>/Night Owl Ana').includes('<img'),'group markup stays escaped');
+const mythicDescriptionCases=[
+ ['🎮 Premium Battle Pass: Season 9 - Ancient Caller + Blizzard Mythic Gift',['Ancient Caller']],
+ ['🎮 Premium Battle Pass: Seasons 2–4, 7–8 - zeus, Cyber Demon, Adventurer + 130 Mythic Prisms',['zeus','Cyber Demon','Adventurer']],
+ ['🎮 Premium Battle Pass: Seasons 13, 14, 15, 16, 17, 18, 19, and 2026 Seasons 1 and 3 — Sumi-ichimonji, Merciful Magitech + 90 Mythic Prisms',['Sumi-ichimonji','Merciful Magitech']],
+ ['🎮 Premium Battle Pass: Season 20, 22-24 + Spellbinder(Iridescent), Amaterasu',['Spellbinder(Iridescent)','Amaterasu']],
+ ['🎮 Premium Battle Pass: Seasons 12, 16, 17, and 2026 Seasons 1 and 3 — Adventurer (Iridescent), Heart of Hope (Iridescent), Hop Online! + 120 Mythic Prisms',['Adventurer (Iridescent)','Heart of Hope (Iridescent)','Hop Online!']],
+ ['🎮 Premium Battle Pass: 2026 Season 1 — Celestial Guardian',['Celestial Guardian']],
+ ['🎮 Ultimate Battle Pass Bundle: Seasons 10–13 — A-7000 Wargod, Divine Druid, Grand Beast',['A-7000 Wargod','Divine Druid','Grand Beast']]
+];
+for(const [line,names] of mythicDescriptionCases){const html=api.applyColorMap(line);for(const name of names)assert(html.includes('ac-special-skin-mythic">'+name+'</span>'),'mythic in description: '+name+' / '+html);}
+for(const [name,hero] of [['Spellbinder(Iridescent)','Widowmaker'],['Adventurer (Iridescent)','Tracer'],['Heart of Hope (Iridescent)','Juno']])assert(shared.formatName(name,{hero,rarity:'mythic'}).includes('ac-special-skin-mythic'),name+' structured variant');
+assert(!shared.formatName('Adventurer (Iridescent)',{hero:'Mercy',rarity:'legendary'}).includes('ac-special-skin-mythic'),'variant cannot bypass hero/rarity validation');
+for(const line of ['🎮 Premium Battle Pass: A story about Ancient Caller','🎮 Premium Battle Pass: Season 9 — Ancient CallerFake','🎮 Premium Battle Pass: Season 9 — Hot Pink Tracer','🎮 Premium Battle Pass: Season 9 — Night Owl Ana'])assert(!api.applyColorMap(line).includes('ac-special-skin-mythic'),line+' does not allow fuzzy matches');
+let actualMythicMatches=0;
+const mythicRule=shared.rules.find(rule=>rule.className==='ac-special-skin-mythic');
+for(const account of require('../accounts.json').accounts)for(const line of String(account.highlights||'').split(/<br\s*\/?>/i)){
+ if(!/🎮.*(?:Battle Pass|Mythics)/i.test(line))continue;
+ const html=api.applyColorMap(line);
+ for(const match of line.matchAll(new RegExp(mythicRule.pattern.source,mythicRule.pattern.flags))){
+  if(/^(Dawn|Gilded|Iridescent)$/i.test(match[0]))continue;
+  assert(html.includes('ac-special-skin-mythic">'+match[0]+'</span>'),'actual account '+account.id+' missing '+match[0]);actualMythicMatches++;
+ }
+}
+console.log(JSON.stringify({actualMythicDescriptionMatches:actualMythicMatches,variantDescriptions:true,seasonPrefixes:true,plusCurrencySuffix:true}));

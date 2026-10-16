@@ -6,17 +6,18 @@ const fixtures=[
  ['Roadhog','Midas','legendary','rare'],['Mercy','Royal Knight','legendary','rare'],
  ['Widowmaker','Noire','legendary','collector'],
  ['Sombra','Gilded Hunter','legendary','shop'],['Reaper','OWCS 2024','epic','esports'],
- ['Kiriko','Sample Future Bundle','legendary','bundle'],['Widowmaker','Spellbinder','mythic','mythic'],
- ['Anran','Future Mythic Test','mythic','mythic'],['D.Va','Test Ultra','ultra',null],
+ ['Kiriko','Sample Future Bundle','legendary','bundle'],['Widowmaker','Spellbinder(Iridescent)','mythic','mythic'],
+ ['Tracer','Adventurer (Iridescent)','mythic','mythic'],['D.Va','Test Ultra','ultra',null],
  ['D.Va','Academy','legendary',null],['Zenyatta','<img src=x onerror=alert(1)> Clockwork','legendary',null],
  ['Tracer','Hot Pink','rare',null],['Zarya','Brick','rare',null],['Cassidy','Royal','epic',null],
  ['Bastion','Dawn','rare',null],['Pharah','Anubis','epic',null],['Ana','Night Owl','legendary',null],
  ['Brigitte','Ice Queen','epic',null],['Zenyatta','Ra','legendary',null],
- ['Bastion','Brick','legendary','ultra-rare'],['Mercy','Pink','legendary','ultra-rare']
+ ['Bastion','Brick','legendary','ultra-rare'],['Mercy','Pink','legendary','ultra-rare'],
+ ['Juno','Heart of Hope (Iridescent)','mythic','mythic']
 ];
 const skins=fixtures.map(([hero,name,rarity],i)=>({id:hero+'/TEST_'+i,hero,name,rarity,image:'/fixture-art.svg'}));
 const snapshot={accountId:'123',inventoryStatus:'partial',ownedSkinIds:skins.map(s=>s.id)};
-const stock={accounts:[{id:123,level:'68 - OW2',price:'$50.00',status:'In Stock',highlights:'✨ Illidan Genji, Pink Mercy, Midas Roadhog, Royal Knight Mercy, Noire Widowmaker, Gilded Hunter Sombra, OWCS 2024 Reaper, Sample Future Bundle, Spellbinder Widowmaker, Hot Pink Tracer, Brick Zarya, Royal Cassidy, Royal, Academy D.Va, Noire Mercy<br>✨ Mob Boss/Executioner/Gladiator Queen JQ, Night Owl/Snow Owl Ana, Ana/Mercy'}]};
+const stock={accounts:[{id:123,level:'68 - OW2',price:'$50.00',status:'In Stock',highlights:'✨ Illidan Genji, Pink Mercy, Midas Roadhog, Royal Knight Mercy, Noire Widowmaker, Gilded Hunter Sombra, OWCS 2024 Reaper, Sample Future Bundle, Spellbinder Widowmaker, Hot Pink Tracer, Brick Zarya, Royal Cassidy, Royal, Academy D.Va, Noire Mercy<br>✨ Mob Boss/Executioner/Gladiator Queen JQ, Night Owl/Snow Owl Ana, Ana/Mercy<br>🎮 Premium Battle Pass: Season 9 - Ancient Caller + Blizzard Mythic Gift<br>🎮 Premium Battle Pass: Seasons 13, 14, and 2026 Seasons 1 and 3 — zeus, Sumi-ichimonji, Merciful Magitech + 90 Mythic Prisms<br>🎮 Premium Battle Pass: Season 20, 22-24 + Spellbinder(Iridescent), Adventurer (Iridescent), Heart of Hope (Iridescent), Hop Online!, Celestial Guardian, Cyber Demon, Adventurer, A-7000 Wargod, Divine Druid, Grand Beast'}]};
 const server=http.createServer((req,res)=>{
  const pathname=new URL(req.url,'http://localhost').pathname;
  if(pathname==='/accounts.json'){res.setHeader('Content-Type','application/json');return res.end(JSON.stringify(stock));}
@@ -48,6 +49,10 @@ const palette=locator=>locator.evaluate(node=>{const css=getComputedStyle(node);
    assert.equal(soft.color,'rgb(216, 181, 106)');assert.equal(soft.shadow,'none');assert.equal(soft.weight,'400');
    assert.equal(colors.esports.color,'rgb(133, 200, 217)');assert.equal(colors.esports.weight,'550');
    assert.equal(colors['ultra-rare'].weight,'800','top collector emphasis stays unchanged');
+   for(const name of ['Ancient Caller','zeus','Sumi-ichimonji','Merciful Magitech','Spellbinder(Iridescent)','Adventurer (Iridescent)','Heart of Hope (Iridescent)','Hop Online!','Celestial Guardian','Cyber Demon','Adventurer','A-7000 Wargod','Divine Druid','Grand Beast']){
+    const effect=home.locator('.account-card .ac-special-skin-mythic').filter({hasText:new RegExp('^'+name.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'$')}).first();
+    assert.equal(await effect.count(),1,'plain Battle Pass mythic: '+name);assert((await palette(effect)).background.includes('linear-gradient'));
+   }
    const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));await page.goto(base+'/acc_details/?lang=en#123');await page.waitForFunction(()=>document.body.classList.contains('has-account'));await page.locator('[data-tab="skins"]').click();
    for(let i=0;i<fixtures.length;i++){
     const [hero,name,rarity,tier]=fixtures[i],card=page.locator('.skin-card')
@@ -67,7 +72,7 @@ const palette=locator=>locator.evaluate(node=>{const css=getComputedStyle(node);
    assert.equal(await page.locator('#skinGrid img[src="x"]').count(),0,'names cannot inject HTML');
    for(const lang of ['fr','de','ar','ja']){
     await page.goto(base+'/acc_details/?lang='+lang+'#123');await page.waitForFunction(()=>document.body.classList.contains('has-account'));await page.locator('[data-tab="skins"]').click();
-    assert.equal(await page.locator('.rarity-label[data-rarity="mythic"] .rarity-text').count(),2);assert.equal(await page.locator('.rarity-label[data-rarity="ultra"] .rarity-text').count(),1);
+    assert.equal(await page.locator('.rarity-label[data-rarity="mythic"] .rarity-text').count(),3);assert.equal(await page.locator('.rarity-label[data-rarity="ultra"] .rarity-text').count(),1);
     assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),lang+' layout fits');
    }
    if(process.env.SCREENSHOT_DIR){fs.mkdirSync(process.env.SCREENSHOT_DIR,{recursive:true});await page.goto(base+'/acc_details/?lang=en#123');await page.waitForFunction(()=>document.body.classList.contains('has-account'));await page.locator('[data-tab="skins"]').click();await page.screenshot({path:path.join(process.env.SCREENSHOT_DIR,scenario.legacy?'effects-mobile.png':'effects-desktop.png'),fullPage:true});}

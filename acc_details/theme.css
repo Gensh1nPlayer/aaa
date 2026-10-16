@@ -256,9 +256,13 @@ dialog::backdrop { background: rgba(3,3,14,.78); }
 }
 
 /* Weapon artwork has its own framing; never crop off a barrel, blade or staff. */
-#weaponGrid .card-art, #variantGrid .card-art { aspect-ratio: 16 / 9; background: #141526; }
-#weaponGrid .card-art img, #variantGrid .card-art img { object-fit: contain; }
+#weaponGrid, #variantGrid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+#weaponGrid .card-art, #variantGrid .card-art { aspect-ratio: 16 / 9; background: #10121f; overflow: hidden; }
+#weaponGrid .card-art img, #variantGrid .card-art img { width: 100%; height: 100%; padding: 8px; box-sizing: border-box; object-fit: contain; object-position: center; }
 #weaponGrid .skin-card, #variantGrid .skin-card { cursor: pointer; }
 #variantGrid .variant-owned { color: #8ce0bc; font-size: 11px; font-weight: 700; }
-.dialog-image-wrap img[data-weapon-image="true"] { object-fit: contain; max-height: 70vh; }
+#skinDialog[data-image-kind="weapon"] .dialog-image-wrap { height: min(56.25vw, 58vh, 580px); background: #10121f; }
+.dialog-image-wrap img[data-weapon-image="true"] { width: 100%; height: 100%; padding: 12px; box-sizing: border-box; object-fit: contain; object-position: center; aspect-ratio: auto; }
+@media (max-width: 1150px) { #weaponGrid, #variantGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 620px) { #weaponGrid, #variantGrid { grid-template-columns: minmax(0, 1fr); } }
 #weaponGrid .image-fallback, #variantGrid .image-fallback { font-size: 13px; font-style: normal; line-height: 1.4; max-width: 100%; padding: 12px; text-align: center; overflow-wrap: anywhere; }

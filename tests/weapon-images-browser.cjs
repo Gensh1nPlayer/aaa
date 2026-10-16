@@ -20,7 +20,7 @@ const server = http.createServer((req,res) => {
   if(pathname==='/skin.svg'){res.setHeader('Content-Type','image/svg+xml');return res.end('<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600"/>');}
   const file = path.resolve(root,'.'+(pathname.endsWith('/')?pathname+'index.html':pathname));
   if(!file.startsWith(root+path.sep)||!fs.existsSync(file)||!fs.statSync(file).isFile()){res.writeHead(404);return res.end();}
-  res.setHeader('Content-Type',({'.js':'text/javascript','.css':'text/css','.html':'text/html','.json':'application/json','.svg':'image/svg+xml'})[path.extname(file)]||'application/octet-stream');
+  res.setHeader('Content-Type',({'.js':'text/javascript','.css':'text/css','.html':'text/html','.json':'application/json','.svg':'image/svg+xml','.webp':'image/webp'})[path.extname(file)]||'application/octet-stream');
   res.end(fs.readFileSync(file));
 });
 async function run(){
@@ -79,15 +79,24 @@ async function run(){
         assert(requests.includes(crimson.preview)&&requests.includes(crimson.image),'300x171 placeholder falls through to same-hero original');
         await page.locator('[data-tab="weapons"]').click();
         assert.equal(await page.locator('#weaponGrid button').count(),6);
-        for(const [name,available] of [['Rose Gold',true],['Frostmourne',false],['Eternal Crystal',true],['Treblemaker',true],['Tokyo Rebel',true]]) {
+        assert.equal(await page.locator('#weaponGrid').evaluate(n=>getComputedStyle(n).gridTemplateColumns.split(' ').length),width===390?1:3,'wide weapon cards instead of tiny mobile tiles');
+        let stageHeight=null;
+        for(const [name,available] of [['Rose Gold',true],['Frostmourne',true],['Eternal Crystal',true],['Treblemaker',true],['Tokyo Rebel',true]]) {
           const card=page.locator('#weaponGrid button').filter({hasText:name});
+          const art=await card.locator('.card-art').boundingBox();assert(Math.abs(art.width/art.height-16/9)<.02,'consistent 16:9 thumbnail');
           await card.click();assert.equal(await page.locator('#dialogTitle').textContent(),name);
           assert.equal(await page.locator('#dialogImageFallback').isVisible(),!available);
+          await page.waitForFunction(()=>{const image=document.getElementById('dialogImage');return image.complete&&image.naturalWidth>0;});
+          const geometry=await page.locator('#dialogImage').evaluate(img=>({height:img.parentElement.getBoundingClientRect().height,fit:getComputedStyle(img).objectFit,max:innerHeight*.58}));
+          assert.equal(geometry.fit,'contain');assert(geometry.height<=geometry.max+1,'bounded stage fits viewport');
+          if(stageHeight===null)stageHeight=geometry.height;else assert(Math.abs(stageHeight-geometry.height)<1,'all weapons share one viewer size');
+          if(name==='Frostmourne'&&process.env.WEAPON_SCREENSHOT_DIR){fs.mkdirSync(process.env.WEAPON_SCREENSHOT_DIR,{recursive:true});await page.screenshot({path:path.join(process.env.WEAPON_SCREENSHOT_DIR,`frostmourne-${width}.png`)});}
           await page.locator('#closeDialog').click();
         }
         await page.locator('[data-tab="skins"]').click();
         await page.locator('#skinGrid button').click();
         assert.equal(await page.locator('#dialogImage').getAttribute('data-weapon-image'),null,'weapon framing does not leak into skins');
+        assert.equal(await page.locator('#skinDialog').getAttribute('data-image-kind'),null,'weapon image stage does not leak into skins');
         assert.equal(await page.locator('#dialogTitle').textContent(),'Pink Mercy');
         await page.locator('#closeDialog').click();
         // All candidates fail: leave an honest missing state and stop retrying.
