@@ -57,6 +57,7 @@ async function run(){
           const expected=variant(hero,name);
           assert.equal(await card.locator('img').getAttribute('src'),hero==='Tracer'&&['Jade','Crimson Wolf'].includes(name)?expected.image:expected.preview);
           assert.equal(await card.locator('img').evaluate(img=>getComputedStyle(img).objectFit),'contain');
+          assert(await card.locator('img').evaluate(img=>img.parentElement.style.getPropertyValue('--weapon-art-image').includes(img.currentSrc)), 'thumbnail backdrop uses accepted same-hero fallback');
           await card.click();
           assert.equal(await page.locator('#dialogTitle').textContent(),name);
           assert.equal(await page.locator('#dialogHero').textContent(),hero.toUpperCase());
@@ -68,6 +69,7 @@ async function run(){
         for(const [hero,name] of [['Ana','Jade'],['Tracer','Galactic'],['Vendetta','Crimson Wolf'],...['D.Va','Ashe','Hanzo','Junkrat','Reaper','Soldier 76'].map(hero=>[hero,'Golden'])]) {
           const card=page.locator('#variantGrid button').filter({hasText:hero}).filter({hasText:name});
           assert.equal(await card.locator('img').getAttribute('src'),null);
+          assert.equal(await card.locator('.card-art').evaluate(node=>node.style.getPropertyValue('--weapon-art-image')),'','missing art has no borrowed backdrop');
           assert(await card.locator('.card-art').evaluate(node=>node.classList.contains('image-error')));
           assert(await card.getByText('Image unavailable',{exact:true}).count());
           await card.click(); assert(await page.locator('#dialogImageFallback').isVisible());
@@ -89,6 +91,8 @@ async function run(){
           await page.waitForFunction(()=>{const image=document.getElementById('dialogImage');return image.complete&&image.naturalWidth>0;});
           const geometry=await page.locator('#dialogImage').evaluate(img=>({height:img.parentElement.getBoundingClientRect().height,fit:getComputedStyle(img).objectFit,max:innerHeight*.58}));
           assert.equal(geometry.fit,'contain');assert(geometry.height<=geometry.max+1,'bounded stage fits viewport');
+          assert(await page.locator('#dialogImage').evaluate(img=>img.parentElement.style.getPropertyValue('--weapon-art-image').includes(img.currentSrc)), 'viewer backdrop uses its accepted original');
+          if(name==='Frostmourne')assert.equal(await page.locator('#dialogTitle .ac-special-skin-ultra-rare').count(),1,'Frostmourne uses BlizzCon emphasis without changing rarity');
           if(stageHeight===null)stageHeight=geometry.height;else assert(Math.abs(stageHeight-geometry.height)<1,'all weapons share one viewer size');
           if(name==='Frostmourne'&&process.env.WEAPON_SCREENSHOT_DIR){fs.mkdirSync(process.env.WEAPON_SCREENSHOT_DIR,{recursive:true});await page.screenshot({path:path.join(process.env.WEAPON_SCREENSHOT_DIR,`frostmourne-${width}.png`)});}
           await page.locator('#closeDialog').click();
@@ -97,6 +101,7 @@ async function run(){
         await page.locator('#skinGrid button').click();
         assert.equal(await page.locator('#dialogImage').getAttribute('data-weapon-image'),null,'weapon framing does not leak into skins');
         assert.equal(await page.locator('#skinDialog').getAttribute('data-image-kind'),null,'weapon image stage does not leak into skins');
+        assert.equal(await page.locator('#dialogImage').evaluate(img=>img.parentElement.style.getPropertyValue('--weapon-art-image')),'','weapon backdrop does not leak into skins');
         assert.equal(await page.locator('#dialogTitle').textContent(),'Pink Mercy');
         await page.locator('#closeDialog').click();
         // All candidates fail: leave an honest missing state and stop retrying.

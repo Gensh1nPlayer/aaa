@@ -8,9 +8,9 @@ const fixtures=[
  ['Sombra','Gilded Hunter','legendary','shop'],['Reaper','OWCS 2024','epic','esports'],
  ['Kiriko','Sample Future Bundle','legendary','bundle'],['Widowmaker','Spellbinder(Iridescent)','mythic','mythic'],
  ['Tracer','Adventurer (Iridescent)','mythic','mythic'],['D.Va','Test Ultra','ultra',null],
- ['D.Va','Academy','legendary',null],['Zenyatta','<img src=x onerror=alert(1)> Clockwork','legendary',null],
+ ['Roadhog','Butcher','legendary',null],['Zenyatta','<img src=x onerror=alert(1)> Clockwork','legendary',null],
  ['Tracer','Hot Pink','rare',null],['Zarya','Brick','rare',null],['Cassidy','Royal','epic',null],
- ['Bastion','Dawn','rare',null],['Pharah','Anubis','epic',null],['Ana','Night Owl','legendary',null],
+ ['Bastion','Dawn','rare',null],['Pharah','Anubis','epic',null],['D.Va','White Rabbit','legendary',null],
  ['Brigitte','Ice Queen','epic',null],['Zenyatta','Ra','legendary',null],
  ['Bastion','Brick','legendary','ultra-rare'],['Mercy','Pink','legendary','ultra-rare'],
  ['Juno','Heart of Hope (Iridescent)','mythic','mythic']

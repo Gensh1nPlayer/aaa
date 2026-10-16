@@ -31,6 +31,7 @@ Weapon and variant cards use a wide 16:9 frame, centered `contain`, and safe pad
 The grid is three columns on desktop, two on medium screens and one on phones.
 The weapon viewer has a bounded, consistent image stage; portraits and panoramas fit without cropping or stretching.
 Hero skin viewers retain their existing natural-ratio layout.
+Differing weapon image ratios use a dimmed, softly blurred copy of the successfully loaded image as background; the sharp foreground stays fully contained. Missing images and normal hero skin viewers do not inherit this backdrop.
 
 ## Frostmourne edit prompt
 

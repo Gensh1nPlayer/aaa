@@ -17,6 +17,7 @@ const api = vm.runInNewContext(`(() => {
   return { styleSkinItem, styleSkinName, styleSkinDescriptionLine, applyColorMap, rareSkinNames, shopSkinNames, owlTeamNames };
 })()`,{window:{RoshineSkinVisuals:shared,RoshineSkinRarities:require('../assets/skin-rarities.js')}});
 const cases = [
+  ['Frostmourne', 'ultra-rare'], ['Frostmourne Ana', 'ultra-rare'],
   ['Blizzard Mythic Gift', 'shop'],
   ['Blizzard Mythic Gift — Choose 1 Mythic Skin', 'shop'],
   ['Blizzard Mythic Gift - Any 1 Mythic Skin', 'shop'],
@@ -25,7 +26,7 @@ const cases = [
   ['Cupid Bundles', 'shop'], ['Cupid Kiriko Bundle', 'shop'],
   ['Cupid Juno Bundle', 'shop'], ['Charming Soldier: 76', 'shop'],
   ...['YoRHa Mega Bundle', 'LE SSERAFIM Ultra Bundle', 'LE SSERAFIM FEARLESS Mega Bundle',
-    'LE SSERAFIM Mega', 'exo-FAUNA Mega Bundle', 'White Rabbit Mega Bundle',
+    'LE SSERAFIM Mega', 'exo-FAUNA Mega Bundle',
     'Ultrawatch Mega Bundle', 'Lifeguard Mega Bundle', 'My Hero Academia Mega Bundle',
     'Masked Mischief Mega Bundle', 'asked Mischief Mega Bundle', 'Witches Mega Bundle',
     'Black Cats Mega Bundle', "Hatred's Reckoning Mega Bundle", "Xal'atath Symmetra Bundle",
@@ -43,6 +44,7 @@ const cases = [
   ['BlizzCon Virtual Ticket 2016', 'ultra-rare'],
   ['blizzcon  virtual ticket 2016', 'ultra-rare'],
   ['BlizzCon Virtual Ticket 2016 Bundle', 'ultra-rare'],
+  ['White Rabbit Mega Bundle', 'bundle'],
   ['MM', 'rare'], ['Royal (LA Gladiators)', 'rare'], ['Chained  King Reaper', 'rare'],
   ['Happi (Dallas & Shanghai)', 'rare'], ['2019 Atlantic All-Stars Mercy', 'rare'],
   ['2020 Atlantic All-Stars Rein', 'rare'], ['2020 Pacific All-Stars D.Va', 'rare'],
@@ -183,6 +185,12 @@ const mythicDescriptionCases=[
  ['🎮 Premium Battle Pass: 2026 Season 1 — Celestial Guardian',['Celestial Guardian']],
  ['🎮 Ultimate Battle Pass Bundle: Seasons 10–13 — A-7000 Wargod, Divine Druid, Grand Beast',['A-7000 Wargod','Divine Druid','Grand Beast']]
 ];
+for (const [hero,name] of [['Roadhog','Butcher'],['D.Va','White Rabbit']]) {
+  assert(!shared.formatName(name,{hero,rarity:'legendary'}).includes('ac-special-skin'),name+' ordinary Legendary in details');
+  assert(!api.styleSkinItem(name+' '+hero).includes('ac-special-skin'),name+' ordinary Legendary in stock');
+}
+assert(shared.formatName('Frostmourne',{hero:'Ana',kind:'weapon',rarity:'legendary'}).includes('ac-special-skin-ultra-rare'),'Ana Frostmourne uses BlizzCon emphasis');
+assert(!shared.formatName('Frostmourne',{hero:'Roadhog',rarity:'legendary'}).includes('ac-special-skin'),'Frostmourne cannot borrow another hero');
 for(const [line,names] of mythicDescriptionCases){const html=api.applyColorMap(line);for(const name of names)assert(html.includes('ac-special-skin-mythic">'+name+'</span>'),'mythic in description: '+name+' / '+html);}
 for(const [name,hero] of [['Spellbinder(Iridescent)','Widowmaker'],['Adventurer (Iridescent)','Tracer'],['Heart of Hope (Iridescent)','Juno']])assert(shared.formatName(name,{hero,rarity:'mythic'}).includes('ac-special-skin-mythic'),name+' structured variant');
 assert(!shared.formatName('Adventurer (Iridescent)',{hero:'Mercy',rarity:'legendary'}).includes('ac-special-skin-mythic'),'variant cannot bypass hero/rarity validation');

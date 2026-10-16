@@ -47,7 +47,8 @@ const shopSkinNames = [
   // Collection titles and individual skins; visual grouping is not a claim of exclusivity.
   'YoRHa', 'Project YoRHa', 'LE SSERAFIM Mega', 'Blue Flame', 'Fawksey James',
   'exo-FAUNA', 'exo-L2PUS', 'exo-L5O', 'exo-L50', 'exo-PANT6RA', 'exo-URS4', 'exo-VU7PES',
-  'White Rabbit', 'Raging Rabbit', 'Bunny Business', 'Siberian Hare',
+  // White Rabbit is also D.Va's ordinary Legendary; named Bundles use the bundle rule.
+  'Raging Rabbit', 'Bunny Business', 'Siberian Hare',
   'Heavenly Hop', 'Spacebun', 'Bash Bunny',
   'Ultrawatch', 'Lifeguard', 'Masked Mischief', 'asked Mischief',
   'Heist', 'Cyber Oni', 'Oni', 'Witches', 'Infernal Witch', 'Black Cats', 'Black Cat',
@@ -58,7 +59,7 @@ const shopSkinNames = [
   'G.I. Joe', 'Snake Eyes', 'Scarlett', 'Baroness', 'Cobra Commander', 'Destro',
   'Persona 5', 'Phantom Thieves', 'Joker', 'Panther', 'Fox',
   'Mephisto', 'Paladin', 'Warlock', 'Rogue', 'Lilith', 'Inarius', 'Imperius', 'Azmodan',
-  'Butcher', 'Barbarian', 'Nightraven', 'Hatred’s Reckoning', "Hatred's Reckoning",
+  'Barbarian', 'Nightraven', 'Hatred’s Reckoning', "Hatred's Reckoning",
   'Lich Queen', 'Devourer', 'Xal’atath', "Xal'atath", 'Blackhand', 'Sin’dorei', "Sin'dorei", 'Magni',
   'Feria Shen', 'Wei Qing', 'Shayol Wei', 'Viper Ning', 'Yueshan', 'Wuchen', 'Scarlet Bride',
   'YOASOBI', 'Dragon Star', 'Spirit Star', 'Fire Star', 'Fox Star', 'Space Star', 'Date Night', 'Scuba',
@@ -94,7 +95,7 @@ const specialSkinRules = [
     className: 'ac-special-skin-bundle'
   },
   {
-    pattern: /\b(?:Illidan(?:\s+Genji)?|Tyrande(?:\s+Symmetra)?|BlizzCon\s+Virtual\s+Ticket\s+2016|BlizzCon(?:\s+2016)?\s+Bastion|BlizzCon(?:\s+2017)?\s+Winston)(?![A-Za-z0-9_])/gi,
+    pattern: /\b(?:Illidan(?:\s+Genji)?|Tyrande(?:\s+Symmetra)?|Frostmourne(?:\s+Weapon)?|BlizzCon\s+Virtual\s+Ticket\s+2016|BlizzCon(?:\s+2016)?\s+Bastion|BlizzCon(?:\s+2017)?\s+Winston)(?![A-Za-z0-9_])/gi,
     className: 'ac-special-skin-ultra-rare'
   },
   {
@@ -170,6 +171,7 @@ own('Noire|Noire Widow|Noire Widowmaker|Noire Widowmaker Skin', ['Widowmaker']);
 own('Demon Hunter|Demon Hunter Sombra', ['Sombra']);
 own('BlizzCon Bastion|BlizzCon 2016 Bastion|BlizzCon Virtual Ticket 2016', ['Bastion']);
 own('BlizzCon Winston|BlizzCon 2017 Winston', ['Winston']);
+own('Frostmourne|Frostmourne Weapon', ['Ana']);
 own('Royal Knight|Royal Gladiator|Royal (LA Gladiators)|Royal (Los Angeles Gladiators)', ['Mercy']);
 own('Midas', ['Roadhog']); own('Ange de la Mort|Sylvanas|Sylvanas Windrunner', ['Widowmaker']);
 own('Pirate Ship', ['Bastion']); own('Dallas Happi|Shanghai Happi|Happi|Dallas Summer|Shanghai Summer|Crimson Summer', ['Genji']);

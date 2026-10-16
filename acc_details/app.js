@@ -270,6 +270,7 @@
   function openSkin(skin, trigger) {
     cancelDialogImage?.(); cancelDialogImage = null;
     delete $('dialogImage').dataset.weaponImage;
+    $('dialogImage').parentElement.style.removeProperty('--weapon-art-image');
     $('dialogHero').textContent = skin.hero.toUpperCase();
     renderSkinName($('dialogTitle'), skin);
     renderRarity($('dialogRarity'), skin.rarity, rarityLabel(skin.rarity));

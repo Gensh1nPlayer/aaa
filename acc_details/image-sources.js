@@ -58,8 +58,12 @@
       if(!active)return;
       if(!image.naturalWidth||!image.naturalHeight||
         (image.src.includes('static.wikia.nocookie.net')&&image.naturalWidth===300&&image.naturalHeight===171))advance();
-      else stop();
+      else {
+        stop();
+        image.parentElement?.style.setProperty('--weapon-art-image', `url(${JSON.stringify(image.currentSrc||image.src)})`);
+      }
     };
+    image.parentElement?.style.removeProperty('--weapon-art-image');
     image.onload=loaded;
     advance();
     return stop;

@@ -266,3 +266,14 @@ dialog::backdrop { background: rgba(3,3,14,.78); }
 @media (max-width: 1150px) { #weaponGrid, #variantGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 620px) { #weaponGrid, #variantGrid { grid-template-columns: minmax(0, 1fr); } }
 #weaponGrid .image-fallback, #variantGrid .image-fallback { font-size: 13px; font-style: normal; line-height: 1.4; max-width: 100%; padding: 12px; text-align: center; overflow-wrap: anywhere; }
+/* Fill differing source ratios with a quiet backdrop, not a crop of the weapon. */
+#weaponGrid .card-art, #variantGrid .card-art,
+#skinDialog[data-image-kind="weapon"] .dialog-image-wrap { isolation: isolate; overflow: hidden; }
+#weaponGrid .card-art::before, #variantGrid .card-art::before,
+#skinDialog[data-image-kind="weapon"] .dialog-image-wrap::before {
+  content: ""; position: absolute; inset: -18px; z-index: -1;
+  background-image: var(--weapon-art-image, none); background-size: cover; background-position: center;
+  filter: blur(16px) brightness(.55); pointer-events: none;
+}
+#weaponGrid .card-art img, #variantGrid .card-art img,
+.dialog-image-wrap img[data-weapon-image="true"] { position: relative; z-index: 0; padding: 0; }

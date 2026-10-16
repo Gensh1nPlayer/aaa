@@ -47,6 +47,8 @@ Lv. 5 静态彩虹渐变柔光。字号保持与正文一致，不使用闪烁�
 
 补充：BlizzCon Virtual Ticket 2016，整段名称使用顶级红色高亮，支持大小写与连续空白差异；不扩展到其他年份的 Virtual Ticket。
 
+Frostmourne（Ana 武器）按用户指定采用同级视觉效果，主页与详情页共用规则；其实际稀有度仍为 Legendary，不更改所有权。
+
 新增：Pink、Pink Mercy、Rose Gold、Rose Gold Mercy、Brick、LEGO Brick；兼容 Brick Bastion / LEGO Brick Bastion。
 Pink、Brick 缩写受边界与后缀限制，避免把 Pink Cat、Brickhouse 等提升为顶级。
 
@@ -180,7 +182,7 @@ Fandom 正文直连被站点限制；使用可检索的索引摘录交叉核对�
 | YoRHa | YoRHa、Project YoRHa；2B / 9S / A2 / Commander White / Adam 已有 |
 | LE SSERAFIM | Blue Flame、Fawksey James、LE SSERAFIM Mega（省略 Bundle 的库存写法）；原版及 FEARLESS 已有 |
 | exo-FAUNA | exo-FAUNA、exo-L2PUS（Ashe）、exo-L5O（Brigitte，兼容 L50）、exo-PANT6RA（Vendetta）、exo-URS4（Hazard）、exo-VU7PES（Kiriko） |
-| White Rabbit | White Rabbit、Raging Rabbit（Vendetta）、Bunny Business（Domina）、Siberian Hare（Zarya）、Heavenly Hop（Mercy）、Spacebun（Juno）、Bash Bunny（Brigitte） |
+| White Rabbit 系列 | Raging Rabbit（Vendetta）、Bunny Business（Domina）、Siberian Hare（Zarya）、Heavenly Hop（Mercy）、Spacebun（Juno）、Bash Bunny（Brigitte）；White Rabbit Mega Bundle 沿用礼包效果，D.Va 的 White Rabbit 为普通 Legendary，不使用此特殊效果 |
 | Ultrawatch / Lifeguard | Ultrawatch、Lifeguard；系列包含不同获取渠道，不认定全部属于同一个付费礼包 |
 | Masked Mischief | Masked Mischief、Heist、Cyber Oni、Oni；asked Mischief 仅为用户拼写兼容，不修改库存原文 |
 | Witches / Black Cats | Witches、Infernal Witch、Black Cats、Black Cat；Witch 已有。Witches 完整礼包成员尚未核实，不据标题猜测其余成员 |
@@ -190,7 +192,7 @@ Fandom 正文直连被站点限制；使用可检索的索引摘录交叉核对�
 | Gundam Wing | Gundam Wing、Wing Zero / Wing Gundam Zero、Epyon / Gundam Epyon、Deathscythe / Gundam Deathscythe Hell、Tallgeese |
 | G.I. Joe | G.I. Joe、Snake Eyes、Scarlett、Baroness、Cobra Commander、Destro |
 | Persona 5 | Persona 5、Phantom Thieves、Joker、Panther、Fox；Queen / Skull 采用上下文规则 |
-| Diablo | Mephisto、Paladin、Warlock、Rogue、Lilith、Inarius、Imperius、Azmodan、Butcher、Barbarian、Nightraven、Hatred’s Reckoning（兼容直撇号）；Druid 使用上下文规则 |
+| Diablo | Mephisto、Paladin、Warlock、Rogue、Lilith、Inarius、Imperius、Azmodan、Barbarian、Nightraven、Hatred’s Reckoning（兼容直撇号）；Druid 使用上下文规则；Roadhog 的 Butcher 为普通 Legendary，不使用此特殊效果 |
 | Warcraft | Lich Queen、Devourer、Xal’atath、Blackhand、Sin’dorei、Magni（撇号兼容）；Illidan / Tyrande / Sylvanas 原等级不变 |
 | Naraka（区域限定资料） | Feria Shen、Wei Qing / Shayol Wei、Viper Ning、Yueshan、Wuchen、Scarlet Bride；不表示国际服可获取 |
 | YOASOBI | YOASOBI、Dragon Star、Spirit Star、Fire Star、Fox Star、Space Star |
