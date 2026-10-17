@@ -82,7 +82,7 @@ const server = http.createServer((req,res)=>{
       await page.waitForFunction(()=>RoshineCurrency.status==='error');
       assert.equal(await page.locator('#currencyTriggerValue').textContent(),'USD');
       assert.equal(await page.locator('.ac-price').first().textContent(),'$10.0');
-      assert.match(await page.locator('#currencyTrigger').getAttribute('title'),/Showing USD/);
+      assert.match(await page.locator('#currencyTrigger').getAttribute('title'),/EUR.*USD/); // localized fallback names requested and shown currency
       fail=false;
       await page.locator('#currencyTrigger').click();await page.locator('[data-currency-value="EUR"]').click();
       await page.waitForFunction(()=>RoshineCurrency.code==='EUR');
