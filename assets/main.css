@@ -392,14 +392,16 @@
       overflow-wrap: anywhere;
       word-break: normal;
     }
-    /* Align the OW1/OW2 lettering to the level text baseline, not the pill box. */
+    /* Center the OW1/OW2 capitals on the level digits, not the pill box:
+       the tag is 0.72em, so raise its baseline by half the cap-height gap. */
     .ac-level-inline-meta {
       display: inline-flex;
       align-items: baseline;
       flex-wrap: wrap;
       gap: 6px;
       margin-inline-start: 6px;
-      vertical-align: baseline;
+      vertical-align: 0.1em;
+      vertical-align: calc(1cap * 0.14);
     }
     .ac-level-meta {
       display: flex;
