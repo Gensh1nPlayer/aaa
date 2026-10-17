@@ -25,6 +25,22 @@ const server=http.createServer((req,res)=>{
  res.setHeader('Content-Type',({'.js':'text/javascript','.css':'text/css','.html':'text/html','.json':'application/json','.svg':'image/svg+xml'})[path.extname(file)]||'application/octet-stream');
  res.end(fs.readFileSync(file));
 });
+// Skins are paged (five rows of the current column count); collect every page in order.
+async function allCardNames(page){
+ const first=page.locator('#pagination .page-number',{hasText:/^1$/});
+ if(await first.count()&&!(await first.getAttribute('aria-current')))await first.click();
+ const names=await page.locator('#skinGrid .card-name').allTextContents();
+ const next=page.locator('#pagination .page-arrow').last();
+ while(await next.count()&&!(await next.isDisabled())){await next.click();names.push(...await page.locator('#skinGrid .card-name').allTextContents());}
+ if(await first.count())await first.click();
+ return names;
+}
+async function showSelector(page,selector){
+ const first=page.locator('#pagination .page-number',{hasText:/^1$/});
+ if(await first.count()&&!(await first.getAttribute('aria-current')))await first.click();
+ const next=page.locator('#pagination .page-arrow').last();
+ while(!(await page.locator(selector).count())&&await next.count()&&!(await next.isDisabled()))await next.click();
+}
 (async()=>{
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
  for(const [engine,width] of [[chromium,1440],[webkit,390]]){
@@ -72,8 +88,8 @@ const server=http.createServer((req,res)=>{
    for(const sort of ['rarity','featured','hero','name']){
     const before=await page.evaluate(()=>window.nameFormatCalls);
     await page.selectOption('#sortFilter',sort);
-    assert.equal(await page.evaluate(()=>window.nameFormatCalls)-before,skins.length,'cached classification adds no name-regex calls during comparisons; only card rendering formats names');
-    const names=await page.locator('#skinGrid .card-name').allTextContents();
+    assert.equal(await page.evaluate(()=>window.nameFormatCalls)-before,await page.locator('#skinGrid .skin-card').count(),'cached classification adds no name-regex calls during comparisons; only card rendering formats names');
+    const names=await allCardNames(page);
     assert.deepEqual(names.slice(0,2),sort==='name'?['Illidan','Pink Mercy']:['Illidan','Pink Mercy']);
     assert.deepEqual(names.slice(2,4),['Noire','Midas']);
     assert.deepEqual(names.slice(4,7),sort==='name'?['Future Mythic','Gilded Hunter','Sample Future Bundle']:['Future Mythic','Sample Future Bundle','Gilded Hunter'],'same-gradient items use the selected comparator, not a mythic/shop/bundle tier');
@@ -84,8 +100,9 @@ const server=http.createServer((req,res)=>{
    await page.selectOption('#rarityFilter','epic');
    assert.deepEqual(await page.locator('#skinGrid .card-name').allTextContents(),['OWCS 2024','Sample Shop','Sample Stadium','Antique']);
    await page.fill('#skinSearch','antique');assert.equal(await page.locator('.skin-card').count(),1);
-   await page.locator('#resetButton').click();assert.equal(await page.locator('.skin-card').count(),skins.length);
+   await page.locator('#resetButton').click();assert.equal((await allCardNames(page)).length,skins.length);
    for(const [rarity,color] of [['common','rgb(255, 255, 255)'],['rare','rgb(11, 156, 207)'],['epic','rgb(237, 60, 239)'],['legendary','rgb(255, 156, 0)']]) {
+    await showSelector(page,`.rarity-label[data-rarity="${rarity}"] .rarity-text`);
     assert.equal(await page.locator(`.rarity-label[data-rarity="${rarity}"] .rarity-text`).first().evaluate(n=>getComputedStyle(n).color),color);
    }
    for(const selector of ['#skinSearch','#rarityFilter','#sortFilter','#resetButton'])assert(await page.locator(selector).evaluate(n=>parseFloat(getComputedStyle(n).fontSize)>=14),'readable control font: '+selector);

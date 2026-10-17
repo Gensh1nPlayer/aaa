@@ -19,7 +19,14 @@
   ];
   const featuredOrder = new Map(featured.map((id, index) => [id, index]));
   const rarityOrder = new Map(['mythic', 'ultra', 'evolution', 'legendary', 'epic', 'rare', 'common', 'unknown'].map((value, index) => [value, index]));
-  const pageSize = 24;
+  // Skins show five full rows per page; the column count follows the responsive grid (5/4/3/2).
+  const pageRows = 5;
+  const balanceThresholds = {
+    overwatchCoins: [800, 2000],
+    credits: [10000, 20000],
+    competitivePoints: [3000, 9000],
+    legacyCompetitivePoints: [3000, 9000]
+  };
   const state = { tab: 'overview', hero: 'all', heroQuery: '', search: '', rarity: 'all', sort: 'rarity', page: 1, snapshot: null };
   let stockAccount = null;
   const stockColorTiers = new Map();
@@ -33,7 +40,7 @@
   const isDefaultSkin = (skin) => skin && ['overwatch', 'overwatchclassic'].includes(skin.name.toLowerCase().replace(/[^a-z0-9]/g, ''));
   const rankLabels = { tank: 'Tank', damage: 'Damage', support: 'Support', openQueue: 'Open Queue' };
   const rankTiers = ['Bronze', 'Silver', 'Gold', 'Platinum', 'Emerald', 'Diamond', 'Master', 'Grandmaster', 'Champion'];
-  const roleIcons = { tank: 'assets/roles/tank.svg', damage: 'assets/roles/damage.svg', support: 'assets/roles/support.svg' };
+  const roleIcons = { tank: 'assets/roles/tank.svg', damage: 'assets/roles/damage.svg', support: 'assets/roles/support.svg', openQueue: 'assets/roles/open-queue.svg' };
 
   function captureDate(value) {
     // Python exports microseconds; trim to milliseconds for older Safari's ISO parser.
@@ -189,25 +196,39 @@
     return rank;
   }
 
+  function styleBalance(node, key, value) {
+    const available = Number.isInteger(value) && value >= 0;
+    const [yellow, pink] = balanceThresholds[key] || [Infinity, Infinity];
+    node.textContent = available ? formatNumber(value) : '—';
+    node.classList.toggle('balance-value-threshold', available && value >= yellow && value < pink);
+    node.classList.toggle('balance-value-critical', available && value >= pink);
+    return available;
+  }
+
+  // Same markup and styling as the Overview balance strip.
+  function balanceItem(key, label, icon, value) {
+    const item = element('div', 'balance-item');
+    item.dataset.currency = key;
+    const image = element('img', 'balance-icon');
+    image.src = `assets/wallet/${icon}`;
+    image.alt = '';
+    const amount = element('strong');
+    styleBalance(amount, key, value);
+    const copy = element('span', 'balance-copy');
+    copy.append(element('span', 'balance-label', label), amount);
+    item.append(image, copy);
+    return item;
+  }
+
   function renderHeader() {
     const snapshot = state.snapshot;
-    const balanceThresholds = {
-      overwatchCoins: [800, 2000],
-      credits: [10000, 20000],
-      competitivePoints: [3000, 9000],
-      legacyCompetitivePoints: [3000, 9000]
-    };
     renderCaptureLabel(snapshot);
     $('tabSkinCount').textContent = formatNumber(currentItems().length);
     $('tabWeaponCount').textContent = formatNumber(currentWeapons().length);
     $('tabVariantCount').textContent = state.snapshot ? formatNumber(currentVariants().length) : '';
     document.querySelectorAll('[data-balance]').forEach((node) => {
       const value = snapshot?.balances?.[node.dataset.balance];
-      const available = Number.isInteger(value) && value >= 0;
-      const [yellow, pink] = balanceThresholds[node.dataset.balance] || [Infinity, Infinity];
-      node.textContent = available ? formatNumber(value) : '—';
-      node.classList.toggle('balance-value-threshold', available && value >= yellow && value < pink);
-      node.classList.toggle('balance-value-critical', available && value >= pink);
+      const available = styleBalance(node, node.dataset.balance, value);
       node.closest('.balance-item').classList.toggle('is-premium', node.dataset.balance === 'mythicPrisms' && available && value > 0);
     });
   }
@@ -354,8 +375,56 @@
     return button;
   }
 
+  // While the skins tab is hidden the browser reports the declared "repeat(4, minmax(0, 1fr))"
+  // instead of resolved track sizes, so read the repeat count when present.
+  function gridColumns() {
+    const value = getComputedStyle($('skinGrid')).gridTemplateColumns;
+    const repeat = /repeat\(\s*(\d+)/.exec(value);
+    const columns = repeat ? Number(repeat[1]) : value.split(' ').filter((part) => /px$/.test(part)).length;
+    return columns || 5;
+  }
+
+  // Page numbers around the current page with the first and last always reachable: 1 … 5 6 7 … 21.
+  function pageNumbers(current, total) {
+    const wanted = new Set([1, total, current - 1, current, current + 1]);
+    if (current <= 3) [2, 3, 4].forEach((page) => wanted.add(page));
+    if (current >= total - 2) [total - 1, total - 2, total - 3].forEach((page) => wanted.add(page));
+    const pages = [...wanted].filter((page) => page >= 1 && page <= total).sort((a, b) => a - b);
+    return pages.flatMap((page, index) => index && page - pages[index - 1] > 1 ? [null, page] : [page]);
+  }
+
+  function goToPage(page) {
+    state.page = page;
+    renderSkins();
+    $('pageTitle').scrollIntoView({ block: 'start', behavior: 'smooth' });
+  }
+
+  function renderPagination(pages) {
+    const nav = $('pagination');
+    nav.replaceChildren();
+    if (pages < 2) return;
+    const arrow = (symbol, label, page, disabled) => {
+      const button = pageButton(symbol, disabled, () => goToPage(page));
+      button.classList.add('page-arrow');
+      button.setAttribute('aria-label', t(label));
+      return button;
+    };
+    nav.append(arrow('‹', 'Previous page', state.page - 1, state.page === 1));
+    for (const page of pageNumbers(state.page, pages)) {
+      if (page === null) { nav.append(element('span', 'page-ellipsis', '…')); continue; }
+      const button = pageButton(String(page), false, () => goToPage(page));
+      button.classList.add('page-number');
+      button.setAttribute('aria-label', t('Page {page}', { page }));
+      if (page === state.page) { button.classList.add('is-current'); button.setAttribute('aria-current', 'page'); }
+      nav.append(button);
+    }
+    nav.append(arrow('›', 'Next page', state.page + 1, state.page === pages));
+  }
+
   function renderSkins() {
     const items = filteredItems();
+    const pageSize = gridColumns() * pageRows;
+    state.pageSize = pageSize;
     const pages = Math.max(1, Math.ceil(items.length / pageSize));
     state.page = Math.min(state.page, pages);
     const start = (state.page - 1) * pageSize;
@@ -365,21 +434,12 @@
     $('resultHint').textContent = t('Choose an item for details');
     $('emptyState').hidden = items.length > 0;
     $('skinGrid').replaceChildren(...items.slice(start, end).map(makeCard));
-    const nav = $('pagination');
-    nav.replaceChildren();
-    if (pages > 1) {
-      nav.append(
-        pageButton('← Previous', state.page === 1, () => { state.page--; renderSkins(); window.scrollTo({ top: 0, behavior: 'smooth' }); }),
-        element('span', 'page-label', `${state.page} / ${pages}`),
-        pageButton('Next →', state.page === pages, () => { state.page++; renderSkins(); window.scrollTo({ top: 0, behavior: 'smooth' }); })
-      );
-    }
+    renderPagination(pages);
   }
 
   function renderWeapons() {
     const items = currentWeapons().filter((item) => state.hero === 'all' || item.hero === state.hero)
       .map((item) => window.DetailsImageSources.weapon(item));
-    $('weaponNotice').textContent = t('The snapshot records {count} weapon skins. Unrecorded items are not assumed unowned; default weapons are excluded.', {count:items.length});
     $('weaponGrid').replaceChildren(...items.map((item) => {
       const card = element('button', 'skin-card');
       card.type = 'button'; card.dataset.rarity = item.rarity;
@@ -426,7 +486,6 @@
 
   function renderVariants() {
     const items = currentVariants().filter((item) => state.hero === 'all' || item.hero === state.hero);
-    $('variantNotice').textContent = t('The snapshot records {count} unlocked weapon variants. Default variants are excluded; unscanned heroes remain unknown.', {count:items.length});
     const grid = $('variantGrid');
     grid.className = 'skin-grid';
     grid.replaceChildren();
@@ -586,35 +645,38 @@
     const summary = $('competitiveSummary');
     summary.hidden = state.tab !== 'competitive' || !state.snapshot;
     summary.replaceChildren();
+    // Competitive points sit beside the title, like the game's top-right counters.
+    const points = $('competitivePoints');
+    points.replaceChildren();
+    if (!summary.hidden) {
+      for (const [key, label, icon] of [['competitivePoints', 'Competitive Points', 'competitive-points.png'], ['legacyCompetitivePoints', 'Legacy Competitive Points', 'legacy-competitive-points.png']]) {
+        const value = state.snapshot.balances[key];
+        if (value !== null) points.append(balanceItem(key, label, icon, value));
+      }
+    }
+    points.hidden = !points.children.length;
     if (!summary.hidden) {
       const competitive = state.snapshot.competitive;
-      if (competitive.season || Object.values(competitive.ranks).some(Boolean)) summary.append(element('h2', '', competitive.season || 'Current season'));
+      // Open Queue is shown like the role queues; uncollected means no placement matches yet.
+      const ranks = { ...competitive.ranks, openQueue: competitive.ranks.openQueue || 'Placement 0/10' };
+      summary.append(element('h2', '', competitive.season || 'Current Season'));
       const cards = element('div', 'competitive-cards');
       for (const [key, label] of Object.entries(rankLabels)) {
-        if (!competitive.ranks[key]) continue;
-        cards.append(rankCard(key, label, competitive.ranks[key]));
+        if (ranks[key]) cards.append(rankCard(key, label, ranks[key]));
       }
-      for (const [key, label] of [['competitivePoints', 'Competitive Points'], ['legacyCompetitivePoints', 'Legacy Competitive Points']]) {
-        const value = state.snapshot.balances[key];
-        if (value === null) continue;
-        const card = element('div', 'competitive-card');
-        card.append(element('span', '', label), element('strong', '', formatNumber(value)));
-        cards.append(card);
-      }
-      if (cards.children.length) summary.append(cards);
+      summary.append(cards);
+      // Earlier seasons come only from manual entries in the collector; nothing entered, nothing shown.
       if (state.snapshot.profile.historicalRanks.length) {
-        summary.append(element('h2', '', 'Rank history'));
+        summary.append(element('h2', '', 'History Season'));
         for (const season of state.snapshot.profile.historicalRanks) {
           summary.append(element('h3', '', season.season));
           const historyCards = element('div', 'competitive-cards');
           for (const [key, label] of Object.entries(rankLabels)) {
-            if (!season.ranks[key]) continue;
-            historyCards.append(rankCard(key, label, season.ranks[key]));
+            if (season.ranks[key]) historyCards.append(rankCard(key, label, season.ranks[key]));
           }
           summary.append(historyCards);
         }
       }
-      if (!summary.children.length) summary.append(element('p', 'account-empty', 'This snapshot does not include competitive data yet.'));
     }
   }
 
@@ -722,6 +784,14 @@
   $('skinSearch').addEventListener('input', (event) => { state.search = event.target.value.trim().toLocaleLowerCase(); state.page = 1; renderSkins(); });
   $('rarityFilter').addEventListener('change', (event) => { state.rarity = event.target.value; state.page = 1; renderSkins(); });
   $('sortFilter').addEventListener('change', (event) => { state.sort = event.target.value; state.page = 1; renderSkins(); });
+  // A rotation or resize changes the column count: keep the first visible skin on screen.
+  window.addEventListener('resize', () => {
+    if (state.tab !== 'skins' || !state.pageSize) return;
+    const size = gridColumns() * pageRows;
+    if (size === state.pageSize) return;
+    state.page = Math.floor((state.page - 1) * state.pageSize / size) + 1;
+    renderSkins();
+  });
   $('resetButton').addEventListener('click', () => {
     state.hero = 'all'; state.heroQuery = ''; state.search = ''; state.rarity = 'all'; state.sort = 'rarity'; state.page = 1;
     $('heroSearch').value = ''; $('skinSearch').value = ''; $('rarityFilter').value = 'all'; $('sortFilter').value = 'rarity';

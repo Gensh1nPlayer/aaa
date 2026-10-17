@@ -277,3 +277,32 @@ dialog::backdrop { background: rgba(3,3,14,.78); }
 }
 #weaponGrid .card-art img, #variantGrid .card-art img,
 .dialog-image-wrap img[data-weapon-image="true"] { position: relative; z-index: 0; padding: 0; transform: scale(var(--weapon-art-scale, 1)); transform-origin: center; }
+
+/* Competitive tab: competitive points beside the title (like the game's top-right counters),
+   four queues per season (Tank / Damage / Support / Open Queue). */
+.placeholder-head, .placeholder-copy { display: contents; }
+.competitive-view .placeholder-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+.competitive-view .placeholder-copy { display: block; flex: 1 1 320px; min-width: 0; }
+.competitive-view .placeholder-copy p { max-width: none; margin: 5px 0 14px; }
+.competitive-points { display: flex; flex: 0 0 auto; flex-direction: column; gap: 8px; min-width: 240px; }
+.competitive-points[hidden] { display: none; }
+.competitive-points .balance-item { min-height: 0; padding: 9px 14px; }
+.competitive-cards { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.competitive-summary h3 { margin: 16px 0 8px; color: #c9c3e4; font-size: 13px; }
+@media (max-width: 900px) { .competitive-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 620px) {
+  .competitive-points { width: 100%; min-width: 0; flex-direction: row; }
+  .competitive-points .balance-item { flex: 1 1 0; min-width: 0; }
+}
+
+/* Skin pages: arrows and page numbers instead of "Previous 2 / 21 Next". */
+.pagination { gap: 6px; flex-wrap: wrap; }
+.page-button.page-number, .page-button.page-arrow { display: inline-flex; align-items: center; justify-content: center; min-width: 36px; height: 36px; padding: 0 8px; border-radius: 8px; font-weight: 700; }
+.page-button.page-arrow { font-size: 20px; line-height: 1; }
+.page-button.is-current { border-color: #8b5cf6; background: linear-gradient(135deg, #6d28d9, #8b5cf6); color: #fff; }
+.page-ellipsis { min-width: 18px; color: #8f89ad; text-align: center; }
+#pageTitle { scroll-margin-top: 110px; }
+@media (max-width: 620px) {
+  .pagination { gap: 4px; }
+  .page-button.page-number, .page-button.page-arrow { min-width: 32px; height: 32px; padding: 0 6px; }
+}

@@ -29,6 +29,24 @@ const server=http.createServer((req,res)=>{
  res.setHeader('Content-Type',({'.js':'text/javascript','.css':'text/css','.html':'text/html','.json':'application/json','.svg':'image/svg+xml','.png':'image/png'})[path.extname(file)]||'application/octet-stream');res.end(fs.readFileSync(file));
 });
 const palette=locator=>locator.evaluate(node=>{const css=getComputedStyle(node);return {color:css.color,background:css.backgroundImage,fill:css.webkitTextFillColor,shadow:css.textShadow,weight:css.fontWeight};});
+// Skins are paged (five rows of the current column count).
+async function firstPage(page){
+ const first=page.locator('#pagination .page-number',{hasText:/^1$/});
+ if(await first.count()&&!(await first.getAttribute('aria-current')))await first.click();
+}
+async function showCard(page,card){
+ await firstPage(page);
+ const next=page.locator('#pagination .page-arrow').last();
+ while(!(await card.count())&&await next.count()&&!(await next.isDisabled()))await next.click();
+}
+async function acrossPages(page,selector){
+ await firstPage(page);
+ let total=await page.locator(selector).count();
+ const next=page.locator('#pagination .page-arrow').last();
+ while(await next.count()&&!(await next.isDisabled())){await next.click();total+=await page.locator(selector).count();}
+ await firstPage(page);
+ return total;
+}
 (async()=>{
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const base='http://127.0.0.1:'+server.address().port;
  for(const scenario of [{engine:chromium,name:'Chromium desktop',viewport:{width:1440,height:960}},{engine:webkit,name:'WebKit mobile / legacy API',viewport:{width:390,height:844},legacy:true}]){
@@ -58,6 +76,7 @@ const palette=locator=>locator.evaluate(node=>{const css=getComputedStyle(node);
     const [hero,name,rarity,tier]=fixtures[i],card=page.locator('.skin-card')
       .filter({has:page.locator('.card-hero').filter({hasText:new RegExp('^'+hero.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'$')})})
       .filter({has:page.getByText(name,{exact:true})});
+    await showCard(page,card);
     assert.equal(await card.locator('.card-name').textContent(),name,'do not rewrite actual skin names');
     if(tier)assert.deepEqual(await palette(card.locator('.card-name .ac-special-skin-'+tier)),colors[tier],'stock palette/glow parity: '+name);
     else assert.equal(await card.locator('.card-name .ac-special-skin').count(),0,'ordinary or unknown names remain ordinary');
@@ -69,10 +88,10 @@ const palette=locator=>locator.evaluate(node=>{const css=getComputedStyle(node);
     if(rarity==='ultra')assert.equal((await palette(page.locator('#dialogRarity .rarity-text'))).color,'rgb(255, 28, 0)');
     await page.keyboard.press('Escape');
    }
-   assert.equal(await page.locator('#skinGrid img[src="x"]').count(),0,'names cannot inject HTML');
+   assert.equal(await acrossPages(page,'#skinGrid img[src="x"]'),0,'names cannot inject HTML');
    for(const lang of ['fr','de','ar','ja']){
     await page.goto(base+'/acc_details/?lang='+lang+'#123');await page.waitForFunction(()=>document.body.classList.contains('has-account'));await page.locator('[data-tab="skins"]').click();
-    assert.equal(await page.locator('.rarity-label[data-rarity="mythic"] .rarity-text').count(),3);assert.equal(await page.locator('.rarity-label[data-rarity="ultra"] .rarity-text').count(),1);
+    assert.equal(await acrossPages(page,'.rarity-label[data-rarity="mythic"] .rarity-text'),3);assert.equal(await acrossPages(page,'.rarity-label[data-rarity="ultra"] .rarity-text'),1);
     assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),lang+' layout fits');
    }
    if(process.env.SCREENSHOT_DIR){fs.mkdirSync(process.env.SCREENSHOT_DIR,{recursive:true});await page.goto(base+'/acc_details/?lang=en#123');await page.waitForFunction(()=>document.body.classList.contains('has-account'));await page.locator('[data-tab="skins"]').click();await page.screenshot({path:path.join(process.env.SCREENSHOT_DIR,scenario.legacy?'effects-mobile.png':'effects-desktop.png'),fullPage:true});}
@@ -80,8 +99,8 @@ const palette=locator=>locator.evaluate(node=>{const css=getComputedStyle(node);
    await home.reload();await home.locator('.account-card').waitFor();assert.equal(await home.locator('.account-card').count(),1,'missing visual module must not hide stock');
    await page.route('**/assets/skin-visuals.js*',route=>route.fulfill({status:404,body:''}));
    await page.reload();await page.waitForFunction(()=>document.body.classList.contains('has-account'));await page.locator('[data-tab="skins"]').click();
-   assert.equal(await page.locator('.skin-card').count(),fixtures.length,'missing visual module must not hide recorded skins');
-   assert.equal(await page.locator('#skinGrid img[src="x"]').count(),0,'plain fallback still escapes names');
+   assert.equal(await acrossPages(page,'.skin-card'),fixtures.length,'missing visual module must not hide recorded skins');
+   assert.equal(await acrossPages(page,'#skinGrid img[src="x"]'),0,'plain fallback still escapes names');
    assert.deepEqual(errors,[]);console.log(JSON.stringify({scenario:scenario.name,sharedStockPalette:true,skinNames:fixtures.length,mythicGradient:true,ultraRed:true,languages:5,htmlEscaped:true,pageErrors:errors}));
   }finally{await browser.close();}
  }

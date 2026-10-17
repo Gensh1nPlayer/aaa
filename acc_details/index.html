@@ -19,18 +19,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700;800&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=1">
   <link rel="stylesheet" href="store-header.css?v=2">
-  <link rel="stylesheet" href="theme.css?v=11">
+  <link rel="stylesheet" href="theme.css?v=12">
   <link rel="stylesheet" href="../assets/skin-effects.css?v=3">
   <link rel="stylesheet" href="../assets/store-background.css?v=1">
   <link rel="stylesheet" href="../assets/floating-launcher.css?v=1">
   <link rel="stylesheet" href="compatibility.css?v=2">
+  <script src="../assets/compat.js?v=1" defer></script>
   <script defer src="catalog.js?v=3"></script>
   <script defer src="weapon-catalog.js?v=5"></script>
-  <script defer src="i18n.js?v=3"></script>
+  <script defer src="i18n.js?v=4"></script>
   <script defer src="image-sources.js?v=5"></script>
   <script defer src="../assets/skin-visuals.js?v=5"></script>
   <script defer src="../assets/account-display.js?v=2"></script>
-  <script defer src="app.js?v=13"></script>
+  <script defer src="app.js?v=14"></script>
   <script defer src="account-loader.js?v=2"></script>
   <script defer src="store-header.js?v=1"></script>
   <script defer src="../assets/void-effects.js?v=1"></script>
@@ -161,13 +162,11 @@
 
         <section id="weaponsPanel" class="panel weapon-panel" hidden>
           <div class="title-row"><div><div class="eyebrow">WEAPON COLLECTION</div><h1>Weapon Skins</h1></div></div>
-          <p id="weaponNotice" class="snapshot-notice"></p>
           <div id="weaponGrid" class="skin-grid"></div>
         </section>
 
         <section id="variantsPanel" class="panel weapon-panel" hidden>
           <div class="title-row"><div><div class="eyebrow">HERO WEAPONS</div><h1>Weapon Variants</h1></div></div>
-          <p id="variantNotice" class="snapshot-notice"></p>
           <div id="variantGrid" class="variant-grid"></div>
         </section>
 
@@ -201,8 +200,13 @@
         <section id="placeholderPanel" class="panel placeholder-panel" hidden>
           <div class="placeholder-icon">◇</div>
           <div class="eyebrow">RANKED HISTORY</div>
-          <h1 id="placeholderTitle">Competitive</h1>
-          <p id="placeholderText">No account data has been loaded for this link.</p>
+          <div class="placeholder-head">
+            <div class="placeholder-copy">
+              <h1 id="placeholderTitle">Competitive</h1>
+              <p id="placeholderText">No account data has been loaded for this link.</p>
+            </div>
+            <div id="competitivePoints" class="competitive-points" hidden></div>
+          </div>
           <div id="competitiveSummary" class="competitive-summary" hidden></div>
           <button type="button" class="back-button" data-tab-link="skins">Back to skins</button>
         </section>

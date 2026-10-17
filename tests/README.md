@@ -12,6 +12,7 @@ Stock/detail display updates:
 
 - `node tests/details-account-display.cjs`: shared lossless level parsing and Stock labels.
 - `node tests/details-stock-browser.cjs`: color groups with all four existing sort modes, Stock labels, version precedence, long levels, numeric compatibility and mobile cards.
+- `node tests/ios14-compat-browser.cjs`: early iOS 14 Safari (before 14.5) in WebKit — `replaceChildren()` with no arguments that leaves old children, and ignored flex `gap`. `assets/compat.js` must keep Account Details from stacking repeated content and restore icon/label spacing.
 - `node tests/details-manual-snapshot.cjs`: manual editor save/reload and actual offline collector re-export; set `MANAGER_PACKAGE` and `COLLECTOR_PACKAGE` to the local packages. Uses temporary fixtures only.
 - `node tests/currency-contract.cjs`: all nine currencies, preference priority, rate validation, races, timeout, expiry and honest USD fallback.
 - `node tests/currency-browser.cjs`: currency keyboard interaction, mobile layout, RTL and rate failure/expiry in Chromium and WebKit.
