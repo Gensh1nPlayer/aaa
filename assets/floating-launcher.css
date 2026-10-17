@@ -1,8 +1,13 @@
 .rd-search-launcher {
-  --rd-launcher-x: -50%;
+  /* Centred without transforms: iOS 14 Safari applies an animated translateX(-50%) on a fixed,
+     backdrop-filtered element unreliably, leaving the bar off-centre and jittering. */
   position: fixed;
   z-index: 90;
-  left: 50%;
+  left: 0;
+  right: 0;
+  width: max-content;
+  margin-left: auto;
+  margin-right: auto;
   bottom: 28px;
   min-width: 252px;
   height: 51px;
@@ -17,7 +22,6 @@
   box-shadow: 0 14px 45px rgba(0,0,0,.36), inset 0 1px rgba(255,255,255,.055), 0 0 18px rgba(124,58,237,.13);
   backdrop-filter: blur(12px) saturate(125%);
   -webkit-backdrop-filter: blur(12px) saturate(125%);
-  transform: translateX(var(--rd-launcher-x));
   cursor: pointer;
   animation: rdSearchBreath 3.2s ease-in-out infinite;
   transition: border-color .25s ease, background .25s ease, box-shadow .25s ease, transform .25s ease;
@@ -26,7 +30,7 @@
   border-color: rgba(167,139,250,.72);
   background: linear-gradient(110deg, rgba(14,7,28,.68), rgba(19,10,38,.56));
   box-shadow: 0 17px 52px rgba(0,0,0,.42), inset 0 1px rgba(255,255,255,.07), 0 0 38px rgba(124,58,237,.34);
-  transform: translateX(var(--rd-launcher-x)) translateY(-3px);
+  transform: translateY(-3px);
   animation-play-state: paused;
 }
 .rd-search-launcher > span { width: 17px; height: 17px; display: grid; place-items: center; color: #a78bfa; }
@@ -35,8 +39,8 @@
 .rd-search-launcher i { width: 1px; height: 17px; margin-inline: 2px; background: rgba(255,255,255,.14); }
 .rd-search-launcher kbd { padding: 5px 7px; border: 1px solid rgba(255,255,255,.13); border-radius: 6px; color: rgba(255,255,255,.42); background: rgba(255,255,255,.055); font: 700 .58rem/1 ui-monospace,Consolas,monospace; }
 @keyframes rdSearchBreath {
-  0%,100% { transform: translateX(var(--rd-launcher-x)) translateY(0); border-color: rgba(139,92,246,.38); box-shadow: 0 14px 45px rgba(0,0,0,.48), inset 0 1px rgba(255,255,255,.035), 0 0 16px rgba(124,58,237,.11); }
-  50% { transform: translateX(var(--rd-launcher-x)) translateY(-2px); border-color: rgba(167,139,250,.64); box-shadow: 0 16px 49px rgba(0,0,0,.52), inset 0 1px rgba(255,255,255,.045), 0 0 34px rgba(124,58,237,.27); }
+  0%,100% { border-color: rgba(139,92,246,.38); box-shadow: 0 14px 45px rgba(0,0,0,.48), inset 0 1px rgba(255,255,255,.035), 0 0 16px rgba(124,58,237,.11); }
+  50% { border-color: rgba(167,139,250,.64); box-shadow: 0 16px 49px rgba(0,0,0,.52), inset 0 1px rgba(255,255,255,.045), 0 0 34px rgba(124,58,237,.27); }
 }
 .rd-home-launcher {
   bottom: 22px;
