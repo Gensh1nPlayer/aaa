@@ -26,6 +26,14 @@
   const FETCH_TTL = 60 * 60 * 1000;
   const MAX_RATE_AGE = 7 * 24 * 60 * 60 * 1000; // allows weekends/bank holidays
   const number = new Intl.NumberFormat('en-US', {minimumFractionDigits:1, maximumFractionDigits:1});
+  const STATUS_COPY = {
+    en:{aria:'Currency: {code}',rates:'Daily FX rates dated {date}; fetched {time}. Prices include a 2.5% payment fee and are estimates.',fallback:'Requested {code}. Showing USD. ',loading:'Exchange rates loading.',failed:'Exchange rates unavailable or expired. Select a currency to retry.',usd:'Prices in USD.'},
+    fr:{aria:'Devise : {code}',rates:'Taux de change quotidiens du {date} ; récupérés le {time}. Les prix incluent 2,5 % de frais de paiement et sont indicatifs.',fallback:'{code} demandé. Affichage en USD. ',loading:'Chargement des taux de change.',failed:'Taux de change indisponibles ou expirés. Sélectionnez une devise pour réessayer.',usd:'Prix en USD.'},
+    de:{aria:'Währung: {code}',rates:'Tägliche Wechselkurse vom {date}; abgerufen {time}. Die Preise enthalten 2,5 % Zahlungsgebühr und sind Schätzwerte.',fallback:'{code} angefordert. Anzeige in USD. ',loading:'Wechselkurse werden geladen.',failed:'Wechselkurse nicht verfügbar oder abgelaufen. Wähle eine Währung, um es erneut zu versuchen.',usd:'Preise in USD.'},
+    ar:{aria:'العملة: {code}',rates:'أسعار الصرف اليومية بتاريخ {date}؛ تم جلبها في {time}. تشمل الأسعار رسوم دفع بنسبة 2.5% وهي تقديرية.',fallback:'العملة المطلوبة {code}. يتم العرض بالدولار الأمريكي. ',loading:'جارٍ تحميل أسعار الصرف.',failed:'أسعار الصرف غير متاحة أو منتهية. اختر عملة لإعادة المحاولة.',usd:'الأسعار بالدولار الأمريكي.'},
+    ja:{aria:'通貨: {code}',rates:'{date}付の日次為替レート（取得：{time}）。価格は2.5%の決済手数料を含む概算です。',fallback:'{code}を選択中。USDで表示しています。',loading:'為替レートを読み込み中です。',failed:'為替レートを取得できないか、期限切れです。通貨を選び直してください。',usd:'価格はUSDで表示しています。'},
+    zh:{aria:'货币：{code}',rates:'每日汇率日期 {date}，获取于 {time}。价格含 2.5% 支付手续费，仅供参考。',fallback:'已选择 {code}，当前以 USD 显示。',loading:'正在加载汇率。',failed:'汇率暂不可用或已过期，请重新选择货币重试。',usd:'价格以 USD 显示。'}
+  };
   let selectedCode = 'USD', status = 'idle', source = 'default';
   let rates = Object.create(null), fetched = null, pendingRates = null, initialization = null;
   let revision = 0, expiryTimer = null, ui = null;
@@ -148,17 +156,19 @@
     if (!ui) return;
     const {picker, trigger, menu, value, notice} = ui;
     value.textContent = state.code;
-    trigger.setAttribute('aria-label', 'Currency: ' + state.code);
+    const lang = (document.documentElement.lang || 'en').split('-')[0];
+    const copy = STATUS_COPY[lang] || STATUS_COPY.en;
+    const fill = (text, values) => text.replace(/\{(\w+)\}/g, (match, key) => values[key]);
+    trigger.setAttribute('aria-label', fill(copy.aria, {code: state.code}));
     picker.dataset.currency = state.code;
     picker.dataset.currencyStatus = state.status;
     picker.setAttribute('aria-busy', String(state.status === 'loading'));
     const message = state.code !== 'USD'
-      ? 'Daily FX rates dated ' + state.rateDate + '; fetched ' + state.fetchedAt + '. Prices include a 2.5% payment fee and are estimates.'
-      : state.selectedCode !== 'USD' ? 'Requested ' + state.selectedCode + '. Showing USD. ' + (state.status === 'loading' ? 'Exchange rates loading.' : 'Exchange rates unavailable or expired. Select a currency to retry.') : 'Prices in USD.';
+      ? fill(copy.rates, {date: state.rateDate, time: state.fetchedAt})
+      : state.selectedCode !== 'USD' ? fill(copy.fallback, {code: state.selectedCode}) + (state.status === 'loading' ? copy.loading : copy.failed) : copy.usd;
     trigger.title = message; notice.textContent = message;
     const feeNote = document.getElementById('currencyFeeNote');
     if (feeNote) {
-      const lang = (document.documentElement.lang || 'en').split('-')[0];
       const feeCopy = {en:'Displayed prices include a 2.5% payment fee. ',fr:'Les prix affichés incluent 2,5 % de frais de paiement. ',de:'Die angezeigten Preise enthalten 2,5 % Zahlungsgebühr. ',ar:'تشمل الأسعار المعروضة رسوم دفع بنسبة 2.5%. ',ja:'表示価格には2.5%の決済手数料が含まれます。'};
       const cryptoCopy = {en:'Crypto: no payment fee and 2.5% off the base account price. Confirm your crypto quote on Discord.',fr:'Crypto : aucun frais de paiement et 2,5 % de réduction sur le prix de base du compte. Confirmez le devis sur Discord.',de:'Krypto: keine Zahlungsgebühr und 2,5 % Rabatt auf den Basispreis des Accounts. Angebot auf Discord bestätigen.',ar:'العملات المشفرة: بدون رسوم دفع وخصم 2.5% من سعر الحساب الأساسي. أكّد السعر عبر Discord.',ja:'暗号資産払い：決済手数料なし、アカウントの基本価格から2.5%割引。Discordでお見積もりをご確認ください。'};
       feeCopy.zh = '显示价格包含 2.5% 支付手续费。';

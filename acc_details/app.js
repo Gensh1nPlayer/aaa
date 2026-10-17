@@ -51,7 +51,8 @@
     const label = $('pageEyebrow');
     label.replaceChildren();
     if (!snapshot) { label.textContent = t('Enter a stock ID to view account details'); return; }
-    label.append(document.createTextNode(`${snapshot.accountLabel || t('Account snapshot')} · ${t(snapshot.inventoryStatus === 'complete' ? 'Complete record' : 'Partial record')} · `));
+    const stockLabel = /^Account #(\d+)$/.exec(snapshot.accountLabel || '');
+    label.append(document.createTextNode(`${stockLabel ? t('Account #{id}', {id: stockLabel[1]}) : snapshot.accountLabel || t('Account snapshot')} · ${t(snapshot.inventoryStatus === 'complete' ? 'Complete record' : 'Partial record')} · `));
     if (!snapshot.capturedAt) { label.append(document.createTextNode(t('Capture date unavailable'))); return; }
     const iso = captureDate(snapshot.capturedAt).toISOString();
     const time = document.createElement('time');
@@ -544,7 +545,7 @@
     const snapshot = state.snapshot;
     const content = $('accountContent');
     content.replaceChildren();
-    $('accountHeading').textContent = snapshot?.accountId ? `ID #${snapshot.accountId}` : 'Account snapshot';
+    $('accountHeading').textContent = snapshot?.accountId ? `ID #${snapshot.accountId}` : t('Account snapshot');
     $('accountEyebrow').textContent = t(state.tab === 'statistics' ? 'ACCOUNT / STATISTICS' : 'ACCOUNT / OVERVIEW');
     const stock = stockAccount && String(stockAccount.id) === snapshot?.accountId ? stockAccount : null;
     const profileLevel = snapshot?.profile?.accountLevel;

@@ -154,6 +154,11 @@ html[lang="zh"] :is(h1,h2,.hero-title,.section-title,.policy-title,.lookup-copy 
 html[lang="zh"] .hero-title { font-size: clamp(2.6rem,5.4vw,5.4rem); max-width: 960px; }
 html[lang="zh"] .section-title { font-size: clamp(2rem,4.2vw,3.8rem); }
 html[lang="zh"] .language-option { letter-spacing: 0; }
+/* CJK headings: avoid a lone "解。" style last line; Japanese breaks by phrase where supported. */
+html:is([lang="zh"],[lang="ja"]) :is(h1,h2,h3,.hero-title,.section-title,.policy-title):not(.ac-level-title) { text-wrap: balance; }
+html[lang="zh"] :is(h1,h2,.hero-title,.section-title,.policy-title) { word-break: keep-all; overflow-wrap: anywhere; }
+html:is([lang="zh"],[lang="ja"]) :is(p,li,.faq-answer) { text-wrap: pretty; }
+html[lang="ja"] :is(h1,h2,h3,.hero-title,.section-title,.policy-title):not(.ac-level-title) { word-break: auto-phrase; }
 /* Crisp light-mode inks: keep tier hues, not dark-mode bloom or pastel hotspots. */
 html[data-theme="light"] body :is(.ac-special-skin,.ac-rarity-name,.ac-special-currency,[class*="ac-special-weapon-"],[class*="ac-color-"],[class*="ac-endorsement-"],.profile-endorsement,.profile-endorsement strong,.rarity-text,.balance-item strong,.game-version,.details-version) { text-shadow: none; filter: none; }
 html[data-theme="light"] body :is(.ac-special-skin,.ac-rarity-name,[class*="ac-special-weapon-"]) { font-weight: 600; }
@@ -186,3 +191,38 @@ html[data-theme="light"] .site-shell .tier-grandmaster { --tier-color: #6347a1; 
 html[data-theme="light"] .site-shell .tier-champion { --tier-color: #a52a61; }
 html[data-theme="light"] .site-shell .role-icon { filter: brightness(0); opacity: .65; }
 html[data-theme="light"] .lookup-status.error { color: #b62c44; }
+
+/* Endorsement badges: dark-mode pastels vanish on pale chips; keep tier hue, deepen ink. */
+html[data-theme="light"] :is(.profile-endorsement[data-endorsement-tier="1"],.profile-endorsement[data-endorsement-tier="1"] strong) { color: #352744; }
+html[data-theme="light"] .profile-endorsement[data-endorsement-tier="3"] { border-color: #14714640; background: #e7f4ec; }
+html[data-theme="light"] .profile-endorsement[data-endorsement-tier="4"] { border-color: #a52a7c40; background: #f8e8f2; }
+html[data-theme="light"] .profile-endorsement[data-endorsement-tier="5"] { color: #87429e; border-color: #87429e40; background: #f4ebfa; }
+
+/* Homepage controls and secondary copy that kept dark-mode inks. */
+html[data-theme="light"] .accounts-popular-label { color: #625b73; }
+html[data-theme="light"] .account-keyword-chip { color: #4f4565; background: #fff; border-color: #75609533; }
+html[data-theme="light"] .account-keyword-chip:hover { color: #4e258d; background: #f1edf8; border-color: #9875c080; }
+html[data-theme="light"] .account-keyword-chip[aria-pressed="true"] { color: #4e258d; background: #e6dbf5; border-color: #9875c0; box-shadow: none; }
+html[data-theme="light"] .inventory-reset-btn { color: #4f4565; background: #fff; border-color: #75609540; }
+html[data-theme="light"] .inventory-reset-btn:hover:not(:disabled) { color: #4e258d; background: #f1edf8; border-color: #9875c080; }
+html[data-theme="light"] .inventory-reset-btn:disabled { opacity: .55; }
+html[data-theme="light"] :is(.ac-level-tag.border-tier) { color: #6a3f99; border-color: #7944a440; background: #f2eafa; }
+html[data-theme="light"] :is(.ac-level-tag.stacked) { color: #a4283e; border-color: #b62c4438; background: #fbecee; }
+html[data-theme="light"] .rd-story-note > span { color: #7043b3; }
+html[data-theme="light"] .rd-currency-icon { color: #7043b3; background: #efe7fa; border-color: #7043b340; box-shadow: none; }
+html[data-theme="light"] .rd-availability { color: #136b8b; background: #e5f3f8; border-color: #136b8b40; }
+html[data-theme="light"] .rd-availability.is-paused { color: #7f5b16; background: #fbf1dc; border-color: #ad812345; }
+html[data-theme="light"] .rd-currency-card > p { color: #625b73; }
+html[data-theme="light"] .faq-guide-intro { color: #625b73; }
+html[data-theme="light"] .faq-auth-link { color: #136b8b; background: #e5f3f8; border-color: #136b8b40; }
+html[data-theme="light"] .faq-auth-link:hover { color: #4e258d; background: #efe7fa; border-color: #7043b340; }
+html[data-theme="light"] .faq-guide-block { background: #f6f3fb; border-color: #75609526; }
+html[data-theme="light"] .faq-guide-block h4 { color: #30243f; }
+html[data-theme="light"] .faq-guide-block h4 span { background: #fff; border-color: #75609526; }
+html[data-theme="light"] .faq-guide-list li { color: #554967; }
+html[data-theme="light"] .faq-guide-list li::before { box-shadow: none; }
+html[data-theme="light"] .faq-guide-list.is-ordered li::before { color: #4e258d; background: #e6dbf5; box-shadow: none; }
+html[data-theme="light"] .rf-error-page .actions a:not(:first-child) { color: #4e258d; background: #fff; border-color: #9875c080; }
+html[data-theme="light"] .rf-error-page .actions a:not(:first-child):hover { background: #f1edf8; }
+html[data-theme="light"] .rf-error-page .kicker { color: #7043b3; }
+html[data-theme="light"] .rf-error-page p { color: #625b73; }

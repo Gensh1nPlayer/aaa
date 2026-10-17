@@ -19,7 +19,7 @@
       storyWebsiteTitle:'The list became a real storefront', storyWebsiteText:'The original Google Sheet moved here, with searchable live stock and Imgur screenshots so each account is easier to compare before opening a ticket.',
       priceKicker:'WHY THE PRICE IS DIFFERENT', priceTitle:'Not the cheapest account. A safer handover.', priceText:'I do not compete with anonymous, mass-listed accounts on price. You pay more for a clearer account history, screenshots, direct answers before payment, guided delivery, and support if a verified previous-owner problem appears later.',
       pricePointOne:'Account details and availability confirmed before payment', pricePointTwo:'Stripe, PayPal, Binance and Bitcoin options', pricePointThree:'Recovery first, then replacement, refund or fair compensation when covered', priceFootnote:'Warranty eligibility depends on the cause, available proof, and safe account handling after delivery.',
-      paymentWord:'PAYMENT', methodsWord:'METHODS', paymentDesc:'Cards are processed through Stripe. Pay with Visa, Mastercard, PayPal, Bitcoin, or supported gift cards.', contactNote:'Send the account ID—or a screenshot if that is easier. We will confirm what is available and answer any questions before payment.', searchStock:'Search stock'
+      paymentWord:'PAYMENT', methodsWord:'METHODS', paymentDesc:'Cards are processed through Stripe. Pay with Visa, Mastercard, PayPal, Bitcoin, or supported gift cards.', contactNote:'Send the account ID—or a screenshot if that is easier. We will confirm what is available and answer any questions before payment.', searchStock:'Search stock', offerTagStock:'01 · LIVE STOCK', offerTagOptional:'02 · OPTIONAL', offerTagEligibility:'03 · ELIGIBILITY APPLIES', perThousandCoins:'/ 1,000 Coins', statsAria:'Live stock summary', scrollCueAria:'Scroll to store overview', paymentMethodsAria:'Payment methods'
     },
     fr: {
       openSince:'Ouvert depuis 2021', liveInventory:'Stock en direct', howToBuy:'Comment acheter', availableNow:'disponibles', owSplit:'OW1 / OW2', currentRange:'fourchette actuelle', accountsSold:'comptes vendus',
@@ -40,7 +40,7 @@
       storyWebsiteTitle:'La liste est devenue une vraie boutique', storyWebsiteText:'L’ancien Google Sheet est maintenant un stock consultable, avec des captures Imgur pour comparer plus facilement chaque compte avant d’ouvrir un ticket.',
       priceKicker:'POURQUOI LE PRIX EST DIFFÉRENT', priceTitle:'Pas le compte le moins cher. Un transfert plus sûr.', priceText:'Je ne cherche pas à battre le prix des comptes anonymes vendus en masse. Le tarif couvre un historique plus clair, des captures, des réponses avant paiement, un transfert accompagné et un support en cas de problème vérifié lié à l’ancien propriétaire.',
       pricePointOne:'Détails et disponibilité confirmés avant le paiement', pricePointTwo:'Paiement par Stripe, PayPal, Binance ou Bitcoin', pricePointThree:'Récupération d’abord, puis remplacement, remboursement ou compensation si le cas est couvert', priceFootnote:'La garantie dépend de la cause, des preuves disponibles et de la bonne sécurisation du compte après la livraison.',
-      paymentWord:'MOYENS DE', methodsWord:'PAIEMENT', paymentDesc:'Les cartes sont traitées par Stripe. Payez par Visa, Mastercard, PayPal, Bitcoin ou carte cadeau prise en charge.', contactNote:'Envoyez l’ID du compte, ou une capture si c’est plus simple. Nous confirmons la disponibilité et répondons avant le paiement.', searchStock:'Rechercher'
+      paymentWord:'MOYENS DE', methodsWord:'PAIEMENT', paymentDesc:'Les cartes sont traitées par Stripe. Payez par Visa, Mastercard, PayPal, Bitcoin ou carte cadeau prise en charge.', contactNote:'Envoyez l’ID du compte, ou une capture si c’est plus simple. Nous confirmons la disponibilité et répondons avant le paiement.', searchStock:'Rechercher', offerTagStock:'01 · STOCK EN DIRECT', offerTagOptional:'02 · EN OPTION', offerTagEligibility:'03 · SOUS CONDITIONS', perThousandCoins:'/ 1 000 pièces', statsAria:'Résumé du stock en direct', scrollCueAria:'Aller à la présentation de la boutique', paymentMethodsAria:'Moyens de paiement'
     },
     de: {
       openSince:'Seit 2021 geöffnet', liveInventory:'Live-Bestand', howToBuy:'So funktioniert es', availableNow:'jetzt verfügbar', owSplit:'OW1 / OW2', currentRange:'aktuelle Spanne', accountsSold:'Accounts verkauft',
@@ -61,7 +61,7 @@
       storyWebsiteTitle:'Aus der Liste wurde ein richtiger Shop', storyWebsiteText:'Die frühere Google-Sheet-Liste ist jetzt ein durchsuchbarer Live-Bestand mit Imgur-Screenshots, damit Accounts vor dem Ticket leichter vergleichbar sind.',
       priceKicker:'WARUM DER PREIS ANDERS IST', priceTitle:'Nicht der billigste Account. Eine sicherere Übergabe.', priceText:'Ich konkurriere nicht mit anonymen Massenangeboten um den niedrigsten Preis. Bezahlt werden nachvollziehbarere Daten, Screenshots, klare Antworten vor der Zahlung, begleitete Übergabe und Hilfe bei einem bestätigten Problem mit dem Vorbesitzer.',
       pricePointOne:'Accountdaten und Verfügbarkeit vor Zahlung bestätigt', pricePointTwo:'Stripe, PayPal, Binance und Bitcoin', pricePointThree:'Zuerst Wiederherstellung, danach Ersatz, Erstattung oder faire Entschädigung bei gedeckten Fällen', priceFootnote:'Die Garantie hängt von Ursache, Nachweisen und sicherem Umgang mit dem Account nach der Übergabe ab.',
-      paymentWord:'ZAHLUNGS', methodsWord:'ARTEN', paymentDesc:'Kartenzahlungen laufen über Stripe. Möglich sind Visa, Mastercard, PayPal, Bitcoin und unterstützte Geschenkkarten.', contactNote:'Sende die Account-ID oder einfach einen Screenshot. Wir bestätigen die Verfügbarkeit und beantworten Fragen vor der Zahlung.', searchStock:'Bestand suchen'
+      paymentWord:'ZAHLUNGS', methodsWord:'ARTEN', paymentDesc:'Kartenzahlungen laufen über Stripe. Möglich sind Visa, Mastercard, PayPal, Bitcoin und unterstützte Geschenkkarten.', contactNote:'Sende die Account-ID oder einfach einen Screenshot. Wir bestätigen die Verfügbarkeit und beantworten Fragen vor der Zahlung.', searchStock:'Bestand suchen', offerTagStock:'01 · LIVE-BESTAND', offerTagOptional:'02 · OPTIONAL', offerTagEligibility:'03 · NUR BEI EIGNUNG', perThousandCoins:'/ 1.000 Münzen', statsAria:'Live-Bestand im Überblick', scrollCueAria:'Zur Store-Übersicht scrollen', paymentMethodsAria:'Zahlungsarten'
     },
     ar: {
       openSince:'نعمل منذ 2021', liveInventory:'مخزون مباشر', howToBuy:'طريقة الشراء', availableNow:'متاح الآن', owSplit:'OW1 / OW2', currentRange:'النطاق الحالي', accountsSold:'حساباً تم بيعه',
@@ -82,7 +82,7 @@
       storyWebsiteTitle:'تحولت القائمة إلى متجر فعلي', storyWebsiteText:'انتقلت قائمة Google Sheets القديمة إلى مخزون مباشر قابل للبحث مع صور Imgur لتسهيل مقارنة الحسابات قبل فتح تذكرة.',
       priceKicker:'لماذا السعر مختلف', priceTitle:'ليس الأرخص، لكنه تسليم أكثر أماناً.', priceText:'لا أنافس الحسابات المجهولة المعروضة بكميات كبيرة على أقل سعر. السعر يشمل تاريخاً أوضح وصوراً وإجابات قبل الدفع وتسليماً بمساعدة ودعماً عند ثبوت مشكلة مرتبطة بالمالك السابق.',
       pricePointOne:'تأكيد تفاصيل الحساب وتوفره قبل الدفع', pricePointTwo:'خيارات Stripe وPayPal وBinance وBitcoin', pricePointThree:'محاولة الاسترداد أولاً ثم الاستبدال أو الاسترداد المالي أو التعويض العادل للحالات المشمولة', priceFootnote:'تعتمد أهلية الضمان على السبب والأدلة المتاحة وطريقة حماية الحساب بعد التسليم.',
-      paymentWord:'طرق', methodsWord:'الدفع', paymentDesc:'تُعالج البطاقات عبر Stripe. تتوفر Visa وMastercard وPayPal وBitcoin وبطاقات الهدايا المدعومة.', contactNote:'أرسل ID الحساب أو لقطة شاشة. سنؤكد التوفر ونجيب عن أسئلتك قبل الدفع.', searchStock:'ابحث في المخزون'
+      paymentWord:'طرق', methodsWord:'الدفع', paymentDesc:'تُعالج البطاقات عبر Stripe. تتوفر Visa وMastercard وPayPal وBitcoin وبطاقات الهدايا المدعومة.', contactNote:'أرسل ID الحساب أو لقطة شاشة. سنؤكد التوفر ونجيب عن أسئلتك قبل الدفع.', searchStock:'ابحث في المخزون', offerTagStock:'01 · مخزون مباشر', offerTagOptional:'02 · اختياري', offerTagEligibility:'03 · حسب الأهلية', perThousandCoins:'/ 1,000 عملة', statsAria:'ملخص المخزون المباشر', scrollCueAria:'الانتقال إلى نظرة عامة على المتجر', paymentMethodsAria:'طرق الدفع'
     },
     ja: {
       openSince:'2021年から運営', liveInventory:'リアルタイム在庫', howToBuy:'購入方法', availableNow:'販売中', owSplit:'OW1 / OW2', currentRange:'現在の価格帯', accountsSold:'販売済みアカウント',
@@ -103,7 +103,7 @@
       storyWebsiteTitle:'リストから本格的なストアへ', storyWebsiteText:'以前のGoogle Sheets在庫表を、検索できるリアルタイム在庫とImgurスクリーンショットを備えたサイトへ移行しました。',
       priceKicker:'価格が違う理由', priceTitle:'最安値ではなく、より安心できる引き渡し。', priceText:'匿名の大量出品と最安値を競うつもりはありません。明確な履歴、スクリーンショット、支払い前の確認、引き渡しサポート、そして元所有者に関する確認済みトラブルへの対応を含む価格です。',
       pricePointOne:'支払い前に詳細と在庫を確認', pricePointTwo:'Stripe、PayPal、Binance、Bitcoinに対応', pricePointThree:'対象ケースは復旧を優先し、その後に交換・返金・適正な補償', priceFootnote:'保証対象は原因、確認できる証拠、引き渡し後の安全な管理状況によって判断されます。',
-      paymentWord:'お支払い', methodsWord:'方法', paymentDesc:'カード決済はStripe経由です。Visa、Mastercard、PayPal、Bitcoin、対応ギフトカードを利用できます。', contactNote:'アカウントID、または分かりやすいスクリーンショットを送ってください。支払い前に在庫とご質問を確認します。', searchStock:'在庫を検索'
+      paymentWord:'お支払い', methodsWord:'方法', paymentDesc:'カード決済はStripe経由です。Visa、Mastercard、PayPal、Bitcoin、対応ギフトカードを利用できます。', contactNote:'アカウントID、または分かりやすいスクリーンショットを送ってください。支払い前に在庫とご質問を確認します。', searchStock:'在庫を検索', offerTagStock:'01 · リアルタイム在庫', offerTagOptional:'02 · オプション', offerTagEligibility:'03 · 条件あり', perThousandCoins:'/ 1,000 コイン', statsAria:'リアルタイム在庫の概要', scrollCueAria:'ストアの概要へスクロール', paymentMethodsAria:'お支払い方法'
     },
   };
 
@@ -118,6 +118,10 @@
     document.querySelectorAll('[data-rd-key]').forEach(element => {
       const value = copy[language][element.dataset.rdKey];
       if (value) element.textContent = value;
+    });
+    document.querySelectorAll('[data-rd-aria]').forEach(element => {
+      const value = copy[language][element.dataset.rdAria];
+      if (value) element.setAttribute('aria-label', value);
     });
   }
 

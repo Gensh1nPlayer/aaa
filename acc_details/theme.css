@@ -101,7 +101,8 @@ button, input, select { font-family: inherit; }
 .hero-search, .filters input, .filters select, .reset-button { background: #121428; border-color: var(--detail-line); color: #efecfb; }
 .hero-search, .filters input, .filters select, .reset-button { min-height: 40px; font-size: 14px; }
 .filters input, .filters select { width: 100%; min-width: 0; }
-.filters { grid-template-columns: minmax(180px, 1fr) max-content max-content max-content; gap: 10px; align-items: stretch; }
+/* Search stays compact; each menu sizes to its longest option in every language. */
+.filters { grid-template-columns: minmax(200px, 460px) max-content max-content max-content; justify-content: start; gap: 10px; align-items: stretch; }
 .filters select { width: auto; max-width: 100%; padding-inline: 12px 32px; }
 .filters input, .filters select, .reset-button { height: 44px; border-radius: 10px; line-height: 1.4; }
 .reset-button { padding-inline: 14px; white-space: nowrap; }
@@ -121,6 +122,9 @@ button, input, select { font-family: inherit; }
 .hero-option.active { background: rgba(139, 87, 255, .2); border-left-color: var(--detail-purple); color: #fff; }
 .hero-option .hero-count, .result-line, .result-hint { color: #a19dba; }
 h1, h2 { color: #f2f0ff; font-family: Orbitron, Kanit, sans-serif; }
+/* Safari synthesizes oblique CJK from the base italic; keep section titles upright. */
+.placeholder-panel h1 { font-style: normal; }
+html:is([lang="zh"],[lang="ja"],[lang="ar"]) :is(.sidebar-label,.image-fallback) { font-style: normal; }
 .source-note a { color: var(--detail-cyan); }
 .data-action, .page-button { border-color: var(--detail-line); background: #171a30; color: #d6d6f2; }
 .data-action:hover, .page-button:hover:not(:disabled) { background: #252341; }
@@ -275,7 +279,8 @@ dialog::backdrop { background: rgba(3,3,14,.78); }
 #weaponGrid .card-art, #variantGrid .card-art { aspect-ratio: 16 / 9; background: #10121f; overflow: hidden; }
 #weaponGrid .card-art img, #variantGrid .card-art img { width: 100%; height: 100%; padding: 8px; box-sizing: border-box; object-fit: contain; object-position: center; }
 #weaponGrid .skin-card, #variantGrid .skin-card { cursor: pointer; }
-#variantGrid .variant-owned { color: #8ce0bc; font-size: 11px; font-weight: 700; }
+/* .variant-<name> also styles the swatch; the owned label must not inherit its fill. */
+#variantGrid .variant-owned { color: #8ce0bc; font-size: 11px; font-weight: 700; background: none; }
 #skinDialog[data-image-kind="weapon"] .dialog-image-wrap { height: min(56.25vw, 58vh, 580px); background: #10121f; }
 .dialog-image-wrap img[data-weapon-image="true"] { width: 100%; height: 100%; padding: 12px; box-sizing: border-box; object-fit: contain; object-position: center; aspect-ratio: auto; }
 @media (max-width: 1150px) { #weaponGrid, #variantGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
@@ -296,6 +301,7 @@ dialog::backdrop { background: rgba(3,3,14,.78); }
 /* Competitive tab: competitive points beside the title (like the game's top-right counters),
    four queues per season (Tank / Damage / Support / Open Queue). */
 .placeholder-head, .placeholder-copy { display: contents; }
+.placeholder-panel.competitive-view { min-height: 0; text-align: start; }
 .competitive-view .placeholder-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
 .competitive-view .placeholder-copy { display: block; flex: 1 1 320px; min-width: 0; }
 .competitive-view .placeholder-copy p { max-width: none; margin: 5px 0 14px; }

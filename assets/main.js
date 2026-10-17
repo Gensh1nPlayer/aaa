@@ -911,7 +911,7 @@ document.addEventListener("DOMContentLoaded", () => {
                       <span class="ac-level-main">${levelDisplay.main}</span>
                       ${levelDisplay.versions ? `<span class="ac-level-inline-meta">${levelDisplay.versions}</span>` : ''}
                     </h3>
-                    ${levelDisplay.tags ? `<div class="ac-level-meta">${levelDisplay.tags}</div>` : ''}
+                    ${levelDisplay.tags ? `<div class="ac-level-meta">${localizeLevelTags(levelDisplay.tags, ui)}</div>` : ''}
                   </div>
                   <span class="ac-status ${statusClass}">${escapeAccountText(statusText)}</span>
                 </div>
@@ -1536,7 +1536,7 @@ document.addEventListener("DOMContentLoaded", () => {
         freeRename:"Free rename", top500Eligible:"TOP500 Eligible",
         yes:"Yes", no:"No", viewDetails:"View Details", buyNow:"Buy Now", copyId:"Copy ID", copied:"Copied",
         missingScreenshot:"Details are not available for this account yet.",
-        premiumAccount:"Premium Account", statusInStock:"In Stock", statusSold:"Sold", statusPending:"Pending"
+        premiumAccount:"Premium Account", levelTags:{stacked:"Stacked Account", bronze:"Bronze Border", silver:"Silver Border", gold:"Gold Border", platinum:"Platinum Border", diamond:"Diamond Border"}, statusInStock:"In Stock", statusSold:"Sold", statusPending:"Pending"
       },
       fr: {
         toolsAria:"Contrôles de l’inventaire des comptes",
@@ -1563,7 +1563,7 @@ document.addEventListener("DOMContentLoaded", () => {
         freeRename:"Renommage gratuit", top500Eligible:"Éligible TOP500",
         yes:"Oui", no:"Non", viewDetails:"Voir les détails", buyNow:"Acheter", copyId:"Copier l’ID", copied:"Copié",
         missingScreenshot:"Les détails de ce compte ne sont pas encore disponibles.",
-        premiumAccount:"Compte Premium", statusInStock:"En stock", statusSold:"Vendu", statusPending:"En attente"
+        premiumAccount:"Compte Premium", levelTags:{stacked:"Compte bien fourni", bronze:"Bordure Bronze", silver:"Bordure Argent", gold:"Bordure Or", platinum:"Bordure Platine", diamond:"Bordure Diamant"}, statusInStock:"En stock", statusSold:"Vendu", statusPending:"En attente"
       },
       de: {
         toolsAria:"Steuerung des Account-Inventars",
@@ -1590,7 +1590,7 @@ document.addEventListener("DOMContentLoaded", () => {
         freeRename:"Kostenlose Umbenennung", top500Eligible:"TOP500-berechtigt",
         yes:"Ja", no:"Nein", viewDetails:"Details ansehen", buyNow:"Jetzt kaufen", copyId:"ID kopieren", copied:"Kopiert",
         missingScreenshot:"Für diesen Account sind noch keine Details verfügbar.",
-        premiumAccount:"Premium-Account", statusInStock:"Auf Lager", statusSold:"Verkauft", statusPending:"Ausstehend"
+        premiumAccount:"Premium-Account", levelTags:{stacked:"Umfangreicher Account", bronze:"Bronzerahmen", silver:"Silberrahmen", gold:"Goldrahmen", platinum:"Platinrahmen", diamond:"Diamantrahmen"}, statusInStock:"Auf Lager", statusSold:"Verkauft", statusPending:"Ausstehend"
       },
       ar: {
         toolsAria:"أدوات التحكم في مخزون الحسابات",
@@ -1617,7 +1617,7 @@ document.addEventListener("DOMContentLoaded", () => {
         freeRename:"تغيير اسم مجاني", top500Eligible:"مؤهل TOP500",
         yes:"نعم", no:"لا", viewDetails:"عرض التفاصيل", buyNow:"اشترِ الآن", copyId:"نسخ ID", copied:"تم النسخ",
         missingScreenshot:"تفاصيل هذا الحساب غير متوفرة بعد.",
-        premiumAccount:"حساب مميز", statusInStock:"متوفر", statusSold:"مباع", statusPending:"قيد الانتظار"
+        premiumAccount:"حساب مميز", levelTags:{stacked:"حساب غني بالمحتوى", bronze:"إطار برونزي", silver:"إطار فضي", gold:"إطار ذهبي", platinum:"إطار بلاتيني", diamond:"إطار ماسي"}, statusInStock:"متوفر", statusSold:"مباع", statusPending:"قيد الانتظار"
       },
       ja: {
         toolsAria:"アカウント在庫の検索・絞り込み",
@@ -1636,11 +1636,19 @@ document.addEventListener("DOMContentLoaded", () => {
         results:"{shown} / {total}件", empty:"現在の検索・絞り込み条件に一致するアカウントはありません。", loadError:"アカウント在庫を読み込めませんでした。",
         rank:"ランク", price:"価格", level:"レベル", statusLabel:"状態", weapons:"武器", freeRename:"無料ネーム変更", top500Eligible:"TOP500対象",
         yes:"はい", no:"いいえ", viewDetails:"詳細を見る", buyNow:"購入する", copyId:"IDをコピー", copied:"コピーしました",
-        missingScreenshot:"このアカウントの詳細はまだ公開されていません。", premiumAccount:"プレミアムアカウント", statusInStock:"販売中", statusSold:"販売済み", statusPending:"保留中"
+        missingScreenshot:"このアカウントの詳細はまだ公開されていません。", premiumAccount:"プレミアムアカウント", levelTags:{stacked:"充実アカウント", bronze:"ブロンズ・ボーダー", silver:"シルバー・ボーダー", gold:"ゴールド・ボーダー", platinum:"プラチナ・ボーダー", diamond:"ダイヤモンド・ボーダー"}, statusInStock:"販売中", statusSold:"販売済み", statusPending:"保留中"
       },
     };
 
     if (window.RoshineZh) accountUiI18n.zh = window.RoshineZh.inventory;
+    // Stored tag text stays English; translate only the rendered label.
+    function localizeLevelTags(html, ui) {
+      if (ui === accountUiI18n.en || !ui.levelTags) return html;
+      return html.replace(/>(Stacked Account|(Bronze|Silver|Golden|Gold|Platinum|Diamond) Border)</gi, (match, label, tier) => {
+        const key = tier ? tier.toLowerCase().replace('golden', 'gold') : 'stacked';
+        return '>' + (ui.levelTags[key] || label) + '<';
+      });
+    }
     function getAccountUiText(lang = document.documentElement.lang) {
       return accountUiI18n[lang] || accountUiI18n.en;
     }

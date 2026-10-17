@@ -392,14 +392,14 @@
       overflow-wrap: anywhere;
       word-break: normal;
     }
+    /* Align the OW1/OW2 lettering to the level text baseline, not the pill box. */
     .ac-level-inline-meta {
       display: inline-flex;
-      align-items: center;
+      align-items: baseline;
       flex-wrap: wrap;
       gap: 6px;
       margin-inline-start: 6px;
-      vertical-align: middle;
-      transform: translateY(-0.17em);
+      vertical-align: baseline;
     }
     .ac-level-meta {
       display: flex;
@@ -423,9 +423,10 @@
       white-space: nowrap;
     }
     .ac-level-inline-meta .ac-level-tag.game-version {
-      height: 1.7em;
+      align-items: baseline;
+      height: auto;
       min-height: 0;
-      padding: 0 0.7em;
+      padding: 0.32em 0.7em 0.3em;
       font-size: 0.72em;
       font-weight: 900;
       line-height: 1;
@@ -441,6 +442,7 @@
     }
     .ac-level-tag.game-version-ow1::before {
       content: '◆';
+      align-self: center;
       margin-inline-end: 0.32em;
       color: #facc15;
       font-size: 0.58em;
