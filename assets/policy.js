@@ -129,7 +129,7 @@
         body: `<h2>1. Portée et fonctionnement du site</h2>
           <p>Cette politique s'applique lorsque vous consultez <a href="../">roshine.love</a>, l'inventaire, l'outil Authenticator privé ou lorsque vous contactez Roshine via Discord ou e-mail. La vitrine publique est un <strong>site statique</strong> : aucun compte client n'est requis et aucun bot public ne prend les commandes.</p>
           <h2>2. Informations conservées par le site</h2>
-          <p>Le stockage local mémorise la langue et la devise choisies. Les filtres et le tri fonctionnent localement et ne nous sont pas envoyés. L'outil Authenticator traite la clé privée localement ; ne la communiquez à personne.</p>
+          <p>Le stockage local mémorise la langue, la devise et le thème choisis. Les filtres et le tri fonctionnent localement et ne nous sont pas envoyés. L'outil Authenticator traite la clé privée localement ; ne la communiquez à personne.</p>
           <p>La page d’accueil demande les taux publiés à Frankfurter. Sans devise choisie ni région compatible du navigateur, ipapi.co suggère une devise à partir de l’adresse IP de connexion. Ces services reçoivent les données techniques de la requête. La conversion est indicative ; le prix d’origine reste en USD. GitHub sert à vérifier la dernière modification du stock.</p>
           <p>Notre hébergeur ou CDN peut traiter des données techniques ordinaires — adresse IP, navigateur, page demandée et heure — pour la livraison, la sécurité et la fiabilité.</p>
           <h2>3. Informations reçues lors d'un contact</h2>
@@ -143,7 +143,7 @@
           <h2>7. Conservation et sécurité</h2>
           <p>Les dossiers de commande et d'assistance sont conservés pendant la durée raisonnablement nécessaire à la livraison, la garantie, la prévention de la fraude, aux litiges ou aux obligations légales. Aucun service en ligne ne garantit une sécurité absolue : utilisez un mot de passe unique et protégez les informations de récupération et les clés privées.</p>
           <h2>8. Vos choix et demandes</h2>
-          <p>Vous pouvez effacer la préférence de langue dans votre navigateur. Lorsque la loi le permet, vous pouvez demander l'accès, la correction ou la suppression des informations liées à votre commande ou à vos échanges, sous réserve des obligations légitimes de conservation.</p>
+          <p>Vous pouvez effacer les préférences de langue, de devise et de thème dans votre navigateur. Lorsque la loi le permet, vous pouvez demander l'accès, la correction ou la suppression des informations liées à votre commande ou à vos échanges, sous réserve des obligations légitimes de conservation.</p>
           <h2>9. Services externes</h2>
           <p>Le site charge actuellement ses polices d’affichage depuis Google Fonts, qui peut recevoir des données de requête ordinaires telles que l’adresse IP et les informations du navigateur. Discord, Battle.net, l'e-mail et les prestataires de paiement appliquent leurs propres politiques de confidentialité. Roshine ne contrôle pas leurs pratiques.</p>
           <h2>10. Mineurs, mises à jour et contact</h2>
@@ -163,7 +163,7 @@
           <h2>4. Livraison et vérification</h2>
           <p>La plupart des commandes sont livrées sous 5 minutes après confirmation du paiement ; certains comptes haut de gamme demandent plus de préparation. L'acheteur doit tester les identifiants et vérifier le compte rapidement, normalement sous <strong>30 minutes</strong>. Tout retard doit être signalé immédiatement.</p>
           <h2>5. Remboursements et corrections</h2>
-          <p>Les biens numériques sont normalement définitifs après une livraison correcte. Une correction, un remplacement ou un remboursement peut s'appliquer si les identifiants empêchent la première connexion, si le compte avait un état anormal non signalé à la livraison ou si un élément essentiel de l'annonce ne peut être vérifié.</p>
+          <p>Les biens numériques sont normalement définitifs après une livraison correcte. Une correction, un remplacement ou un remboursement peut s'appliquer si les identifiants empêchent la première connexion, si le compte avait un état anormal non signalé à la livraison ou si un élément essentiel de l'annonce ne peut être vérifié. Contactez-nous avant de modifier les informations de sécurité afin de documenter le problème.</p>
           <h2>6. Garantie et support après-vente</h2>
           <p>Dans le cadre de la garantie de sécurité à vie, si un compte est repris ou perdu à cause de l'ancien propriétaire, nous examinons les preuves disponibles et essayons d’abord de récupérer le compte. Si la récupération échoue, nous organisons un remplacement de valeur équivalente, un remboursement ou une compensation équitable selon le cas et le stock disponible. Les comptes OW2 éligibles incluent une assistance continue pour les problèmes de déverrouillage par SMS. L’aide au changement de région est un service optionnel payant pour les comptes et régions éligibles ; la disponibilité, les délais entre changements et le prix sont confirmés avant la demande. L’aide à la préparation d’un appel de bannissement est un service optionnel payant pour les comptes éligibles du magasin ; les résultats ne sont jamais garantis et restent soumis à un examen officiel.</p>
           <h2>7. Responsabilités de l'acheteur</h2>
@@ -198,7 +198,7 @@
         body: `<h2>1. Geltungsbereich und Website-Modell</h2>
           <p>Diese Erklärung gilt beim Besuch von <a href="../">roshine.love</a>, des Inventars, des privaten Authenticator-Tools sowie bei Kontakt über Discord oder E-Mail. Der öffentliche Shop ist eine <strong>statische Website</strong>: Ein Kundenkonto ist nicht erforderlich und Bestellungen laufen nicht über einen öffentlichen Bot.</p>
           <h2>2. Von der Website gespeicherte Daten</h2>
-          <p>Der Browser speichert die gewählte Sprache und Währung lokal. Filter und Sortierung laufen lokal und werden nicht an uns gesendet. Das Authenticator-Tool verarbeitet den privaten Schlüssel lokal; geben Sie ihn niemals weiter.</p>
+          <p>Der Browser speichert die gewählte Sprache, Währung und das gewählte Design lokal. Filter und Sortierung laufen lokal und werden nicht an uns gesendet. Das Authenticator-Tool verarbeitet den privaten Schlüssel lokal; geben Sie ihn niemals weiter.</p>
           <p>Die Startseite ruft veröffentlichte Wechselkurse von Frankfurter ab. Ohne gewählte Währung oder passende Browserregion schlägt ipapi.co anhand der Verbindungs-IP eine Währung vor. Diese Dienste erhalten übliche Anfragedaten. Umrechnungen sind Richtwerte; Originalpreise bleiben in USD. GitHub wird zur Prüfung der letzten Bestandsänderung abgefragt.</p>
           <p>Hosting- oder CDN-Anbieter können übliche technische Anfragedaten wie IP-Adresse, Browser, aufgerufene Seite und Zeitpunkt für Auslieferung, Sicherheit und Zuverlässigkeit verarbeiten.</p>
           <h2>3. Angaben bei Kontaktaufnahme</h2>
@@ -212,7 +212,7 @@
           <h2>7. Aufbewahrung und Sicherheit</h2>
           <p>Bestell- und Supportdaten werden nur so lange aufbewahrt, wie es für Lieferung, Garantie, Streitfälle, Betrugsprävention oder rechtliche Pflichten angemessen ist. Kein Onlinedienst bietet absolute Sicherheit; verwenden Sie ein einzigartiges Passwort und schützen Sie Recovery-Daten und private Schlüssel.</p>
           <h2>8. Ihre Wahlmöglichkeiten</h2>
-          <p>Die gespeicherte Sprachwahl kann im Browser gelöscht werden. Soweit anwendbar, können Sie Auskunft, Berichtigung oder Löschung Ihrer Bestell- und Supportdaten verlangen, vorbehaltlich legitimer Aufbewahrungspflichten.</p>
+          <p>Die gespeicherte Sprach-, Währungs- und Designauswahl kann im Browser gelöscht werden. Soweit anwendbar, können Sie Auskunft, Berichtigung oder Löschung Ihrer Bestell- und Supportdaten verlangen, vorbehaltlich legitimer Aufbewahrungspflichten.</p>
           <h2>9. Externe Dienste</h2>
           <p>Die Website lädt derzeit Anzeigeschriften von Google Fonts. Dabei können übliche Anfragedaten wie IP-Adresse und Browserinformationen an Google übermittelt werden. Discord, Battle.net, E-Mail- und Zahlungsanbieter haben eigene Datenschutzrichtlinien. Roshine kontrolliert deren Datenverarbeitung nicht.</p>
           <h2>10. Minderjährige, Änderungen und Kontakt</h2>
@@ -232,7 +232,7 @@
           <h2>4. Lieferung und Prüfung</h2>
           <p>Die meisten Bestellungen werden innerhalb von 5 Minuten nach Zahlungsbestätigung geliefert; seltene High-Tier-Accounts benötigen ggf. mehr Zeit. Zugangsdaten und Account sind normalerweise innerhalb von <strong>30 Minuten</strong> zu prüfen. Eine Verzögerung ist sofort mitzuteilen.</p>
           <h2>5. Erstattung und Korrektur</h2>
-          <p>Digitale Güter sind nach korrekter Lieferung grundsätzlich final. Korrektur, Ersatz oder Erstattung können gelten, wenn bereitgestellte Daten den ersten Login verhindern, ein nicht offengelegter abnormaler Zustand bei Lieferung vorlag oder eine wesentliche Listing-Angabe nicht verifizierbar ist.</p>
+          <p>Digitale Güter sind nach korrekter Lieferung grundsätzlich final. Korrektur, Ersatz oder Erstattung können gelten, wenn bereitgestellte Daten den ersten Login verhindern, ein nicht offengelegter abnormaler Zustand bei Lieferung vorlag oder eine wesentliche Listing-Angabe nicht verifizierbar ist. Kontaktieren Sie uns vor Änderungen der Sicherheitsinformationen, damit das Problem dokumentiert werden kann.</p>
           <h2>6. Garantie und Support</h2>
           <p>Wird ein Account wegen eines Vorbesitzer-Problems zurückgeholt oder geht verloren, prüfen wir im Rahmen der lebenslangen Sicherheitsgarantie die verfügbaren Nachweise und versuchen zuerst, den Account wiederherzustellen. Scheitert die Wiederherstellung, organisieren wir gleichwertigen Ersatz, eine Rückerstattung oder eine angemessene Entschädigung je nach Einzelfall und verfügbarem Bestand. Berechtigte OW2-Accounts erhalten fortlaufende Hilfe bei SMS-Freischaltungsproblemen. Hilfe beim Regionswechsel ist optional und kostenpflichtig für berechtigte Accounts und Regionen; Verfügbarkeit, Wartezeiten zwischen Änderungen und Preis werden vor Beginn bestätigt. Hilfe bei der Vorbereitung eines Unban-Einspruchs ist optional und kostenpflichtig für berechtigte Shop-Accounts; Ergebnisse sind nie garantiert und unterliegen der offiziellen Prüfung.</p>
           <h2>7. Pflichten des Käufers</h2>
@@ -267,7 +267,7 @@
         body: `<h2>1. النطاق وطبيعة الموقع</h2>
           <p>تنطبق هذه السياسة عند تصفح <a href="../">roshine.love</a> أو المخزون أو أداة Authenticator الخاصة، وعند التواصل مع Roshine عبر Discord أو البريد. الواجهة العامة <strong>موقع ثابت</strong> لا يتطلب حساب عميل ولا يستخدم روبوتاً عاماً للطلبات.</p>
           <h2>2. المعلومات التي يخزنها الموقع</h2>
-          <p>يحفظ المتصفح اللغة والعملة المختارتين محلياً. تعمل الفلاتر والترتيب داخل متصفحك ولا تُرسل إلينا. تعالج أداة Authenticator المفتاح الخاص محلياً؛ لا تشاركه مع أي شخص.</p>
+          <p>يحفظ المتصفح اللغة والعملة والمظهر المختار محلياً. تعمل الفلاتر والترتيب داخل متصفحك ولا تُرسل إلينا. تعالج أداة Authenticator المفتاح الخاص محلياً؛ لا تشاركه مع أي شخص.</p>
           <p>تطلب الصفحة الرئيسية أسعار الصرف المنشورة من Frankfurter. عند عدم اختيار عملة وعدم وجود منطقة متصفح مدعومة، يقترح ipapi.co عملة باستخدام عنوان IP للاتصال. تتلقى هذه الخدمات بيانات الطلب المعتادة. التحويل تقديري والسعر الأصلي بالدولار الأمريكي. يُستخدم GitHub للتحقق من آخر تعديل للمخزون.</p>
           <p>قد يعالج مزود الاستضافة أو CDN بيانات تقنية معتادة مثل IP ونوع المتصفح والصفحة والوقت لأغراض التسليم والأمان والموثوقية.</p>
           <h2>3. المعلومات عند التواصل</h2>
@@ -281,7 +281,7 @@
           <h2>7. الاحتفاظ والأمان</h2>
           <p>نحتفظ بسجلات الطلب والدعم للمدة اللازمة بشكل معقول للتسليم والضمان والنزاعات ومنع الاحتيال أو المتطلبات القانونية. لا توجد خدمة إنترنت تضمن الأمان الكامل؛ استخدم كلمة مرور فريدة واحمِ بيانات الاسترداد والمفاتيح الخاصة.</p>
           <h2>8. خياراتك وطلباتك</h2>
-          <p>يمكنك حذف تفضيل اللغة من المتصفح. وحيث ينطبق، يمكنك طلب الوصول أو التصحيح أو الحذف لبيانات الطلب والدعم، مع مراعاة متطلبات الاحتفاظ المشروعة.</p>
+          <p>يمكنك حذف تفضيلات اللغة والعملة والمظهر من المتصفح. وحيث ينطبق، يمكنك طلب الوصول أو التصحيح أو الحذف لبيانات الطلب والدعم، مع مراعاة متطلبات الاحتفاظ المشروعة.</p>
           <h2>9. الخدمات الخارجية</h2>
           <p>يحمّل الموقع حالياً خطوط العرض من Google Fonts، وقد تتلقى بيانات طلب معتادة مثل عنوان IP ومعلومات المتصفح. لدى Discord وBattle.net والبريد ومزودي الدفع سياسات خصوصية مستقلة، ولا تتحكم Roshine في ممارساتهم.</p>
           <h2>10. القاصرون والتحديث والتواصل</h2>
@@ -292,7 +292,7 @@
         title: "شروط الاستخدام",
         intro: "ما نؤكده قبل الدفع، وما تستلمه عند التسليم، ومتى ينطبق الضمان، وما يجب على الطرفين فعله عند حدوث مشكلة.",
         body: `<h2>1. القبول والأهلية</h2>
-          <p>عند الطلب من Roshine تؤكد قدرتك القانونية على شراء الأصول الرقمية في موقعك، وصحة معلوماتك، وقبول هذه الشروط ومعلومات الضمان الظاهرة في الواجهة.</p>
+          <p>عند الطلب من Roshine تؤكد قدرتك القانونية على شراء السلع الرقمية في موقعك، وصحة معلوماتك، وقبول هذه الشروط ومعلومات الضمان الظاهرة في الواجهة.</p>
           <h2>2. المخزون ودقة الوصف</h2>
           <p>تُحدّث حالة المبيعات فورياً، ويُضاف مخزون جديد عادة كل 7 أيام. لا يُضمن التوفر حتى التأكيد على Discord. كل حساب من لاعب حقيقي وله سجل لعب طبيعي، وليس حساب سكربت أو بوت أو استوديو أو إنتاج جماعي. نستبعد الحسابات ذات التاريخ المعروف في الغش أو الإساءة أو مخالفة القواعد.</p>
           <p>يصف الإعلان الحساب وقت التحقق، ويمكن مطابقة المعلومات الأساسية مع سجلات اللعبة وBattle.net الرسمية أثناء التحقق والتسليم.</p>
@@ -301,7 +301,7 @@
           <h2>4. التسليم والفحص</h2>
           <p>تُسلّم معظم الطلبات خلال 5 دقائق بعد تأكيد الدفع، وقد تحتاج الحسابات النادرة المميزة وقتاً إضافياً. يجب اختبار بيانات الدخول وفحص الحساب سريعاً، عادة خلال <strong>30 دقيقة</strong>. أبلغنا فوراً إذا تعذر الفحص.</p>
           <h2>5. الاسترداد وتصحيح الوصف</h2>
-          <p>تكون الأصول الرقمية نهائية بعد التسليم الصحيح. قد ينطبق التصحيح أو الاستبدال أو الاسترداد إذا منعت البيانات المقدمة أول تسجيل دخول، أو وُجدت حالة غير معلنة عند التسليم، أو تعذر التحقق من معلومة جوهرية في الإعلان.</p>
+          <p>تكون السلع الرقمية نهائية بعد التسليم الصحيح. قد ينطبق التصحيح أو الاستبدال أو الاسترداد إذا منعت البيانات المقدمة أول تسجيل دخول، أو وُجدت حالة غير معلنة عند التسليم، أو تعذر التحقق من معلومة جوهرية في الإعلان. تواصل معنا قبل تغيير معلومات الأمان حتى نتمكن من توثيق المشكلة.</p>
           <h2>6. الضمان ودعم ما بعد البيع</h2>
           <p>بموجب ضمان الأمان مدى الحياة، إذا استُرجع الحساب أو فُقد بسبب مشكلة تتعلق بالمالك السابق، نراجع الأدلة المتاحة ونحاول الاسترداد أولاً. إذا فشل الاسترداد، نرتب بديلاً بنفس القيمة أو استرداد المبلغ أو تعويضاً عادلاً بحسب الحالة والمخزون المتاح. تشمل حسابات OW2 المؤهلة مساعدة مستمرة لمشكلات إلغاء القفل عبر SMS. مساعدة تغيير المنطقة خدمة اختيارية مدفوعة للحسابات والمناطق المؤهلة؛ نؤكد التوفر وفترات الانتظار بين التغييرات والسعر قبل بدء الطلب. مساعدة إعداد استئناف الحظر خدمة اختيارية مدفوعة لحسابات المتجر المؤهلة؛ النتائج غير مضمونة وتظل خاضعة للمراجعة الرسمية.</p>
           <h2>7. مسؤوليات المشتري</h2>
@@ -336,7 +336,7 @@
         body: `<h2>1. 適用範囲と現在のサイト構成</h2>
           <p>このポリシーは、<a href="../">roshine.love</a>の閲覧、在庫確認、プライベートAuthenticatorツールの利用、Discordまたはメールでのお問い合わせに適用されます。公開ストアは顧客アカウントを必要としない<strong>静的ウェブサイト</strong>です。</p>
           <h2>2. ウェブサイトが保存する情報</h2>
-          <p>選択言語と通貨をブラウザのローカルストレージに保存します。在庫の検索・並び替えはブラウザ内で処理され、送信されません。AuthenticatorのPrivate Keyもブラウザ内で処理されます。第三者へ送らないでください。</p>
+          <p>選択した言語、通貨、テーマをブラウザのローカルストレージに保存します。在庫の検索・並び替えはブラウザ内で処理され、送信されません。Authenticatorのシークレットキーもブラウザ内で処理されます。第三者へ送らないでください。</p>
           <p>ホームページはFrankfurterの公開為替レートを取得します。通貨の選択がなく、ブラウザの地域でも判別できない場合、ipapi.coが接続IPから通貨を提案します。これらのサービスには通常のリクエスト情報が送信されます。換算は目安で、在庫の元価格はUSDです。在庫の最終変更確認にはGitHubを利用します。</p>
           <p>ホスティングまたはCDN事業者は、配信、安全性、信頼性のためにIPアドレス、ブラウザ、閲覧ページ、時刻など通常の技術情報を処理する場合があります。</p>
           <h2>3. お問い合わせ時に受け取る情報</h2>
@@ -348,9 +348,9 @@
           <h2>6. 共有と開示</h2>
           <p>ホスティング、通信、支払い、注文サポートに必要な範囲でサービス事業者と共有します。第三者広告のために個人情報を販売しません。</p>
           <h2>7. 保存期間と安全性</h2>
-          <p>注文・サポート記録は、引き渡し確認、保証、紛争、不正防止、法的要件に合理的に必要な期間のみ保持します。固有のパスワードを使用し、復旧情報とPrivate Keyを秘密にしてください。</p>
+          <p>注文・サポート記録は、引き渡し確認、保証、紛争、不正防止、法的要件に合理的に必要な期間のみ保持します。固有のパスワードを使用し、復旧情報とシークレットキーを秘密にしてください。</p>
           <h2>8. 選択とリクエスト</h2>
-          <p>ブラウザから保存済み言語設定を削除できます。適用される場合、正当な記録保持要件に従い、注文・サポート情報の開示、訂正、削除を依頼できます。</p>
+          <p>ブラウザから保存済みの言語、通貨、テーマ設定を削除できます。適用される場合、正当な記録保持要件に従い、注文・サポート情報の開示、訂正、削除を依頼できます。</p>
           <h2>9. 外部サービス</h2>
           <p>現在、表示フォントはGoogle Fontsから読み込まれ、IPアドレスやブラウザ情報など通常のリクエスト情報がGoogleへ送信される場合があります。Discord、Battle.net、メール、支払い事業者はそれぞれのプライバシーポリシーに従います。Roshineがそれらのデータ処理を管理するものではありません。</p>
           <h2>10. 未成年者、更新、お問い合わせ</h2>
@@ -367,15 +367,15 @@
           <h2>3. 注文、価格、支払い</h2>
           <p>注文はアカウントIDまたはスクリーンショットを使いDiscordで手動処理します。支払い前に価格、在庫、支払い方法、手数料を確認してください。Roshineを名乗る未確認の相手へ支払わないでください。</p>
           <h2>4. 引き渡しと確認</h2>
-          <p>多くの注文は入金確認後すみやかに引き渡します。高額アカウントは追加確認が必要な場合があります。購入者は受領後できるだけ早く、通常30分以内にログイン情報とアカウントを確認してください。</p>
+          <p>多くの注文は入金確認後5分以内に引き渡します。高額アカウントは追加確認が必要な場合があります。購入者は受領後できるだけ早く、通常30分以内にログイン情報とアカウントを確認してください。確認が遅れる場合はすぐにご連絡ください。</p>
           <h2>5. 返金と掲載内容の訂正</h2>
           <p>正しく引き渡されたデジタル商品は原則最終取引です。初回ログインできない、未開示の異常状態がある、重要な掲載情報を確認できない場合は、訂正、交換、返金の対象となることがあります。セキュリティ情報を変更する前にご連絡ください。</p>
           <h2>6. 保証と購入後サポート</h2>
           <p>生涯セキュリティ保証では、元所有者の問題でアカウントが取り戻されたり失われたりした場合、利用可能な証拠を確認し、まず復旧を試みます。復旧できない場合は、状況と在庫に応じて同等価値の交換、返金、または適正な補償を手配します。対象のOW2アカウントには継続的なSMSロック解除関連の支援が含まれます。地域変更の支援は有料オプションで、対象アカウントと地域に限ります。対応可否、変更間の待機期間、料金は依頼開始前に確認します。BAN異議申し立ての準備支援は対象のストアアカウント向けの有料オプションです。結果は保証されず、公式審査に従います。</p>
           <h2>7. 購入者の責任</h2>
-          <ul><li>ログイン情報、復旧情報、Private Keyを安全に保管し共有しないこと。</li><li>引き渡し手順に従い、初期期間は安定した端末とIPを使用すること。</li><li>チート、悪用、詐欺、規約違反に使用しないこと。</li><li>保証・紛争対応時に正確な証拠を提示すること。</li></ul>
+          <ul><li>ログイン情報、復旧情報、シークレットキーを安全に保管し共有しないこと。</li><li>引き渡し手順に従い、初期期間は安定した端末とIPを使用すること。</li><li>チート、悪用、詐欺、規約違反に使用しないこと。</li><li>保証・紛争対応時に正確な証拠を提示すること。</li></ul>
           <h2>8. プラットフォーム上のリスク</h2>
-          <p>アカウント取引はBlizzardに公式サポートされていません。地域、端末、IP、セキュリティ情報の変更は制限を引き起こす場合があり、プラットフォームの判断はRoshineの管理外です。</p>
+          <p>アカウント取引はBlizzardに公式サポートされていません。地域、端末、IP、セキュリティ情報の変更は制限を引き起こす場合があり、プラットフォームの判断はRoshineの管理外です。重要な変更を行う前に、同じ端末と安定したIPを約7日間使用することでリスクを下げられますが、完全にはなくせません。</p>
           <h2>9. 責任と変更</h2>
           <p>Roshineは掲載と保証で明示した約束に責任を負います。情報共有、誤用、規約違反、サポート対象外の変更、第三者プラットフォームの判断による損失には責任を負いません。</p>
           <h2>10. お問い合わせ</h2>

@@ -157,7 +157,8 @@ h1, h2, .hero-title, .section-title, .policy-title { font-family: Orbitron, Kani
   line-height: 1.75;
 }
 .hero-cta { justify-content: center; }
-.rd-secondary-cta { gap: 36px; }
+.rd-secondary-cta { gap: 10px; justify-content: center; }
+.rd-secondary-cta > [aria-hidden] { flex: 0 0 auto; }
 .rd-hero-stats { display: flex; justify-content: center; margin: 38px 0 0; }
 .rd-hero-stats div { min-width: 140px; padding: 0 22px; border-left: 1px solid var(--rd-line); }
 .rd-hero-stats div:first-child { padding-left: 0; border-left: 0; }

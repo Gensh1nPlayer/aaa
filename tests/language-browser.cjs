@@ -87,6 +87,18 @@ async function inspectMenu(page,language,moduleName) {
           await page.waitForFunction(language => document.documentElement.lang === language,language);
           await page.locator('#void-starfield').waitFor({state:'attached',timeout:5000});
           assert.equal(await page.locator('html').getAttribute('dir'),language === 'ar' ? 'rtl' : 'ltr',module.name+' text direction');
+          if(module.name==='auth') {
+            assert.equal(await page.locator('#privacyHint').isVisible(),false,'no redundant privacy note');
+            assert((await page.locator('#authIntro').textContent()).includes('40'),'delivered 40-character key instruction');
+            if(language==='zh') assert.equal(await page.locator('#panelTitleText').textContent(),'战网安全令');
+          }
+          if(module.name==='main') {
+            assert(await page.locator('#currencyTrigger').isVisible(),'currency stays visible after language change');
+            assert.equal(await page.locator('#currencyTrigger .currency-icon').count(),1,'currency icon preserved');
+            const gap=await page.locator('.rd-secondary-cta').evaluate(node=>parseFloat(getComputedStyle(node).columnGap));
+            assert(gap>=8&&gap<=12,'compact order button arrow gap');
+            assert.equal(await page.evaluate(()=>window.RoshineGameTerms.translate('Rank Reset','zh')),'段位重置');
+          }
           await inspectMenu(page,language,module.name);
           if (language === 'ja' && process.env.SCREENSHOT_DIR) {
             await page.locator('#languageMenu [aria-selected="true"]').focus();

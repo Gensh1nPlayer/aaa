@@ -36,6 +36,7 @@ const server = https.createServer({key:fs.readFileSync(process.env.TEST_TLS_KEY)
           assert.equal(await page.evaluate(()=>localStorage.getItem('roshine.theme')),'light');
           await page.reload();
           assert.equal(await page.locator('html').getAttribute('data-theme'),'light','reload preserves choice');
+          await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
           assert.equal(await page.locator('body').evaluate(node=>getComputedStyle(node).color),'rgb(41, 35, 60)');
           await page.evaluate(()=>document.documentElement.lang='ja');
           await page.waitForFunction(()=>document.getElementById('themeToggle').title.includes('ダーク'));
@@ -80,7 +81,7 @@ const server = https.createServer({key:fs.readFileSync(process.env.TEST_TLS_KEY)
           await page.locator('#languageTrigger').click();
           await page.locator('[data-language-value="zh"]').click();
           await page.waitForFunction(()=>document.documentElement.lang==='zh');
-          const expected={'/':'找到你的下一个主力账号','/acc_details/':'每一处细节，都看得见。','/auth/':'战网验证器','/privacy/':'隐私政策','/terms/':'服务条款','/404.html':'这个页面暂不在库。'};
+          const expected={'/':'帮你找到心仪账号','/acc_details/':'每一处细节，都看得见。','/auth/':'战网安全令','/privacy/':'隐私政策','/terms/':'服务条款','/404.html':'这个页面暂不在库。'};
           assert((await page.locator('h1,.panel-title').allTextContents()).some(s=>s.includes(expected[url])),url+' real Chinese content');
           for(const width of [320,1440]) {
             await page.setViewportSize({width,height:960});

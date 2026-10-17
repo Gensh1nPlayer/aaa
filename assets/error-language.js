@@ -29,7 +29,7 @@
   menu.addEventListener('click',e=>{const n=e.target.closest('[data-language-value]');if(n){apply(n.dataset.languageValue,true);close(true);}});
   picker.addEventListener('keydown',e=>{if(e.key==='Escape'){close(true);return;}if(!['ArrowDown','ArrowUp','Home','End'].includes(e.key))return;e.preventDefault();menu.hidden=false;picker.dataset.open='true';trigger.setAttribute('aria-expanded','true');const options=Array.from(menu.querySelectorAll('button')),current=options.indexOf(document.activeElement);options[e.key==='Home'?0:e.key==='End'?options.length-1:(current+(e.key==='ArrowUp'?-1:1)+options.length)%options.length].focus();});
   document.addEventListener('click',e=>{if(!picker.contains(e.target))close();});
-  document.addEventListener('keydown',e=>{if(e.key==='Tab')close();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!menu.hidden)close(true);else if(e.key==='Tab')close();});
   let saved='';try{saved=localStorage.getItem('roshine_lang');}catch(_){}
   const parameter=new URLSearchParams(location.search).get('lang'),browser=(navigator.language||'en').split('-')[0];
   apply(languages.includes(parameter)?parameter:languages.includes(saved)?saved:browser);

@@ -93,8 +93,8 @@ async function focused(page, lang) {
               await page.keyboard.press('ArrowDown'); await focused(page, 'fr');
               await page.keyboard.press('ArrowDown'); await focused(page, 'de');
               assert.equal(await page.locator('html').getAttribute('lang'), 'fr', 'focus does not commit');
-              await page.keyboard.press('End'); await focused(page, 'ja');
-              await page.keyboard.press('ArrowDown'); await focused(page, 'ja');
+              await page.keyboard.press('End'); await focused(page, 'zh');
+              await page.keyboard.press('ArrowDown'); await focused(page, 'zh');
               await page.keyboard.press('Home'); await focused(page, 'en');
               await page.keyboard.press('ArrowUp'); await focused(page, 'en');
               await page.keyboard.press('ArrowDown'); await page.keyboard.press('ArrowDown');
@@ -139,7 +139,9 @@ async function focused(page, lang) {
           const page = await localPage(browser, { viewport: { width, height: 240 }, reducedMotion: 'reduce' });
           try {
             await page.goto(`${base}/404.html`);
-            assert.equal(await page.locator('#homeLink').getAttribute('href'), '/', 'existing path rule');
+            const home=new URL(await page.locator('#homeLink').getAttribute('href'),base);
+            assert.equal(home.pathname, '/', 'home path is preserved');
+            assert.equal(home.searchParams.get('lang'),await page.locator('html').getAttribute('lang'),'home link preserves selected language');
             await page.mouse.move(width / 2, 180);
             await page.mouse.wheel(700, 1800);
             await page.waitForFunction(() => window.scrollY > 0, null, { timeout: 3000 });

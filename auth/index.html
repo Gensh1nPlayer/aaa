@@ -1,7 +1,8 @@
 <!doctype html>
 <html lang="en" dir="ltr">
 <head>
-  <script src="/assets/zh-cn.js?v=1"></script>
+  <script src="/assets/game-terms.js?v=1"></script>
+  <script src="/assets/zh-cn.js?v=2"></script>
   <script src="/assets/site-theme.js?v=1"></script>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
@@ -530,7 +531,7 @@
   <link rel="stylesheet" href="../assets/site-shell.css?v=6" />
   <link rel="stylesheet" href="/assets/site-footer.css?v=1">
   <link rel="stylesheet" href="/assets/site-chrome.css?v=2">
-  <link rel="stylesheet" href="/assets/site-theme.css?v=1">
+  <link rel="stylesheet" href="/assets/site-theme.css?v=2">
 </head>
 
 <body>
@@ -548,7 +549,6 @@
     </nav>
     <button class="mobile-menu-toggle" id="mobileMenuToggle" type="button" aria-controls="mobileNav" aria-expanded="false" aria-label="Open navigation">☰</button>
     <div class="header-actions">
-      <button type="button" id="themeToggle" class="theme-toggle" aria-label="Switch to light theme" title="Switch to light theme" aria-pressed="false"><svg class="theme-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg><svg class="theme-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 14A9 9 0 0 1 10 3.2 9 9 0 1 0 20.8 14Z"/></svg></button>
       <a href="/auth/" class="btn btn-outline" id="authBtn" aria-current="page" style="padding: 8px 16px; font-size: 0.85rem;"><span id="authBtnText">Authenticator</span></a>
       <div class="language-picker" id="languagePicker" data-open="false">
         <select class="lang-select" id="langSelect" aria-hidden="true" tabindex="-1">
@@ -570,6 +570,7 @@
           <button class="language-option" type="button" role="option" data-language-value="ja" aria-selected="false" tabindex="-1">日本語</button><button class="language-option" type="button" role="option" data-language-value="zh" aria-selected="false" tabindex="-1">简体中文</button>
         </div>
       </div>
+      <button type="button" id="themeToggle" class="theme-toggle" aria-label="Switch to light theme" title="Switch to light theme" aria-pressed="false"><svg class="theme-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg><svg class="theme-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 14A9 9 0 0 1 10 3.2 9 9 0 1 0 20.8 14Z"/></svg></button>
     </div>
   </header>
 
@@ -592,7 +593,7 @@
             <span id="panelTitleText">Authenticator</span>
           </h1>
         </div>
-        <p class="auth-intro" id="authIntro">Generate the current Battle.net verification code from a key supplied during account handover. Everything runs locally in this browser.</p>
+        <p class="auth-intro" id="authIntro">Enter the 40-character authenticator key supplied with the account to get the current Battle.net verification code.</p>
 
         <div class="code" id="code">--------</div>
         <div class="hint" id="remain"></div>
@@ -600,7 +601,7 @@
 
         <label class="field-label" id="secretLabel" for="secret">Please enter your Private Key</label>
         <input id="secret" class="neon-border" type="password" placeholder="Private Key" autocomplete="off" autocapitalize="none" spellcheck="false" aria-describedby="privacyHint status" />
-        <p class="auth-local-note" id="privacyHint">Your key is processed only in this browser and is not sent to the storefront.</p>
+        <p class="auth-local-note" id="privacyHint" hidden></p>
 
         <div class="row">
           <button class="primary neon-border" id="copy">Copy Code</button>
@@ -666,9 +667,9 @@
         auth:"Authenticator",
         a11y:{openNav:"Open navigation",closeNav:"Close navigation",mobileNav:"Mobile navigation"},
         panelTitle:"Authenticator",
-        intro:"Generate the current Battle.net verification code from a key supplied during account handover. Everything runs locally in this browser.",
+        intro:"Enter the 40-character authenticator key supplied with the account to get the current Battle.net verification code.",
         secretLabel:"Please enter your Private Key",
-        privacyHint:"Your key is processed only in this browser and is not sent to the storefront.",
+        privacyHint:"",
         placeholder:"Private Key",
         copy:"Copy Code",
         clear:"Clear Key",
@@ -683,9 +684,9 @@
         auth:"Authenticator",
         a11y:{openNav:"Ouvrir la navigation",closeNav:"Fermer la navigation",mobileNav:"Navigation mobile"},
         panelTitle:"Authenticator",
-        intro:"Générez le code Battle.net actuel à partir de la clé remise avec le compte. Tout est traité localement dans ce navigateur.",
+        intro:"Saisissez la clé secrète de 40 caractères fournie avec le compte pour obtenir le code de vérification Battle.net actuel.",
         secretLabel:"Veuillez entrer votre clé privée",
-        privacyHint:"Votre clé est traitée uniquement dans ce navigateur et n’est pas envoyée à la boutique.",
+        privacyHint:"",
         placeholder:"Clé privée",
         copy:"Copier le code",
         clear:"Effacer",
@@ -700,16 +701,16 @@
         auth:"Authenticator",
         a11y:{openNav:"Navigation öffnen",closeNav:"Navigation schließen",mobileNav:"Mobile Navigation"},
         panelTitle:"Authenticator",
-        intro:"Erzeuge den aktuellen Battle.net-Code aus dem bei der Übergabe erhaltenen Schlüssel. Alles läuft lokal in diesem Browser.",
-        secretLabel:"Bitte Private Key eingeben",
-        privacyHint:"Dein Schlüssel wird nur in diesem Browser verarbeitet und nicht an den Shop gesendet.",
-        placeholder:"Private Key",
+        intro:"Gib den mit dem Account gelieferten 40-stelligen Authenticator-Schlüssel ein, um den aktuellen Battle.net-Bestätigungscode zu erhalten.",
+        secretLabel:"Bitte geheimen Schlüssel eingeben",
+        privacyHint:"",
+        placeholder:"Geheimer Schlüssel",
         copy:"Code kopieren",
         clear:"Löschen",
         copied:"Kopiert",
         copyBlocked:"Kopieren blockiert",
-        enterKeyError:"Bitte Private Key eingeben",
-        invalidKey:"Ungültiger Private Key",
+        enterKeyError:"Bitte geheimen Schlüssel eingeben",
+        invalidKey:"Ungültiger geheimer Schlüssel",
         footer:"© 2021–2026 Roshine Account Store. Alle Rechte vorbehalten — dein zuverlässiger Anbieter."
       },
       ar: {
@@ -717,16 +718,16 @@
         auth:"Authenticator",
         a11y:{openNav:"فتح التنقل",closeNav:"إغلاق التنقل",mobileNav:"التنقل عبر الهاتف"},
         panelTitle:"Authenticator",
-        intro:"أنشئ رمز Battle.net الحالي من المفتاح المستلم عند تسليم الحساب. تتم المعالجة محلياً داخل هذا المتصفح.",
-        secretLabel:"يرجى إدخال Private Key",
-        privacyHint:"تتم معالجة المفتاح داخل هذا المتصفح فقط ولا يُرسل إلى المتجر.",
-        placeholder:"Private Key",
+        intro:"أدخل مفتاح Authenticator المكوّن من 40 حرفًا والمرفق ببيانات الحساب للحصول على رمز التحقق الحالي لـ Battle.net.",
+        secretLabel:"يرجى إدخال المفتاح السري",
+        privacyHint:"",
+        placeholder:"المفتاح السري",
         copy:"نسخ الرمز",
         clear:"مسح",
         copied:"تم النسخ",
         copyBlocked:"تم منع النسخ",
-        enterKeyError:"أدخل Private Key",
-        invalidKey:"Private Key غير صالح",
+        enterKeyError:"أدخل المفتاح السري",
+        invalidKey:"المفتاح السري غير صالح",
         footer:"© 2021–2026 Roshine Account Store. جميع الحقوق محفوظة — المورّد الموثوق للحسابات."
       },
       ja: {
@@ -734,16 +735,16 @@
         auth:"Authenticator",
         a11y:{openNav:"メニューを開く",closeNav:"メニューを閉じる",mobileNav:"モバイルメニュー"},
         panelTitle:"Authenticator",
-        intro:"アカウント引き渡し時に受け取ったキーから、現在のBattle.net認証コードを生成します。処理はすべてこのブラウザ内で行われます。",
-        secretLabel:"Private Keyを入力してください",
-        privacyHint:"キーはこのブラウザ内だけで処理され、ストアへ送信されません。",
-        placeholder:"Private Key",
+        intro:"アカウント情報に記載された40文字の認証用シークレットキーを入力すると、現在のBattle.net認証コードを取得できます。",
+        secretLabel:"シークレットキーを入力してください",
+        privacyHint:"",
+        placeholder:"シークレットキー",
         copy:"コードをコピー",
         clear:"キーを消去",
         copied:"コピーしました",
         copyBlocked:"コピーがブロックされました",
-        enterKeyError:"Private Keyを入力してください",
-        invalidKey:"Private Keyが無効です",
+        enterKeyError:"シークレットキーを入力してください",
+        invalidKey:"シークレットキーが無効です",
         footer:"© 2021–2026 Roshine Account Store. キーはブラウザ内で処理されます。"
       },
     };
@@ -803,6 +804,11 @@
     });
     mobileNav?.addEventListener('click', event => {
       if (event.target.closest('a')) closeMobileNav();
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && mobileMenuToggle?.getAttribute('aria-expanded') === 'true') {
+        closeMobileNav({ restoreFocus: true });
+      }
     });
 
     function initLanguagePicker() {
@@ -879,6 +885,13 @@
       document.addEventListener('pointerdown', event => {
         if (!picker.contains(event.target)) setOpen(false);
       });
+      // Safari mouse clicks need not focus buttons; Escape must also work from body.
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && !menu.hidden) {
+          setOpen(false);
+          trigger.focus({ preventScroll: true });
+        }
+      });
       sync();
     }
 
@@ -915,6 +928,7 @@
       document.getElementById("authIntro").textContent = i18n[lang].intro;
       document.getElementById("secretLabel").textContent = i18n[lang].secretLabel;
       document.getElementById("privacyHint").textContent = i18n[lang].privacyHint;
+      document.getElementById("privacyHint").hidden = !i18n[lang].privacyHint;
       document.getElementById("secret").placeholder = i18n[lang].placeholder;
       document.getElementById("copy").textContent = i18n[lang].copy;
       document.getElementById("clear").textContent = i18n[lang].clear;
@@ -1085,6 +1099,6 @@
     gen();
   </script>
   <script src="../assets/void-effects.js?v=1" defer></script>
-  <script src="/assets/site-footer.js?v=2" defer></script>
+  <script src="/assets/site-footer.js?v=3" defer></script>
 </body>
 </html>

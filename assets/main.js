@@ -623,7 +623,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
               });
 
-              return res;
+              // Translate text only after styling; keep source rank data and color matching intact.
+              return window.RoshineGameTerms ? res.replace(/(^|>)([^<]*)(?=<|$)/g, (_, lead, text) => lead + window.RoshineGameTerms.translate(text, document.documentElement.lang)) : res;
             }
 
             function formatAvailability(flag) {
@@ -1198,9 +1199,9 @@ document.addEventListener("DOMContentLoaded", () => {
         auth:"Authenticator",
         a11y:{ skip:"Aller à l’inventaire", openNav:"Ouvrir la navigation", closeNav:"Fermer la navigation", mobileNav:"Navigation mobile" },
         heroKicker:"⚡ Fiable depuis 2021",
-        heroTitle:"ROSHINE",
-        heroSubbrand:"Boutique de comptes Overwatch",
-        heroIntro:"Skins rares et limités, comptes propres prêts pour le classé, profils chargés en monnaies, collections OW1 très fournies, hauts rangs et options Top 500 : parcourez le stock réel et comparez chaque détail avant de choisir.",
+        heroTitle:"Trouvez votre prochain compte principal",
+        heroSubbrand:"",
+        heroIntro:"Skins rares et limités, comptes avec le mode Compétition débloqué, profils chargés en monnaies, collections OW1 très fournies, hauts rangs et options Top 500 : parcourez le stock réel et comparez chaque détail avant de choisir.",
         ctaExplore:"Voir le stock & acheter",
         servicesKicker:"✨ SERVICES",
         servicesTitle:"Liste & Commande",
@@ -1240,7 +1241,7 @@ document.addEventListener("DOMContentLoaded", () => {
         faq4:"À quelle fréquence le stock est-il mis à jour ? — Le statut des ventes est actualisé en temps réel et de nouveaux comptes sont généralement ajoutés tous les 7 jours.",
         faq5:{
           question:"Comment utiliser Battle.net Authenticator ?",
-          intro:"roshine.love/auth est un outil privé pour Battle.net Authenticator. Collez la Private Key fournie avec le compte, puis copiez le code actuel dans l’application Battle.net lorsqu’une vérification est demandée.",
+          intro:"roshine.love/auth est un outil privé pour Battle.net Authenticator. Collez la clé secrète fournie avec le compte, puis copiez le code actuel dans l’application Battle.net lorsqu’une vérification est demandée.",
           linkLabel:"roshine.love/auth",
           sections:[
             { icon:"📌", title:"Informations Authenticator", items:["Les codes sont renouvelés toutes les 30 secondes.", "Chaque code ne peut être utilisé qu’une seule fois.", "Si un code expire, attendez le suivant puis réessayez."] }
@@ -1286,9 +1287,9 @@ document.addEventListener("DOMContentLoaded", () => {
         auth:"Authenticator",
         a11y:{ skip:"Zum Inventar springen", openNav:"Navigation öffnen", closeNav:"Navigation schließen", mobileNav:"Mobile Navigation" },
         heroKicker:"⚡ Vertrauenswürdig seit 2021",
-        heroTitle:"ROSHINE",
-        heroSubbrand:"Overwatch Account Store",
-        heroIntro:"Seltene limitierte Skins, saubere rankbereite Accounts, Profile mit vielen Währungen, umfangreiche OW1-Sammlungen, High-Rank- und Top-500-Optionen – echter Bestand mit klaren Details zum Vergleichen.",
+        heroTitle:"Finde deinen nächsten Hauptaccount",
+        heroSubbrand:"",
+        heroIntro:"Seltene limitierte Skins, saubere Accounts mit freigeschalteter Rangliste, Profile mit vielen Währungen, umfangreiche OW1-Sammlungen, High-Rank- und Top-500-Optionen – echter Bestand mit klaren Details zum Vergleichen.",
         ctaExplore:"Bestand ansehen & kaufen",
         servicesKicker:"✨ SERVICES",
         servicesTitle:"Listings & Bestellung",
@@ -1328,7 +1329,7 @@ document.addEventListener("DOMContentLoaded", () => {
         faq4:"Wie oft wird der Bestand aktualisiert? — Der Verkaufsstatus wird in Echtzeit aktualisiert; neue Accounts werden in der Regel alle 7 Tage ergänzt.",
         faq5:{
           question:"Wie wird der Battle.net Authenticator verwendet?",
-          intro:"roshine.love/auth ist ein privates Tool für Battle.net Authenticator. Füge den mit dem Account gelieferten Private Key ein und kopiere bei einer Abfrage den aktuellen Code in die Battle.net App.",
+          intro:"roshine.love/auth ist ein privates Tool für Battle.net Authenticator. Füge den mit dem Account gelieferten geheimen Schlüssel ein und kopiere bei einer Abfrage den aktuellen Code in die Battle.net App.",
           linkLabel:"roshine.love/auth",
           sections:[
             { icon:"📌", title:"Authenticator-Hinweise", items:["Codes werden alle 30 Sekunden erneuert.", "Jeder Code kann nur einmal verwendet werden.", "Ist ein Code abgelaufen, warte auf den nächsten und versuche es erneut."] }
@@ -1374,9 +1375,9 @@ document.addEventListener("DOMContentLoaded", () => {
         auth:"Authenticator",
         a11y:{ skip:"الانتقال إلى المخزون", openNav:"فتح التنقل", closeNav:"إغلاق التنقل", mobileNav:"التنقل عبر الهاتف" },
         heroKicker:"⚡ موثوق منذ 2021",
-        heroTitle:"ROSHINE",
-        heroSubbrand:"متجر حسابات Overwatch",
-        heroIntro:"من السكنات النادرة والمحدودة والحسابات النظيفة الجاهزة للتصنيف إلى حسابات العملات ومجموعات OW1 الكبيرة والرتب العالية وخيارات Top 500 — تصفح المخزون الحقيقي وقارن التفاصيل قبل الاختيار.",
+        heroTitle:"اعثر على حسابك المفضل",
+        heroSubbrand:"",
+        heroIntro:"من السكنات النادرة والمحدودة والحسابات التي تم فتح اللعب التنافسي فيها إلى حسابات العملات ومجموعات OW1 الكبيرة والرتب العالية وخيارات Top 500 — تصفح المخزون الحقيقي وقارن التفاصيل قبل الاختيار.",
         ctaExplore:"عرض المخزون والشراء",
         servicesKicker:"✨ الخدمات",
         servicesTitle:"القائمة والطلب",
@@ -1416,7 +1417,7 @@ document.addEventListener("DOMContentLoaded", () => {
         faq4:"كم مرة يتم تحديث المخزون؟ — يتم تحديث حالة المبيعات فورًا، وتُضاف حسابات جديدة عادةً كل 7 أيام.",
         faq5:{
           question:"كيف تستخدم Battle.net Authenticator؟",
-          intro:"roshine.love/auth أداة خاصة لـ Battle.net Authenticator. ألصق Private Key المرفق بمعلومات الحساب، ثم انسخ الرمز الحالي إلى تطبيق Battle.net عند طلب التحقق.",
+          intro:"roshine.love/auth أداة خاصة لـ Battle.net Authenticator. ألصق المفتاح السري المرفق بمعلومات الحساب، ثم انسخ الرمز الحالي إلى تطبيق Battle.net عند طلب التحقق.",
           linkLabel:"roshine.love/auth",
           sections:[
             { icon:"📌", title:"ملاحظات Authenticator", items:["تتجدد الرموز كل 30 ثانية.", "لا يمكن استخدام كل رمز إلا مرة واحدة.", "إذا انتهت صلاحية الرمز فانتظر الرمز التالي وحاول مجددًا."] }
@@ -1464,7 +1465,7 @@ document.addEventListener("DOMContentLoaded", () => {
         heroKicker:"✦ Roshine · 2021年から販売",
         heroTitle:"次のメインアカウントを見つけよう",
         heroSubbrand:"",
-        heroIntro:"希少・限定スキン、クリーンなランク対応アカウント、通貨を多く持つアカウント、充実したOW1コレクション、高ランク、Top 500向けまで。実在庫の詳細を比較して、自分に合う一つを選べます。",
+        heroIntro:"希少・限定スキン、ライバル・プレイ解放済みアカウント、通貨を多く持つアカウント、充実したOW1コレクション、高ランク、Top 500向けまで。実在庫の詳細を比較して、自分に合う一つを選べます。",
         ctaExplore:"在庫を見る",
         servicesKicker:"購入方法",
         servicesTitle:"選ぶところからログインまで",
@@ -1494,7 +1495,7 @@ document.addEventListener("DOMContentLoaded", () => {
         faq2:"引き渡しはどのくらいかかりますか？ — 多くの注文は入金確認後すみやかに対応します。高額アカウントは引き渡し情報を再確認するため、少し時間がかかる場合があります。",
         faq3:"どの支払い方法が使えますか？ — StripeまたはPayPalによるカード決済、対応環境ではApple PayとGoogle Pay、さらにBinance、Bitcoin、一部ギフトカードを利用できます。手数料と可否はチケットで確認します。",
         faq4:"在庫はどのくらいの頻度で更新されますか？ — 販売済み・保留中の状態は注文の進行に合わせて更新され、新しいアカウントは通常週単位で追加されます。",
-        faq5:{ question:"Battle.net Authenticatorの使い方は？", intro:"roshine.love/auth はBattle.net Authenticator用のプライベートツールです。引き渡し情報にあるPrivate Keyを貼り付け、認証を求められたときに表示中のコードをBattle.netアプリへ入力します。", linkLabel:"roshine.love/auth", sections:[{ icon:"📌", title:"Authenticatorについて", items:["コードは30秒ごとに更新されます。", "各コードは一度だけ使用できます。", "期限が切れた場合は次のコードを待って再試行してください。"] }] },
+        faq5:{ question:"Battle.net Authenticatorの使い方は？", intro:"roshine.love/auth はBattle.net Authenticator用のプライベートツールです。引き渡し情報にあるシークレットキーを貼り付け、認証を求められたときに表示中のコードをBattle.netアプリへ入力します。", linkLabel:"roshine.love/auth", sections:[{ icon:"📌", title:"Authenticatorについて", items:["コードは30秒ごとに更新されます。", "各コードは一度だけ使用できます。", "期限が切れた場合は次のコードを待って再試行してください。"] }] },
         faq6:{ question:"Overwatchアカウントへログインするには？", intro:"引き渡されたBattle.net情報でログインし、アプリが求めた場合のみAuthenticator認証を行います。", sections:[{ icon:"🎮", title:"Overwatchアカウントへのログイン", ordered:true, items:["Battle.netデスクトップアプリを開きます。", "提供されたBattle.net情報でログインします。", "求められた場合は現在のAuthenticatorコードで認証します。"] }] },
         faq7:{ question:"アカウントのメールへアクセスするには？", intro:"引き渡されたメール情報を使います。Authenticatorの有無によって認証方法が異なります。", sections:[{ icon:"✉️", title:"メールへのアクセス", items:["提供されたメール情報でlive.comへログインします。", "Authenticatorがある場合は提供されたQRコードをGoogle Authenticatorで使用し、ない場合はメールとパスワードでログインします。", "ログイン後、自分の復旧用メールを追加することをおすすめします。"] }] },
         faq8:"セキュリティ情報はいつ変更すべきですか？ — 同じ端末と安定したIPを使い、約7日待ってからパスワード、復旧用メール、地域などを変更することをおすすめします。ロックや認証問題の可能性は下げられますが、プラットフォーム上のリスクを完全にはなくせません。",
@@ -1542,7 +1543,7 @@ document.addEventListener("DOMContentLoaded", () => {
         filterSort:"Filtres et tri", filterSubtitle:"Affinez les résultats de l’inventaire", resetFilters:"Réinitialiser", closeFilters:"Fermer les filtres",
         activeFilters:"Filtres actifs", clearFilter:"Retirer ce filtre", searchLabel:"Recherche", applyFilters:"Afficher {count} comptes",
         popularSearches:"Recherches populaires", popularSearchesAria:"Recherches populaires de comptes",
-        showMore:"Afficher plus de skins", showLess:"Afficher moins de skins", playtime:"Temps de jeu", credits:"Crédits", coins:"Coins",
+        showMore:"Afficher plus de skins", showLess:"Afficher moins de skins", playtime:"Temps de jeu", credits:"Crédits", coins:"Pièces Overwatch",
         mythicPrisms:"Prismes mythiques",
         compPointsAll:"Pts compét. (total)",
         searchPlaceholder:"Rechercher des comptes",
@@ -1554,7 +1555,7 @@ document.addEventListener("DOMContentLoaded", () => {
         nameChangeAria:"Filtrer le renommage gratuit", nameChangeOptions:["Renommage gratuit", "Renommage : Oui", "Renommage : Non"],
         sortAria:"Trier les comptes",
         sortGroups:["Prix", "Progression du compte", "Portefeuille ou solde"],
-        sortOptions:["Recommandé", "Prix : croissant", "Prix : décroissant", "Niveau : décroissant", "Niveau : croissant", "Temps de jeu : décroissant", "Temps de jeu : croissant", "Coins : décroissant", "Coins : croissant", "Crédits : décroissant", "Crédits : croissant", "Prismes mythiques : décroissant"],
+        sortOptions:["Recommandé", "Prix : croissant", "Prix : décroissant", "Niveau : décroissant", "Niveau : croissant", "Temps de jeu : décroissant", "Temps de jeu : croissant", "Pièces Overwatch : décroissant", "Pièces Overwatch : croissant", "Crédits : décroissant", "Crédits : croissant", "Prismes mythiques : décroissant"],
         results:"{shown} / {total} comptes",
         empty:"Aucun compte ne correspond à la recherche et aux filtres actuels.",
         loadError:"Impossible de charger l’inventaire des comptes.",
@@ -1569,9 +1570,9 @@ document.addEventListener("DOMContentLoaded", () => {
         filterSort:"Filtern & sortieren", filterSubtitle:"Inventarergebnisse eingrenzen", resetFilters:"Filter zurücksetzen", closeFilters:"Filter schließen",
         activeFilters:"Aktive Filter", clearFilter:"Diesen Filter entfernen", searchLabel:"Suche", applyFilters:"{count} Accounts anzeigen",
         popularSearches:"Beliebte Suchen", popularSearchesAria:"Beliebte Account-Suchen",
-        showMore:"Mehr Skins anzeigen", showLess:"Weniger Skins anzeigen", playtime:"Spielzeit", credits:"Credits", coins:"Coins",
+        showMore:"Mehr Skins anzeigen", showLess:"Weniger Skins anzeigen", playtime:"Spielzeit", credits:"Credits", coins:"Overwatch-Münzen",
         mythicPrisms:"Mythische Prismen",
-        compPointsAll:"Comp-Punkte (gesamt)",
+        compPointsAll:"Ranglistenpunkte (gesamt)",
         searchPlaceholder:"Accounts suchen",
         searchAria:"Accounts suchen",
         typeAria:"Nach Overwatch-Version filtern",
@@ -1581,7 +1582,7 @@ document.addEventListener("DOMContentLoaded", () => {
         nameChangeAria:"Kostenlose Umbenennung filtern", nameChangeOptions:["Kostenlose Umbenennung", "Umbenennung: Ja", "Umbenennung: Nein"],
         sortAria:"Accounts sortieren",
         sortGroups:["Preis", "Account-Fortschritt", "Wallet oder Guthaben"],
-        sortOptions:["Empfohlen", "Preis: aufsteigend", "Preis: absteigend", "Level: absteigend", "Level: aufsteigend", "Spielzeit: absteigend", "Spielzeit: aufsteigend", "Coins: absteigend", "Coins: aufsteigend", "Credits: absteigend", "Credits: aufsteigend", "Mythische Prismen: absteigend"],
+        sortOptions:["Empfohlen", "Preis: aufsteigend", "Preis: absteigend", "Level: absteigend", "Level: aufsteigend", "Spielzeit: absteigend", "Spielzeit: aufsteigend", "Overwatch-Münzen: absteigend", "Overwatch-Münzen: aufsteigend", "Credits: absteigend", "Credits: aufsteigend", "Mythische Prismen: absteigend"],
         results:"{shown} / {total} Accounts",
         empty:"Keine Accounts entsprechen der aktuellen Suche und den Filtern.",
         loadError:"Das Account-Inventar konnte nicht geladen werden.",
@@ -1596,7 +1597,7 @@ document.addEventListener("DOMContentLoaded", () => {
         filterSort:"تصفية وترتيب", filterSubtitle:"تخصيص نتائج المخزون", resetFilters:"إعادة ضبط الفلاتر", closeFilters:"إغلاق الفلاتر",
         activeFilters:"الفلاتر النشطة", clearFilter:"إزالة هذا الفلتر", searchLabel:"البحث", applyFilters:"عرض {count} حساب",
         popularSearches:"عمليات البحث الشائعة", popularSearchesAria:"عمليات البحث الشائعة عن الحسابات",
-        showMore:"عرض المزيد من السكنات", showLess:"عرض سكنات أقل", playtime:"وقت اللعب", credits:"Credits", coins:"Coins",
+        showMore:"عرض المزيد من المظاهر", showLess:"عرض مظاهر أقل", playtime:"وقت اللعب", credits:"Credits", coins:"Overwatch Coins",
         mythicPrisms:"Mythic Prisms",
         compPointsAll:"نقاط التنافس (الإجمالي)",
         searchPlaceholder:"البحث في الحسابات",
@@ -1607,7 +1608,7 @@ document.addEventListener("DOMContentLoaded", () => {
         priceAria:"تصفية نطاق السعر", priceOptions:["نطاق السعر", "أقل من 30$", "30$–100$", "أكثر من 100$"],
         nameChangeAria:"تصفية تغيير الاسم المجاني", nameChangeOptions:["تغيير الاسم مجانًا", "تغيير الاسم: نعم", "تغيير الاسم: لا"],
         sortAria:"ترتيب الحسابات",
-        sortGroups:["السعر", "تقدم الحساب", "المحفظة أو الرصيد"],
+        sortGroups:["السعر", "تقدم الحساب", "عملات اللعبة"],
         sortOptions:["موصى به", "السعر: تصاعدي", "السعر: تنازلي", "المستوى: تنازلي", "المستوى: تصاعدي", "وقت اللعب: تنازلي", "وقت اللعب: تصاعدي", "Coins: تنازلي", "Coins: تصاعدي", "Credits: تنازلي", "Credits: تصاعدي", "Mythic Prisms: من الأعلى للأدنى"],
         results:"{shown} / {total} حساب",
         empty:"لا توجد حسابات تطابق البحث والفلاتر الحالية.",
@@ -1896,6 +1897,13 @@ document.addEventListener("DOMContentLoaded", () => {
       select.addEventListener('change', sync);
       document.addEventListener('pointerdown', event => {
         if (!picker.contains(event.target)) setOpen(false);
+      });
+      // Safari mouse clicks need not focus buttons; Escape must also work from body.
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && !menu.hidden) {
+          setOpen(false);
+          trigger.focus({ preventScroll: true });
+        }
       });
       sync();
     }

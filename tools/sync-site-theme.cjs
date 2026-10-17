@@ -9,12 +9,27 @@ for (const page of pages) {
   const file = path.join(root,page), before = fs.readFileSync(file,'utf8');
   let html = before.replace(/\r\n/g,'\n');
   if (!html.includes('src="/assets/site-theme.js?v=1"')) html = html.replace('<head>','<head>\n  <script src="/assets/site-theme.js?v=1"></script>');
-  if (!html.includes('/assets/site-theme.css?v=1')) html = html.replace('</head>','  <link rel="stylesheet" href="/assets/site-theme.css?v=1">\n</head>');
+  if (!html.includes('/assets/site-theme.css?')) html = html.replace('</head>','  <link rel="stylesheet" href="/assets/site-theme.css?v=2">\n</head>');
+  html = html.replace('/assets/site-theme.css?v=1','/assets/site-theme.css?v=2');
+  html = html.replace('assets/main.js?v=55','assets/main.js?v=56');
+  html = html.replace('assets/error-language.js?v=1','assets/error-language.js?v=2');
   html = html.replace('/assets/site-chrome.css?v=1','/assets/site-chrome.css?v=2');
   html = html.replace(/<a (?![^>]*\bid=)([^>]*href="\.\.\/auth\/"[^>]*class="btn btn-outline"[^>]*)>/, '<a id="authBtn" $1>');
   if (!html.includes('id="themeToggle"')) {
     html = page === '404.html' ? html.replace('<main class="card">','<main class="card">\n    '+button) : html.replace('<div class="header-actions">','<div class="header-actions">\n      '+button);
   }
+  // Insert immediately after the language picker; preserve DOM and keyboard order.
+  html = html.replace(/^[ \t]*<button type="button" id="themeToggle"[^\n]*<\/button>\n?/m,'');
+  const pickerStart = html.indexOf(page === '404.html' ? '<div class="error-language language-picker"' : '<div class="language-picker" id="languagePicker"');
+  if (pickerStart < 0) throw new Error('Missing language picker: '+page);
+  const tail = html.slice(pickerStart);
+  let depth = 0, end = -1;
+  for (const match of tail.matchAll(/<div\b[^>]*>|<\/div>/g)) {
+    depth += match[0].startsWith('</') ? -1 : 1;
+    if (!depth) { end = pickerStart + match.index + match[0].length; break; }
+  }
+  if (end < 0) throw new Error('Unclosed language picker: '+page);
+  html = html.slice(0,end)+'\n      '+button+html.slice(end);
   if (html !== before.replace(/\r\n/g,'\n')) { changed++; if (!process.argv.includes('--check')) fs.writeFileSync(file,html); }
 }
 if (process.argv.includes('--check') && changed) throw new Error(changed+' pages need theme synchronization');

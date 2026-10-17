@@ -35,6 +35,7 @@ Non-USD prices include a 2.5% payment fee (original USD × rate × 1.025), discl
 Shared themes and Simplified Chinese:
 
 - `node tests/site-theme-browser.cjs`: six public pages in Chromium and WebKit; five viewport widths, dark default even on light OS, keyboard toggles, saved and cross-tab preference, unavailable storage, Chinese layouts, all detail tabs, shared glass header and 19 light text palettes at minimum 4.5:1 contrast against the card surface. Set the same TLS and browser environment variables as the other HTTPS checks. `THEME_SCREENSHOT_DIR` optionally saves visual checks.
+- `node tests/site-glass-browser.cjs`: six pages, two themes, desktop/mobile Chromium and WebKit. Measures real screenshot transmission over black/white backdrops instead of trusting CSS declarations alone; checks scrolling, hover, menu Escape without button focus (Safari), stock filters, control DOM order, and readable fallbacks with both blur-property spellings simulated as unsupported. Requires `SHARP_MODULE` plus the TLS/browser variables above. `GLASS_SCREENSHOT_DIR` saves visual checks; `GLASS_FAST=1` limits diagnosis to desktop Chromium homepage.
 - `node tests/chinese-copy.cjs`: Chinese dictionary completeness and interpolation placeholders, full policy copy, details labels and all six static menus. Account facts, hero and skin names are not translated or rewritten.
 - `node tests/language-browser.cjs`: six languages on six pages, Japanese and Chinese menu order, keyboard/selection semantics, desktop Chromium and mobile WebKit with older API limits.
 - `node tools/sync-site-theme.cjs --check` and `node tools/sync-site-language.cjs --check`: static shared includes and controls; omit `--check` to synchronize. Theme preference key is `roshine.theme`, language remains `roshine_lang`.
@@ -108,3 +109,5 @@ An index commit failure restores an existing snapshot byte-for-byte, or removes
 only the new snapshot created by that import. If rollback also fails, the error
 identifies the retained .rollback backup or new file that needs manual recovery.
 These checks do not prove cross-file atomicity during power loss or process termination.
+
+- `node tests/multilingual-copy.cjs`: all locale dictionary keys, types and placeholders; corrected game terminology and display-only rank translation. Official references and intentional English fallbacks are recorded in `assets/translation-terminology.md`.

@@ -10,7 +10,7 @@ function literal(file,name,indent){
 }
 function compare(en,translated,label){
   assert(translated!==undefined,'missing Chinese '+label);
-  if(typeof en==='string'){assert.equal(typeof translated,'string',label);if(en)assert(translated.length,label);for(const p of en.match(/\{\w+\}/g)||[])assert(translated.includes(p),'placeholder '+label+' '+p);return;}
+  if(typeof en==='string'){assert.equal(typeof translated,'string',label);if(en && label!=='auth.privacyHint')assert(translated.length,label);for(const p of en.match(/\{\w+\}/g)||[])assert(translated.includes(p),'placeholder '+label+' '+p);return;}
   for(const key of Object.keys(en))compare(en[key],translated[key],label+'.'+key);
 }
 for(const [file,name,indent,section]of [['assets/main.js','i18n','    ','main'],['assets/main.js','accountUiI18n','    ','inventory'],['assets/redesign.js','copy','  ','redesign'],['assets/policy.js','copy','  ','policy'],['auth/index.html','i18n','    ','auth']])compare(literal(file,name,indent),zh[section],section);
