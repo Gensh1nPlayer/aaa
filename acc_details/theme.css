@@ -101,6 +101,16 @@ button, input, select { font-family: inherit; }
 .hero-search, .filters input, .filters select, .reset-button { background: #121428; border-color: var(--detail-line); color: #efecfb; }
 .hero-search, .filters input, .filters select, .reset-button { min-height: 40px; font-size: 14px; }
 .filters input, .filters select { width: 100%; min-width: 0; }
+.filters { grid-template-columns: minmax(180px, 1fr) max-content max-content max-content; gap: 10px; align-items: stretch; }
+.filters select { width: auto; max-width: 100%; padding-inline: 12px 32px; }
+.filters input, .filters select, .reset-button { height: 44px; border-radius: 10px; line-height: 1.4; }
+.reset-button { padding-inline: 14px; white-space: nowrap; }
+@media (max-width: 1150px) {
+  .filters { display: flex; flex-wrap: wrap; }
+  .filters input { flex: 1 1 100%; }
+  .filters select { flex: 1 0 auto; }
+  .filters .reset-button { flex: 0 0 auto; margin-inline-start: auto; }
+}
 .filters select { appearance: none; -webkit-appearance: none; background-color: #111224; color: #e7e1f7; border: 1px solid var(--detail-line); min-height: 42px; padding-inline-end: 25px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='m1 1 5 5 5-5' fill='none' stroke='%23c7bde8' stroke-width='2'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 9px center; }
 [dir="rtl"] .filters select { background-position: left 9px center; }
 .reset-button { min-width: 0; height: auto; overflow-wrap: anywhere; }
@@ -156,7 +166,12 @@ h1, h2 { color: #f2f0ff; font-family: Orbitron, Kanit, sans-serif; }
 #accountLevel:not([hidden]) { display: block; }
 .profile-account-version { font-size: .78rem; font-style: normal; line-height: 1; padding: .38rem .65rem; border-color: rgba(117,199,249,.4); color: #93d9ff; background: rgba(50,147,202,.09); }
 .balance-label { overflow-wrap: break-word; }
-.account-metric, .account-card, .account-table, .account-empty { border-radius: 12px; }
+.account-metric, .account-card, .account-table, .account-empty, .competitive-card, .placeholder-panel { border-radius: 12px; }
+/* Collapsed borders ignore the table radius in Safari and Chromium. */
+.account-table { border-collapse: separate; border-spacing: 0; overflow: hidden; }
+.account-table thead tr:first-child th:first-child { border-start-start-radius: 11px; }
+.account-table thead tr:first-child th:last-child { border-start-end-radius: 11px; }
+.account-table tbody tr:last-child td { border-bottom: 0; }
 .account-panel-badges { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: 14px; }
 .account-profile-tags, .account-stock-tags { min-width: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .account-stock-tags:not([hidden]) { border-inline-start: 1px solid var(--detail-line); padding-inline-start: 16px; }

@@ -1,0 +1,16 @@
+'use strict';
+const assert=require('node:assert/strict'),counter=require('../assets/sales-counter.js');
+const original=require('../accounts.json').accounts;
+assert.equal(counter.totalSold(original),982,'current stock preserves the historical total');
+const candidate=original.find(row=>/in\s*stock/i.test(row.status));
+const updated=original.map(row=>row.id===candidate.id?{...row,status:'Sold'}:row);
+assert.equal(counter.totalSold(updated),983,'one available account changes to Sold');
+assert.equal(counter.totalSold(updated),983,'repeat loads never double-count');
+assert.equal(counter.totalSold(updated.concat(updated)),983,'duplicate IDs never double-count');
+assert.equal(counter.totalSold(updated.map(row=>({...row,id:String(row.id)}))),983,'string/numeric IDs agree');
+assert.equal(counter.totalSold(original),982,'correcting the status rolls back the additional sale');
+assert.equal(counter.totalSold(original.filter(row=>row.status!=='Sold')),982,'removing baseline archive rows preserves the historical total');
+assert.equal(counter.totalSold(updated.concat({id:999999,status:'Sold'})),984,'newly added sold records count once');
+assert.equal(counter.totalSold([null,[],{id:{},status:'Sold'},{id:0,status:'Sold'},{id:999,status:'Pending'}]),982,'malformed rows and Pending do not count');
+assert.equal(counter.totalSold(null),982);
+console.log('PASS: fixed 982 baseline; status changes, repeated loads, duplicate IDs, corrections and archived baseline records.');

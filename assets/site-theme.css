@@ -61,7 +61,7 @@ html[data-theme="light"] :is(h1,h2,h3,h4), html[data-theme="light"] .section-tit
 html[data-theme="light"] .hero-title, html[data-theme="light"] .lookup-copy h1, html[data-theme="light"] .rf-error-page .code { background-image: linear-gradient(115deg,#30243f 8%,#66429f 60%,#a4349d); }
 html[data-theme="light"] :is(.hero-intro,.section-desc,.rd-offer-card p,.rd-story-timeline p,.rd-story-note p,.rd-story-note li,.rd-payment-heading p,.rd-contact-note,.services-list li,.warranty-card p,.faq-answer,.lookup-copy p) { color: #625b73; }
 html[data-theme="light"] :is(.hero-kicker,.section-kicker,.lookup-kicker,.lookup-kicker strong,.policy-kicker,.rd-offer-icon) { color: #7043b3; }
-html[data-theme="light"] :is(.rd-offer-card,.rd-currency-card,.rd-story-timeline,.rd-story-note,.glass-panel,.warranty-card,.account-card,.accounts-filter-panel,.faq-list details,.policy-hero,.policy-toc,.policy-article,.lookup-form,.account-hero,.account-metric,.account-table,.account-empty,.empty-state,.placeholder-panel,.competitive-card,.skin-card,.variant-card,.rf-error-page > main.card), html[data-theme="light"] body .panel { background: linear-gradient(145deg, #fff, #faf8ff); border-color: #75609533; box-shadow: 0 12px 32px #39255a0c; }
+html[data-theme="light"] :is(.rd-offer-card,.rd-currency-card,.rd-story-timeline,.rd-story-note,.glass-panel,.warranty-card,.account-card,.accounts-filter-panel,.faq-list details,.policy-hero,.policy-toc,.policy-article,.lookup-form,.account-hero,.account-metric,.account-table,.account-empty,.empty-state,.placeholder-panel,.competitive-card,.skin-card,.variant-card,.rf-error-page > main.card), html[data-theme="light"] body .wrap .panel { background: linear-gradient(145deg, #fff, #faf8ff); border-color: #75609533; box-shadow: 0 12px 32px #39255a0c; }
 html[data-theme="light"] :is(.account-card,.rd-offer-card,.warranty-card):hover { background: #fff; border-color: #9b79db80; box-shadow: 0 16px 36px #39255a15; }
 html[data-theme="light"] :is(.rd-trust-strip,.rd-price-columns > div,.rd-key-prices > div,.services-list li,.ac-keyfact,.ac-detail,.balance-item,.tab,.policy-meta-item,.policy-switcher a) { background: #f1edf8; border-color: #75609526; }
 html[data-theme="light"] :is(.rd-trust-strip b,.rd-price-columns h4,.rd-price-columns dd,.rd-key-prices strong,.rd-delivery-note b,.rd-story-timeline h3,.warranty-card h3,.ac-id,.ac-level-title:not(.is-valuable),.ac-keyfact-value,.ac-resource-value,.ac-detail > strong,.balance-item strong,.account-section h2,.account-metric strong,.account-card strong,.empty-state strong,.competitive-summary h2,.competitive-summary h3,.account-hero .account-identity-row h1,.lookup-form label) { color: #30243f; }
@@ -170,3 +170,19 @@ html[data-theme="light"] body .ac-special-skin-ultra-rare { color: #bd294a; }
 @media (forced-colors: active) {
   html[data-theme="light"] body :is(.ac-special-skin,.ac-rarity-name,.ac-special-currency,[class*="ac-special-weapon-"],.ac-endorsement-5,.profile-endorsement strong,.rarity-text) { background: none; color: CanvasText; -webkit-text-fill-color: CanvasText; }
 }
+
+/* Detail sections are layout containers, not extra cards around their own cards. */
+html[data-theme="light"] .site-shell :is(.account-card,.account-metric,.competitive-card,.account-empty,.empty-state,.placeholder-panel) { color: #352744; }
+html[data-theme="light"] .site-shell :is(.placeholder-panel p,.account-card small,.account-metric > span,.account-card > span) { color: #625b73; }
+html[data-theme="light"] .site-shell .competitive-card .rank-value { color: var(--tier-color, #30243f); }
+html[data-theme="light"] .site-shell .tier-bronze { --tier-color: #855035; }
+html[data-theme="light"] .site-shell .tier-silver { --tier-color: #52667a; }
+html[data-theme="light"] .site-shell .tier-gold { --tier-color: #815600; }
+html[data-theme="light"] .site-shell .tier-platinum { --tier-color: #176775; }
+html[data-theme="light"] .site-shell .tier-emerald { --tier-color: #147146; }
+html[data-theme="light"] .site-shell .tier-diamond { --tier-color: #176296; }
+html[data-theme="light"] .site-shell .tier-master { --tier-color: #147146; }
+html[data-theme="light"] .site-shell .tier-grandmaster { --tier-color: #6347a1; }
+html[data-theme="light"] .site-shell .tier-champion { --tier-color: #a52a61; }
+html[data-theme="light"] .site-shell .role-icon { filter: brightness(0); opacity: .65; }
+html[data-theme="light"] .lookup-status.error { color: #b62c44; }

@@ -1,5 +1,8 @@
 # Compatibility checks
 
+- `node tests/details-light-browser.cjs`: six languages, four viewport widths and Chromium/WebKit; actual detail text contrast, transparent section containers, padded rounded cards/tables and longest filter options. `DETAILS_AUDIT=1` runs the focused Chinese desktop reproduction; `DETAILS_SCREENSHOT_DIR` saves Chinese light-theme screenshots outside the repository.
+- `node tests/sales-counter.cjs`: historical 982 baseline plus newly Sold account IDs; duplicate/repeated-load protection and status corrections. The baseline in `assets/sales-counter.js` is fixed across all visitors. Keep future sold rows in `accounts.json`; before archiving those later rows, roll the baseline forward to preserve the lifetime total. Counts refresh when inventory is loaded, not from a visitor-local counter.
+
 Run node tests/skin-compatibility.cjs using Node.js.
 It checks skin-name precedence, markup escaping, currency highlighting,
 endorsement aliases and Safari 14's known syntax/API restrictions.

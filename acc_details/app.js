@@ -639,7 +639,7 @@
     if (!$('placeholderPanel').hidden) {
       $('placeholderTitle').textContent = t('Competitive');
       $('placeholderText').textContent = t(state.snapshot
-        ? 'Recorded seasons, ranks and competitive points. A blank field has not been collected.'
+        ? 'Recorded seasons, ranks and competitive points.'
         : 'No competitive account data is available. Load a snapshot to view ranks and seasons.');
     }
     const summary = $('competitiveSummary');

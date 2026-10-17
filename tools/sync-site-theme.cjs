@@ -9,8 +9,8 @@ for (const page of pages) {
   const file = path.join(root,page), before = fs.readFileSync(file,'utf8');
   let html = before.replace(/\r\n/g,'\n');
   if (!html.includes('src="/assets/site-theme.js?v=1"')) html = html.replace('<head>','<head>\n  <script src="/assets/site-theme.js?v=1"></script>');
-  if (!html.includes('/assets/site-theme.css?')) html = html.replace('</head>','  <link rel="stylesheet" href="/assets/site-theme.css?v=2">\n</head>');
-  html = html.replace('/assets/site-theme.css?v=1','/assets/site-theme.css?v=2');
+  if (!html.includes('/assets/site-theme.css?')) html = html.replace('</head>','  <link rel="stylesheet" href="/assets/site-theme.css?v=3">\n</head>');
+  html = html.replace(/\/assets\/site-theme\.css\?v=[12](?!\d)/,'/assets/site-theme.css?v=3');
   html = html.replace('assets/main.js?v=55','assets/main.js?v=56');
   html = html.replace('assets/error-language.js?v=1','assets/error-language.js?v=2');
   html = html.replace('/assets/site-chrome.css?v=1','/assets/site-chrome.css?v=2');

@@ -136,6 +136,8 @@
     const minimum = prices.length ? Math.min(...prices) : null;
     const maximum = prices.length ? Math.max(...prices) : null;
     document.getElementById('rdAvailableCount').textContent = String(available.length);
+    const soldCount = document.getElementById('rdSoldCount');
+    if (soldCount && window.RoshineSalesCounter) soldCount.textContent = String(window.RoshineSalesCounter.totalSold(accounts));
     document.getElementById('rdVersionSplit').textContent = `${ow1} / ${ow2}`;
     const format = window.RoshineCurrency?.format || (amount => `$${amount.toFixed(1)}`);
     document.getElementById('rdPriceRange').textContent = minimum === null ? '—' : `${format(minimum)}–${format(maximum)}`;

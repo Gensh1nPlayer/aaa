@@ -48,6 +48,11 @@ const server = http.createServer((req,res)=>{
       assert.equal(await page.locator('#accountsLastUpdatedValue').getAttribute('datetime'),'2020-01-01T12:34:56Z');
       assert.match(await page.locator('#accountsLastUpdatedValue').textContent(),/UTC/);
       assert.deepEqual(await page.locator('.header-actions').evaluate(node=>[...node.children].map(child=>child.id)),['authBtn','currencyPicker','languagePicker','themeToggle']);
+      assert.equal(await page.locator('#rdSoldCount').textContent(),'982');
+      await page.evaluate(accounts=>{
+        const event=()=>document.dispatchEvent(new CustomEvent('roshine:inventory-loaded',{detail:{accounts}}));event();event();
+      },rows.concat({id:191,status:'Sold',price:'$90'}));
+      assert.equal(await page.locator('#rdSoldCount').textContent(),'983','new sale counts once across repeated inventory events');
       await page.locator('#currencyTrigger').click();
       assert.equal(await page.locator('[data-currency-value]').count(),9);
       await page.locator('[data-currency-value="EUR"]').click();
@@ -56,8 +61,10 @@ const server = http.createServer((req,res)=>{
       assert.match(await page.locator('#rdPriceRange').textContent(),/€9\.2.*€36\.9/);
       assert.match(await page.locator('#accountPriceFilter option[value="under30"]').textContent(),/€27\.7/);
       await page.locator('#langSelect').selectOption('fr',{force:true});
+      assert.equal(await page.locator('#rdSoldCount').textContent(),'983','language and currency changes do not reset or increment sales');
       assert.match(await page.locator('#accountPriceFilter option[value="under30"]').textContent(),/€27\.7/);
       await page.reload();
+      await page.waitForFunction(()=>document.querySelector('#rdSoldCount').textContent==='982');
       await page.waitForFunction(()=>RoshineCurrency.code==='EUR');
       assert.equal(await page.locator('.ac-price').first().textContent(),'€9.2');
       if(process.env.SCREENSHOT_DIR){
