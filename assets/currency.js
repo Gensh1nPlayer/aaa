@@ -153,15 +153,18 @@
     picker.dataset.currencyStatus = state.status;
     picker.setAttribute('aria-busy', String(state.status === 'loading'));
     const message = state.code !== 'USD'
-      ? 'Daily FX rates dated ' + state.rateDate + '; fetched ' + state.fetchedAt + '. Prices include a 2.5% currency conversion fee and are estimates.'
+      ? 'Daily FX rates dated ' + state.rateDate + '; fetched ' + state.fetchedAt + '. Prices include a 2.5% payment fee and are estimates.'
       : state.selectedCode !== 'USD' ? 'Requested ' + state.selectedCode + '. Showing USD. ' + (state.status === 'loading' ? 'Exchange rates loading.' : 'Exchange rates unavailable or expired. Select a currency to retry.') : 'Prices in USD.';
     trigger.title = message; notice.textContent = message;
     const feeNote = document.getElementById('currencyFeeNote');
     if (feeNote) {
       const lang = (document.documentElement.lang || 'en').split('-')[0];
-      const feeCopy = {en:'Displayed prices include a 2.5% currency conversion fee. USD prices have no conversion fee.',fr:'Les prix affichés incluent 2,5 % de frais de conversion. Les prix en USD sont sans frais de conversion.',de:'Die angezeigten Preise enthalten 2,5 % Umrechnungsgebühr. Für USD-Preise fällt keine Umrechnungsgebühr an.',ar:'تشمل الأسعار المعروضة رسوم تحويل عملة بنسبة 2.5%. لا تُضاف رسوم تحويل إلى الأسعار بالدولار الأمريكي.',ja:'表示価格には2.5%の通貨換算手数料が含まれます。USD価格には換算手数料はかかりません。'};
-      feeNote.textContent = feeCopy[lang] || feeCopy.en;
-      feeNote.hidden = state.code === 'USD';
+      const feeCopy = {en:'Displayed prices include a 2.5% payment fee. ',fr:'Les prix affichés incluent 2,5 % de frais de paiement. ',de:'Die angezeigten Preise enthalten 2,5 % Zahlungsgebühr. ',ar:'تشمل الأسعار المعروضة رسوم دفع بنسبة 2.5%. ',ja:'表示価格には2.5%の決済手数料が含まれます。'};
+      const cryptoCopy = {en:'Crypto: no payment fee and 2.5% off the base account price. Confirm your crypto quote on Discord.',fr:'Crypto : aucun frais de paiement et 2,5 % de réduction sur le prix de base du compte. Confirmez le devis sur Discord.',de:'Krypto: keine Zahlungsgebühr und 2,5 % Rabatt auf den Basispreis des Accounts. Angebot auf Discord bestätigen.',ar:'العملات المشفرة: بدون رسوم دفع وخصم 2.5% من سعر الحساب الأساسي. أكّد السعر عبر Discord.',ja:'暗号資産払い：決済手数料なし、アカウントの基本価格から2.5%割引。Discordでお見積もりをご確認ください。'};
+      feeCopy.zh = '显示价格包含 2.5% 支付手续费。';
+      cryptoCopy.zh = 'Crypto 无支付手续费，并在账号原价基础上优惠 2.5%。请在 Discord 确认加密货币付款报价。';
+      feeNote.textContent = (state.code === 'USD' ? '' : feeCopy[lang] || feeCopy.en) + (cryptoCopy[lang] || cryptoCopy.en);
+      feeNote.hidden = false;
     }
     menu.querySelectorAll('[data-currency-value]').forEach(option => { option.setAttribute('aria-selected', String(option.dataset.currencyValue === state.code)); });
   }

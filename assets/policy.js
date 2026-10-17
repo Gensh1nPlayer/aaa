@@ -2,7 +2,7 @@
   "use strict";
 
   const pageKey = document.body.dataset.policyPage === "terms" ? "terms" : "privacy";
-  const supportedLanguages = ["en", "fr", "de", "ar", "ja"];
+  const supportedLanguages = ["en", "fr", "de", "ar", "ja", "zh"];
   let tocObserver = null;
 
   const copy = {
@@ -32,7 +32,7 @@
           <p>This policy applies when you browse <a href="../">roshine.love</a>, view the account inventory, use the private Authenticator utility, or contact Roshine through Discord or email. The public storefront is a <strong>static website</strong>: it does not require a customer account and does not use a public ordering bot.</p>
 
           <h2>2. Information stored by the website</h2>
-          <p>The storefront uses browser local storage to remember your selected language and currency. Inventory filters and sorting run locally in your browser and are not submitted to us. The Authenticator utility is designed to process the private key locally in your browser; do not send that key to anyone.</p>
+          <p>The storefront uses browser local storage to remember your selected language, currency and theme. Inventory filters and sorting run locally in your browser and are not submitted to us. The Authenticator utility is designed to process the private key locally in your browser; do not send that key to anyone.</p>
           <p>The homepage requests published exchange rates from Frankfurter. If your browser region does not identify a supported currency and you have not selected one, it requests a currency suggestion from ipapi.co using your connection IP. These providers receive ordinary request data. Currency conversion is an estimate; the original inventory price remains in USD. GitHub is queried to verify the inventory file’s last update.</p>
           <p>Our hosting or CDN provider may process ordinary technical request data, such as IP address, browser type, requested page and time, for delivery, security and reliability.</p>
 
@@ -385,6 +385,7 @@
 
   };
 
+  if (window.RoshineZh) copy.zh = window.RoshineZh.policy;
   const ids = {
     navHome: "home", navAccounts: "accounts", navServices: "services", navWarranty: "warranty", navFaq: "faq", navContact: "contact",
     mobileNavHome: "home", mobileNavAccounts: "accounts", mobileNavServices: "services", mobileNavWarranty: "warranty", mobileNavFaq: "faq", mobileNavContact: "contact"
@@ -493,7 +494,7 @@
     const selector = document.getElementById("langSelect");
     if (selector) selector.value = language;
     const triggerValue = document.getElementById("languageTriggerValue");
-    if (triggerValue) triggerValue.textContent = language === "ja" ? "日本語" : language.toUpperCase();
+    if (triggerValue) triggerValue.textContent = language === "ja" ? "日本語" : language === "zh" ? "简体中文" : language.toUpperCase();
     document.getElementById("languageTrigger")?.setAttribute("aria-label", `Language: ${triggerValue?.textContent || language.toUpperCase()}`);
     document.querySelectorAll("[data-language-value]").forEach(option => {
       const selected = option.dataset.languageValue === language;

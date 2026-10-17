@@ -46,6 +46,7 @@ const server = https.createServer({key:fs.readFileSync(process.env.TEST_TLS_KEY)
           assert.equal(await footer.count(),1,url+' one shared footer');
           const logoImages=page.locator('img.brand-lockup,img.rf-wordmark,img.panel-title-logo');
           for(const logo of await logoImages.all()) {
+            if(!await logo.isVisible()) continue;
             await logo.scrollIntoViewIfNeeded();
             await logo.evaluate(img=>img.complete&&img.naturalWidth?Promise.resolve():new Promise((resolve,reject)=>{img.addEventListener('load',resolve,{once:true});img.addEventListener('error',()=>reject(new Error(img.src)),{once:true});}));
             assert(await logo.evaluate(img=>img.naturalWidth>0),'new vector brand asset loads');
@@ -67,12 +68,12 @@ const server = https.createServer({key:fs.readFileSync(process.env.TEST_TLS_KEY)
             await page.keyboard.press('Escape');
             assert.equal(await page.locator('#currencyTrigger .language-globe').count(),0,'currency button remains unchanged');
           }
-          for(const lang of ['en','fr','de','ar','ja']) {
+          for(const lang of ['en','fr','de','ar','ja','zh']) {
             if(url==='/404.html')await page.evaluate(lang=>{document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';},lang);
             else {
               await chooseLanguage(lang);
             }
-            try {await page.waitForFunction(lang=>document.querySelector('.rf-group h2').textContent===({en:'Explore',fr:'Découvrir',de:'Entdecken',ar:'استكشف',ja:'ストア'})[lang],lang);}
+            try {await page.waitForFunction(lang=>document.querySelector('.rf-group h2').textContent===({en:'Explore',fr:'Découvrir',de:'Entdecken',ar:'استكشف',ja:'ストア',zh:'探索'})[lang],lang);}
             catch(error){throw new Error(url+' '+lang+': '+await page.locator('.rf-group h2').first().textContent()+' / '+error.message);}
             assert.equal(await footer.locator('[data-rf="stock"]').getAttribute('href'),lang==='en'?'/#accounts':'/?lang='+lang+'#accounts');
             assert.equal(await footer.locator('[data-rf="details"]').getAttribute('href'),lang==='en'?'/acc_details/':'/acc_details/?lang='+lang);
@@ -107,7 +108,9 @@ const server = https.createServer({key:fs.readFileSync(process.env.TEST_TLS_KEY)
         assert.match(await page.locator('#currencyFeeNote').textContent(),/2.5%/);
         await page.evaluate(()=>RoshineCurrency.select('USD'));
         assert.equal(await page.evaluate(()=>RoshineCurrency.format(10)),'$10.0');
-        assert.equal(await page.locator('#currencyFeeNote').isVisible(),false);
+        assert.equal(await page.locator('#currencyFeeNote').isVisible(),true);
+        assert.match(await page.locator('#currencyFeeNote').textContent(),/Crypto: no payment fee and 2.5% off/);
+        assert.doesNotMatch(await page.locator('#currencyFeeNote').textContent(),/USD prices have|conversion fee|include a 2.5% payment fee/);
         assert(await page.locator('#faqList summary').first().evaluate(node=>parseFloat(getComputedStyle(node).fontSize)>=17),'FAQ question legibility');
         if(process.env.FOOTER_SCREENSHOT_DIR){
           await page.locator('#faqList summary').first().click();
@@ -122,7 +125,7 @@ const server = https.createServer({key:fs.readFileSync(process.env.TEST_TLS_KEY)
         const plain=await browser.newPage({javaScriptEnabled:false,viewport:{width,height:960},ignoreHTTPSErrors:true});
         await plain.goto(base+'/acc_details/');assert.equal(await plain.locator('.roshine-footer .rf-group').count(),4);await plain.close();
         assert.deepEqual(errors,[]);
-        console.log(JSON.stringify({engine:engine===chromium?'Chromium':'WebKit',width,pages:6,languages:5,staticFallback:true,languageGlobe:true,pageErrors:errors}));
+        console.log(JSON.stringify({engine:engine===chromium?'Chromium':'WebKit',width,pages:6,languages:6,staticFallback:true,languageGlobe:true,pageErrors:errors}));
       } finally { await browser.close(); }
     }
   } finally {server.close();}

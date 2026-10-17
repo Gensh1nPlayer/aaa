@@ -23,8 +23,8 @@ for (const page of pages) {
     html = html.replace(/\s*<dialog id="skinDialog"/, '\n\n  '+block+'\n\n  <dialog id="skinDialog"');
   }
   if (!html.includes('/assets/site-footer.css?v=1')) html = html.replace('</head>','  <link rel="stylesheet" href="/assets/site-footer.css?v=1">\n</head>');
-  if (!html.includes('/assets/site-chrome.css?v=1')) html = html.replace('</head>','  <link rel="stylesheet" href="/assets/site-chrome.css?v=1">\n</head>');
-  if (!html.includes('/assets/site-footer.js?v=1')) html = html.replace('</body>','  <script src="/assets/site-footer.js?v=1" defer></script>\n</body>');
+  if (!html.includes('/assets/site-chrome.css?')) html = html.replace('</head>','  <link rel="stylesheet" href="/assets/site-chrome.css?v=2">\n</head>');
+  if (!html.includes('/assets/site-footer.js?')) html = html.replace('</body>','  <script src="/assets/site-footer.js?v=2" defer></script>\n</body>');
   if (html.includes('id="languageTrigger"') && !html.includes('class="language-globe"')) html = html.replace(/(<button[^>]+id="languageTrigger"[^>]*>)/,'$1'+globe);
   if (html.includes('id="currencyTrigger"') && !html.includes('class="currency-icon"')) html = html.replace(/(<button[^>]+id="currencyTrigger"[^>]*>)/,'$1'+coin);
   if (page === '404.html') html = html.replace('<body>','<body class="rf-error-page">');

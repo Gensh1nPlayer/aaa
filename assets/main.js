@@ -1098,7 +1098,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     const LANG_KEY = "roshine_lang";
-    const SUPPORTED_LANGUAGES = ["en", "fr", "de", "ar", "ja"];
+    const SUPPORTED_LANGUAGES = ["en", "fr", "de", "ar", "ja", "zh"];
     const LINKS = {
       discord: "https://discord.gg/WYqfYXW29U",
       email: "mailto:roshine_store@roshine.love",
@@ -1508,6 +1508,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
 
+    if (window.RoshineZh) i18n.zh = window.RoshineZh.main;
     const accountUiI18n = {
       en: {
         toolsAria:"Account inventory controls",
@@ -1638,6 +1639,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     };
 
+    if (window.RoshineZh) accountUiI18n.zh = window.RoshineZh.inventory;
     function getAccountUiText(lang = document.documentElement.lang) {
       return accountUiI18n[lang] || accountUiI18n.en;
     }
@@ -1915,6 +1917,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (nav.startsWith("de")) return "de";
       if (nav.startsWith("ar")) return "ar";
       if (nav.startsWith("ja")) return "ja";
+      if (nav.startsWith("zh")) return "zh";
       return "en";
     }
 

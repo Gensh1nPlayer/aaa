@@ -107,6 +107,7 @@
     },
   };
 
+  if (window.RoshineZh) copy.zh = window.RoshineZh.redesign;
   const getLanguage = () => {
     const value = document.getElementById('langSelect')?.value || document.documentElement.lang || 'en';
     return copy[value] ? value : 'en';

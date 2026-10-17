@@ -6,16 +6,17 @@ const https = require('node:https');
 const path = require('node:path');
 const {chromium,webkit} = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const root = path.resolve(__dirname,'..');
-const languages = ['en','fr','de','ar','ja'];
+const languages = ['en','fr','de','ar','ja','zh'];
 const modules = [
   {file:'index.html',url:'/',name:'main'},
   {file:'auth/index.html',url:'/auth/',name:'auth'},
   {file:'acc_details/index.html',url:'/acc_details/',name:'details',hash:'#123'},
   {file:'privacy/index.html',url:'/privacy/',name:'privacy'},
-  {file:'terms/index.html',url:'/terms/',name:'terms'}
+  {file:'terms/index.html',url:'/terms/',name:'terms'},
+  {file:'404.html',url:'/404.html',name:'404'}
 ];
 for (const module of modules) assert(fs.readFileSync(path.join(root,module.file),'utf8').includes('id="languagePicker"'));
-for (const file of ['404.html','tools/social-card.html']) assert(!fs.readFileSync(path.join(root,file),'utf8').includes('id="languagePicker"'),file+' has no language selector');
+assert(!fs.readFileSync(path.join(root,'tools/social-card.html'),'utf8').includes('id="languagePicker"'),'share artwork has no language selector');
 const serve = (req,res) => {
   const pathname = new URL(req.url,'http://localhost').pathname;
   if (pathname === '/account_details.json') {
@@ -53,13 +54,14 @@ async function inspectMenu(page,language,moduleName) {
   });
   assert.equal(metrics.selectedCount,1,moduleName+' exactly one active option');
   assert.equal(metrics.selectedLanguage,language,moduleName+' aria-selected');
-  assert.notEqual(metrics.selectedBackground,'none',moduleName+' keeps selected background');
+  assert(await menu.locator('[aria-selected="true"]').evaluate(n=>{const s=getComputedStyle(n);return s.backgroundImage!=='none'||s.backgroundColor!=='rgba(0, 0, 0, 0)';}),moduleName+' keeps selected background');
   for (const option of metrics.options) assert(!/[✓✔√]/.test(option.text+option.before+option.after),moduleName+' removes selected checkmarks');
   assert.equal(metrics.text,'日本語',moduleName+' retains the Japanese label');
   assert.equal(metrics.lines,1,moduleName+' Japanese label fits one line');
   assert(metrics.textLeft >= metrics.contentLeft-1 && metrics.textRight <= metrics.contentRight+1,moduleName+' Japanese label fits its padded content area');
   assert(metrics.menuLeft >= -1 && metrics.menuRight <= metrics.viewport+1,moduleName+' menu stays inside viewport');
-  assert.equal(await trigger.innerText(),language === 'ja' ? '日本語' : language.toUpperCase(),moduleName+' trigger uses the visible language label');
+  assert.equal(await trigger.locator('span').first().textContent(),language === 'ja' ? '日本語' : language === 'zh' ? '简体中文' : language.toUpperCase(),moduleName+' accessible trigger label');
+  assert.deepEqual(await menu.locator('[data-language-value]').evaluateAll(nodes=>nodes.map(n=>n.dataset.languageValue)),languages,'Chinese follows Japanese');
 }
 
 (async () => {

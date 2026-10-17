@@ -9,6 +9,7 @@
     ar: {footerLabel:'معلومات المتجر',navigation:'روابط تذييل الصفحة',contactLinks:'روابط التواصل',description:'حسابات Overwatch. تفاصيل واضحة، وتسليم بإرشاد، ودعم يستمر بعد الشراء.',since:'في خدمتكم منذ 2021',explore:'استكشف',home:'الرئيسية',stock:'الحسابات المتاحة',details:'تفاصيل الحساب',services:'الخدمات',support:'الدعم',warranty:'الضمان والأمان',faq:'الأسئلة الشائعة',auth:'أداة المصادقة',connect:'تواصل معنا',email:'راسلنا بالبريد',contact:'التواصل',legal:'معلومات قانونية',privacy:'سياسة الخصوصية',terms:'شروط الخدمة',rights:'جميع الحقوق محفوظة.'},
     ja: {footerLabel:'ストア情報',navigation:'フッターナビゲーション',contactLinks:'連絡先リンク',description:'Overwatchアカウント。明確な情報、丁寧な引き渡し、購入後も続くサポート。',since:'2021年から販売',explore:'ストア',home:'ホーム',stock:'アカウント在庫',details:'アカウント詳細',services:'サービス',support:'サポート',warranty:'保証と安全性',faq:'よくある質問',auth:'認証ツール',connect:'お問い合わせ',email:'メール',contact:'連絡先',legal:'ポリシー',privacy:'プライバシー',terms:'利用規約',rights:'All rights reserved.'}
   };
+  if (window.RoshineZh) copy.zh = window.RoshineZh.footer;
   function sync() {
     const lang = document.documentElement.lang.split('-')[0];
     const text = copy[lang] || copy.en;

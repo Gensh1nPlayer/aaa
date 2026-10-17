@@ -30,7 +30,15 @@ The active stock file is `accounts.json`; account IDs and original USD values ar
 The FX service supplies latest published daily observations, not tick-by-tick trading quotes. Quotes are fetched on demand,
 shown with their publication date, expire from the browser cache after one hour, and fall back to explicitly labeled USD on failure.
 Currency selection priority is saved manual choice, supported browser region, IP currency suggestion, then EUR.
-Non-USD prices include a 2.5% conversion fee (original USD × rate × 1.025), disclosed next to inventory results. USD and failed-rate fallback have no fee. Selection changes always start from the original USD value, never the previous converted display.
+Non-USD prices include a 2.5% payment fee (original USD × rate × 1.025), disclosed next to inventory results. USD and failed-rate fallback have no automatic fee. Crypto quotes have no payment fee and receive 2.5% off the base account price; they are confirmed manually on Discord, not applied to every visitor's default inventory display. Selection changes always start from the original USD value, never the previous converted display.
+
+Shared themes and Simplified Chinese:
+
+- `node tests/site-theme-browser.cjs`: six public pages in Chromium and WebKit; five viewport widths, dark default even on light OS, keyboard toggles, saved and cross-tab preference, unavailable storage, Chinese layouts, all detail tabs, shared glass header and 19 light text palettes at minimum 4.5:1 contrast against the card surface. Set the same TLS and browser environment variables as the other HTTPS checks. `THEME_SCREENSHOT_DIR` optionally saves visual checks.
+- `node tests/chinese-copy.cjs`: Chinese dictionary completeness and interpolation placeholders, full policy copy, details labels and all six static menus. Account facts, hero and skin names are not translated or rewritten.
+- `node tests/language-browser.cjs`: six languages on six pages, Japanese and Chinese menu order, keyboard/selection semantics, desktop Chromium and mobile WebKit with older API limits.
+- `node tools/sync-site-theme.cjs --check` and `node tools/sync-site-language.cjs --check`: static shared includes and controls; omit `--check` to synchronize. Theme preference key is `roshine.theme`, language remains `roshine_lang`.
+- Source of light-mode tokens and contrast overrides: `assets/site-theme.css`; all pages load the preference initializer in the head to avoid a wrong-theme first paint. This layer does not invert game artwork. The production inventory stays in `accounts.json`.
 Public inventory update times require the GitHub commit's immutable file content to match the loaded inventory exactly;
 GitHub Pages deployment headers and page visit time are not treated as inventory edit times. Unknown remains unknown.
 

@@ -44,6 +44,7 @@
       http: 'ローカルの accounts.json レスポンスの Last-Modified です。サーバーのファイル情報であり、在庫編集日時は検証されていません。',
       unavailable: '読み込んだ在庫の変更日時を検証できませんでした。デプロイ日時や閲覧日時は使用しません。' }
   };
+  copy.zh = {inventory:'最近库存更新',file:'文件最后修改',unknown:'未知',github:'与当前库存内容完全一致的 accounts.json 的 Git 提交时间，不是网站部署或访问时间。',http:'本地 accounts.json 响应的 Last-Modified 文件元数据，未经远程库存修改记录核实。',unavailable:'无法核实当前库存文件的修改时间，不使用部署时间或访问时间代替。'};
   let generation = 0;
   const unknown = reason => Object.freeze({ status: 'unknown', source: null, timestamp: null, reason });
   let state = unknown('not-loaded');

@@ -1,6 +1,6 @@
 (() => {
   'use strict';
-  const languages = ['en', 'fr', 'de', 'ar', 'ja'];
+  const languages = ['en', 'fr', 'de', 'ar', 'ja', 'zh'];
   const entries = {
     'Skin images reference':['Les images proviennent de','Skin-Bilder stammen aus','صور المظاهر مأخوذة من','スキン画像の参照元：'],
     ', with additional entries from the':[', avec des ajouts du',', mit zusätzlichen Einträgen aus', '، مع عناصر إضافية من','、追加項目の参照元：'],
@@ -137,6 +137,12 @@
     '{count} hrs':['{count} h','{count} Std.','{count} ساعة','{count} 時間'],
     '{count} wins':['{count} victoires','{count} Siege','{count} فوز','{count} 勝'],
   };
+  if (window.RoshineZh) {
+    Object.entries(window.RoshineZh.details).forEach(([message,translated]) => {
+      if (!entries[message]) entries[message] = [];
+      entries[message][4] = translated;
+    });
+  }
   const originalTexts = [];
   const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
   let node;

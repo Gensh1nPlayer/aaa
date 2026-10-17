@@ -1,13 +1,15 @@
 /* Shared navigation: quiet outer bar, centred capsule, icon-only preferences. */
-body .header, body .header.rd-scrolled { top: 14px; width: min(1280px, calc(100% - 40px)); min-height: 68px; display: grid; grid-template-columns: minmax(160px,1fr) auto minmax(160px,1fr); gap: 20px; align-items: center; padding: 10px 14px; border: 1px solid transparent; border-radius: 20px; background: rgba(7,7,17,.88); box-shadow: none; backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
+body .header, body .header.rd-scrolled { top: 16px; width: min(1340px, calc(100% - 40px)); max-width: 1340px; min-height: 76px; display: grid; grid-template-columns: minmax(160px,1fr) auto minmax(160px,1fr); gap: 16px; align-items: center; padding: 12px 18px; border: 1px solid rgba(196,173,238,.21); border-radius: 24px; background: linear-gradient(115deg, rgba(18,15,34,.57), rgba(10,12,26,.43)); box-shadow: 0 12px 36px rgba(0,0,0,.16), inset 0 1px rgba(255,255,255,.07); backdrop-filter: blur(24px) saturate(135%); -webkit-backdrop-filter: blur(24px) saturate(135%); }
 body .header::after { display: none; }
+body.policy-page .header, body.policy-page .header.rd-scrolled { max-width: 1340px; }
+body .mobile-nav { top: 104px; width: min(520px,calc(100% - 20px)); }
 body .header .brand { min-width: 0; }
 body .header .brand img.brand-lockup { display: block; width: 176px; height: auto; padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none; filter: none; animation: none; transform: none; }
 body .header .brand img.brand-compact { display: none; width: 36px; height: 36px; padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none; filter: none; animation: none; transform: none; }
 body .panel-title img.panel-title-logo { width: 46px; height: 46px; padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none; }
 body.rf-error-page > main.card .brand img { width: 184px; height: auto; padding: 0; border: 0; border-radius: 0; background: none; }
 body .header .nav { display: flex; gap: 2px; align-items: center; justify-content: center; padding: 5px; border: 1px solid #c5b5e82b; border-radius: 999px; background: #ffffff09; }
-body .header .nav a { padding: 9px 12px; border-radius: 999px; color: #c1baca; font: 500 12px/1.3 Kanit, "Segoe UI", sans-serif; letter-spacing: .015em; text-transform: none; white-space: nowrap; }
+body .header .nav a { padding: 10px 12px; border-radius: 999px; color: #d5cde0; font: 500 13px/1.3 Kanit, "Segoe UI", sans-serif; letter-spacing: .015em; text-transform: none; white-space: nowrap; }
 body .header .nav a:hover, body .header .nav a:focus-visible { color: #fff; background: #b388f51a; }
 body .header-actions { justify-self: end; display: flex; align-items: center; gap: 9px; margin: 0; }
 body .header #authBtn { min-height: 42px; padding: 8px 12px; border: 1px solid #a889d32b; border-radius: 999px !important; background: #ffffff05; font-size: 11px !important; }
@@ -18,6 +20,9 @@ body .header #languageTrigger:hover, body .header #currencyTrigger:hover, body .
 body .header .language-globe, body .header .currency-icon { width: 20px; height: 20px; flex-shrink: 0; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 body .header .language-menu, body .header .currency-menu { inset-inline-start: auto; inset-inline-end: 0; width: max-content; min-width: 110px; max-width: min(240px,calc(100vw - 24px)); padding: 7px; border-color: #a889d347; border-radius: 15px; background: #100c1e; }
 body .header .language-option, body .header .currency-option { min-height: 40px; padding-inline: 15px; font-size: 13px; white-space: nowrap; }
+/* Policy table-of-contents must not force the single-column tablet grid wider. */
+.policy-layout > * { min-width: 0; max-width: 100%; }
+.policy-toc nav { max-width: 100%; overflow-x: auto; }
 .currency-fee-note { margin: 0 0 20px; color: #bfb2d3; font: 400 13px/1.6 Kanit, "Segoe UI", sans-serif; }
 .currency-fee-note[hidden] { display: none; }
 body #accounts > .section-header { margin-bottom: 28px; }
@@ -29,12 +34,13 @@ body .faq-list summary { min-height: 68px; padding: 22px 24px; color: #e5deee; f
 body .faq-list .faq-answer { margin: 0; padding: 0 24px 24px; color: #b8b0c5; font-size: 15px; line-height: 1.85; }
 body .faq-list details[open] summary { color: #d9baff; }
 body .faq-list summary:focus-visible { outline: 2px solid #b694fa; outline-offset: -3px; border-radius: 16px; }
-@media (max-width: 1140px) {
+@media (max-width: 1240px) {
   body .header, body .header.rd-scrolled { grid-template-columns: auto minmax(0,1fr) auto; gap: 10px; }
   body .header .nav { display: none; }
   body .header .mobile-menu-toggle { display: inline-flex; align-items: center; justify-content: center; justify-self: start; width: 42px; height: 42px; border-radius: 50%; }
 }
 @media (max-width: 560px) {
+  body .mobile-nav { top: 82px; }
   body .header, body .header.rd-scrolled { top: 10px; width: calc(100% - 20px); gap: 8px; padding: 8px; min-height: 60px; }
   body .header .brand .name { font-size: .76rem; letter-spacing: .12em; }
   body .header #authBtn { display: none; }

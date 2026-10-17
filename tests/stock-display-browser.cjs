@@ -47,7 +47,7 @@ const server = http.createServer((req,res)=>{
       assert.equal(await page.locator('[data-account-keyword="Fresh Rank Ready"]').count(),0);
       assert.equal(await page.locator('#accountsLastUpdatedValue').getAttribute('datetime'),'2020-01-01T12:34:56Z');
       assert.match(await page.locator('#accountsLastUpdatedValue').textContent(),/UTC/);
-      assert.deepEqual(await page.locator('.header-actions').evaluate(node=>[...node.children].map(child=>child.id)),['authBtn','languagePicker','currencyPicker']);
+      assert.deepEqual(await page.locator('.header-actions').evaluate(node=>[...node.children].map(child=>child.id)),['themeToggle','authBtn','currencyPicker','languagePicker']);
       await page.locator('#currencyTrigger').click();
       assert.equal(await page.locator('[data-currency-value]').count(),9);
       await page.locator('[data-currency-value="EUR"]').click();
