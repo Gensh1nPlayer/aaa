@@ -2,71 +2,66 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Roshine social preview artwork</title>
+<meta name="robots" content="noindex">
+<title>Roshine — personal service, lifetime security warranty</title>
 <style>
-* { box-sizing:border-box; }
-html,body { width:1200px; height:630px; margin:0; overflow:hidden; }
-body { background:#080813; color:#ede9f8; font-family:Bahnschrift,"Arial Narrow",Arial,sans-serif; }
-.art { position:relative; width:1200px; height:630px; overflow:hidden; }
-.edge { position:absolute; top:0; left:0; right:0; height:5px; background:#9b79db; }
-.header { position:absolute; left:55px; top:41px; display:flex; align-items:center; gap:15px; z-index:4; }
-.logo { width:228px; height:auto; object-fit:contain; }
-.wordmark { font-size:29px; letter-spacing:1.6px; font-weight:800; }
-.header small { border-left:1px solid #9b79db45; padding-left:19px; margin-left:7px; color:#b6a9c8; font-size:12px; line-height:1.55; font-weight:650; letter-spacing:1.8px; }
-.copy { position:absolute; top:138px; left:58px; z-index:4; }
-.versions { display:flex; align-items:center; gap:9px; margin-bottom:22px; }
-.version { padding:7px 12px 5px; border:1px solid #9b79db66; background:#9b79db12; font-size:15px; font-weight:700; letter-spacing:1.5px; }
-.versions .note { color:#b6a9c8; font-size:12px; letter-spacing:1.4px; margin-left:10px; }
-h1 { margin:0; font-size:82px; font-weight:900; font-stretch:condensed; letter-spacing:-1.8px; line-height:1.03; }
-h1 span { display:block; }
-h1 .second { font-style:italic; }
-.underline { margin-top:24px; width:59px; height:4px; background:#9b79db; }
-.lead { margin:26px 0 9px; color:#ddd3ed; font-size:26px; font-weight:650; }
-.detail { color:#b2a7c2; font-size:18px; margin:0; letter-spacing:.15px; }
-.footer { position:absolute; bottom:46px; left:58px; z-index:4; display:flex; align-items:center; gap:16px; }
-.arrow { display:grid; place-items:center; width:38px; height:38px; background:#9b79db; color:#080813; font-size:29px; line-height:1; transform:skewX(-8deg); }
-.domain { font-size:25px; letter-spacing:.3px; font-weight:700; }
-.stage { position:absolute; top:0; right:0; width:550px; height:630px; clip-path:polygon(18% 0,100% 0,100% 100%,0 100%); background:linear-gradient(160deg,#201633,#151022 62%,#110d1b); }
-.stage::before { content:""; position:absolute; inset:0; opacity:.12; background:repeating-linear-gradient(110deg,transparent 0 72px,rgba(155,121,219,.55) 73px 74px,transparent 75px 144px); }
-.stage::after { content:""; position:absolute; top:0; bottom:0; left:80px; width:2px; background:#9b79db66; transform:skewX(-10deg); }
-.arc { position:absolute; width:458px; height:458px; right:-41px; top:73px; border:1px solid #9b79db33; border-radius:50%; box-shadow:0 0 0 31px #9b79db08,0 0 0 32px #9b79db22; }
-.arc::after { content:""; position:absolute; inset:28px; border:13px solid #9b79db14; border-top-color:#9b79db55; border-right-color:transparent; border-radius:50%; transform:rotate(-24deg); }
-.stage-label { position:absolute; top:50px; right:49px; color:#b6a9c8; font-size:12px; font-weight:700; letter-spacing:2.7px; }
-.roster { position:absolute; width:515px; height:430px; top:137px; right:0; z-index:3; }
-.hero { position:absolute; overflow:hidden; transform:skewX(-7deg); border:3px solid rgba(255,255,255,.86); box-shadow:10px 15px 25px rgba(32,56,81,.12); }
-.hero img { position:absolute; object-fit:cover; transform:skewX(7deg); }
-.hero .name { position:absolute; bottom:0; left:0; width:100%; background:#21182f; color:white; text-align:center; font-size:17px; font-weight:800; letter-spacing:2px; padding:13px 0 11px; }
-.genji { left:9px; top:91px; width:174px; height:267px; background:linear-gradient(135deg,#c4d1ba,#899f97); }
-.genji img { width:228px; height:228px; left:-34px; top:7px; }
-.mercy { right:-9px; top:59px; width:168px; height:287px; background:linear-gradient(135deg,#ecdabc,#b9a684); }
-.mercy img { width:248px; height:248px; left:-34px; top:-1px; }
-.kiriko { left:165px; top:4px; width:213px; height:367px; background:linear-gradient(155deg,#edf2f6,#b4c4d5); border-color:#eee9f8; box-shadow:0 0 0 4px #9b79db,16px 26px 32px rgba(0,0,0,.19); z-index:4; }
-.kiriko img { width:324px; height:324px; left:-49px; top:1px; }
-.kiriko .name { background:#9b79db; color:#080813; font-size:22px; letter-spacing:2.8px; padding:15px 0 13px; }
-.corner { position:absolute; right:51px; bottom:45px; color:#b6a9c8; text-align:right; font-size:12px; font-weight:650; line-height:1.8; letter-spacing:2px; z-index:4; }
-.corner strong { display:block; color:#ddd3ed; font-size:15px; letter-spacing:3px; }
-.cross { position:absolute; right:43px; top:110px; color:#fff; font-size:28px; font-weight:300; }
+* { box-sizing: border-box; }
+html, body { width: 1200px; height: 630px; margin: 0; overflow: hidden; }
+body { background: #080813; color: #ede9f8; font-family: "Segoe UI", Arial, sans-serif; }
+.art { position: relative; isolation: isolate; width: 1200px; height: 630px; overflow: hidden; }
+.edge { position: absolute; inset: 0 0 auto; height: 4px; background: #9b79db; }
+.watermark { position: absolute; z-index: -1; width: 470px; height: 470px; right: -60px; top: 80px; opacity: .045; }
+.header { position: absolute; top: 43px; left: 58px; right: 58px; height: 48px; display: flex; align-items: center; justify-content: space-between; }
+.logo { width: 232px; height: auto; display: block; }
+.category { color: #b3a9c5; font-size: 15px; font-weight: 600; letter-spacing: 2.6px; }
+.category span { color: #e2d7f3; margin-left: 18px; letter-spacing: 1.2px; }
+.headline { position: absolute; left: 58px; top: 139px; width: 670px; }
+.eyebrow { margin: 0 0 17px; color: #c1a3ee; font-size: 15px; font-weight: 600; letter-spacing: 3px; }
+h1 { margin: 0; color: #eee9f9; font-size: 84px; font-weight: 800; line-height: 1.02; letter-spacing: -2.8px; }
+h1 span { display: block; }
+h1 .accent { color: #b89be8; }
+.scope { margin: 19px 0 0; color: #b9b0c7; font-size: 19px; line-height: 1.4; }
+.scope strong { font-weight: 500; color: #ded5ea; }
+.support { position: absolute; left: 773px; top: 147px; width: 369px; height: 242px; border-left: 1px solid #9b79db40; padding-left: 31px; }
+.support-top { display: flex; align-items: center; gap: 12px; margin-bottom: 17px; }
+.support-top svg { width: 25px; height: 25px; color: #c1a3ee; fill: none; stroke: currentColor; stroke-width: 1.65; stroke-linecap: round; stroke-linejoin: round; }
+.support-top span { color: #d9ccea; font-size: 15px; font-weight: 600; letter-spacing: 2px; }
+.one-to-one { color: #f0ebf9; font-size: 64px; font-weight: 700; letter-spacing: -2px; line-height: 1.05; margin: 0 0 19px; }
+.support-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+.support-list li { display: flex; align-items: center; gap: 11px; color: #c9bfd7; font-size: 20px; line-height: 1.35; }
+.support-list li::before { content: ""; width: 5px; height: 5px; flex-shrink: 0; border-radius: 50%; background: #9b79db; }
+.features { position: absolute; left: 58px; right: 58px; top: 442px; display: grid; grid-template-columns: 1fr 1fr; gap: 44px; }
+.feature { display: flex; align-items: flex-start; gap: 15px; }
+.feature-icon { display: grid; place-items: center; width: 44px; height: 44px; flex-shrink: 0; border: 1px solid #9b79db45; border-radius: 12px; color: #b89be8; }
+.feature-icon svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.feature h2 { margin: -2px 0 6px; color: #e5ddef; font-size: 23px; font-weight: 600; line-height: 1.25; letter-spacing: -.3px; }
+.feature p { margin: 0; color: #b2a7c1; font-size: 17px; line-height: 1.4; }
+.footer { position: absolute; left: 58px; right: 58px; bottom: 27px; padding-top: 20px; border-top: 1px solid #a186c429; display: flex; align-items: center; justify-content: space-between; }
+.domain { color: #e9e1f3; font-size: 22px; font-weight: 600; letter-spacing: .3px; }
+.footer-note { color: #a89bb9; font-size: 14px; letter-spacing: .15px; }
+.footer-note span { margin: 0 12px; color: #635276; }
 </style>
 </head>
 <body>
-<main class="art">
-  <div class="edge"></div>
-  <header class="header"><img class="logo" src="../assets/roshine-wordmark.svg" alt="Roshine"><small>ACCOUNT STORE<br>EST. 2021</small></header>
-  <div class="copy">
-    <div class="versions"><span class="version">OW1</span><span class="version">OW2</span><span class="note">LIVE ACCOUNT STOCK</span></div>
-    <h1><span>OVERWATCH</span><span class="second">ACCOUNTS.</span></h1>
-    <div class="underline"></div>
-    <p class="lead">Rare skins. Ranked ready.</p>
-    <p class="detail">Collector stock &amp; direct Discord support.</p>
-  </div>
-  <div class="stage"><div class="arc"></div><span class="stage-label">CHOOSE YOUR NEXT ACCOUNT</span><span class="cross">+</span></div>
-  <div class="roster">
-    <div class="hero genji"><img src="../assets/social/genji.png" alt=""><span class="name">GENJI</span></div>
-    <div class="hero mercy"><img src="../assets/social/mercy.png" alt=""><span class="name">MERCY</span></div>
-    <div class="hero kiriko"><img src="../assets/social/kiriko.png" alt=""><span class="name">KIRIKO</span></div>
-  </div>
-  <div class="footer"><span class="arrow">↗</span><span class="domain">roshine.love</span></div>
-  <div class="corner"><strong>SKINS · RANKS · COLLECTIONS</strong>VIEW STOCK · COMPARE SCREENSHOTS</div>
+<main class="art" aria-label="Roshine Overwatch account store: lifetime security warranty, live one-to-one support, full account details and security-first handover">
+  <div class="edge" aria-hidden="true"></div>
+  <img class="watermark" src="../assets/logo.svg" alt="" aria-hidden="true">
+  <header class="header"><img class="logo" src="../assets/roshine-wordmark.svg" alt="Roshine"><div class="category">OVERWATCH ACCOUNTS<span>OW1 / OW2</span></div></header>
+  <section class="headline">
+    <p class="eyebrow">PERSONAL SERVICE. LONG-TERM SUPPORT.</p>
+    <h1><span>LIFETIME</span><span class="accent">WARRANTY.</span></h1>
+    <p class="scope"><strong>Lifetime security warranty.</strong> Terms apply.</p>
+  </section>
+  <section class="support" aria-label="Live one-to-one support">
+    <div class="support-top"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-8 8H5l-4 3V11.5a9.5 9.5 0 0 1 19 0Z"/><path d="M6 10h8M6 14h5"/></svg><span>LIVE SUPPORT</span></div>
+    <p class="one-to-one">1-to-1</p>
+    <ul class="support-list"><li>Guided buying</li><li>Questions answered</li><li>After-sales support</li></ul>
+  </section>
+  <section class="features" aria-label="Account handover">
+    <div class="feature"><span class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h4m2 3 2 2 4-4"/></svg></span><div><h2>Full account details</h2><p>Complete handover package</p></div></div>
+    <div class="feature"><span class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5Z"/><path d="m8 12 3 3 5-6"/></svg></span><div><h2>Security-first handover</h2><p>Clear steps. Personal assistance.</p></div></div>
+  </section>
+  <footer class="footer"><span class="domain">roshine.love</span><span class="footer-note">Selling since 2021<span>·</span>Warranty scope: roshine.love/terms</span></footer>
 </main>
 </body>
 </html>

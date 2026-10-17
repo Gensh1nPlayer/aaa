@@ -20,10 +20,11 @@ for(const file of pages){
   const html=read(file).toString();
   assert(html.includes('/assets/roshine-wordmark.svg'),file+' branded wordmark');
   assert(html.includes('/assets/favicon.svg?v=1')&&html.includes('/assets/apple-touch-icon.png?v=1'),file+' browser/touch icons');
-  assert(html.includes('og-social-v3.jpg')&&!html.includes('og-social-v2.jpg'),file+' fresh social-preview URL');
+  assert(html.includes('og-social-v4.jpg')&&!/og-social-v[23]\.jpg/.test(html),file+' fresh social-preview URL');
   assert(!/src="[^"<>]*logo\.png"/.test(html),file+' no old raster logo references');
 }
-for(const file of ['assets/og-social-v2.jpg','assets/og-social.jpg','assets/og.jpg'])assert(read(file).equals(read('assets/og-social-v3.jpg')),'legacy preview alias refreshed');
+for(const file of ['assets/og-social-v3.jpg','assets/og-social-v2.jpg','assets/og-social.jpg','assets/og.jpg'])assert(read(file).equals(read('assets/og-social-v4.jpg')),'legacy preview alias refreshed');
+for(const copy of ['LIFETIME','WARRANTY.','1-to-1','Guided buying','Questions answered','After-sales support','Full account details','Security-first handover','Terms apply.'])assert(read('tools/social-card.html').toString().includes(copy),'approved service preview copy: '+copy);
 const manifest=JSON.parse(read('site.webmanifest'));assert.equal(manifest.icons.length,2);
 for(const icon of manifest.icons)assert(fs.existsSync(path.join(root,icon.src)),icon.src);
 console.log(JSON.stringify({publicPages:6,vectorAssets:4,pngSizes:[16,32,180,192,512],ico:true,legacyLogoAndPreviewAliases:true,inventoryUntouched:true}));
