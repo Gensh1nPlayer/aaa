@@ -48,6 +48,7 @@ Account details integration:
 - node tests/details-contract.cjs
 - node tests/image-sources.cjs (GitHub-first artwork, Fandom fallback, unchanged IDs)
 - node tests/esports-catalog.cjs (OWL OW1/OW2 and OWCS Home/Away identity, existing IDs, verified Shop/Stadium metadata)
+- node tests/catalog-format.cjs (compact catalog.js expands to the committed records; rewrites are stable and lossless)
 - node tests/hero-gallery-import.cjs
 - node tests/details-browser.cjs (same Playwright / Chrome variables; no TLS required)
 - node tests/details-images-browser.cjs (original artwork and source failure fallback; no TLS required)
@@ -57,6 +58,9 @@ Account details integration:
 from the Wiki league pages and all 54 Foxy hero pages, preserving existing IDs and primary images.
 `--esports-only` refreshes league additions without re-fetching hero order metadata.
 This command never edits inventory or snapshots. It requires network access and may be rate-limited.
+
+`acc_details/catalog.js` is stored in a compact form and expands to the full records when loaded. Edit it only through
+`tools/catalog-format.cjs` (`read` / `write`, used by the refresh tools); `node tools/catalog-format.cjs` re-compacts it in place.
 Stock name-color groups remain the first sorting key; verified esports, Shop/Stadium sources
 precede ordinary skins within each group, followed by the selected comparator and reference order.
 Rarity labels use Wiki colors independently of the unchanged shared Stock name effects.

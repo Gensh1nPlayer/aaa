@@ -30,10 +30,7 @@ function prioritize(items,paths) {
 }
 async function main() {
  const root=path.resolve(__dirname,'..'),file=path.join(root,'acc_details/catalog.js');
- const original=await fs.readFile(file,'utf8'),start=original.indexOf('[',original.indexOf('window.HERO_GALLERY_CATALOG'));
- const end=original.lastIndexOf(']');
- if(start<0||original.slice(end+1).trim()!==';')throw new Error('Unexpected catalog format; no files changed.');
- const items=JSON.parse(original.slice(start,end+1));
+ const catalogFormat=require('./catalog-format.cjs'),items=catalogFormat.read(file);
  const response=await fetch('https://api.github.com/repos/ValentinZeller/overwatch_skins/git/trees/main?recursive=1',{headers:{'User-Agent':'Roshine-catalog-source-update',Accept:'application/vnd.github+json'},signal:AbortSignal.timeout(30000)});
  if(!response.ok)throw new Error('GitHub source lookup failed: '+response.status);
  const tree=await response.json();
@@ -41,7 +38,7 @@ async function main() {
  const result=prioritize(items,tree.tree.filter(entry=>entry.type==='blob').map(entry=>entry.path));
  if(JSON.stringify(items.map(item=>item.id))!==JSON.stringify(result.catalog.map(item=>item.id)))throw new Error('IDs changed; refusing to save.');
  // Generated catalog: only image URLs/provenance change; ownership and stable IDs do not.
- await fs.writeFile(file,original.slice(0,start)+JSON.stringify(result.catalog)+original.slice(end+1));
+ catalogFormat.write(file,result.catalog);
  console.log(JSON.stringify({total:items.length,primary:result.primary,fallbackOnly:result.fallbackOnly,idsUnchanged:true}));
 }
 module.exports={prioritize};

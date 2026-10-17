@@ -56,8 +56,7 @@ async function main(){
  }catch(error){console.log('Primary tree unavailable; retaining verified Wiki page URLs: '+error.message);}
  items.push(...newItems);if(new Set(items.map(x=>x.id)).size!==items.length)throw Error('Duplicate IDs');
  if(oldIds.some((id,i)=>items[i].id!==id))throw Error('Existing IDs changed');
- const start=original.indexOf('[',original.indexOf('window.HERO_GALLERY_CATALOG')),end=original.lastIndexOf(']');if(start<0||original.slice(end+1).trim()!==';')throw Error('Unexpected catalog format');
- fs.writeFileSync(file,original.slice(0,start)+JSON.stringify(items)+original.slice(end+1));
+ require('./catalog-format.cjs').write(file,items);
  execFileSync(process.execPath,[path.join(__dirname,'build-skin-rarities.cjs')],{stdio:'inherit'});
  console.log(JSON.stringify({original:oldIds.length,added:newItems.length,total:items.length,githubMatches,tagged,referenceHeroes:reviewed,existingIdsUnchanged:true}));
 }
