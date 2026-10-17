@@ -10,8 +10,8 @@
       --ac-font-label: 0.625rem;
       --ac-font-meta: 0.72rem;
       --ac-font-body: 0.82rem;
-      --ac-font-title: clamp(1rem, 1.15vw, 1.06rem);
-      --ac-font-price: 1.45rem;
+      --ac-font-title: clamp(1.12rem, 1.3vw, 1.2rem);
+      --ac-font-price: 1.28rem;
       --ac-weight-label: 800;
       --ac-weight-strong: 900;
     }
@@ -925,7 +925,7 @@
       .ac-level-title { font-size: var(--ac-font-title); }
       .ac-status { min-height: 29px; padding: 6px 8px; font-size: var(--ac-font-label); }
       .ac-premium-badge { font-size: 0.68rem; }
-      .ac-price { font-size: 1.36rem; }
+      .ac-price { font-size: 1.22rem; }
       .ac-account-id { font-size: var(--ac-font-label); }
       .ac-highlights { font-size: var(--ac-font-body); }
       .faq-list details { padding: 15px 16px; }
