@@ -17,6 +17,11 @@ Stock/detail display updates:
 - `node tests/details-manual-snapshot.cjs`: manual editor save/reload and actual offline collector re-export; set `MANAGER_PACKAGE` and `COLLECTOR_PACKAGE` to the local packages. Uses temporary fixtures only.
 - `node tests/currency-contract.cjs`: all nine currencies, preference priority, rate validation, races, timeout, expiry and honest USD fallback.
 - `node tests/currency-browser.cjs`: currency keyboard interaction, mobile layout, RTL and rate failure/expiry in Chromium and WebKit.
+- `node tools/sync-site-footer.cjs --check`: six public pages match the shared static footer template and load the shared navigation styles; omit `--check` after editing `assets/site-footer.html` to synchronize them.
+- `node tests/brand-assets.cjs`: all six pages use the new vector identity, current sharing artwork, matching legacy aliases, SVG/PNG/ICO/touch icons and manifest. Rebuild icons with `SHARP_MODULE` then `node tools/build-brand-assets.cjs`; run `node tools/sync-brand.cjs --check` to verify static references after synchronization.
+
+Brand source files are `assets/logo.svg` and `assets/roshine-wordmark.svg` (approved path-only vectors, no font dependency). To synchronize a brand edit: rebuild icon sizes, run `tools/sync-site-footer.cjs`, then `tools/sync-brand.cjs`; render `tools/social-card.html` with `tools/render-social-card.cjs`. Legacy PNG and preview URLs deliberately serve the new artwork for backwards compatibility.
+- `node tests/site-footer-browser.cjs`: shared footer, icon navigation, five-language links, FAQ legibility and disclosed non-USD fee in desktop Chromium / mobile WebKit. Set `TEST_TLS_KEY` and `TEST_TLS_CERT` to local test PEM files, plus `PLAYWRIGHT_MODULE` and optional `CHROME_EXECUTABLE`. Uses HTTPS because Authenticator upgrades insecure subresources. `FOOTER_SCREENSHOT_DIR` optionally saves visual checks.
 - `node tests/stock-display-browser.cjs`: integrated price sorting, stable IDs, compound levels, UTC file timestamp, saved currency, conversion, translated price filters and responsive header.
 - `node tests/inventory-updated.cjs`: exact-content GitHub timestamp verification, local Last-Modified, invalid/future timestamps, failure and stale-response protection.
 - `node tests/currency-live.cjs --live`: optional external read-only FX/IP smoke check; not deterministic and may be rate-limited.
@@ -25,6 +30,7 @@ The active stock file is `accounts.json`; account IDs and original USD values ar
 The FX service supplies latest published daily observations, not tick-by-tick trading quotes. Quotes are fetched on demand,
 shown with their publication date, expire from the browser cache after one hour, and fall back to explicitly labeled USD on failure.
 Currency selection priority is saved manual choice, supported browser region, IP currency suggestion, then EUR.
+Non-USD prices include a 2.5% conversion fee (original USD × rate × 1.025), disclosed next to inventory results. USD and failed-rate fallback have no fee. Selection changes always start from the original USD value, never the previous converted display.
 Public inventory update times require the GitHub commit's immutable file content to match the loaded inventory exactly;
 GitHub Pages deployment headers and page visit time are not treated as inventory edit times. Unknown remains unknown.
 

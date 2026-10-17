@@ -50,7 +50,7 @@ async function run(){
         assert.equal(requests.some(url=>url.includes('ipapi')),false);
         // Repeated initialization must not duplicate listeners or menu options.
         fail=false;await page.evaluate(()=>Promise.all([RoshineCurrency.init(),RoshineCurrency.init()]));
-        await page.waitForFunction(()=>RoshineCurrency.code==='GBP');assert.equal(await page.locator('#price').innerText(),'£8.0');
+        await page.waitForFunction(()=>RoshineCurrency.code==='GBP');assert.equal(await page.locator('#price').innerText(),'£8.2');
         const trigger=page.locator('#currencyTrigger'), menu=page.locator('#currencyMenu');
         await trigger.focus();await page.keyboard.press('ArrowDown');assert(await menu.isVisible());
         assert.equal(await menu.locator('[role=option]').count(),9);
@@ -58,7 +58,7 @@ async function run(){
         await page.keyboard.press('End');assert.equal(await page.evaluate(()=>document.activeElement.dataset.currencyValue),'CNY');
         await page.keyboard.press('ArrowDown');assert.equal(await page.evaluate(()=>document.activeElement.dataset.currencyValue),'USD');
         await page.keyboard.press('j');await page.keyboard.press('Enter');
-        await page.waitForFunction(()=>RoshineCurrency.code==='JPY');assert.equal(await page.locator('#price').innerText(),'¥1,500.0');
+        await page.waitForFunction(()=>RoshineCurrency.code==='JPY');assert.equal(await page.locator('#price').innerText(),'¥1,537.5');
         assert.equal(await trigger.getAttribute('aria-expanded'),'false');assert.equal(await page.evaluate(()=>document.activeElement.id),'currencyTrigger');
         assert.equal(await page.evaluate(()=>localStorage.getItem('roshine.currency')),'JPY');
         await trigger.click();await page.keyboard.press('Escape');assert(!(await menu.isVisible()));
@@ -76,7 +76,7 @@ async function run(){
         await page.clock.fastForward(3600001);await page.waitForFunction(()=>RoshineCurrency.status==='stale');
         assert.equal(await page.locator('#price').innerText(),'$10.0');assert.equal(await page.locator('#currencyTriggerValue').innerText(),'USD');
         assert.match(await page.locator('#currencyStatus').innerText(),/Requested JPY\. Showing USD/);
-        await page.evaluate(()=>RoshineCurrency.select('JPY'));assert.equal(await page.locator('#price').innerText(),'¥1,500.0');
+        await page.evaluate(()=>RoshineCurrency.select('JPY'));assert.equal(await page.locator('#price').innerText(),'¥1,537.5');
         assert.deepEqual(errors,[]);console.log(JSON.stringify({engine:engine.name(),width,autoInit:true,keyboard:true,rtl:true,fallback:true,expiry:true,externalIPRequests:0,pageErrors:errors}));
         await context.close();
       }

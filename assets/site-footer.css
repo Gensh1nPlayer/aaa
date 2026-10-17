@@ -1,0 +1,50 @@
+/* One self-contained footer for every public page; no dependency on page cards. */
+.roshine-footer { position: relative; z-index: 1; width: 100%; margin-top: 72px; padding: 0; border-top: 1px solid #292137; background: #080813; color: #b7b1c4; font: 400 14px/1.65 Kanit, "Segoe UI", system-ui, sans-serif; text-align: start; }
+.roshine-footer, .roshine-footer * { box-sizing: border-box; }
+.roshine-footer::before { content: ""; position: absolute; top: -1px; inset-inline: 0; height: 1px; background: linear-gradient(90deg, transparent, #7955aa55, #38b5d22b, transparent); pointer-events: none; }
+.rf-inner { width: min(1180px, calc(100% - 64px)); margin-inline: auto; }
+.rf-main { display: grid; grid-template-columns: minmax(220px, 1.1fr) minmax(0, 2fr); gap: 64px; padding-block: 64px 52px; }
+.rf-brand { display: inline-flex; align-items: center; gap: 12px; color: #f3f0fa; text-decoration: none; }
+.rf-brand img { display: block; width: 44px; height: 44px; padding: 5px; border: 1px solid #a27ac52b; border-radius: 13px; background: #151024; }
+.rf-brand span { font-size: 17px; font-weight: 800; letter-spacing: .14em; line-height: 1; }
+.rf-brand img.rf-wordmark { width: 196px; max-width: 100%; height: auto; padding: 0; border: 0; border-radius: 0; background: none; }
+.rf-description { max-width: 275px; margin: 19px 0 14px; color: #aaa3b8; font-size: 14px; line-height: 1.8; }
+.rf-since { color: #92879f; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; }
+.rf-links { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; align-items: start; }
+.rf-group h2 { margin: 5px 0 18px; color: #efebf6; font: 600 14px/1.5 Kanit, "Segoe UI", system-ui, sans-serif; letter-spacing: .015em; text-transform: none; }
+.rf-group ul { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; }
+.rf-group li { margin: 0; padding: 0; }
+.rf-group a { display: inline-flex; align-items: baseline; gap: 4px; min-height: 36px; padding-block: 6px; color: #aaa3b8; font-size: 13px; line-height: 1.7; text-decoration: none; overflow-wrap: anywhere; transition: color .18s ease; }
+.rf-group a:hover, .rf-group a[aria-current="page"] { color: #d2b8ff; }
+.rf-external { color: #8c819e; font-size: 11px; }
+.rf-bottom { display: flex; justify-content: space-between; align-items: center; gap: 20px; min-height: 88px; padding-block: 18px; border-top: 1px solid #ffffff0d; }
+.rf-copyright { margin: 0; color: #a39aaf; font-size: 12px; line-height: 1.7; }
+.rf-social { display: flex; align-items: center; gap: 10px; }
+.rf-social a { display: grid; place-items: center; width: 40px; height: 40px; border: 1px solid transparent; border-radius: 10px; color: #aaa3b8; transition: background .18s ease, color .18s ease; }
+.rf-social a:hover { color: #e5d8ff; background: #b186ff12; }
+.rf-social svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.roshine-footer a:focus-visible { outline: 2px solid #b694fa; outline-offset: 4px; border-radius: 4px; }
+.language-trigger .language-globe { display: block; flex-shrink: 0; width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; }
+/* The currency menu also uses language-trigger: only language buttons get a globe. */
+.language-picker .language-trigger { gap: 7px; padding-inline: 12px; }
+body.rf-footer-visible .rd-search-launcher:not(:focus-within) { visibility: hidden; opacity: 0; pointer-events: none; }
+body.rf-error-page { display: block; padding: 0; overflow: auto; }
+body.rf-error-page > main.card { margin: 80px auto; width: min(760px, calc(100% - 32px)); }
+@media (max-width: 980px) {
+  .rf-main { grid-template-columns: minmax(0, 1fr); gap: 35px; padding-block: 46px 35px; }
+  .rf-brand-block { max-width: 520px; }
+  .rf-description { max-width: 400px; margin-block: 14px 9px; }
+  .rf-links { gap: 24px; }
+}
+@media (max-width: 560px) {
+  .roshine-footer { margin-top: 48px; }
+  .rf-inner { width: calc(100% - 40px); }
+  .rf-main { padding-top: 36px; gap: 30px; }
+  .rf-links { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 25px 28px; }
+  .rf-group h2 { margin-bottom: 10px; }
+  .rf-group a { min-height: 40px; font-size: 14px; }
+  .rf-bottom { flex-wrap: wrap; gap: 10px; padding-block: 20px max(24px, env(safe-area-inset-bottom)); }
+  .rf-social { margin-inline-start: auto; }
+  body.rf-error-page > main.card { padding: 32px 24px; margin-block: 32px; }
+}
+@media (prefers-reduced-motion: reduce) { .roshine-footer a { transition: none; } }

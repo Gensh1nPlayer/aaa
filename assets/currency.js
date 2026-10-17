@@ -15,6 +15,7 @@
   'use strict';
   if (window.RoshineCurrency) return;
   const CODES = Object.freeze(['USD', 'EUR', 'GBP', 'CAD', 'AUD', 'AED', 'KRW', 'JPY', 'CNY']);
+  const NON_USD_FEE = 0.025;
   const SYMBOLS = {USD:'$', EUR:'€', GBP:'£', CAD:'CA$', AUD:'A$', AED:'د.إ\u00a0', KRW:'₩', JPY:'¥', CNY:'CN¥'};
   const REGIONS = {US:'USD', GB:'GBP', CA:'CAD', AU:'AUD', AE:'AED', KR:'KRW', JP:'JPY', CN:'CNY'};
   // Euro-area regions only; never infer currency from a bare language (e.g. "en").
@@ -36,7 +37,7 @@
   function actualCode() { return selectedCode === 'USD' || fresh(selectedCode) ? selectedCode : 'USD'; }
   function snapshot() {
     const code = actualCode();
-    return Object.freeze({code, selectedCode, status:status === 'ready' && code !== selectedCode ? 'stale' : status, source,
+    return Object.freeze({code, selectedCode, feeRate:code === 'USD' ? 0 : NON_USD_FEE, status:status === 'ready' && code !== selectedCode ? 'stale' : status, source,
       rateDate:code === 'USD' ? null : rates[code].date,
       fetchedAt:fetched === null ? null : new Date(fetched).toISOString()});
   }
@@ -138,7 +139,8 @@
   }
   function format(usd) {
     if (typeof usd !== 'number' || !Number.isFinite(usd)) throw new TypeError('USD amount must be a finite number');
-    const code = actualCode(), value = usd * (code === 'USD' ? 1 : rates[code].rate);
+    // Integer fee basis avoids turning an exact decimal tie (14.35) into 14.34999… .
+    const code = actualCode(), value = code === 'USD' ? usd : usd * rates[code].rate * (1000 + NON_USD_FEE * 1000) / 1000;
     if (!Number.isFinite(value)) throw new RangeError('Converted amount is out of range');
     return SYMBOLS[code] + number.format(value);
   }
@@ -151,9 +153,16 @@
     picker.dataset.currencyStatus = state.status;
     picker.setAttribute('aria-busy', String(state.status === 'loading'));
     const message = state.code !== 'USD'
-      ? 'Daily FX rates dated ' + state.rateDate + '; fetched ' + state.fetchedAt + '. Prices are estimates.'
+      ? 'Daily FX rates dated ' + state.rateDate + '; fetched ' + state.fetchedAt + '. Prices include a 2.5% currency conversion fee and are estimates.'
       : state.selectedCode !== 'USD' ? 'Requested ' + state.selectedCode + '. Showing USD. ' + (state.status === 'loading' ? 'Exchange rates loading.' : 'Exchange rates unavailable or expired. Select a currency to retry.') : 'Prices in USD.';
     trigger.title = message; notice.textContent = message;
+    const feeNote = document.getElementById('currencyFeeNote');
+    if (feeNote) {
+      const lang = (document.documentElement.lang || 'en').split('-')[0];
+      const feeCopy = {en:'Displayed prices include a 2.5% currency conversion fee. USD prices have no conversion fee.',fr:'Les prix affichés incluent 2,5 % de frais de conversion. Les prix en USD sont sans frais de conversion.',de:'Die angezeigten Preise enthalten 2,5 % Umrechnungsgebühr. Für USD-Preise fällt keine Umrechnungsgebühr an.',ar:'تشمل الأسعار المعروضة رسوم تحويل عملة بنسبة 2.5%. لا تُضاف رسوم تحويل إلى الأسعار بالدولار الأمريكي.',ja:'表示価格には2.5%の通貨換算手数料が含まれます。USD価格には換算手数料はかかりません。'};
+      feeNote.textContent = feeCopy[lang] || feeCopy.en;
+      feeNote.hidden = state.code === 'USD';
+    }
     menu.querySelectorAll('[data-currency-value]').forEach(option => { option.setAttribute('aria-selected', String(option.dataset.currencyValue === state.code)); });
   }
   function bind() {
@@ -212,6 +221,11 @@
     on(document, 'click', event => { if (!picker.contains(event.target)) close(false); });
     on(picker, 'focusout', event => { if (!picker.contains(event.relatedTarget)) close(false); });
     ui = {picker, trigger, menu, value, notice, cleanup:() => listeners.forEach(remove => remove())};
+    if (document.documentElement && typeof MutationObserver === 'function') {
+      const observer = new MutationObserver(() => render(snapshot()));
+      observer.observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
+      listeners.push(() => observer.disconnect());
+    }
     close(false); render(snapshot());
   }
   window.RoshineCurrency = Object.freeze({init, format, select, codes:CODES,

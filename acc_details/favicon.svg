@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="9" fill="#202e46"/>
-  <path d="M0 58h64v6H0z" fill="#e78c20"/>
-  <path d="M18 14h10l-5 14h18l5-14h10L43 50H33l5-14H20l-5 14H5z" fill="#fff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="48 48 416 416" role="img" aria-labelledby="title">
+  <rect x="48" y="48" width="416" height="416" rx="86" fill="#080813"/><title id="title">Roshine R monogram</title>
+  <path fill="#EDE9F8" d="M77 80h228c79 0 126 46 126 115 0 53-26 88-73 105l93 132H346L179 240h117c37 0 55-15 55-42 0-26-18-41-55-41H145c-8 0-14-3-19-9L70 90c-4-5-1-10 7-10Z"/>
+  <path fill="#9B79DB" d="M91 197c0-6 6-9 11-5l158 151h-87l90 77c5 5 2 12-5 12H144c-9 0-15-3-21-9l-24-25c-5-5-8-12-8-20V197Z"/>
 </svg>

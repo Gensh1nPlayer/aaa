@@ -1113,9 +1113,6 @@ document.addEventListener("DOMContentLoaded", () => {
         accountsKicker:"🎮 INVENTORY",
         accountsTitle:"Pick your account",
         accountsDesc:"Search by skin, collection, price, or account type. When one feels right, send its ID on Discord and we’ll confirm it before you pay.",
-        accountsUpdateLabel:"Next planned inventory update:",
-        accountsUpdateValue:"In 7 Days",
-        accountsUpdateTime:{ day:"{count} Day", days:"{count} Days", hour:"{count} Hour", hours:"{count} Hours", underHour:"Under 1 Hour" },
         auth:"Authenticator",
         a11y:{ skip:"Skip to inventory", openNav:"Open navigation", closeNav:"Close navigation", mobileNav:"Mobile navigation" },
         heroKicker:"✦ Roshine · Selling since 2021",
@@ -1152,7 +1149,7 @@ document.addEventListener("DOMContentLoaded", () => {
         faq1:"Where do the accounts come from? — Listings come from real player accounts with normal play history. We do not intentionally list botted, farmed, or mass-produced accounts, and known cheating or abuse history is excluded. Ask us to confirm any detail that matters to you before payment.",
         faq2:"How fast is delivery? — Most orders are ready shortly after payment. Higher-value accounts can take a little longer because we double-check the handover first.",
         faq3:"What can I pay with? — Card payments are available through Stripe or PayPal, with Apple Pay and Google Pay where supported. Binance, Bitcoin, and selected gift cards may also be available; fees and availability are confirmed in the ticket.",
-        faq4:"How often is the stock updated? — Sales status is updated in real time as accounts are sold, while new stock is typically added every 7 days. The countdown above shows the next planned stock update.",
+        faq4:"How often is the stock updated? — Sales status is updated in real time as accounts are sold, while new stock is typically added every 7 days.",
         faq5:{
           question:"How to use the Battle.net Authenticator?",
           intro:"roshine.love/auth is a private tool for Battle.net Authenticator. Paste the Private Key from the delivered account information, then copy the current code into the Battle.net app when verification is requested.",
@@ -1198,9 +1195,6 @@ document.addEventListener("DOMContentLoaded", () => {
         accountsKicker:"🎮 INVENTAIRE",
         accountsTitle:"Comptes",
         accountsDesc:"Parcourez les comptes actuellement disponibles, utilisez les filtres, puis commandez via Discord.",
-        accountsUpdateLabel:"Prochaine mise à jour prévue du stock :",
-        accountsUpdateValue:"Dans 7 jours",
-        accountsUpdateTime:{ day:"{count} jour", days:"{count} jours", hour:"{count} heure", hours:"{count} heures", underHour:"Moins d’une heure" },
         auth:"Authenticator",
         a11y:{ skip:"Aller à l’inventaire", openNav:"Ouvrir la navigation", closeNav:"Fermer la navigation", mobileNav:"Navigation mobile" },
         heroKicker:"⚡ Fiable depuis 2021",
@@ -1243,7 +1237,7 @@ document.addEventListener("DOMContentLoaded", () => {
         faq1:"Les comptes sont-ils sûrs ? — Chaque compte provient d’un vrai joueur et possède un historique de jeu normal ; il ne s’agit pas d’un compte scripté, automatisé, produit en ferme ou en masse. Nous excluons les comptes ayant un historique connu de triche, d’abus ou d’autres infractions. Les informations essentielles de l’annonce peuvent être recoupées avec les données officielles en jeu et Battle.net lors de la vérification.",
         faq2:"Quel est le délai de livraison ? — La plupart des commandes sont prêtes peu après le paiement. Les comptes de valeur élevée peuvent prendre un peu plus de temps pour vérifier les informations avant la remise.",
         faq3:"Quels moyens de paiement sont acceptés ? — Carte bancaire, PayPal, crypto et certaines cartes cadeaux. La disponibilité et les frais sont à confirmer sur Discord.",
-        faq4:"À quelle fréquence le stock est-il mis à jour ? — Le statut des ventes est actualisé en temps réel et de nouveaux comptes sont généralement ajoutés tous les 7 jours. Le compte à rebours ci-dessus indique la prochaine mise à jour prévue.",
+        faq4:"À quelle fréquence le stock est-il mis à jour ? — Le statut des ventes est actualisé en temps réel et de nouveaux comptes sont généralement ajoutés tous les 7 jours.",
         faq5:{
           question:"Comment utiliser Battle.net Authenticator ?",
           intro:"roshine.love/auth est un outil privé pour Battle.net Authenticator. Collez la Private Key fournie avec le compte, puis copiez le code actuel dans l’application Battle.net lorsqu’une vérification est demandée.",
@@ -1289,9 +1283,6 @@ document.addEventListener("DOMContentLoaded", () => {
         accountsKicker:"🎮 INVENTAR",
         accountsTitle:"Accounts",
         accountsDesc:"Durchsuche den verfügbaren Bestand, nutze die Filter und bestelle anschließend über Discord.",
-        accountsUpdateLabel:"Nächste geplante Bestandsaktualisierung:",
-        accountsUpdateValue:"In 7 Tagen",
-        accountsUpdateTime:{ day:"{count} Tag", days:"{count} Tage", hour:"{count} Stunde", hours:"{count} Stunden", underHour:"Unter 1 Stunde" },
         auth:"Authenticator",
         a11y:{ skip:"Zum Inventar springen", openNav:"Navigation öffnen", closeNav:"Navigation schließen", mobileNav:"Mobile Navigation" },
         heroKicker:"⚡ Vertrauenswürdig seit 2021",
@@ -1334,7 +1325,7 @@ document.addEventListener("DOMContentLoaded", () => {
         faq1:"Sind die Accounts sicher? — Jeder Account stammt von einem echten Spieler und hat eine normale Spielhistorie; es handelt sich nicht um Script-, Bot-, Farm- oder Massenware. Accounts mit bekannter Cheat-, Missbrauchs- oder sonstiger Regelverstoß-Historie werden ausgeschlossen. Wichtige Angaben können bei der Prüfung mit offiziellen In-Game- und Battle.net-Daten abgeglichen werden.",
         faq2:"Wie schnell erfolgt die Lieferung? — Die meisten Bestellungen sind kurz nach der Zahlung bereit. Bei höherwertigen Accounts kann die erneute Prüfung vor der Übergabe etwas länger dauern.",
         faq3:"Welche Zahlungsmethoden werden unterstützt? — Karte, PayPal, Krypto und ausgewählte Geschenkkarten. Verfügbarkeit und Gebühren bitte auf Discord bestätigen.",
-        faq4:"Wie oft wird der Bestand aktualisiert? — Der Verkaufsstatus wird in Echtzeit aktualisiert; neue Accounts werden in der Regel alle 7 Tage ergänzt. Der Countdown oben zeigt die nächste geplante Bestandsaktualisierung.",
+        faq4:"Wie oft wird der Bestand aktualisiert? — Der Verkaufsstatus wird in Echtzeit aktualisiert; neue Accounts werden in der Regel alle 7 Tage ergänzt.",
         faq5:{
           question:"Wie wird der Battle.net Authenticator verwendet?",
           intro:"roshine.love/auth ist ein privates Tool für Battle.net Authenticator. Füge den mit dem Account gelieferten Private Key ein und kopiere bei einer Abfrage den aktuellen Code in die Battle.net App.",
@@ -1380,9 +1371,6 @@ document.addEventListener("DOMContentLoaded", () => {
         accountsKicker:"🎮 المخزون",
         accountsTitle:"الحسابات",
         accountsDesc:"تصفّح الحسابات المتاحة حاليًا، واستخدم الفلاتر، ثم اطلب عبر Discord.",
-        accountsUpdateLabel:"موعد تحديث المخزون المخطط التالي:",
-        accountsUpdateValue:"خلال 7 أيام",
-        accountsUpdateTime:{ day:"{count} يوم", days:"{count} أيام", hour:"{count} ساعة", hours:"{count} ساعات", underHour:"أقل من ساعة" },
         auth:"Authenticator",
         a11y:{ skip:"الانتقال إلى المخزون", openNav:"فتح التنقل", closeNav:"إغلاق التنقل", mobileNav:"التنقل عبر الهاتف" },
         heroKicker:"⚡ موثوق منذ 2021",
@@ -1425,7 +1413,7 @@ document.addEventListener("DOMContentLoaded", () => {
         faq1:"هل الحسابات آمنة؟ — كل حساب مصدره لاعب حقيقي وله سجل لعب طبيعي، وليس حساب سكربت أو بوت أو مزرعة أو إنتاج جماعي. نستبعد الحسابات التي لها سجل معروف في الغش أو الإساءة أو مخالفة القواعد. ويمكن مطابقة المعلومات الأساسية في كل عرض مع بيانات اللعبة وBattle.net الرسمية أثناء التحقق.",
         faq2:"ما سرعة التسليم؟ — تكون معظم الطلبات جاهزة بعد الدفع بوقت قصير. قد تستغرق الحسابات الأعلى قيمة وقتاً أطول قليلاً لإعادة التحقق من المعلومات قبل التسليم.",
         faq3:"ما طرق الدفع المدعومة؟ — البطاقات وPayPal والعملات الرقمية وبعض بطاقات الهدايا. يرجى تأكيد التوفر والرسوم عبر Discord.",
-        faq4:"كم مرة يتم تحديث المخزون؟ — يتم تحديث حالة المبيعات فورًا، وتُضاف حسابات جديدة عادةً كل 7 أيام. يعرض العدّ التنازلي أعلاه موعد التحديث المخطط التالي.",
+        faq4:"كم مرة يتم تحديث المخزون؟ — يتم تحديث حالة المبيعات فورًا، وتُضاف حسابات جديدة عادةً كل 7 أيام.",
         faq5:{
           question:"كيف تستخدم Battle.net Authenticator؟",
           intro:"roshine.love/auth أداة خاصة لـ Battle.net Authenticator. ألصق Private Key المرفق بمعلومات الحساب، ثم انسخ الرمز الحالي إلى تطبيق Battle.net عند طلب التحقق.",
@@ -1471,9 +1459,6 @@ document.addEventListener("DOMContentLoaded", () => {
         accountsKicker:"🎮 リアルタイム在庫",
         accountsTitle:"自分に合うアカウントを探す",
         accountsDesc:"検索とフィルターで候補を絞り、気になるアカウントのIDをDiscordで送ってください。お支払い前に在庫と詳細を確認します。",
-        accountsUpdateLabel:"次回の在庫追加予定：",
-        accountsUpdateValue:"7日以内",
-        accountsUpdateTime:{ day:"{count}日", days:"{count}日", hour:"{count}時間", hours:"{count}時間", underHour:"1時間以内" },
         auth:"Authenticator",
         a11y:{ skip:"在庫へ移動", openNav:"メニューを開く", closeNav:"メニューを閉じる", mobileNav:"モバイルメニュー" },
         heroKicker:"✦ Roshine · 2021年から販売",
@@ -1508,7 +1493,7 @@ document.addEventListener("DOMContentLoaded", () => {
         faq1:"アカウントはどこから来ますか？ — 通常のプレイ履歴を持つ実際のプレイヤーアカウントを掲載しています。BOT、ファーム、大量生産アカウントを意図的に掲載せず、既知のチートや不正利用履歴があるものは除外しています。重要な点はお支払い前に確認してください。",
         faq2:"引き渡しはどのくらいかかりますか？ — 多くの注文は入金確認後すみやかに対応します。高額アカウントは引き渡し情報を再確認するため、少し時間がかかる場合があります。",
         faq3:"どの支払い方法が使えますか？ — StripeまたはPayPalによるカード決済、対応環境ではApple PayとGoogle Pay、さらにBinance、Bitcoin、一部ギフトカードを利用できます。手数料と可否はチケットで確認します。",
-        faq4:"在庫はどのくらいの頻度で更新されますか？ — 販売済み・保留中の状態は注文の進行に合わせて更新され、新しいアカウントは通常週単位で追加されます。上のカウントダウンは次回予定を示します。",
+        faq4:"在庫はどのくらいの頻度で更新されますか？ — 販売済み・保留中の状態は注文の進行に合わせて更新され、新しいアカウントは通常週単位で追加されます。",
         faq5:{ question:"Battle.net Authenticatorの使い方は？", intro:"roshine.love/auth はBattle.net Authenticator用のプライベートツールです。引き渡し情報にあるPrivate Keyを貼り付け、認証を求められたときに表示中のコードをBattle.netアプリへ入力します。", linkLabel:"roshine.love/auth", sections:[{ icon:"📌", title:"Authenticatorについて", items:["コードは30秒ごとに更新されます。", "各コードは一度だけ使用できます。", "期限が切れた場合は次のコードを待って再試行してください。"] }] },
         faq6:{ question:"Overwatchアカウントへログインするには？", intro:"引き渡されたBattle.net情報でログインし、アプリが求めた場合のみAuthenticator認証を行います。", sections:[{ icon:"🎮", title:"Overwatchアカウントへのログイン", ordered:true, items:["Battle.netデスクトップアプリを開きます。", "提供されたBattle.net情報でログインします。", "求められた場合は現在のAuthenticatorコードで認証します。"] }] },
         faq7:{ question:"アカウントのメールへアクセスするには？", intro:"引き渡されたメール情報を使います。Authenticatorの有無によって認証方法が異なります。", sections:[{ icon:"✉️", title:"メールへのアクセス", items:["提供されたメール情報でlive.comへログインします。", "Authenticatorがある場合は提供されたQRコードをGoogle Authenticatorで使用し、ない場合はメールとパスワードでログインします。", "ログイン後、自分の復旧用メールを追加することをおすすめします。"] }] },
@@ -1522,63 +1507,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     };
 
-    const INVENTORY_COUNTDOWN_HOUR_MS = 60 * 60 * 1000;
-    let inventoryCountdownTimer = 0;
-
-    function getNextInventoryUpdate(element, now = Date.now()) {
-      const anchor = Date.parse(element?.dataset.updateAt || '');
-      const repeatHours = Number(element?.dataset.repeatHours || 168);
-      const interval = repeatHours * INVENTORY_COUNTDOWN_HOUR_MS;
-      if (!Number.isFinite(anchor) || !Number.isFinite(interval) || interval <= 0) return null;
-      if (anchor > now) return anchor;
-      const completedIntervals = Math.floor((now - anchor) / interval) + 1;
-      return anchor + completedIntervals * interval;
-    }
-
-    function formatCountdownUnit(template, count) {
-      return String(template || '').replace('{count}', String(count));
-    }
-
-    function updateInventoryCountdown(lang = document.documentElement.lang || 'en', now = Date.now()) {
-      const element = document.getElementById('accountsUpdateValue');
-      if (!element) return;
-      const target = getNextInventoryUpdate(element, now);
-      const translations = i18n[lang] || i18n.en;
-      const units = translations.accountsUpdateTime || i18n.en.accountsUpdateTime;
-      if (!target) {
-        element.textContent = translations.accountsUpdateValue || i18n.en.accountsUpdateValue;
-        return;
-      }
-
-      const remaining = Math.max(0, target - now);
-      const totalHours = Math.floor(remaining / INVENTORY_COUNTDOWN_HOUR_MS);
-      if (totalHours < 1) {
-        element.textContent = units.underHour;
-      } else {
-        const days = Math.floor(totalHours / 24);
-        const hours = totalHours % 24;
-        const parts = [];
-        if (days > 0) parts.push(formatCountdownUnit(days === 1 ? units.day : units.days, days));
-        if (hours > 0) parts.push(formatCountdownUnit(hours === 1 ? units.hour : units.hours, hours));
-        element.textContent = parts.join(' ');
-      }
-
-      element.dataset.targetTimestamp = String(target);
-      try {
-      const locale = { en:'en-US', fr:'fr-FR', de:'de-DE', ar:'ar', ja:'ja-JP' }[lang] || lang;
-        element.title = new Intl.DateTimeFormat(locale, {
-          dateStyle: 'medium', timeStyle: 'short', timeZone: 'Asia/Shanghai'
-        }).format(new Date(target));
-      } catch {
-        element.title = new Date(target).toISOString();
-      }
-    }
-
-    function startInventoryCountdown() {
-      window.clearInterval(inventoryCountdownTimer);
-      updateInventoryCountdown();
-      inventoryCountdownTimer = window.setInterval(() => updateInventoryCountdown(), 60 * 1000);
-    }
 
     const accountUiI18n = {
       en: {
@@ -2173,8 +2101,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (t.accountsKicker) document.getElementById("accountsKicker").textContent = t.accountsKicker;
       if (t.accountsTitle) document.getElementById("accountsTitle").textContent = t.accountsTitle;
       if (t.accountsDesc) document.getElementById("accountsDesc").textContent = t.accountsDesc;
-      if (t.accountsUpdateLabel) document.getElementById("accountsUpdateLabel").textContent = t.accountsUpdateLabel;
-      updateInventoryCountdown(lang);
 
       const accountUi = getAccountUiText(lang);
       const accountTools = document.querySelector('.accounts-tools');
@@ -2270,10 +2196,6 @@ document.addEventListener("DOMContentLoaded", () => {
     applyLang(detectLang());
     initLanguagePicker();
     initAllCustomSelectPickers();
-    startInventoryCountdown();
-    document.addEventListener('visibilitychange', () => {
-      if (!document.hidden) updateInventoryCountdown();
-    });
     document.getElementById("langSelect").addEventListener("change", (e)=>{
       const lang = e.target.value;
       applyLang(lang);

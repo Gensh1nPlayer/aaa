@@ -22,8 +22,8 @@ function harness({saved=null, languages=['en-US'], fetcher, blocked=false}={}) {
 }
 test('saved choice wins; all nine symbols and one decimal; convert original USD each time',async()=>{
   const h=harness({saved:'EUR',languages:['ja-JP']});await h.api.init();
-  assert.equal(h.api.code,'EUR');assert.equal(h.api.format(10),'€9.0');
-  const expected={USD:'$10.0',EUR:'€9.0',GBP:'£8.0',CAD:'CA$14.0',AUD:'A$15.0',AED:'د.إ 36.7',KRW:'₩13,000.0',JPY:'¥1,500.0',CNY:'CN¥72.0'};
+  assert.equal(h.api.code,'EUR');assert.equal(h.api.format(10),'€9.2');
+  const expected={USD:'$10.0',EUR:'€9.2',GBP:'£8.2',CAD:'CA$14.4',AUD:'A$15.4',AED:'د.إ 37.6',KRW:'₩13,325.0',JPY:'¥1,537.5',CNY:'CN¥73.8'};
   for(const [code,value] of Object.entries(expected)){await h.api.select(code);assert.equal(h.api.format(10),value);}
   assert.equal(h.calls.length,1);assert.equal(h.storage.get('roshine.currency'),'CNY');
   assert.throws(()=>h.api.format('10'),/finite number/);assert.throws(()=>h.api.format(Infinity),/finite number/);
@@ -31,7 +31,10 @@ test('saved choice wins; all nine symbols and one decimal; convert original USD 
   assert(h.events.every(e=>e.type==='currencychange' && e.detail.code));
   assert(h.documentEvents.every(e=>e.type==='roshine:currency-changed' && e.detail.code));
   assert.equal(h.documentEvents.length,h.events.length);
-  const {format}=h.api;assert.equal(format(10),'CN¥72.0');
+  const {format}=h.api;assert.equal(format(10),'CN¥73.8');
+  assert.equal(h.api.snapshot.feeRate,0.025);
+  await h.api.select('USD');assert.equal(h.api.format(10),'$10.0');assert.equal(h.api.snapshot.feeRate,0);
+  await h.api.select('EUR');await h.api.select('EUR');assert.equal(h.api.format(10),'€9.2','fee never compounds');
 });
 test('DOMContentLoaded auto init uses the public event contract',async()=>{
   const h=harness({saved:'GBP'});assert.equal(h.calls.length,0);await h.ready();assert.equal(h.api.code,'GBP');assert.equal(h.documentEvents.at(-1).detail.code,'GBP');
@@ -79,7 +82,7 @@ test('concurrent non-USD selections share a fetch and last manual selection wins
   const h=harness({languages:['en-US'],fetcher:()=>new Promise(r=>{resolve=r;})});await h.api.init();
   const first=h.api.select('EUR'),second=h.api.select('GBP');
   resolve({ok:true,json:async()=>[{base:'USD',quote:'EUR',rate:0.9,date:'2026-10-16'},{base:'USD',quote:'GBP',rate:0.8,date:'2026-10-16'}]});
-  await Promise.all([first,second]);assert.equal(h.api.code,'GBP');assert.equal(h.api.format(10),'£8.0');assert.equal(h.calls.length,1);
+  await Promise.all([first,second]);assert.equal(h.api.code,'GBP');assert.equal(h.api.format(10),'£8.2');assert.equal(h.calls.length,1);
 });
 test('timeout settles even when fetch ignores abort; HTTP errors do not convert',async()=>{
   const h=harness({saved:'EUR',fetcher:()=>new Promise(()=>{})});const pending=h.api.init();h.advance(8001);await pending;assert.equal(h.api.code,'USD');assert.equal(h.api.status,'error');

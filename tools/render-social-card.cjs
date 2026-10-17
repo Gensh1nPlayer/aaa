@@ -13,7 +13,10 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
     await page.evaluate(() => document.fonts.ready);
     assert(await page.evaluate(() => [...document.images].every(img => img.complete && img.naturalWidth > 0)), 'Missing image');
     assert(await page.evaluate(() => document.documentElement.scrollWidth === 1200 && document.documentElement.scrollHeight === 630));
-    await page.screenshot({path:path.join(__dirname,'../assets/og-social-v2.jpg'),type:'jpeg',quality:94});
+    const output=path.join(__dirname,'../assets/og-social-v3.jpg');
+    await page.screenshot({path:output,type:'jpeg',quality:94});
+    // Older shared URLs retain the new branding, without breaking old previews.
+    for(const name of ['og-social-v2.jpg','og-social.jpg','og.jpg'])require('node:fs').copyFileSync(output,path.join(__dirname,'../assets',name));
     console.log('Rendered 1200 × 630 JPEG, all hero images loaded.');
   } finally { await browser.close(); }
 })().catch(error => { console.error(error); process.exitCode=1; });

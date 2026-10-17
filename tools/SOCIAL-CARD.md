@@ -4,10 +4,11 @@ The 1200 × 630 JPEG is rendered from social-card.html; layout and copy stay edi
 Set PLAYWRIGHT_MODULE if Playwright is installed outside this repository.
 Set CHROME_EXECUTABLE to use an existing Chrome installation.
 
-Run node tools/render-social-card.cjs to regenerate assets/og-social-v2.jpg.
-The artwork uses the store's existing logo, Bahnschrift with Arial fallbacks,
-and Blizzard hero portraits. The orange/white composition references the game's
-hero-selection interface. Portraits are decorative, not account screenshots.
+Run node tools/render-social-card.cjs to regenerate assets/og-social-v3.jpg.
+The renderer also refreshes the legacy og-social-v2.jpg / og-social.jpg / og.jpg aliases.
+The artwork uses the approved path-only Roshine wordmark, Bahnschrift with Arial fallbacks,
+and existing Blizzard hero portraits. The dark violet palette matches the public website.
+Portraits are decorative, not account screenshots.
 
 Portrait source URLs (resolved through OverFast's hero metadata):
 

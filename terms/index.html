@@ -19,22 +19,27 @@
   <meta property="og:locale" content="en_US" />
   <meta property="og:title" content="Terms of Service — Roshine Account Store" />
   <meta property="og:description" content="Current terms for live inventory, Discord orders, payment confirmation, account handover, warranty and buyer responsibilities." />
-  <meta property="og:image" content="https://roshine.love/assets/og-social-v2.jpg" />
+  <meta property="og:image" content="https://roshine.love/assets/og-social-v3.jpg" />
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Roshine curated Overwatch account store" />
+  <meta property="og:image:alt" content="Roshine Overwatch account store — OW1 and OW2 inventory, rare skins and guided handover" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Terms of Service — Roshine Account Store" />
   <meta name="twitter:description" content="Inventory, ordering, delivery, warranty and buyer responsibility terms for Roshine purchases." />
-  <meta name="twitter:image" content="https://roshine.love/assets/og-social-v2.jpg" />
-  <link rel="icon" href="../assets/logo.png" />
+  <meta name="twitter:image" content="https://roshine.love/assets/og-social-v3.jpg" />
+  <link rel="icon" href="/assets/favicon.svg?v=1" type="image/svg+xml">
+  <link rel="icon" href="/assets/favicon-32.png?v=1" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=1" sizes="180x180">
+  <link rel="manifest" href="/site.webmanifest">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700;800&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/main.css?v=36" />
   <link rel="stylesheet" href="../assets/policy.css?v=4" />
   <link rel="stylesheet" href="../assets/site-shell.css?v=6" />
+  <link rel="stylesheet" href="/assets/site-footer.css?v=1">
+  <link rel="stylesheet" href="/assets/site-chrome.css?v=1">
 </head>
 <body class="policy-page" data-policy-page="terms">
   <a class="skip-link" id="skipLink" href="#policyContent">Skip to policy content</a>
@@ -42,10 +47,7 @@
   <div class="scanlines" aria-hidden="true"></div>
 
   <header class="header">
-    <a class="brand" href="../#home" aria-label="Roshine home">
-      <img src="../assets/logo.png" alt="" width="32" height="32" />
-      <span class="name">ROSHINE.</span>
-    </a>
+    <a class="brand" href="../#home" aria-label="Roshine home"><img class="brand-lockup" src="/assets/roshine-wordmark.svg" alt="Roshine" width="176" height="36"><img class="brand-compact" src="/assets/logo.svg" alt="" width="36" height="36"></a>
     <nav class="nav" aria-label="Primary navigation">
       <a href="../#home" id="navHome">Home</a>
       <a href="../#accounts" id="navAccounts">Accounts</a>
@@ -61,7 +63,7 @@
       </a>
       <div class="language-picker" id="languagePicker" data-open="false">
         <select class="lang-select" id="langSelect" aria-hidden="true" tabindex="-1"><option value="en">EN</option><option value="fr">FR</option><option value="de">DE</option><option value="ar">AR</option><option value="ja">日本語</option></select>
-        <button class="language-trigger" id="languageTrigger" type="button" aria-label="Language: EN" aria-haspopup="listbox" aria-controls="languageMenu" aria-expanded="false"><span id="languageTriggerValue">EN</span><span class="language-chevron" aria-hidden="true"></span></button>
+        <button class="language-trigger" id="languageTrigger" type="button" aria-label="Language: EN" aria-haspopup="listbox" aria-controls="languageMenu" aria-expanded="false"><svg class="language-globe" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18M5 6.5h14M5 17.5h14"/></svg><span id="languageTriggerValue">EN</span><span class="language-chevron" aria-hidden="true"></span></button>
         <div class="language-menu" id="languageMenu" role="listbox" aria-label="Language" hidden><button class="language-option" type="button" role="option" data-language-value="en" aria-selected="true">EN</button><button class="language-option" type="button" role="option" data-language-value="fr" aria-selected="false" tabindex="-1">FR</button><button class="language-option" type="button" role="option" data-language-value="de" aria-selected="false" tabindex="-1">DE</button><button class="language-option" type="button" role="option" data-language-value="ar" aria-selected="false" tabindex="-1">AR</button><button class="language-option" type="button" role="option" data-language-value="ja" aria-selected="false" tabindex="-1">日本語</button></div>
       </div>
     </div>
@@ -133,21 +135,50 @@
     </div>
   </main>
 
-  <footer class="footer">
-    <div class="footer-line1" id="footerLine1">© 2021–2026 Roshine Account Store.</div>
-    <div class="footer-line2" id="footerLine2">Overwatch accounts, straight answers, and support that continues after checkout.</div>
-    <nav class="footer-nav" aria-label="Footer navigation">
-      <a href="../#home" id="footHome">Home</a>
-      <a href="../#services" id="footServices">Services</a>
-      <a href="../#contact" id="footContact">Contact</a>
-      <a href="../privacy/" id="footPrivacy">Privacy</a>
-      <a href="./" id="footTerms" aria-current="page">Terms</a>
-    </nav>
-  </footer>
+  <!-- ROSHINE SHARED FOOTER -->
+<!-- Shared footer: edit this template, then run tools/sync-site-footer.cjs. -->
+<footer class="roshine-footer" aria-label="Store information" data-rf-label="footerLabel">
+  <div class="rf-inner">
+    <div class="rf-main">
+      <div class="rf-brand-block">
+        <a class="rf-brand" href="/" aria-label="Roshine home"><img class="rf-wordmark" src="/assets/roshine-wordmark.svg" alt="Roshine" width="196" height="40" loading="lazy"></a>
+        <p class="rf-description" id="footerLine2" data-rf="description">Overwatch accounts. Clear details, guided handover, and support beyond checkout.</p>
+        <span class="rf-since" data-rf="since">Selling since 2021</span>
+      </div>
+      <nav class="rf-links" aria-label="Footer navigation" data-rf-label="navigation">
+        <div class="rf-group">
+          <h2 data-rf="explore">Explore</h2>
+          <ul><li><a href="/" id="footHome" data-rf="home">Home</a></li><li><a href="/#accounts" data-rf="stock">Account stock</a></li><li><a href="/acc_details/" data-rf="details">Account details</a></li><li><a href="/#services" id="footServices" data-rf="services">Services</a></li></ul>
+        </div>
+        <div class="rf-group">
+          <h2 data-rf="support">Support</h2>
+          <ul><li><a href="/#warranty" data-rf="warranty">Warranty &amp; security</a></li><li><a href="/#faq" data-rf="faq">FAQ</a></li><li><a href="/auth/" data-rf="auth">Authenticator</a></li></ul>
+        </div>
+        <div class="rf-group">
+          <h2 data-rf="connect">Connect</h2>
+          <ul><li><a href="https://discord.gg/WYqfYXW29U" target="_blank" rel="noopener noreferrer">Discord <span class="rf-external" aria-hidden="true">↗</span></a></li><li><a href="mailto:roshine_store@roshine.love" data-rf="email">Email us</a></li><li><a href="/#contact" id="footContact" data-rf="contact">Contact</a></li></ul>
+        </div>
+        <div class="rf-group">
+          <h2 data-rf="legal">Legal</h2>
+          <ul><li><a href="/privacy/" id="footPrivacy" data-rf="privacy">Privacy policy</a></li><li><a href="/terms/" id="footTerms" data-rf="terms">Terms of service</a></li></ul>
+        </div>
+      </nav>
+    </div>
+    <div class="rf-bottom">
+      <p class="rf-copyright" id="footerLine1">© 2021–2026 Roshine Account Store. All rights reserved.</p>
+      <div class="rf-social" aria-label="Contact links" data-rf-label="contactLinks">
+        <a href="https://discord.gg/WYqfYXW29U" target="_blank" rel="noopener noreferrer" aria-label="Discord"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.5a17 17 0 0 0-4 1.3C2.2 8.5 1.5 11.1 2 14.6a16 16 0 0 0 5 2.7l1-1.6m8-11.2a17 17 0 0 1 4 1.3c1.8 2.7 2.5 5.3 2 8.8a16 16 0 0 1-5 2.7l-1-1.6M7 15c3.3 1.5 6.7 1.5 10 0M8 4.5l.8 1.8m7.2-1.8-.8 1.8M8.5 10.5v1m7-1v1"/></svg></a>
+        <a href="mailto:roshine_store@roshine.love" aria-label="Email us" data-rf-label="email"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- /ROSHINE SHARED FOOTER -->
 
   <script src="../assets/compat.js?v=1" defer></script>
   <script src="../assets/policy.js?v=8" defer></script>
   <script src="../assets/void-effects.js?v=1" defer></script>
+  <script src="/assets/site-footer.js?v=1" defer></script>
 </body>
 </html>
 

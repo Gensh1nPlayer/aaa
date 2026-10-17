@@ -52,14 +52,14 @@ const server = http.createServer((req,res)=>{
       assert.equal(await page.locator('[data-currency-value]').count(),9);
       await page.locator('[data-currency-value="EUR"]').click();
       await page.waitForFunction(()=>RoshineCurrency.code==='EUR');
-      assert.equal(await page.locator('.ac-price').first().textContent(),'€9.0');
-      assert.match(await page.locator('#rdPriceRange').textContent(),/€9\.0.*€36\.0/);
-      assert.match(await page.locator('#accountPriceFilter option[value="under30"]').textContent(),/€27\.0/);
+      assert.equal(await page.locator('.ac-price').first().textContent(),'€9.2');
+      assert.match(await page.locator('#rdPriceRange').textContent(),/€9\.2.*€36\.9/);
+      assert.match(await page.locator('#accountPriceFilter option[value="under30"]').textContent(),/€27\.7/);
       await page.locator('#langSelect').selectOption('fr',{force:true});
-      assert.match(await page.locator('#accountPriceFilter option[value="under30"]').textContent(),/€27\.0/);
+      assert.match(await page.locator('#accountPriceFilter option[value="under30"]').textContent(),/€27\.7/);
       await page.reload();
       await page.waitForFunction(()=>RoshineCurrency.code==='EUR');
-      assert.equal(await page.locator('.ac-price').first().textContent(),'€9.0');
+      assert.equal(await page.locator('.ac-price').first().textContent(),'€9.2');
       if(process.env.SCREENSHOT_DIR){
         fs.mkdirSync(process.env.SCREENSHOT_DIR,{recursive:true});
         await page.screenshot({path:path.join(process.env.SCREENSHOT_DIR,'stock-currency-'+(engine===chromium?'chromium':'webkit')+'.png')});
@@ -68,7 +68,7 @@ const server = http.createServer((req,res)=>{
         await page.setViewportSize({width,height:900});
         assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'horizontal overflow at '+width);
         const boxes=await page.locator('.header-actions').evaluate(node=>[...node.children].filter(child=>getComputedStyle(child).display!=='none').map(child=>{const b=child.getBoundingClientRect();return {left:b.left,right:b.right};}));
-        assert(boxes.every(box=>box.left>=0&&box.right<=width+1),'header controls outside viewport at '+width);
+        assert(boxes.every(box=>box.left>=0&&box.right<=width+1),'header controls outside viewport at '+width+': '+JSON.stringify({boxes,metrics:await page.locator('.header').evaluate(n=>({grid:getComputedStyle(n).gridTemplateColumns,children:[...n.children].map(c=>({class:c.className,width:c.getBoundingClientRect().width,display:getComputedStyle(c).display,order:getComputedStyle(c).order}))}))}));
       }
       await page.setViewportSize({width:1440,height:960});
       fail=true;await page.reload();
@@ -79,7 +79,7 @@ const server = http.createServer((req,res)=>{
       fail=false;
       await page.locator('#currencyTrigger').click();await page.locator('[data-currency-value="EUR"]').click();
       await page.waitForFunction(()=>RoshineCurrency.code==='EUR');
-      assert.equal(await page.locator('.ac-price').first().textContent(),'€9.0');
+      assert.equal(await page.locator('.ac-price').first().textContent(),'€9.2');
       assert.deepEqual(errors,[]);
       console.log((engine===chromium?'Chromium':'WebKit')+': sorted stable IDs, compound level, UTC file date, nine currencies, saved choice, failure/retry, translated filters, responsive header passed');
       await context.close();
