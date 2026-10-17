@@ -53,14 +53,14 @@ const shopSkinNames = [
   'Ultrawatch', 'Lifeguard', 'Masked Mischief', 'asked Mischief',
   'Heist', 'Cyber Oni', 'Oni', 'Witches', 'Infernal Witch', 'Black Cats', 'Black Cat',
   'My Hero Academia', 'One-Punch Man', 'One Punch Man', 'Garou', 'Hellish Blizzard', 'Mumen Rider',
-  'Cowboy Bebop', 'Ein', 'Avatar: The Last Airbender', 'Aang', 'Appa', 'Zuko', 'Toph', 'Suki', 'Katara',
+  'Cowboy Bebop', 'Avatar: The Last Airbender', 'Aang', 'Appa', 'Zuko', 'Toph', 'Suki', 'Katara',
   'Gundam Wing', 'Wing Zero', 'Wing Gundam Zero', 'Epyon', 'Gundam Epyon',
   'Deathscythe', 'Gundam Deathscythe Hell', 'Tallgeese',
   'G.I. Joe', 'Snake Eyes', 'Scarlett', 'Baroness', 'Cobra Commander', 'Destro',
   'Persona 5', 'Phantom Thieves', 'Joker', 'Panther', 'Fox',
   'Mephisto', 'Paladin', 'Warlock', 'Rogue', 'Lilith', 'Inarius', 'Imperius', 'Azmodan',
   'Barbarian', 'Nightraven', 'Hatred’s Reckoning', "Hatred's Reckoning",
-  'Lich Queen', 'Devourer', 'Xal’atath', "Xal'atath", 'Blackhand', 'Sin’dorei', "Sin'dorei", 'Magni',
+  'Lich Queen', 'Devourer', 'Xal’atath', "Xal'atath", 'Blackhand', 'Sin’dorei', "Sin'dorei",
   'Feria Shen', 'Wei Qing', 'Shayol Wei', 'Viper Ning', 'Yueshan', 'Wuchen', 'Scarlet Bride',
   'YOASOBI', 'Dragon Star', 'Spirit Star', 'Fire Star', 'Fox Star', 'Space Star', 'Date Night', 'Scuba',
   'My Melody Skin', 'Kuromi Skin', 'Hello Kitty Skin', 'Cinnamoroll Skin', 'Keroppi Skin', 'Pompompurin Skin',
@@ -195,6 +195,11 @@ own('Divine Druid', ['Lifeweaver']); own('Cyber Fuel', ['Junkrat']); own('Divine
 own('Magma Titan', ['Doomfist']); own('Hop Online!', ['Mei']); own('Volted Overdrive', ['Soldier 76']);
 own('Ascendant Phoenix', ['Illari']); own('World Forger', ['Mauga']);
 own('Sumi-ichimonji', ['Genji']); own('Merciful Magitech', ['Mercy']); own('Treblemaker', ['Lucio']);
+// The reverse: a shop / collab name that is an ordinary event or loot-box skin on these heroes.
+const disownedNames = new Map();
+function disown(names, heroes) { names.split('|').forEach(name => disownedNames.set(identityKey(name), heroes.map(identityKey))); }
+disown('Vigilante', ['Cassidy']);  // OW1 loot-box legendary, not the shop Vigilante set
+disown('Witch', ['Mercy']);        // Halloween Terror 2016 event legendary
 
 function titleContext(source, offset, length) {
   // Preserve offsets, while semicolons in escaped entities are not list separators.
@@ -232,6 +237,8 @@ function acceptMatch(rule, match, offset, source, context) {
   // Canonicalize abbreviated stock hero names as well as structured hero names.
   const canonical = explicitHeroes.map(key => Object.keys(heroAliases).find(hero => hero===key || heroAliases[hero].some(alias => identityKey(alias)===key)) || key);
   if (owners && [...canonical,...precedingHeroes,...followingHeroes].some(hero => !owners.includes(hero))) return false;
+  const disowners = disownedNames.get(identityKey(baseMatch.replace(/&#0?39;|&apos;/g,"'")));
+  if (disowners && [...canonical,...precedingHeroes,...followingHeroes].some(hero => disowners.includes(hero))) return false;
   if (rule.className === 'ac-special-skin-mythic' && /^(?:Dawn|Gilded|Iridescent)$/i.test(baseMatch) &&
       [...canonical,...precedingHeroes,...followingHeroes].length && context?.rarity !== 'mythic') return false;
   if (context && context.rarity && context.rarity !== 'unknown' && context.rarity !== 'mythic' && rule.className === 'ac-special-skin-mythic') return false;

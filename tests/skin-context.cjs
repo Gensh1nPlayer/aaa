@@ -12,8 +12,16 @@ const regular=[
  ['Zenyatta','Autumn Fox','legendary'],['Ana','Bog Witch','legendary'],
  ['Genji','Pink','legendary'],['Zarya','LEGO Brick','legendary'],['Mercy','Illidan','legendary'],
  ['Genji','Royal Guard','legendary'],['Tracer','Royal Blue','rare'],
- ['Mercy','Stadium All-Star','legendary'],['D.Va','2019 Atlantic All-Stars','legendary']
+ ['Mercy','Stadium All-Star','legendary'],['D.Va','2019 Atlantic All-Stars','legendary'],
+ // Event / loot-box skins that share a shop or collab name (2026-10-17).
+ ['Cassidy','Vigilante','legendary'],['Mercy','Witch','legendary'],['Torbjörn','Magni','legendary'],['Wrecking Ball','Ein','legendary']
 ];
+for(const text of ['Vigilante Cassidy','Vigilante McCree','Witch Mercy','Magni Torbjörn','Ein Wrecking Ball'])
+ assert(!visuals.formatName(text,{}).includes('ac-special-skin'),`${text} stays plain on stock cards`);
+for(const [hero,name] of [['Genji','Vigilante'],['Kiriko','Witch'],['Torbjörn','Diamond Magni']]){
+ assert(visuals.formatName(name,{hero,rarity:'legendary'}).includes('ac-special-skin-shop'),`${hero} / ${name} keeps the shop effect`);
+ assert(visuals.formatName(name+' '+hero,{}).includes('ac-special-skin-shop'),`${name} ${hero} keeps the shop effect on stock cards`);
+}
 for(const [hero,name,rarity] of regular){
  const html=visuals.formatName(name,{hero,rarity});
  assert(!html.includes('ac-special-skin'),`${hero} / ${name} is not a configured special item: ${html}`);
